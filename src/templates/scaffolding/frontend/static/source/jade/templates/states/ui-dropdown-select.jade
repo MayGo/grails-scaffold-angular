@@ -1,0 +1,519 @@
+.row
+    .col-lg-12
+        .panel.panel-orange
+            .panel-heading Bootstrap Select
+            .panel-body.pan
+                form.form-horizontal.form-bordered(role="form")
+                    .form-body
+                        .form-group
+                            label.control-label.col-md-3 Default
+                            .col-md-7
+                                select.selectpicker.form-control
+                                    option Mustard
+                                    option Ketchup
+                                    option Relish
+                        .form-group
+                            label.control-label.col-md-3 Groups
+                            .col-md-7
+                                select.selectpicker.form-control(data-style='btn-white')
+                                    optgroup(label='Picnic')
+                                        option Mustard
+                                        option Ketchup
+                                        option Relish
+                                    optgroup(label='Camping')
+                                        option Tent
+                                        option Flashlight
+                                        option Toilet Paper
+                        .form-group
+                            label.control-label.col-md-3 Multiple Selects
+                            .col-md-7
+                                select.selectpicker.form-control(multiple='multiple', data-style='btn-white')
+                                    option Mustard
+                                    option Ketchup
+                                    option Relish
+                        .form-group
+                            label.control-label.col-md-3 Select Styles
+                            .col-md-7
+                                .row.mbm
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-primary')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-success')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-warning')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-info')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                .row.mbm
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-danger')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-orange')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-red')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-green')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                .row.mbm
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-yellow')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-blue')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-violet')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-pink')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                .row
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-grey')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-dark')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                                    .col-md-3
+                                        select.selectpicker.form-control(data-style='btn-white')
+                                            option Mustard
+                                            option Ketchup
+                                            option Relish
+                        .form-group
+                            label.control-label.col-md-3 Live Search
+                            .col-md-4
+                                select.selectpicker.form-control(data-style='btn-white', data-live-search='true')
+                                    option Hot Dog, Fries and a Soda
+                                    option Burger, Shake and a Smile
+                                    option Sugar, Spice and all things nice
+                        .form-group
+                            label.control-label.col-md-3 Title
+                            .col-md-4
+                                select.selectpicker.form-control(data-style='btn-white', multiple='multiple', title='Choose one of the following...')
+                                    option Mustard
+                                    option Ketchup
+                                    option Relish
+                        .form-group
+                            label.control-label.col-md-3 Data Select Text Format
+                            .col-md-4
+                                select.selectpicker.form-control(data-style='btn-white', multiple='multiple', data-selected-text-format='count')
+                                    option Mustard
+                                    option Ketchup
+                                    option Relish
+                        .form-group
+                            label.control-label.col-md-3 Show The Tick Icon
+                            .col-md-4
+                                select.selectpicker.form-control.show-tick(data-style='btn-white')
+                                    option Mustard
+                                    option Ketchup
+                                    option Relish
+                        .form-group
+                            label.control-label.col-md-3 Show Menu Arrow
+                            .col-md-4
+                                select.selectpicker.form-control.show-menu-arrow(data-style='btn-white')
+                                    option Mustard
+                                    option Ketchup
+                                    option Relish
+                        .form-group
+                            label.control-label.col-md-3 Disabled
+                            .col-md-4
+                                select.selectpicker.form-control(data-style='btn-white', disabled="disabled")
+                                    option Mustard
+                                    option Ketchup
+                                    option Relish
+                        .form-group
+                            label.control-label.col-md-3 Custom Size
+                            .col-md-6
+                                .mbm
+                                    select.selectpicker.form-control(data-style='btn-white', data-width='150px')
+                                        option Mustard
+                                        option Ketchup
+                                        option Relish
+                                    |   &nbsp; 150px
+                                .mbm
+                                    select.selectpicker.form-control.input-medium(data-style='btn-white')
+                                        option Mustard
+                                        option Ketchup
+                                        option Relish
+                                    |   &nbsp; .input-medium
+                                .mbm
+                                    select.selectpicker.form-control(data-style='btn-white', data-width='75%')
+                                        option Mustard
+                                        option Ketchup
+                                        option Relish
+                                    |   &nbsp; 75%
+                        .form-group
+                            label.control-label.col-md-3 Data Size
+                            .col-md-4
+                                select.selectpicker.form-control(data-style='btn-white', data-size='5')
+                                    option Mustard
+                                    option Ketchup
+                                    option Relish
+                                    option Mayonnaise
+                                    option Barbecue Sauce
+                                    option Salad Dressing
+                                    option Tabasco
+                                    option Salsa
+                        .form-group
+                            label.control-label.col-md-3 Show SubText
+                            .col-md-4
+                                select.selectpicker.form-control(data-style='btn-white', data-show-subtext='true')
+                                    option(data-subtext='French') Mustard
+                                    option(data-subtext='Heinz') Ketchup
+                                    option(data-subtext='Sweet') Relish
+                                    option(data-subtext='Miracle Whip') Mayonnaise
+                                    option(data-divider='true')
+                                    option(data-subtext='Honey') Barbecue Sauce
+                                    option(data-subtext='Ranch') Salad Dressing
+                                    option(data-subtext='Sweet & Spicy') Tabasco
+                                    option(data-subtext='Chunky') Salsa
+                        .form-group
+                            label.control-label.col-md-3 Data Icons
+                            .col-md-4
+                                select.selectpicker.form-control(data-style='btn-white', data-show-subtext='true')
+                                    option(data-icon='fa-glass') Mustard
+                                    option(data-icon='fa-heart') Ketchup
+                                    option(data-icon='fa-film') Relish
+                                    option(data-icon='fa-home') Mayonnaise
+                                    option(data-icon='fa-print') Barbecue Sauce
+                        .form-group
+                            label.control-label.col-md-3 HTML Content
+                            .col-md-4
+                                select.selectpicker.form-control(data-style='btn-white', data-show-subtext='true')
+                                    option(data-content="Mustard <span class='label lable-sm label-success'>5 </span>") Mustard
+                                    option(data-content="Ketchup <span class='label lable-sm label-orange'>14 </span>") Ketchup
+                                    option(data-content="Relish <span class='label lable-sm label-yellow'>9 </span>") Relish
+                                    option(data-content="Mayonnaise <span class='label lable-sm label-blue'>26 </span>") Mayonnaise
+                                    option(data-content="Barbecue Sauce <span class='label lable-sm label-pink'>20 </span>") Barbecue Sauce
+.row
+    .col-lg-12
+        .panel.panel-yellow
+            .panel-heading Sizing - Select2 Dropdowns
+            .panel-body.pan
+                form.form-horizontal.form-bordered(role="form")
+                    .form-body
+                        .form-group
+                            label.col-md-3.control-label Column 4
+                            .col-md-4.col-sm-4.col-xs-4
+                                select.select2-size.form-control
+                                    option(value='Category 1') Category 1
+                                    option(value='Category 2') Category 2
+                                    option(value='Category 3') Category 3
+                                    option(value='Category 4') Category 4
+                                span.help-block .col-md-4
+                        .form-group
+                            label.col-md-3.control-label Column 6
+                            .col-md-6.col-sm-6.col-xs-6
+                                select.select2-size.form-control
+                                    option(value='Category 1') Category 1
+                                    option(value='Category 2') Category 2
+                                    option(value='Category 3') Category 3
+                                    option(value='Category 4') Category 4
+                                span.help-block .col-md-6
+                        .form-group
+                            label.col-md-3.control-label Column 7
+                            .col-md-7.col-sm-7.col-xs-7
+                                select.select2-size.form-control
+                                    option(value='Category 1') Category 1
+                                    option(value='Category 2') Category 2
+                                    option(value='Category 3') Category 3
+                                    option(value='Category 4') Category 4
+                                span.help-block .col-md-7
+                        .form-group
+                            label.col-md-3.control-label Column 9
+                            .col-md-9.col-sm-9.col-xs-9
+                                select.select2-size.form-control
+                                    option(value='Category 1') Category 1
+                                    option(value='Category 2') Category 2
+                                    option(value='Category 3') Category 3
+                                    option(value='Category 4') Category 4
+                                span.help-block .col-md-9
+                        .form-group
+                            label.col-md-3.control-label Extra Large
+                            .col-md-4.col-sm-4.col-xs-4
+                                select.select2-size.form-control.input-xlarge
+                                    option(value='Category 1') Category 1
+                                    option(value='Category 2') Category 2
+                                    option(value='Category 3') Category 3
+                                    option(value='Category 4') Category 4
+                                span.help-block .input-xlarge
+                        .form-group
+                            label.col-md-3.control-label Large
+                            .col-md-4.col-sm-4.col-xs-4
+                                select.select2-size.form-control.input-large
+                                    option(value='Category 1') Category 1
+                                    option(value='Category 2') Category 2
+                                    option(value='Category 3') Category 3
+                                    option(value='Category 4') Category 4
+                                span.help-block .input-large
+                        .form-group
+                            label.col-md-3.control-label Medium
+                            .col-md-4.col-sm-4.col-xs-4
+                                select.select2-size.form-control.input-medium
+                                    option(value='Category 1') Category 1
+                                    option(value='Category 2') Category 2
+                                    option(value='Category 3') Category 3
+                                    option(value='Category 4') Category 4
+                                span.help-block .input-medium
+                        .form-group
+                            label.col-md-3.control-label Small
+                            .col-md-4.col-sm-4.col-xs-4
+                                select.select2-size.form-control.input-small
+                                    option(value='Category 1') Category 1
+                                    option(value='Category 2') Category 2
+                                    option(value='Category 3') Category 3
+                                    option(value='Category 4') Category 4
+                                span.help-block .input-small
+                        .form-group
+                            label.col-md-3.control-label Extra Small
+                            .col-md-4.col-sm-4.col-xs-4
+                                select.select2-size.form-control.input-xsmall
+                                    option(value='Category 1') Category 1
+                                    option(value='Category 2') Category 2
+                                    option(value='Category 3') Category 3
+                                    option(value='Category 4') Category 4
+                                span.help-block .input-xsmall
+.row
+    .col-lg-12
+        .panel.panel-green
+            .panel-heading Advance - Select2 Dropdowns
+            .panel-body.pan
+                form.form-horizontal.form-bordered(role="form")
+                    .form-body
+                        .form-group
+                            label.control-label.col-md-3 Multi-Value Select Boxes
+                            .col-md-6
+                                select.select2-multi-value.form-control(multiple="true")
+                                    optgroup(label='Alaskan/Hawaiian Time Zone')
+                                        option(value='AK') Alaska
+                                        option(value='HI') Hawaii
+                                    optgroup(label='Pacific Time Zone')
+                                        option(value='CA') California
+                                        option(value='NV') Nevada
+                                        option(value='OR') Oregon
+                                        option(value='WA') Washington
+                                    optgroup(label='Mountain Time Zone')
+                                        option(value='AZ') Arizona
+                                        option(value='CO') Colorado
+                                        option(value='ID') Idaho
+                                        option(value='MT') Montana
+                                        option(value='NE') Nebraska
+                                        option(value='NM') New Mexico
+                                        option(value='ND') North Dakota
+                                        option(value='UT') Utah
+                                        option(value='WY') Wyoming
+                                    optgroup(label='Central Time Zone')
+                                        option(value='AL') Alabama
+                                        option(value='AR') Arkansas
+                                        option(value='IL') Illinois
+                                        option(value='IA') Iowa
+                                        option(value='KS') Kansas
+                                        option(value='KY') Kentucky
+                                        option(value='LA') Louisiana
+                                        option(value='MN') Minnesota
+                                        option(value='MS') Mississippi
+                                        option(value='MO') Missouri
+                                        option(value='OK') Oklahoma
+                                        option(value='SD') South Dakota
+                                        option(value='TX') Texas
+                                        option(value='TN') Tennessee
+                                        option(value='WI') Wisconsin
+                                    optgroup(label='Eastern Time Zone')
+                                        option(value='CT') Connecticut
+                                        option(value='DE') Delaware
+                                        option(value='FL') Florida
+                                        option(value='GA') Georgia
+                                        option(value='IN') Indiana
+                                        option(value='ME') Maine
+                                        option(value='MD') Maryland
+                                        option(value='MA') Massachusetts
+                                        option(value='MI') Michigan
+                                        option(value='NH') New Hampshire
+                                        option(value='NJ') New Jersey
+                                        option(value='NY') New York
+                                        option(value='NC') North Carolina
+                                        option(value='OH') Ohio
+                                        option(value='PA') Pennsylvania
+                                        option(value='RI') Rhode Island
+                                        option(value='SC') South Carolina
+                                        option(value='VT') Vermont
+                                        option(value='VA') Virginia
+                                        option(value='WV') West Virginia
+                        .form-group
+                            label.control-label.col-md-3 With Icon
+                            .col-md-6
+                                .input-group
+                                    .input-group-addon
+                                        i.fa.fa-leaf
+                                    select.select2-size.form-control
+                                        option(value='Category 1') Category 1
+                                        option(value='Category 2') Category 2
+                                        option(value='Category 3') Category 3
+                                        option(value='Category 4') Category 4
+                        .form-group
+                            label.control-label.col-md-3 Tagging Support
+                            .col-md-6
+                                input.select2-tagging-support.form-control(type='hidden', value="red, blue")
+                        .form-group
+                            label.control-label.col-md-3 Loading Remote Data
+                            .col-md-6
+                                input.select2-loading-remote-data.form-control(type='hidden')
+                        .form-group
+                            label.control-label.col-md-3 Loading Data
+                            .col-md-6
+                                input.select2-loading-data.form-control(type='hidden')
+
+.row
+    .col-lg-12
+        .panel.panel-violet
+            .panel-heading Multiple Select
+            .panel-body.pan
+                form.form-horizontal.form-bordered(role="form")
+                    .form-body
+                        .form-group
+                            label.control-label.col-md-3 Pre-selected Options
+                            .col-md-6
+                                select#pre-selected-options(multiple='multiple')
+                                    option(value='elem_1', selected='selected') elem 1
+                                    option(value='elem_2') elem 2
+                                    option(value='elem_3') elem 3
+                                    option(value='elem_4', selected='selected') elem 4
+                                    option(value='elem_5') elem 5
+                                    option(value='elem_6') elem 6
+                                    option(value='elem_7') elem 7
+                                    option(value='elem_8') elem 8
+                                    option(value='elem_9') elem 9
+                                    option(value='elem_10') elem 10
+                                    option(value='elem_11') elem 11
+                                    option(value='elem_12') elem 12
+                                    option(value='elem_13') elem 13
+                                    option(value='elem_14') elem 14
+                                    option(value='elem_15') elem 15
+                                    option(value='elem_16') elem 16
+                                    option(value='elem_17') elem 17
+                                    option(value='elem_18') elem 18
+                                    option(value='elem_19') elem 19
+                                    option(value='elem_20') elem 20
+                        .form-group
+                            label.control-label.col-md-3 Callbacks
+                            .col-md-6
+                                select#callbacks(multiple='multiple')
+                                    option(value='elem_1', selected='selected') elem 1
+                                    option(value='elem_2') elem 2
+                                    option(value='elem_3') elem 3
+                                    option(value='elem_4', selected='selected') elem 4
+                                    option(value='elem_5') elem 5
+                                    option(value='elem_6') elem 6
+                                    option(value='elem_7') elem 7
+                                    option(value='elem_8') elem 8
+                                    option(value='elem_9') elem 9
+                                    option(value='elem_10') elem 10
+                                    option(value='elem_11') elem 11
+                                    option(value='elem_12') elem 12
+                                    option(value='elem_13') elem 13
+                                    option(value='elem_14') elem 14
+                                    option(value='elem_15') elem 15
+                                    option(value='elem_16') elem 16
+                                    option(value='elem_17') elem 17
+                                    option(value='elem_18') elem 18
+                                    option(value='elem_19') elem 19
+                                    option(value='elem_20') elem 20
+                        .form-group
+                            label.control-label.col-md-3 Keep Order
+                            .col-md-6
+                                select#keep-order(multiple='multiple')
+                                    option(value='elem_1', selected='selected') elem 1
+                                    option(value='elem_2') elem 2
+                                    option(value='elem_3') elem 3
+                                    option(value='elem_4', selected='selected') elem 4
+                                    option(value='elem_5') elem 5
+                                    option(value='elem_6') elem 6
+                                    option(value='elem_7') elem 7
+                                    option(value='elem_8') elem 8
+                                    option(value='elem_9') elem 9
+                                    option(value='elem_10') elem 10
+                                    option(value='elem_11') elem 11
+                                    option(value='elem_12') elem 12
+                                    option(value='elem_13') elem 13
+                                    option(value='elem_14') elem 14
+                                    option(value='elem_15') elem 15
+                                    option(value='elem_16') elem 16
+                                    option(value='elem_17') elem 17
+                                    option(value='elem_18') elem 18
+                                    option(value='elem_19') elem 19
+                                    option(value='elem_20') elem 20
+                                span.help-block.mtm Note: This feature won't work if there are optgroups in the original select.
+                        .form-group
+                            label.control-label.col-md-3 Public Methods
+                            .col-md-6
+                                .btn-group.btn-group-sm.mbm
+                                    a#select-all.btn.btn-white(href='#') select all
+                                    a#deselect-all.btn.btn-white(href='#') deselect all
+                                    a#select-20.btn.btn-white(href='#') select 20 elems
+                                    a#deselect-20.btn.btn-white(href='#') deselect 20 elems
+                                    a#refresh.btn.btn-white(href='#') refresh
+                                select#public-methods(multiple='multiple')
+                                    option(value='elem_1') elem 1
+                                    option(value='elem_2') elem 2
+                                    option(value='elem_3') elem 3
+                                    option(value='elem_4', disabled) elem 4
+                                    option(value='elem_5') elem 5
+                                    option(value='elem_6') elem 6
+                                    option(value='elem_7') elem 7
+                                    option(value='elem_8') elem 8
+                                    option(value='elem_9') elem 9
+                                    option(value='elem_10') elem 10
+                                    option(value='elem_11') elem 11
+                                    option(value='elem_12') elem 12
+                                    option(value='elem_13') elem 13
+                                    option(value='elem_14') elem 14
+                                    option(value='elem_15') elem 15
+                                    option(value='elem_16') elem 16
+                                    option(value='elem_17') elem 17
+                                    option(value='elem_18') elem 18
+                                    option(value='elem_19') elem 19
+                                    option(value='elem_20') elem 20
+                        .form-group
+                            label.control-label.col-md-3 Optgroup
+                            .col-md-6
+                                select#optgroup(multiple='multiple')
+                                    optgroup(label='Friends')
+                                        option(value='1') Yoda
+                                        option(value='2', selected='selected') Obiwan
+                                    optgroup(label='Enemies')
+                                        option(value='3') Palpatine
+                                        option(value='4', disabled='disabled') Darth Vader

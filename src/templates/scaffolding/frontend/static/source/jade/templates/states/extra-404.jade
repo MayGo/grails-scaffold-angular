@@ -1,0 +1,11 @@
+#error-page
+    #error-page-content
+        h1 404!
+        h4 The page you are looking for has not been found!
+        p The page you are looking for might have been removed or unavailable.
+        p <a href='/#/'>Return home</a> or try the search bar below.
+        form.mbm(action='')
+            .input-group
+                input.form-control(type='text', placeholder='Enter page')
+                span.input-group-btn
+                    a.btn.btn-primary(href='/#/') Search

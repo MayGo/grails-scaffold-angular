@@ -1,0 +1,20 @@
+.page-header.pull-left
+    .page-title
+        = title
+ol.breadcrumb.page-breadcrumb.pull-right
+    li
+        i.fa.fa-home
+        | &nbsp;
+        a(href='index.html') Home
+        | &nbsp;&nbsp;
+        i.fa.fa-angle-right
+        | &nbsp;&nbsp;
+    li(class="#{ current.source == 'index' ? 'hidden' : '' }")
+        a(href='#')
+            = nav
+        | &nbsp;&nbsp;
+        i.fa.fa-angle-right
+        | &nbsp;&nbsp;
+    li.active
+        = title
+.clearfix

@@ -1,0 +1,16 @@
+.row
+    .col-lg-12(ng-generaltab="")
+        ul#progressbarTab.nav.nav-tabs.ul-edit
+            li.active
+                a(href='#horizontal-tab', data-toggle='tab') Horizontal
+            li
+                a(href='#vertical-tab', data-toggle='tab') Vertical
+            li
+                a(href='#miscellaneous-tab', data-toggle='tab') Miscellaneous
+        #progressbarTabContent.tab-content
+            #horizontal-tab.tab-pane.fade.in.active
+                ng-include(src="'templates/states/_ui-progressbars/ui-progressbars-horizontal-tab.html'", onload="update_progressbar()")
+            #vertical-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-progressbars/ui-progressbars-vertical-tab.html'", onload="update_progressbar()")
+            #miscellaneous-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-progressbars/ui-progressbars-miscellaneous-tab.html'", onload="update_progressbar()")

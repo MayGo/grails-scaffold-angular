@@ -1,0 +1,20 @@
+.row#table-advanced
+    .col-lg-12
+        ul#tableadvancedTab.nav.nav-tabs(ng-tab="")
+            li.active
+                a(href='#table-sorter-tab', data-toggle='tab') Sorter
+            li
+                a(href='#table-color-tab', data-toggle='tab') Header Colors
+            li
+                a(href='#table-size-tab', data-toggle='tab') Size
+            li
+                a(href='#table-sticky-tab', data-toggle='tab') Sticky Header
+        #tableadvancedTabContent.tab-content
+            #table-sorter-tab.tab-pane.fade.in.active
+                ng-include(src="'templates/states/_table-advanced/table-advanced-sorter-tab.html'", onload="table_advanced_update()")
+            #table-color-tab.tab-pane.fade
+                ng-include(src="'templates/states/_table-advanced/table-advanced-color-tab.html'", onload="table_advanced_update()")
+            #table-size-tab.tab-pane.fade
+                ng-include(src="'templates/states/_table-advanced/table-advanced-size-tab.html'", onload="table_advanced_update()")
+            #table-sticky-tab.tab-pane.fade
+                ng-include(src="'templates/states/_table-advanced/table-advanced-sticky-tab.html'", onload="table_advanced_update()")

@@ -1,0 +1,1428 @@
+@import "../global/_variables";
+@import "../global/_mixins";
+@import "../style";
+@import "../vendors";
+@brand-primary: #C1D72E;
+
+.frontend-one-page{
+  background-color: #ffffff;
+  .bg-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    &.pattern{
+      background-color: rgba(0, 0, 0, 0.4);
+      background-image: url(http://swlabs.co/images/background/bg_pattern2.png);
+    }
+  }
+  /*****
+  Begin Header
+  *****/
+  header{
+    display: block;
+    background: url(http://swlabs.co/images/background/bg1.jpg) no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    z-index: 110 !important;
+    &.bg-solid{
+      background-image: none !important;
+      background-color: darken(@brand-primary, 20%);
+    }
+    &.bg-video{
+      background-image: none !important;
+    }
+    .intro{
+      display: table;
+      width: 100%;
+      height: auto;
+      padding: 17% 0 15%;
+      text-align: center;
+      color: #fff;
+      z-index: 111 !important;
+      .intro-body{
+        #slide-intro{
+          padding: 0 15%;
+          h1{
+            font-family: 'Oswald';
+            font-size: 400%;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            #rotate{
+              display: inline-block;
+              color: @brand-primary;
+              margin-left: 10px;
+            }
+          }
+          .intro-text{
+            font-size: 140%;
+            font-family: 'Oswald';
+            color: #cccccc;
+          }
+        }
+        .section-next{
+          margin-top: 120px;
+          .btn-circle {
+            width: 70px;
+            height: 70px;
+            margin-top: 15px;
+            padding: 7px 16px;
+            border: 2px solid #fff;
+            border-radius: 50% !important;
+            font-size: 40px;
+            color: #fff;
+            background: transparent;
+            .transition(all .2s ease-in-out);
+            &:hover,
+            &:focus{
+              background: @brand-primary;
+              border-color: @brand-primary;
+              box-shadow: 0px 0px 0px 10px rgba(240, 240, 240, 0.1);
+            }
+          }
+        }
+      }
+    }
+  }
+  /*****
+  End Header
+  *****/
+
+  /*****
+  Begin Menu
+  *****/
+  .navbar-custom{
+    padding: 10px 0;
+    border-bottom: 0;
+    letter-spacing: 1px;
+    background-color: rgba(0,0,0,0.1);
+    -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+    -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+    transition: background .5s ease-in-out,padding .5s ease-in-out;
+    a#logo{
+      color: #ffffff;
+      font-family: 'Oswald';
+      font-size: 30px;
+      font-weight: bold;
+      .transition(all .2s ease-in-out);
+      span{
+        color: @brand-primary;
+      }
+      &:hover,
+      &:focus{
+        text-decoration: underline;
+        span{
+          text-decoration: underline;
+        }
+      }
+    }
+    ul.main-menu{
+      li{
+        a{
+          color: #f1f1f1;
+          font-family: "Oswald",sans-serif;
+          font-weight: bold;
+          text-transform: uppercase;
+          .transition(all 0.2s ease-in-out);
+          &:hover,
+          &:focus{
+            background-color: transparent;
+            color: @brand-primary;
+          }
+        }
+        &.active{
+          a{
+            background: transparent;
+            color: @brand-primary;
+          }
+        }
+        &.open{
+          a{
+            background-color: transparent;
+            color: @brand-primary;
+          }
+        }
+        .dropdown-menu{
+          left: 0;
+          right: auto;
+          padding: 0;
+          margin-top: 10px;
+          li{
+            a{
+              color: @text-color !important;
+              &:hover,
+              &:focus{
+                background-color: #f1f1f1;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.top-nav-collapse {
+      padding: 0;
+      background: rgba(0,0,0,0.7);
+      ul.main-menu{
+        li{
+          a{
+            color: #ffffff;
+          }
+          &.active{
+            a{
+              background: transparent;
+              color: @brand-primary;
+            }
+          }
+          .dropdown-menu {
+            margin-top: 0px;
+          }
+        }
+      }
+    }
+  }
+  /*****
+  End Menu
+  *****/
+
+  /*****
+  Begin Section
+  *****/
+  .section-content{
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-color: #ffffff;
+    .section-heading{
+      font-family: 'Oswald', sans-serif;
+      font-size: 50px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: @text-color;
+      margin-bottom: 20px;
+      text-align: center;
+      span{
+        color: @brand-primary;
+      }
+    }
+    .section-description{
+      font-size: 16px;
+      text-align: center;
+      padding: 0 20% 30px;
+      color: #777777;
+    }
+    .feature-list{
+      li{
+        margin-bottom: 25px;
+        i{
+          margin-right: 10px;
+          vertical-align: inherit;
+        }
+      }
+    }
+    .feature-box{
+      margin-bottom: 30px;
+      h3{
+        text-transform: uppercase;
+        color: #777777;
+        i{
+          margin-right: 20px;
+        }
+      }
+    }
+    &.section-parallax{
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      background-color: transparent;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      background-size: cover;
+      -o-background-size: cover;
+      color: #ffffff;
+      .section-heading{
+        color: #ffffff;
+      }
+      .section-description{
+        color: #FFFFFF;
+      }
+      .bg-overlay{
+        padding-top: 80px;
+        padding-bottom: 80px;
+      }
+    }
+  }
+  a.btn-outlined {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    .transition(all 0.2s);
+  }
+  #about{
+    text-align: center;
+    background-color: transparent;
+    a{
+      .icon{
+        display: block;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 1px solid #777;
+        color: @text-color;
+        text-align: center;
+        font-size: 5em;
+        line-height: 2em;
+        margin: 0 auto;
+        .transition(all 0.3s ease-in-out);
+        &:hover,
+        &:focus{
+          background: @text-color;
+          color: #ffffff;
+        }
+      }
+    }
+    h3{
+      color: #777777;
+      font-family: "Oswald", sans-serif;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-align: center;
+      font-size: 20px;
+      text-transform: uppercase;
+    }
+  }
+  #about-1{
+    background-image: url(http://swlabs.co/images/background/bg_pattern1.png);
+    h3{
+      margin-top: 0;
+      margin-bottom: 50px;
+      text-transform: uppercase;
+    }
+    #accordion-support{
+      .panel{
+        .panel-heading{
+          h4.panel-title{
+            font-size: 20px;
+            color: @text-color;
+            a{
+              display: block;
+              text-transform: uppercase;
+              &:hover,
+              &:focus{
+                text-decoration: none;
+              }
+              i{
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+    #owl-about1 .item img{
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    #bar{
+      width: 0%;
+      max-width: 100%;
+      height: 4px;
+      background: @brand-primary;
+    }
+    #progressBar{
+      width: 100%;
+      background: #f1f1f1;
+    }
+  }
+  #about-2{
+    background: url(http://swlabs.co/images/background/bg3.jpg) no-repeat center center fixed;
+    h2.factor{
+      font-family: 'Oswald', sans-serif;
+      font-size: 60px;
+      font-weight: bold;
+      color: @brand-primary;
+    }
+    h3.factor-desc{
+      text-transform: uppercase;
+      font-weight: 300;
+      margin-top: 10px;
+    }
+  }
+  #team{
+    background: url(http://swlabs.co/images/background/bg_pattern1.png);
+    #owl-our-team .item{
+      margin: 3px 10px;
+    }
+    #owl-our-team .item img{
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .team-content{
+      text-align: center;
+      margin-bottom: 30px;
+      margin-top: 25px;
+      .avatar{
+        width: 225px;
+        height: 225px;
+        margin: 0 auto 20px;
+      }
+      .name{
+        font-size: 25px;
+        font-family: 'Oswald', sans-serif;
+        text-transform: uppercase;
+      }
+      .description{
+        margin-bottom: 30px;
+      }
+      .socials{
+
+      }
+    }
+  }
+  #services{
+    text-align: center;
+    .row.list-services{
+      .col-lg-4{
+        border-right: 1px solid #e5e5e5;
+        border-bottom: 1px solid #e5e5e5;
+        padding-top: 30px;
+        padding-bottom: 20px;
+        &:last-child{
+          border-right: 0;
+        }
+        a{
+          .icon{
+            display: block;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 1px solid #777;
+            color: @text-color;
+            text-align: center;
+            font-size: 5em;
+            line-height: 2em;
+            margin: 0 auto;
+            .transition(all 0.3s ease-in-out);
+            &:hover,
+            &:focus{
+              background: @text-color;
+              color: #ffffff;
+            }
+          }
+        }
+        h3{
+          color: #777777;
+          font-family: "Oswald", sans-serif;
+          font-weight: bold;
+          margin-bottom: 15px;
+          text-align: center;
+          font-size: 20px;
+          text-transform: uppercase;
+        }
+      }
+      &:last-child{
+        .col-lg-4{
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+  #banner{
+    background: url(http://swlabs.co/images/background/bg5.jpg) no-repeat center center fixed;
+    .bg-overlay{
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    h2{
+      font-family: 'Oswald', sans-serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin: 0 20px 0 0;
+      display: inline-block;
+      span{
+        color: @brand-primary;
+      }
+    }
+    p{
+      display: inline-block;
+      font-family: 'Oswald', sans-serif;
+      font-size: 20px;
+      margin-bottom: 0;
+    }
+  }
+  #features{
+    .features-left {
+      text-align: right;
+      margin-top: 50px;
+      .icon-wrap {
+        float: right;
+        margin-left: 20px;
+      }
+    }
+    .features-right {
+      text-align: left;
+      margin-top: 50px;
+      .icon-wrap {
+        float: left;
+        margin-right: 20px;
+      }
+    }
+    .img-phone {
+      display: inline-block;
+      max-width: 350px;
+    }
+    .feature {
+      margin-bottom: 40px;
+      clear: both;
+      .icon-wrap {
+        display: block;
+        min-height: 120px;
+        margin-top: 5px;
+        .icon {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          border: 1px solid @text-color;
+          line-height: 60px;
+          font-size: 20px;
+          text-align: center;
+          -webkit-transition: all ease-in 0.25s;
+          transition: all ease-in 0.25s;
+          -webkit-background-clip: padding-box;
+          -moz-background-clip: padding;
+          background-clip: padding-box;
+        }
+      }
+      .feature-info{
+        h4{
+          text-transform: uppercase;
+          font-family: 'Oswald', sans-serif;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  #skills{
+    background: url(http://swlabs.co/images/background/bg_pattern1.png);
+    .progress{
+      .border-radius(0);
+      .box-shadow(none);
+      height: 40px;
+      .progress-bar {
+        float: left;
+        font-size: 16px;
+        line-height: 40px;
+        .box-shadow(none);
+        text-transform: uppercase;
+        background-color: #555555;
+        text-align: left;
+        padding: 0 10px;
+        &.pull-right{
+          text-align: right;
+        }
+      }
+    }
+  }
+  #clients{
+    background: url(http://swlabs.co/images/background/bg5.jpg) no-repeat center center fixed;
+    #owl-our-clients{
+      .item{
+        blockquote{
+          font-style: italic;
+          margin: 0.25em 0;
+          padding: 0.25em 40px;
+          position: relative;
+          border: 0;
+          &:before {
+            display: block;
+            content: "\201C";
+            font-size: 80px;
+            position: absolute;
+            left: 0px;
+            top: -30px;
+          }
+          cite {
+            color: @brand-primary;
+            display: block;
+            margin-top: 5px;
+            &:before {
+              content: "\2014 \2009";
+            }
+          }
+        }
+      }
+    }
+  }
+  #portfolio{
+    text-align: center;
+    padding-bottom: 0;
+    #filters{
+      ul{
+        margin-bottom: 0;
+        li{
+          display: inline-block;
+          a{
+            display: block;
+            float: left;
+            padding: 2px 5px;
+            color: inherit;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            &:hover,
+            &:focus,
+            &.active{
+              text-decoration: none;
+              h3{
+                background: @text-color;
+                color: #ffffff;
+              }
+            }
+            h3 {
+              font-size: 14px;
+              text-transform: uppercase;
+              padding: 10px 15px;
+              margin: 0;
+              background: none;
+              border: 1px solid @text-color;
+              color: @text-color;
+              .transition(all 0.2s ease-in-out);
+            }
+          }
+        }
+      }
+    }
+    #gallery-full-width{
+      margin-bottom: 0;
+      li{
+        float: none;
+        width: 25%;
+        a{
+          overflow: hidden;
+          &.gallery-image{
+            position: relative;
+            overflow: hidden;
+            display: block;
+            .gallery-overlay{
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              background: rgba(0,0,0,0.5);
+              color: #ffffff;
+              .thumb-info{
+                h3{
+                  width: 100%;
+                  position: absolute;
+                  top: 10%;
+                  text-align: center;
+                  font-size: 30px;
+                  font-family: 'Oswald';
+                  font-weight: bold;
+                }
+                p{
+                  width: 100%;
+                  position: absolute;
+                  top: 40%;
+                  text-align: center;
+                }
+                i{
+                  width: 100%;
+                  position: absolute;
+                  top: 60%;
+                  text-align: center;
+                  display: block;
+                  font-size: 50px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  #pricing{
+    background: url(http://swlabs.co/images/background/bg_pattern1.png);
+    .row{
+      &.row-merge {
+        margin: 0;
+        [class*=col-] {
+          padding: 0;
+          .pricing-widget{
+            position: relative;
+            border: 0;
+            cursor: pointer;
+            margin: 20px 0;
+            .box-shadow(0 1px 1px rgba(0,0,0,.2));
+            .pricing-head {
+              background: @brand-primary;
+              padding: 6px 20px;
+              font-size: 18px;
+              text-align: center;
+              color: #ffffff;
+            }
+            .pricing-body {
+              background: #fff;
+            }
+            .pricing-cost {
+              background: darken(@brand-primary, 5%);
+              text-align: center;
+              padding: 20px;
+              border-bottom: 1px solid #efefef;
+              transition: all .3s ease;
+              -webkit-transition: all .3s ease;
+              -moz-transition: all .3s ease;
+              -ms-transition: all .3s ease;
+              -o-transition: all .3s ease;
+              font-size: 18px;
+              color: #ffffff;
+              min-height: 125px;
+              strong {
+                font-size: 40px;
+              }
+            }
+            .pricing-list {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+              li {
+                padding: 10px;
+                border-bottom: 1px solid #efefef;
+                &:last-child {
+                  min-height: 84px;
+                  padding-top: 30px;
+                  box-shadow: none;
+                  -moz-box-shadow: none;
+                  -webkit-box-shadow: none;
+                  border-bottom: none;
+                }
+              }
+            }
+            &:not(.pricing-title).active,
+            &:not(.pricing-title):hover {
+              .box-shadow(0 3px 25px -4px rgba(0,0,0,.9));
+            }
+            &.active {
+              z-index: 2;
+            }
+          }
+        }
+      }
+    }
+  }
+  #newsletter{
+    background: url(http://swlabs.co/images/background/bg2.jpg) no-repeat center center fixed;
+    .form-newsletter{
+//      .input-group{
+//        input{
+//          background: rgba(0,0,0,0.7);
+//          border-color: @brand-primary;
+//          color: #ffffff;
+//          .box-shadow(none);
+//        }
+//        .input-group-btn{
+//          .btn.btn-primary{
+//            text-transform: uppercase;
+//            background: rgba(0,0,0,0.7);
+//            border-color: @brand-primary;
+//            color: @brand-primary;
+//            .transition(all 0.2s ease-in-out);
+//            &:hover,
+//            &:focus{
+//              background: @brand-primary;
+//              color: #ffffff;
+//            }
+//          }
+//        }
+//      }
+    }
+  }
+  #contact{
+    padding-bottom: 80px;
+    input, textarea{
+      border-radius: 0;
+      .box-shadow(none);
+      &:focus{
+        border-color: @brand-primary;
+      }
+    }
+    textarea{
+      overflow: hidden;
+      word-wrap: break-word;
+      resize: none;
+    }
+    button{
+      margin-top: 10px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      font-size: 18px;
+      .transition(all .2s);
+    }
+    h3.title{
+      font-family: 'Oswald', sans-serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 0;
+    }
+    .tb-info-us{
+      width: 100%;
+      tr{
+        td{
+          padding: 10px;
+          &:first-child{
+            width: 90px;
+          }
+        }
+        &:nth-child(odd){
+          td{
+            background-color: #FFFFFF;
+          }
+        }
+      }
+    }
+  }
+  /*****
+  End Section
+  *****/
+
+  /*****
+  Begin Footer
+  *****/
+  footer{
+    background: #151515;
+    padding: 20px;
+    color: #ffffff;
+    p{
+      margin-bottom: 0;
+    }
+  }
+  /*****
+  End Footer
+  *****/
+
+  /*****
+  Begin Page Loader
+  *****/
+  #page-loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #ffffff;
+    img{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -64px 0 0 -64px;
+      width: 128px;
+      height: 128px;
+    }
+  }
+  /*****
+  End Page Loader
+  *****/
+
+  /*****
+Begin Theme Setting
+*****/
+  #theme-setting {
+    position: fixed;
+    right: -250px;
+    top: 20%;
+    background: #ffffff;
+    border: 0;
+    width: 250px;
+    z-index: 999;
+    .transition(0.4s all ease-in-out);
+    .box-shadow(-1px 1px 1px rgba(0,0,0,0.15));
+    .btn-theme-setting {
+      padding: 14px 14px 13px;
+      background: #f1f1f1;
+      position: absolute;
+      z-index: 999;
+      left: -47px;
+      top: 0;
+      .box-shadow(-1px 1px 1px rgba(0,0,0,0.15));
+      .border-radius(5px 0 0 5px);
+      i {
+        font-size: 20px;
+        color: @brand-primary;
+      }
+      &:hover,
+      &:focus {
+        color: @text-color;
+        outline: none;
+      }
+    }
+    ul.color-skins {
+      margin: 0;
+      padding: 15px;
+      li {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        margin: 0 5px;
+        &.active,
+        &:hover,
+        &:focus{
+          .border-radius(50%);
+          .transition(0.1s all ease-in-out);
+        }
+        &.red {
+          background: #A72739;
+        }
+        &.orange {
+          background: #F25D4F;
+        }
+        &.green {
+          background: #0fa285;
+        }
+        &.yellow {
+          background: #ffce54;
+        }
+        &.blue {
+          background: #3DB9D3;
+        }
+        &.pink {
+          background: #df4782;
+        }
+        &.violet {
+          background: #ac92ec;
+        }
+        &.green1 {
+          background: #C1D72E;
+        }
+        &.blue1 {
+          background: #3C88C6;
+        }
+        &.yellow1 {
+          background: #EA841E;
+        }
+      }
+    }
+    .layout-tone{
+      padding: 15px;
+    }
+    .layout-options{
+      padding: 15px;
+      .form-control{
+        .border-radius(0);
+        background-color: #FFFFFF !important;
+        border-color: #cccccc !important;
+      }
+    }
+    .theme-setting-content{
+      h4.switcher-title{
+        padding: 15px;
+        background-color: #f1f1f1;
+        color: @text-color;
+        font-family: 'Oswald', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: right;
+        margin: 0;
+      }
+    }
+  }
+
+  /*****
+  End Theme Setting
+  *****/
+
+  /*****
+  Begin Back To Top
+  *****/
+  #totop {
+    position: fixed;
+    bottom: 6%;
+    right: 1.5%;
+    display: none;
+    z-index: 9999;
+    background: transparent;
+    border: 2px solid @brand-primary;
+    .border-radius(5px);
+    height: 50px;
+    width: 50px;
+    text-align: center;
+  }
+
+  #totop i {
+    color: @brand-primary;
+    line-height: 43px;
+    font-size: 33px;
+  }
+
+  #totop:hover {
+    background: @brand-primary;
+  }
+
+  #totop:hover i {
+    color: #ffffff;
+  }
+  /*****
+  End Back To Top
+  *****/
+
+  /*****
+Begin Socials Icons
+*****/
+  .ico-socialize {
+    display:inline-block;
+    margin:0 5px 5px 0;
+    background-color: @text-color;
+    color: #ffffff;
+    width:34px;
+    height:34px;
+    line-height: 34px;
+    text-align: center;
+    background-position:center;
+    background-repeat:no-repeat;
+    transition: background-color 300ms;
+    -webkit-transition: background-color 300ms;
+    -moz-transition: background-color 300ms;
+    -o-transition: background-color 300ms;
+    &.ico-lg{
+      width:50px;
+      height:50px;
+      line-height: 50px;
+      margin: 0 10px 5px 0;
+      i{
+        font-size: 20px;
+      }
+    }
+  }
+  .ico-socialize.type1 {
+    border-radius: 0px;
+  }
+  .ico-socialize.type2 {
+    border-radius: 50%;
+  }
+
+  .ico-socialize-facebook1:hover {
+    background-color:#405890!important;
+    color: #ffffff;
+  }
+  .ico-socialize-facebook2:hover {
+    background-color:#405890!important;
+    color: #ffffff;
+  }
+  .ico-socialize-twitter1:hover {
+    background-color:#00abf0!important;
+    color: #ffffff;
+  }
+  .ico-socialize-twitter2:hover {
+    background-color:#00abf0!important;
+    color: #ffffff;
+  }
+  .ico-socialize-twitter3:hover {
+    background-color:#00abf0!important;
+    color: #ffffff;
+  }
+  .ico-socialize-digg1:hover {
+    background-color:#1a5891!important;
+  }
+  .ico-socialize-digg2:hover {
+    background-color:#1a5891!important;
+    color: #ffffff;
+  }
+  .ico-socialize-google1:hover {
+    background-color:#1022ba!important;
+    color: #ffffff;
+  }
+  .ico-socialize-google2:hover {
+    background-color:#cb2028!important;
+    color: #ffffff;
+  }
+  .ico-socialize-tumbler:hover {
+    background-color:#2f4f68!important;
+    color: #ffffff;
+  }
+  .ico-socialize-delicious:hover {
+    background-color:#0000fe!important;
+    color: #ffffff;
+  }
+  .ico-socialize-plixi:hover {
+    background-color:#06b3f2!important;
+    color: #ffffff;
+  }
+  .ico-socialize-dribbble1:hover {
+    background-color:#f16097!important;
+    color: #ffffff;
+  }
+  .ico-socialize-dribbble2:hover {
+    background-color:#f16097!important;
+    color: #ffffff;
+  }
+  .ico-socialize-stubleUpon:hover {
+    background-color:#52b857!important;
+    color: #ffffff;
+  }
+  .ico-socialize-lastfm:hover {
+    background-color:#d21309!important;
+    color: #ffffff;
+  }
+  .ico-socialize-moby:hover {
+    background-color:#3199cc!important;
+    color: #ffffff;
+  }
+  .ico-socialize-vimeo:hover {
+    background-color:#1ab7ea!important;
+    color: #ffffff;
+  }
+  .ico-socialize-youtube1:hover {
+    background-color:#eb0000!important;
+    color: #ffffff;
+  }
+  .ico-socialize-youtube2:hover {
+    background-color:#eb0000!important;
+    color: #ffffff;
+  }
+  .ico-socialize-myspace:hover {
+    background-color:#00349a!important;
+    color: #ffffff;
+  }
+  .ico-socialize-linkedIn:hover {
+    background-color:#0072a4!important;
+    color: #ffffff;
+  }
+  .ico-socialize-pinterest:hover {
+    background-color:#cb2028!important;
+    color: #ffffff;
+  }
+  .ico-socialize-flickr:hover {
+    background-color:#ff0084!important;
+    color: #ffffff;
+  }
+  .ico-socialize-vk1:hover {
+    background-color:#4b6e91!important;
+    color: #ffffff;
+  }
+  .ico-socialize-vk2:hover {
+    background-color:#4b6e91!important;
+    color: #ffffff;
+  }
+  .ico-socialize-odnoklassniki:hover {
+    background-color:#f48222!important;
+    color: #ffffff;
+  }
+  .ico-socialize-gowalla:hover {
+    background-color:#fb7809!important;
+    color: #ffffff;
+  }
+  .ico-socialize-dropbox:hover {
+    background-color:#0f57a3!important;
+    color: #ffffff;
+  }
+  .ico-socialize-skype:hover {
+    background-color:#00aff0!important;
+    color: #ffffff;
+  }
+  .ico-socialize-iChat:hover {
+    background-color:#2388cd!important;
+    color: #ffffff;
+  }
+  .ico-socialize-instagram:hover {
+    background-color:#a4765c!important;
+    color: #ffffff;
+  }
+  .ico-socialize-evernote:hover {
+    background-color:#87c442!important;
+    color: #ffffff;
+  }
+  .ico-socialize-deviantart:hover {
+    background-color:#c8da30!important;
+    color: #ffffff;
+  }
+  .ico-socialize-blogspot:hover {
+    background-color:#f6821f!important;
+    color: #ffffff;
+  }
+  .ico-socialize-reddit:hover {
+    background-color:#fe4600!important;
+    color: #ffffff;
+  }
+  .ico-socialize-technorati:hover {
+    background-color:#00c400!important;
+    color: #ffffff;
+  }
+  .ico-socialize-yahoo:hover {
+    background-color:#650f6d!important;
+    color: #ffffff;
+  }
+  .ico-socialize-diigo:hover {
+    background-color:#4b8dc6!important;
+    color: #ffffff;
+  }
+  .ico-socialize-blinklist:hover {
+    background-color:#fe6400!important;
+    color: #ffffff;
+  }
+  .ico-socialize-bing:hover {
+    background-color:#067ecc!important;
+    color: #ffffff;
+  }
+  .ico-socialize-behnce:hover {
+    background-color:#2f99d2!important;
+    color: #ffffff;
+  }
+  .ico-socialize-picasa:hover {
+    background-color:#b262c7!important;
+    color: #ffffff;
+  }
+  .ico-socialize-forrst:hover {
+    background-color:#34712b!important;
+    color: #ffffff;
+  }
+  .ico-socialize-ffffound:hover  {
+    background-color:#f81b98!important;
+    color: #ffffff;
+  }
+  .ico-socialize-viddler:hover {
+    background-color:#288cda!important;
+    color: #ffffff;
+  }
+  .ico-socialize-friendfeed:hover {
+    background-color:#a8c9f2!important;
+    color: #ffffff;
+  }
+  .ico-socialize-mobileMe:hover {
+    background-color:#1574ce!important;
+    color: #ffffff;
+  }
+  .ico-socialize-wordpress:hover {
+    background-color:#1d5379!important;
+    color: #ffffff;
+  }
+  .ico-socialize-drupal:hover {
+    background-color:#0173ba!important;
+    color: #ffffff;
+  }
+  .ico-socialize-paypal:hover {
+    background-color:#183962!important;
+    color: #ffffff;
+  }
+  .ico-socialize-share:hover {
+    background-color:#1d7c3e!important;
+    color: #ffffff;
+  }
+  .ico-socialize-mail:hover {
+    background-color:#06b3f2!important;
+    color: #ffffff;
+  }
+  .ico-socialize-rss:hover {
+    background-color:#ff9000!important;
+    color: #ffffff;
+  }
+  /*****
+  End Socials Icons
+  *****/
+
+  /*****
+Begin Dropdown Menu
+*****/
+  .dropdown-menu{
+    .border-radius(0);
+    .box-shadow(0 1px 2px rgba(0,0,0,0.15));
+    border: 0;
+    li{
+      a{
+        padding: 10px 15px;
+        .transition(all 0.3s ease-in-out);
+        &:hover,
+        &:focus{
+          color: @brand-primary;
+          background-color: #f1f1f1;
+        }
+        i{
+          margin-right: 10px;
+        }
+      }
+    }
+    &:after {
+      content: '';
+      display: inline-block;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid #ffffff;
+      position: absolute;
+      top: -8px;
+      left: 30px;
+    }
+  }
+  .nav .open>a, .nav .open>a:hover, .nav .open>a:focus{
+    background-color: transparent;
+    color: @brand-primary !important;
+
+  }
+  /*****
+  End Dropdown Menu
+  *****/
+
+}
+
+/******************************************************/
+/******************* DARK VERSION ********************/
+/****************************************************/
+
+body.dark-layout{
+  color: #acacac;
+  background: #1f1f1f;
+  .section-content{
+    background-color: #1f1f1f;
+    .section-heading{
+      color: #f1f1f1;
+    }
+    .section-description{
+      color: #f1f1f1;
+    }
+  }
+  .panel{
+    .panel-heading{
+      background-color: #1f1f1f;
+      h4.panel-title{
+        color: #acacac !important;
+      }
+    }
+    .panel-body{
+      background-color: #1f1f1f !important;
+    }
+    &.panel-default{
+      border-color: #666666;
+      .panel-heading+.panel-collapse .panel-body{
+        border-top-color: #666666;
+      }
+    }
+  }
+  .form-control{
+    background: rgba(0,0,0,0.7) !important;
+    border-color: rgba(0,0,0,0.9) !important;
+  }
+  .line{
+    border-top-color: #555555;
+  }
+  header{
+    .top-nav-collapse{
+      background-color: #fff !important;
+      a#logo{
+        color: #666666 !important;
+      }
+      ul.main-menu{
+        li{
+          &.active{
+            a{
+              color: @brand-primary !important;
+            }
+          }
+          a{
+            color: #666666 !important;
+          }
+          .dropdown-menu{
+            li{
+              a{
+                color: #666666 !important;
+                &:hover,
+                &:focus{
+                  color: @brand-primary !important;
+                  background-color: #f1f1f1 !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  #about{
+    a{
+      .icon{
+        background-color: transparent;
+        border-color: #f1f1f1;
+        color: #f1f1f1;
+        &:hover,
+        &:focus{
+          background-color: #f1f1f1;
+          color: #333333;
+        }
+      }
+    }
+    h3{
+      color: #cccccc;
+    }
+  }
+  #about-1{
+    background-image: none;
+    background-color: #252525;
+  }
+  #team{
+    background-image: none;
+    background-color: #252525;
+  }
+  #services{
+    .row.list-services{
+      .col-lg-4{
+        border-right-color: #353535;
+        border-bottom-color: #353535;
+        .icon{
+          background-color: transparent;
+          border-color: #f1f1f1;
+          color: #f1f1f1;
+          &:hover,
+          &:focus{
+            background-color: #f1f1f1;
+            color: #333333;
+          }
+        }
+        h3{
+          color: #cccccc;
+        }
+      }
+    }
+  }
+  #skills{
+    background-image: none;
+    background-color: #252525;
+    .progress{
+      background-color: #333333;
+    }
+  }
+  #pricing{
+    background-image: none;
+    background-color: #252525;
+    .pricing-widget{
+      .pricing-body{
+        background-color: #333333 !important;
+        .pricing-cost{
+          border-bottom-color: #454545 !important;
+        }
+        .pricing-list{
+          li{
+            border-bottom-color: #454545 !important;
+          }
+        }
+      }
+    }
+  }
+  #newsletter{
+    .form-newsletter{
+      .input-group{
+        input{
+          background-color: rgba(0,0,0,0.7) !important;
+          border-color: @brand-primary !important;
+        }
+      }
+    }
+  }
+  #contact{
+    .tb-info-us{
+      tr:nth-child(odd){
+        td{
+          background-color: #333333;
+        }
+      }
+    }
+    .social{
+      a{
+        background-color: #353535;
+      }
+    }
+  }
+}

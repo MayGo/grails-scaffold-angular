@@ -1,0 +1,492 @@
+.row
+    .col-lg-12
+        .note.note-success
+            h4.box-heading Datatables
+            p Main features from datatables: paging, search, sorter, filter
+            p Export tool work on Flash Environment, check other
+                a(href='/#/table-export', target='_blank') Table Export
+            p To use "Edit" feature, please check it
+                a(href='/#/table-editable', target='_blank') Editable
+    .col-lg-12
+        .portlet.box
+            .portlet-header
+                .caption Active Table
+            .portlet-body
+                .row.mbm
+                    .col-lg-12
+                        .table-responsive
+                            table#table_id.table.table-hover.table-striped.table-bordered.table-advanced.tablesorter.display
+                                thead
+                                    tr
+                                        th(style="width: 3%; padding: 10px; background: #efefef")
+                                            input.checkall(type='checkbox')
+                                        th(width='9%') Rec #
+                                        th Username
+                                        th(width='10%') Country
+                                        th(width='10%') Gender
+                                        th(width='7%') Order
+                                        th(width='12%') Date
+                                        th(width='10%') Price
+                                        th(width='9%') Status
+                                        th(width='12%') Actions
+                                    tbody
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 1
+                                            td Henry
+                                            td England
+                                            td Male
+                                            td 32
+                                            td 20-05-2014
+                                            td $112.40
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 2
+                                            td Melinda
+                                            td Germany
+                                            td Female
+                                            td 45
+                                            td 21-09-1999
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-info Pending
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 18
+                                            td Joh Doe
+                                            td England
+                                            td Male
+                                            td 40
+                                            td 21-09-1999
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-warning Suspended
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 19
+                                            td Lahm
+                                            td United States
+                                            td Female
+                                            td 15
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-danger Blocked
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 20
+                                            td Henry
+                                            td France
+                                            td Male
+                                            td 32
+                                            td 21-09-1999
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 20
+                                            td Henry
+                                            td France
+                                            td Male
+                                            td 32
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 20
+                                            td Jane
+                                            td England
+                                            td Male
+                                            td 32
+                                            td 21-09-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 3
+                                            td Larry
+                                            td England
+                                            td Female
+                                            td 40
+                                            td 20-05-2014
+                                            td $112.40
+                                            td
+                                                span.label.label-sm.label-warning Suspended
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 4
+                                            td Melinda
+                                            td United States
+                                            td Female
+                                            td 15
+                                            td 20-05-2014
+                                            td $123.40
+                                            td
+                                                span.label.label-sm.label-danger Blocked
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 5
+                                            td Henry
+                                            td United States
+                                            td Male
+                                            td 32
+                                            td 21-09-1999
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 6
+                                            td Melinda
+                                            td Brazil
+                                            td Male
+                                            td 32
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 7
+                                            td John
+                                            td England
+                                            td Female
+                                            td 45
+                                            td 21-09-1999
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-info Pending
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 8
+                                            td Larry
+                                            td United States
+                                            td Female
+                                            td 40
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-warning Suspended
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 9
+                                            td Lahm
+                                            td United States
+                                            td Female
+                                            td 15
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-danger Blocked
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 10
+                                            td Melinda
+                                            td Germany
+                                            td Male
+                                            td 32
+                                            td 21-09-1999
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 11
+                                            td Henry
+                                            td England
+                                            td Male
+                                            td 32
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 12
+                                            td John
+                                            td United States
+                                            td Female
+                                            td 45
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-info Pending
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 13
+                                            td Larry
+                                            td United States
+                                            td Female
+                                            td 40
+                                            td 21-09-1999
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-warning Suspended
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 14
+                                            td Lahm
+                                            td Germany
+                                            td Female
+                                            td 15
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-danger Blocked
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 15
+                                            td Henry
+                                            td Japan
+                                            td Male
+                                            td 32
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 16
+                                            td Henry
+                                            td United States
+                                            td Male
+                                            td 32
+                                            td 21-09-1999
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 17
+                                            td Melinda
+                                            td United States
+                                            td Female
+                                            td 45
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-info Pending
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 18
+                                            td Luan
+                                            td VietNam
+                                            td Male
+                                            td 40
+                                            td 21-09-1999
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-warning Suspended
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 19
+                                            td Lahm
+                                            td United States
+                                            td Female
+                                            td 15
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-danger Blocked
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 20
+                                            td Henry
+                                            td France
+                                            td Male
+                                            td 32
+                                            td 21-09-1999
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 20
+                                            td Henry
+                                            td France
+                                            td Male
+                                            td 32
+                                            td 20-05-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+                                        tr
+                                            td
+                                                input(type='checkbox')
+                                            td 20
+                                            td Jane
+                                            td England
+                                            td Male
+                                            td 32
+                                            td 21-09-2014
+                                            td $240.50
+                                            td
+                                                span.label.label-sm.label-success Approved
+                                            td
+                                                button.btn.btn-default.btn-xs(type='button')
+                                                    i.fa.fa-edit
+                                                    | &nbsp;
+                                                    | Edit
+        

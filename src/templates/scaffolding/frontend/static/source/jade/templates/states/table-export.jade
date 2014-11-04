@@ -1,0 +1,270 @@
+.row
+    .col-lg-12
+        .note.note-success
+            h4.box-heading Table Export
+            p Tableexport.jquery.plugin support file type: JSON, XML, SQL, CSV, TXT, Word, Excel, Powerpoint and PDF
+            p Easily to install and adjust options
+            p Check other Table export tool 
+                a(href="/#/table-datatables", target="_blank") DataTables
+    .col-lg-12
+        .portlet.box
+            .portlet-header.pam.mbn
+                .caption Table Export
+            .portlet-body
+                .btn-group.mtm.mbm
+                    a.btn.btn-warning.btn-sm.dropdown-toggle(href='javascript:void(0);', data-toggle='dropdown')
+                        i.fa.fa-wrench
+                        | &nbsp;
+                        | Export
+                    ul.dropdown-menu
+                        li
+                            a(href='javascript:void(0);', onclick="$('#example-export').tableExport({type:'json',escape:'false'});")
+                                img.mrx(src="vendors/tableExport/icon/json.png", width="24px")
+                                | Export to Json
+                        li
+                            a(href='javascript:void(0);', onclick="$('#example-export').tableExport({type:'xml',escape:'false'});")
+                                img.mrx(src="vendors/tableExport/icon/xml.png", width="24px")
+                                | Export to Xml
+                        li
+                            a(href='javascript:void(0);', onclick="$('#example-export').tableExport({type:'sql'});")
+                                img.mrx(src="vendors/tableExport/icon/sql.png", width="24px")
+                                | Export to Sql
+                        li.divider
+                        li
+                            a(href='javascript:void(0);', onclick="$('#example-export').tableExport({type:'csv'});")
+                                img.mrx(src="vendors/tableExport/icon/csv.png", width="24px")
+                                | Export to csv
+                        li
+                            a(href='javascript:void(0);', onclick="$('#example-export').tableExport({type:'txt',escape:'false'});")
+                                img.mrx(src="vendors/tableExport/icon/txt.png", width="24px")
+                                | Export to TXT
+                        li.divider
+                        li
+                            a(href='javascript:void(0);', onclick="$('#example-export').tableExport({type:'excel',escape:'false'});")
+                                img.mrx(src="vendors/tableExport/icon/xls.png", width="24px")
+                                | Export to Excel
+                        li
+                            a(href='javascript:void(0);', onclick="$('#example-export').tableExport({type:'doc',escape:'false'});")
+                                img.mrx(src="vendors/tableExport/icon/word.png", width="24px")
+                                | Export to word 
+                        li
+                            a(href='javascript:void(0);', onclick="$('#example-export').tableExport({type:'powerpoint',escape:'false'});")
+                                img.mrx(src="vendors/tableExport/icon/ppt.png", width="24px")
+                                | Export to powerpoint
+                        li.divider
+                        li
+                            a(href='javascript:void(0);', onclick="$('#example-export').tableExport({type:'pdf', pdfFontSize:'14', escape:'true'});")
+                                img.mrx(src="vendors/tableExport/icon/pdf.png", width="24px")
+                                | Export to Pdf
+                table#example-export.table.table-hover.table-striped.table-bordered.table-advanced.tablesorter.mbn
+                    thead
+                        tr
+                            
+                            th(width='9%') Record #
+                            th(width='10%') Username
+                            th(width='10%') Country
+                            th(width='10%') Gender
+                            th(width='7%') Order
+                            th(width='12%') Date
+                            th(width='10%') Price
+                            th(width='9%') Status
+                            th(width='12%') Actions
+                    tbody
+                        tr
+                            td 1
+                            td Henry
+                            td United States
+                            td Male
+                            td 32
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-success Approved
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td 2
+                            td John
+                            td United States
+                            td Female
+                            td 45
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-info Pending
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td 3
+                            td Larry
+                            td United States
+                            td Female
+                            td 40
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-warning Suspended
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td 4
+                            td Lahm
+                            td United States
+                            td Female
+                            td 15
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-danger Blocked
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td 5
+                            td Henry
+                            td United States
+                            td Male
+                            td 32
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-success Approved
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td 2
+                            td John
+                            td United States
+                            td Female
+                            td 45
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-info Pending
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td 3
+                            td Larry
+                            td United States
+                            td Female
+                            td 40
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-warning Suspended
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td 4
+                            td Lahm
+                            td United States
+                            td Female
+                            td 15
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-danger Blocked
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td 3
+                            td Larry
+                            td United States
+                            td Female
+                            td 40
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-warning Suspended
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td 4
+                            td Lahm
+                            td United States
+                            td Female
+                            td 15
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-danger Blocked
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td 5
+                            td Henry
+                            td United States
+                            td Male
+                            td 32
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-success Approved
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                h4.mtl.box-heading Installation
+                pre &#x3C;script type=&#x22;text/javascript&#x22; src=&#x22;tableExport.js&#x22;&#x3E;
+                    | &#x3C;script type=&#x22;text/javascript&#x22; src=&#x22;jquery.base64.js&#x22;&#x3E;
+                h4.mtl.box-heading PDF Export
+                pre &#x3C;script type=&#x22;text/javascript&#x22; src=&#x22;jspdf/libs/sprintf.js&#x22;&#x3E;
+                    | &#x3C;script type=&#x22;text/javascript&#x22; src=&#x22;jspdf/jspdf.js&#x22;&#x3E;
+                    | &#x3C;script type=&#x22;text/javascript&#x22; src=&#x22;jspdf/libs/base64.js&#x22;&#x3E;
+                h4.mtl.box-heading Usage
+                pre onclick=&#x22;$('#example-export').tableExport({type:'json',escape:'false'});&#x22;
+                    | onclick=&#x22;$('#example-export').tableExport({type:'xml',escape:'false'});&#x22;
+                    | onclick=&#x22;$('#example-export').tableExport({type:'sql',escape:'false'});&#x22;
+                    | onclick=&#x22;$('#example-export').tableExport({type:'csv',escape:'false'});&#x22;
+                    | onclick=&#x22;$('#example-export').tableExport({type:'txt',escape:'false'});&#x22;
+                    | onclick=&#x22;$('#example-export').tableExport({type:'excel',escape:'false'});&#x22;
+                    | onclick=&#x22;$('#example-export').tableExport({type:'doc',escape:'false'});&#x22;
+                    | onclick=&#x22;$('#example-export').tableExport({type:'powerpoint',escape:'false'});&#x22;
+                    | onclick=&#x22;$('#example-export').tableExport({type:'pdf', pdfFontSize:'14', escape:'false'});&#x22;
+                h4.mtl.box-heading Options
+                pre separator: ','
+                    | ignoreColumn: [2,3],
+                    | tableName:'yourTableName'
+                    | type:'csv'
+                    | pdfFontSize:14
+                    | pdfLeftMargin:20
+                    | escape:'true'
+                    | htmlContent:'false'
+                    | consoleLog:'false'
+script(src='vendors/tableExport/tableExport.js')
+script(src='vendors/tableExport/jquery.base64.js')
+script(src='vendors/tableExport/html2canvas.js')
+script(src='vendors/tableExport/jspdf/libs/sprintf.js')
+script(src='vendors/tableExport/jspdf/jspdf.js')
+script(src='vendors/tableExport/jspdf/libs/base64.js')

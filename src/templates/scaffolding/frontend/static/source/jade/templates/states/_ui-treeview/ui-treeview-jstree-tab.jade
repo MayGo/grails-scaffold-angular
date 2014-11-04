@@ -1,0 +1,164 @@
+.row.mbl
+    .col-lg-3
+        h3 Basic markup
+        #tree1
+            ul
+                li Root node 1
+                li Root node 2
+    .col-lg-3
+        h3 Nodes with children
+        #tree2
+            ul
+                li
+                    | Root node 1
+                    ul
+                        li Child node 1
+                        li
+                            a(href='#') Child node 2
+    .col-lg-3
+        h3 Setting initial state with classes
+        #tree3
+            ul
+                li.jstree-open
+                    | Root
+                    ul
+                        li
+                            a.stree-clicked(href='#') Child
+    .col-lg-3
+        h3 Setting initial state with data attribute
+        #tree4
+            ul
+                li(data-jstree='{"opened":true,"selected":true}')
+                    | Root
+                    ul
+                        li(data-jstree='{"disabled":true}') Child
+                        li(data-jstree='{"icon":"http://jstree.com/tree.png"}')
+                            | Child
+                        li(data-jstree='{"icon":"glyphicon glyphicon-leaf"}')
+                            | Child
+.row.mbl
+    .col-lg-3
+        h3 Loading with AJAX
+        #tree5
+            ul
+                li Node 1
+                li.jstree-closed Node 2
+    .col-lg-3
+        h3 Custom 1
+        #tree6
+            ul
+                li
+                    | Root node 1
+                    ul
+                        li(data-jstree='{ "selected" : true }')
+                            a(href='#')
+                                em initially
+                                = ' '
+                                strong selected
+                        li(data-jstree='{ "icon" : "http://jstree.com/tree-icon.png" }') custom icon URL
+                        li(data-jstree='{ "opened" : true }')
+                            | initially open
+                            ul
+                                li Another node
+                        li(data-jstree='{ "icon" : "glyphicon glyphicon-leaf" }') Custom icon class (bootstrap)
+                li
+                    a(href='http://www.jstree.com') Root node 2
+    .col-lg-3
+        h3 Custom 2
+        #tree7
+    .col-lg-3
+        h3 Checkbox plugin
+        #tree8
+            ul
+                li(data-jstree='{"opened":true}')
+                    | Root node
+                    ul
+                        li Child node 1
+                        li Child node 2
+.row.mbl
+    .col-lg-3
+        h3 Contextmenu plugin
+        #tree9
+            ul
+                li(data-jstree='{"opened":true}')
+                    | Root node
+                    ul
+                        li Context click me
+    .col-lg-3
+        h3 Drag & drop plugin
+        #tree10
+            ul
+                li(data-jstree='{"opened":true}')
+                    | Root node
+                    ul
+                        li Child node 1
+                        li Child node 2
+                    li Root node 2
+    .col-lg-3
+        h3 Search plugin
+        .input-icon.right
+            i.fa.fa-search
+            input#input-tree11.form-control.input-sm.mbm(type='text', value='', placeholder='Search here...')
+        #tree11
+            ul
+                li(data-jstree='{"opened":true}')
+                    | Root node
+                    ul
+                        li Child node 1
+                        li Child node 2
+                li Root node 2
+    .col-lg-3
+        h3 Sort plugin
+        #tree12
+            ul
+                li(data-jstree='{"opened":true}')
+                    | Root node
+                    ul
+                        li 2
+                        li 1
+                        li 3
+                        li 0
+                    li Root node 2
+.row.mbl
+    .col-lg-3
+        h3 State plugin
+        #tree13
+            ul
+                li(data-jstree='{"opened":true}')
+                    | Root node
+                    ul
+                        li A
+                        li few
+                        li more
+                        li nodes
+                    li Root node 2
+    .col-lg-3
+        h3 Types plugin
+        #tree14
+            ul
+                li(data-jstree='{"opened":true, "type":"demo"}')
+                    | Root node
+                    ul
+                        li Node
+                    li Root node 2
+    .col-lg-3
+        h3 Unique plugin
+        #tree15
+            ul
+                li(data-jstree='{"opened":true}')
+                    | Root node
+                    ul
+                        li Node
+                    li
+                        | Root node 2
+                        ul
+                            li Node
+    .col-lg-3
+        h3 Wholerow plugin
+        #tree16
+            ul
+                li(data-jstree='{"opened":true}')
+                    | Root node
+                    ul
+                        li(data-jstree='{"selected":true}') Node
+                    li Root node 2

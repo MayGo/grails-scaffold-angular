@@ -1,0 +1,161 @@
+.row
+    .col-lg-4
+        h3 Input Group
+        .input-group
+            span.input-group-addon @
+            input.form-control(type='text', placeholder='Username')
+        .mbl
+        .input-group
+            input.form-control(type='text')
+            span.input-group-addon .00
+        .mbl
+        .input-group
+            span.input-group-addon $
+            input.form-control(type='text')
+            span.input-group-addon .00
+    .col-lg-4
+        h3 Size
+        .input-group.input-group-lg
+            span.input-group-addon @
+            input.form-control(type='text', placeholder='Username')
+        .mbl
+        .input-group
+            span.input-group-addon @
+            input.form-control(type='text', placeholder='Username')
+        .mbl
+        .input-group.input-group-sm
+            span.input-group-addon @
+            input.form-control(type='text', placeholder='Username')
+    .col-lg-4
+        h3 Checkboxes & Radio Addons
+        .input-group
+            span.input-group-addon
+                input(type='checkbox')
+            input.form-control(type='text')
+        .mbl
+        .input-group
+            span.input-group-addon
+                input(type='radio')
+            input.form-control(type='text')
+hr
+.row
+    .col-lg-6
+        h3 Buttons with dropdowns
+        .row
+            .col-lg-6
+                .input-group
+                    .input-group-btn
+                        button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                            | Action
+                            | &nbsp;
+                            span.caret
+                        ul.dropdown-menu
+                            li
+                                a(href='#') Action
+                            li
+                                a(href='#') Another action
+                            li
+                                a(href='#') Something else here
+                            li.divider
+                            li
+                                a(href='#') Separated link
+                    input.form-control(type='text')
+            .col-lg-6
+                .input-group
+                    input.form-control(type='text')
+                    .input-group-btn
+                        button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                            | Action
+                            | &nbsp;
+                            span.caret
+                        ul.dropdown-menu.pull-right
+                            li
+                                a(href='#') Action
+                            li
+                                a(href='#') Another action
+                            li
+                                a(href='#') Something else here
+                            li.divider
+                            li
+                                a(href='#') Separated link
+        .mbxl
+        h3 Segmented Buttons
+        .row
+            .col-lg-6
+                .input-group
+                    .input-group-btn
+                        button.btn.btn-default(type='button', tabindex='-1') Action
+                        button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', tabindex='-1')
+                            span.caret
+                            span.sr-only Toggle Dropdown
+                        ul.dropdown-menu(role='menu')
+                            li
+                                a(href='#') Action
+                            li
+                                a(href='#') Another action
+                            li
+                                a(href='#') Something else here
+                            li.divider
+                            li
+                                a(href='#') Separated link
+                    input.form-control(type='text')
+            .col-lg-6
+                .input-group
+                    input.form-control(type='text')
+                    .input-group-btn
+                        button.btn.btn-default(type='button', tabindex='-1') Action
+                        button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', tabindex='-1')
+                            span.caret
+                            span.sr-only Toggle Dropdown
+                        ul.dropdown-menu.pull-right(role='menu')
+                            li
+                                a(href='#') Action
+                            li
+                                a(href='#') Another action
+                            li
+                                a(href='#') Something else here
+                            li.divider
+                            li
+                                a(href='#') Separated link
+    .col-lg-6
+        h3 Button Addons On Both Sides
+        .input-group
+            span.input-group-btn
+                button.btn.btn-default(type='button') Go!
+            input.form-control(type='text')
+            span.input-group-btn
+                button.btn.btn-default(type='button') Go!
+        .mbxl
+        h3 Buttons With Dropdowns On Both Sides
+        .input-group
+            .input-group-btn
+                button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                    | Action
+                    = ' '
+                    span.caret
+                ul.dropdown-menu
+                    li
+                        a(href='#') Action
+                    li
+                        a(href='#') Another action
+                    li
+                        a(href='#') Something else here
+                    li.divider
+                    li
+                        a(href='#') Separated link
+            input.form-control(type='text')
+            .input-group-btn
+                button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                    | Action
+                    = ' '
+                    span.caret
+                ul.dropdown-menu.pull-right
+                    li
+                        a(href='#') Action
+                    li
+                        a(href='#') Another action
+                    li
+                        a(href='#') Something else here
+                    li.divider
+                    li
+                        a(href='#') Separated link

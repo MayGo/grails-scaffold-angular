@@ -1,0 +1,941 @@
+.row
+    .col-lg-6
+        .portlet.box.portlet-grey
+            .portlet-header
+                .caption Placehoder & Mask input
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form.form-horizontal.form-separated(role="form")
+                    .form-body
+                        //.form-group
+                            label.col-md-3.control-label Label
+                            .col-md-9
+                                input.form-control(placeholder="placehoder")
+                        .form-group
+                            label.col-md-3.control-label Date
+                            .col-md-9
+                                input#date.form-control(placeholder="__/__/____")
+                        .form-group
+                            label.col-md-3.control-label Phone
+                            .col-md-9
+                                input#phone.form-control(placeholder="(123) 123-1234")
+                        .form-group
+                            label.col-md-3.control-label Product Key
+                            .col-md-9
+                                input#product-key.form-control(placeholder="(ab) 12-123")
+                        .form-actions
+                            .col-md-offset-3.col-md-9
+                                button.btn.btn-primary(type='submit') Submit
+                                | &nbsp;
+                                button.btn.btn-default(type='button') Cancel
+    .col-md-6
+        .portlet.box.portlet-yellow
+            .portlet-header
+                .caption Color Picker
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body.pan
+                form.form-horizontal.form-separated(role="form")
+                    .form-body.pdl
+                        .form-group
+                            label.col-md-3.control-label Default
+                            .col-md-7
+                                input.colorpicker-default.form-control(type='text')
+                        .form-group
+                            label.col-md-3.control-label RGBA format
+                            .col-md-7
+                                input.colorpicker-rgba.form-control(type='text', data-color-format='rgba')
+                        .form-group.last
+                            label.col-md-3.control-label Color Picker Component
+                            .col-md-7
+                                .input-group.colorpicker-component(data-color='#ff3246', data-color-format="rgba")
+                                    input.form-control(type='text', readonly='true', value='#ff3246')
+                                    span.input-group-btn
+                                        button.btn(type='button')
+                                            i.fa.fa-certificate(style='color:#ff3246')
+                    .form-actions
+                        .col-md-offset-3.col-md-9
+                            button.btn.btn-primary(type='submit') Submit
+                            | &nbsp;
+                            button.btn.btn-default(type='button') Cancel
+    
+.row
+    .col-lg-6
+        .portlet.box.portlet-violet
+            .portlet-header
+                .caption Dynamic Character Count
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form.form-horizontal.form-separated(role="form")
+                    .form-body
+                        .form-group
+                            label.col-md-3.control-label Default Input Field
+                            .col-md-9
+                                input#message1.form-control(type='text', name='message1')
+                        .form-group
+                            label.col-md-3.control-label Default Textareas
+                            .col-md-9
+                                textarea#message2.form-control(name='message2')
+                        .form-group
+                            label.col-md-3.control-label Custom Usage
+                            .col-md-9
+                                span.help-block Another message (limited to 50, warning at 20)
+                                textarea#message3.form-control(name='message3', rows="6")
+    .col-md-6
+        .portlet.box.portlet-green
+            .portlet-header
+                .caption Input sizing
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form.form-horizontal.form-separated(role="form")
+                    .form-body
+                        .form-group
+                            label.col-md-3.control-label Large Input
+                            .col-md-9
+                                input.form-control.input-large(type='text', placeholder='.input-large')
+                        .form-group
+                            label.col-md-3.control-label Medium Input
+                            .col-md-9
+                                input.form-control.input-medium(type='text', placeholder='.input-medium')
+                        .form-group
+                            label.col-md-3.control-label Small Input
+                            .col-md-9
+                                input.form-control.input-small(type='text', placeholder='.input-small')
+                        .form-group
+                            label.col-md-3.control-label Extra Small Input
+                            .col-md-9
+                                input.form-control.input-xsmall(type='text', placeholder='.input-xsmall')
+                        .form-group
+                            label.col-md-3.control-label Large Input
+                            .col-md-9
+                                input.input-lg.form-control(type='text', placeholder='Large Input')
+                        .form-group
+                            label.col-md-3.control-label Medium Input
+                            .col-md-9
+                                input.form-control(type='text', placeholder='Medium Input')
+                        .form-group
+                            label.col-md-3.control-label Small Input
+                            .col-md-9
+                                input.input-sm.form-control(type='text', placeholder='Small Input')
+    
+.row
+    .col-md-6
+        .portlet.box.portlet-blue
+            .portlet-header
+                .caption Input help block
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form.form-horizontal.form-separated(role="form")
+                    .form-body
+                        .form-group
+                            label.col-md-3.control-label.mtxl Username
+                            .col-md-4
+                                p.text-success Help block above
+                                input.form-control.input-small
+                        .form-group.form-inline
+                            label.col-md-3.control-label Password
+                            .col-md-9
+                                input.form-control.input-small.mrl
+                                span.text-warning.mts.help-block-right Help block on the right
+                        .form-group
+                            label.col-md-3.control-label Password retype
+                            .col-md-6
+                                input.form-control.input-small
+                                p.text-danger Help block below
+        
+    .col-md-6
+        .portlet.box.portlet-orange
+            .portlet-header
+                .caption Date Range Pickers
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body.pan
+                form.form-horizontal.form-separated(role="form")
+                    .form-body.pdl
+                        .form-group
+                            label.col-md-3.control-label Date
+                            .col-md-7
+                                .input-group
+                                    .input-group-addon
+                                        i.fa.fa-calendar
+                                    input.form-control(type='text', name='daterangepicker-default')
+                        .form-group
+                            label.col-md-3.control-label Date & Time
+                            .col-md-7
+                                .input-group
+                                    input.form-control(type='text', name='daterangepicker-date-time')
+                                    .input-group-addon
+                                        i.fa.fa-calendar
+                        .form-group
+                            label.col-md-3.control-label Advance Date Range Picker
+                            .col-md-6
+                                .btn.btn-blue.reportrange
+                                    i.fa.fa-calendar
+                                    | &nbsp;
+                                    span
+                                    | &nbsp;report&nbsp;
+                                    i.fa.fa-angle-down
+                                    input(type='hidden', name="datestart")
+                                    input(type='hidden', name="endstart")
+                    .form-actions
+                        .col-md-offset-3.col-md-9
+                            button.btn.btn-primary(type='submit') Submit
+                            | &nbsp;
+                            button.btn.btn-default(type='button') Cancel
+.row
+    .col-lg-6
+        .portlet.box.portlet-blue
+            .portlet-header
+                .caption Datetime Picker
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body.pan
+                form.form-horizontal.form-separated(role="form")
+                    .form-body.pdl
+                        .form-group
+                            label.col-md-3.control-label Default
+                            .col-md-6
+                                .input-group.datetimepicker-default.date
+                                    input.form-control(type='text')
+                                    span.input-group-addon
+                                        i.fa.fa-calendar
+                        .form-group
+                            label.col-md-3.control-label Disable date
+                            .col-md-5
+                                .input-group.datetimepicker-disable-date.date
+                                    input.form-control(type='text')
+                                    span.input-group-addon
+                                        i.fa.fa-clock-o
+                        .form-group
+                            label.col-md-3.control-label Disable time
+                            .col-md-5
+                                .input-group.datetimepicker-disable-time.date
+                                    input.form-control(type='text')
+                                    span.input-group-addon
+                                        i.fa.fa-calendar
+                        .form-group
+                            label.col-md-3.control-label Events and linked pickers
+                            .col-md-6
+                                .input-group.datetimepicker-start.date.mbl
+                                    input.form-control(type='text')
+                                    span.input-group-addon
+                                        i.fa.fa-calendar
+                            .col-md-6.col-md-offset-3
+                                .input-group.datetimepicker-end.date
+                                    input.form-control(type='text')
+                                    span.input-group-addon
+                                        i.fa.fa-clock-o
+                    .form-actions
+                        .col-md-offset-3.col-md-9
+                            button.btn.btn-primary(type='submit') Submit
+                            | &nbsp;
+                            button.btn.btn-default(type='button') Cancel
+        .portlet.box.portlet-yellow
+            .portlet-header
+                .caption Time Picker
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body.pan
+                form.form-horizontal.form-separated(role="form")
+                    .form-body.pdl
+                        .form-group
+                            label.col-md-3.control-label Default
+                            .col-md-4
+                                .input-group.bootstrap-timepicker
+                                    input.timepicker-default.form-control(type='text')
+                                    span.input-group-addon
+                                        i.fa.fa-clock-o
+                        .form-group.last
+                            label.col-md-3.control-label Timepicker 24hr
+                            .col-md-4
+                                .input-group.bootstrap-timepicker
+                                    input.timepicker-24hr.form-control(type='text')
+                                    span.input-group-addon
+                                        i.fa.fa-clock-o
+                    .form-actions
+                        .col-md-offset-3.col-md-9
+                            button.btn.btn-primary(type='submit') Submit
+                            | &nbsp;
+                            button.btn.btn-default(type='button') Cancel
+    .col-lg-6
+        .portlet.box.portlet-pink
+            .portlet-header
+                .caption Date Picker
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body.pan
+                form.form-horizontal.form-separated(role="form")
+                    .form-body.pdl
+                        .form-group
+                            label.col-md-3.control-label Default
+                            .col-md-4
+                                input.datepicker-default.form-control(type='text', data-date-format='dd/mm/yyyy', placeholder='dd/mm/yyyy')
+                            
+                        .form-group
+                            label.col-md-3.control-label Format
+                            .col-md-4
+                                input.datepicker-default.form-control(type='text', data-date-format='mm-dd-yyyy', placeholder='mm-dd-yyyy')
+                            
+                        .form-group
+                            label.col-md-3.control-label Start with years
+                            .col-md-5
+                                .input-group
+                                    input.datepicker-years.form-control(type='text')
+                                    .input-group-addon
+                                        i.fa.fa-calendar
+                        .form-group
+                            label.col-md-3.control-label Range
+                            .col-md-8
+                                .input-group.input-daterange
+                                    input.form-control(type='text', name='startdate')
+                                    span.input-group-addon to
+                                    input.form-control(type='text', name='enddate')
+                        .form-group
+                            label.col-md-3.control-label Inline
+                            .col-md-3
+                                .datepicker-inline
+                    .form-actions
+                        .col-md-offset-3.col-md-9
+                            button.btn.btn-primary(type='submit') Submit
+                            | &nbsp;
+                            button.btn.btn-default(type='button') Cancel
+.row
+    .col-lg-6
+        .portlet.box.portlet-violet
+            .portlet-header
+                .caption Bootstrap Switch
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body.pan
+                form.form-horizontal.form-separated(role="form")
+                    .form-body.pdl
+                        .form-group
+                            label.col-md-3.control-label Colors
+                            .col-md-9
+                                .make-switch(data-on='primary', data-off='info')
+                                    input.switch(type='checkbox', checked='checked')
+                                | &nbsp;
+                                .make-switch(data-on='info', data-off='success')
+                                    input.switch(type='checkbox', checked='checked')
+                                | &nbsp;
+                                .make-switch(data-on='success', data-off='warning')
+                                    input.switch(type='checkbox', checked='checked')
+                                | &nbsp;
+                                .make-switch(data-on='warning', data-off='danger')
+                                    input.switch(type='checkbox', checked='checked')
+                                | &nbsp;
+                                .make-switch.mts(data-on='danger', data-off='default')
+                                    input.switch(type='checkbox', checked='checked')
+                                | &nbsp;
+                                .make-switch.mts(data-on='default', data-off='primary')
+                                    input.switch(type='checkbox', checked='checked')
+                        .form-group
+                            label.col-md-3.control-label Size
+                            .col-md-9
+                                .make-switch.switch-large
+                                    input.switch(type='checkbox', checked='checked')
+                                | &nbsp;
+                                .make-switch
+                                    input.switch(type='checkbox', checked='checked')
+                                | &nbsp;
+                                .make-switch.switch-small
+                                    input.switch(type='checkbox', checked='checked')
+                                | &nbsp;
+                                .make-switch.switch-mini
+                                    input.switch(type='checkbox', checked='checked')
+                        .form-group
+                            label.col-md-3.control-label Disabled
+                            .col-md-9
+                                .make-switch(data-on='primary')
+                                    input.switch(type='checkbox', checked='checked', disabled)
+                        .form-group
+                            label.col-md-3.control-label Text
+                            .col-md-9
+                                .make-switch(data-on-label='Open', data-off-label='Close', data-text-label="Door")
+                                    input.switch(type='checkbox', checked='checked')
+                        .form-group
+                            label.col-md-3.control-label Icons
+                            .col-md-9
+                                .make-switch(data-on-label='<i class="fa fa-microphone"></i>', data-off-label='<i class="fa fa-power-off"></i>')
+                                    input.switch(type='checkbox', checked='checked')
+                    .form-actions
+                        .col-md-offset-3.col-md-9
+                            button.btn.btn-primary(type='submit') Submit
+                            | &nbsp;
+                            button.btn.btn-default(type='button') Cancel
+
+    .col-lg-6
+        .portlet.box.portlet-green
+            .portlet-header
+                .caption Clockface Time Picker
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body.pan
+                form.form-horizontal.form-separated(role="form")
+                    .form-body.pdl
+                        .form-group
+                            label.col-md-3.control-label Default
+                            .col-md-4
+                                input.clockface-default.form-control(type='text', value='2:30 PM', data-format='hh:mm A')
+                        .form-group
+                            label.col-md-3.control-label Clockface component
+                            .col-md-4
+                                .input-group
+                                    input.clockface-component.form-control(type='text', value='2:30 PM', data-format='hh:mm A')
+                                    span.input-group-btn#btn-clockface-component
+                                        button.btn.btn-default(type='button')
+                                            i.fa.fa-clock-o
+                        .form-group.last
+                            label.col-md-3.control-label Clockface Inline
+                            .col-md-4
+                                .clockface-inline.well(style='padding: 0; float: left;')
+                    .form-actions
+                        .col-md-offset-3.col-md-9
+                            button.btn.btn-primary(type='submit') Submit
+                            | &nbsp;
+                            button.btn.btn-default(type='button') Cancel
+.row
+    .col-lg-12
+        .portlet.box.portlet-pink
+            .portlet-header
+                .caption Default Form
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form(role="form")
+                    .row
+                        .col-md-4
+                            .form-group
+                                label(for="InputText") Text
+                                input.form-control(type="email", id="InputText", placeholder="Enter text")
+                            .form-group
+                                label(for="InputEmail") Email Address
+                                .input-group
+                                    span.input-group-addon
+                                        i.fa.fa-envelope
+                                    input.form-control(type="text", placeholder="Email Address")
+                            .form-group
+                                label(for="InputPassword") Password
+                                .input-group
+                                    input.form-control(type="password", placeholder="Password")
+                                    span.input-group-addon
+                                        i.fa.fa-key
+                            .form-group
+                                label(for="InputDropdown") Multiple Select
+                                select.form-control(multiple)
+                                    option Option 1
+                                    option Option 2
+                                    option Option 3
+                                    option Option 4
+                                    option Option 5
+                            .form-group
+                                label Checkboxes
+                                .checkbox.mtx
+                                    label 
+                                        input(type='checkbox')
+                                        | &nbsp;
+                                        | Option 1
+                                .checkbox.mtx
+                                    label 
+                                        input(type='checkbox')
+                                        | &nbsp;
+                                        | Option 2
+                                .checkbox.disabled.mtx
+                                    label 
+                                        input(type='checkbox', disabled='disabled')
+                                        | &nbsp;
+                                        | Disabled
+                            .form-group
+                                label Inline Checkboxes
+                                .checkbox-list
+                                    label.checkbox-inline
+                                        input#inlineCheckbox1(type='checkbox', value='option1')
+                                        | &nbsp;
+                                        | Checkbox 1
+                                    label.checkbox-inline
+                                        input#inlineCheckbox2(type='checkbox', value='option2')
+                                        | &nbsp;
+                                        | Checkbox 2
+                                    label.checkbox-inline
+                                        input#inlineCheckbox3(type='checkbox', value='option3', disabled='disabled')
+                                        | &nbsp;
+                                        | Disabled
+                        .col-md-4
+                            .form-group
+                                label Left icon
+                                .input-icon
+                                    i.fa.fa-bell
+                                    input.form-control(type="text", placeholder="Left icon")
+                            .form-group
+                                label Right icon
+                                .input-icon.right
+                                    i.fa.fa-microphone
+                                    input.form-control(type="text", placeholder="Right icon")
+                            .form-group
+                                label Input With Spinner
+                                .input-icon.right
+                                    i.fa.fa-spinner.fa-spin
+                                    input.form-control(type="text", placeholder="Process something")
+                            .form-group
+                                label Textarea
+                                textarea.form-control(rows="4")
+                            .form-group
+                                label Radio
+                                .radio.mtx
+                                    label
+                                        input#optionsRadios1(type='radio', name='optionsRadios', value='option1', checked='checked')
+                                        | &nbsp;
+                                        | Option 1
+                                .radio.mtx
+                                    label
+                                        input#optionsRadios2(type='radio', name='optionsRadios', value='option2')
+                                        | &nbsp;
+                                        | Option 2
+                                .radio.disabled.mtx
+                                    label
+                                        input#optionsRadios3(type='radio', name='optionsRadios', value='option3', disabled='disabled')
+                                        | &nbsp;
+                                        | Disabled
+                            .form-group
+                                label Radio Inline
+                                .radio
+                                    label
+                                        input#optionsRadios4(type='radio', name='optionsRadios', value='option1', checked='checked')
+                                        | &nbsp;
+                                        | Option 1
+                                    label
+                                        input#optionsRadios5(type='radio', name='optionsRadios', value='option2')
+                                        | &nbsp;
+                                        | Option 2
+                                    label
+                                        input#optionsRadios6(type='radio', name='optionsRadios', value='option3', disabled='disabled')
+                                        | &nbsp;
+                                        | Disabled
+                        .col-md-4
+                            .form-group
+                                label Disabled
+                                input.form-control(type="text", placeholder="Disabled", disabled)
+                            .form-group
+                                label Readonly
+                                input.form-control(type="text", placeholder="Readonly", readonly)
+                            .form-group
+                                label Dropdown
+                                select.form-control
+                                    option Option 1
+                                    option Option 2
+                                    option Option 3
+                                    option Option 4
+                                    option Option 5
+                            .form-group
+                                label Static Control
+                                label Static Control
+                                p.form-control-static example@email.com
+                            .form-group
+                                label(for='exampleInputFile1') File input
+                                input#exampleInputFile1(type='file')
+                                p.help-block some help text here.
+.row
+    .col-lg-12
+        .portlet.box.portlet-blue
+            .portlet-header
+                .caption Horizontal Form
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form.form-horizontal(role="form")
+                    .row
+                        .col-md-6
+                            .form-group
+                                label.col-md-3.control-label Text
+                                .col-md-9
+                                    input.form-control(type='text', placeholder='Enter text')
+                            .form-group
+                                label.col-md-3.control-label Email Address
+                                .col-md-9
+                                    .input-group
+                                        span.input-group-addon
+                                            i.fa.fa-envelope
+                                        input.form-control(type='email', placeholder='Email Address')
+                            .form-group
+                                label.col-md-3.control-label Password
+                                .col-md-9
+                                    .input-group
+                                        input.form-control(type='password', placeholder='Password')
+                                        span.input-group-addon
+                                            i.fa.fa-user
+                            .form-group
+                                label.col-md-3.control-label Left Icon
+                                .col-md-9
+                                    .input-icon
+                                        i.fa.fa-bell
+                                        input.form-control(type='text', placeholder='Left icon')
+                            .form-group
+                                label.col-md-3.control-label Right Icon
+                                .col-md-9
+                                    .input-icon.right
+                                        i.fa.fa-microphone
+                                        input.form-control(type='text', placeholder='Right icon')
+                            .form-group
+                                label.col-md-3.control-label Input With Spinner
+                                .col-md-9
+                                    .input-icon.right
+                                        i.fa.fa-spinner.fa-spin
+                                        input.form-control(type='text', placeholder='Process something')
+                            .form-group
+                                label.col-md-3.control-label Textarea
+                                .col-md-9
+                                    textarea.form-control(rows='3')
+                            .form-group
+                                label.col-md-3.control-label Checkboxes
+                                .col-md-9
+                                    .checkbox.mtx
+                                        label
+                                            input(type='checkbox')
+                                            | &nbsp;
+                                            | Checkbox 1
+                                    .checkbox.mtx
+                                        label
+                                            input(type='checkbox')
+                                            | &nbsp;
+                                            | Checkbox 1
+                                    .checkbox.mtx
+                                        label
+                                            input(type='checkbox', disabled='disabled')
+                                            | &nbsp;
+                                            | Disabled
+                            .form-group
+                                label.col-md-3.control-label Inline Checkboxes
+                                .col-md-9
+                                    .checkbox
+                                        label
+                                            input#inlineCheckbox21(type='checkbox', value='option1')
+                                            | &nbsp;
+                                            | Checkbox 1
+                                        label
+                                            input#inlineCheckbox22(type='checkbox', value='option2')
+                                            | &nbsp;
+                                            | Checkbox 2
+                                        label
+                                            input#inlineCheckbox23(type='checkbox', value='option3', disabled='disabled')
+                                            | &nbsp;
+                                            | Disabled
+                        .col-md-6
+                            .form-group
+                                label.col-md-3.control-label Disabled
+                                .col-md-9
+                                    input.form-control(type='password', placeholder='Disabled', disabled='disabled')
+                            .form-group
+                                label.col-md-3.control-label Readonly
+                                .col-md-9
+                                    input.form-control(type='password', placeholder='Readonly', readonly='readonly')
+                            .form-group
+                                label.col-md-3.control-label Dropdown
+                                .col-md-9
+                                    select.form-control
+                                        option Option 1
+                                        option Option 2
+                                        option Option 3
+                                        option Option 4
+                                        option Option 5
+                            .form-group
+                                label.col-md-3.control-label Multiple Select
+                                .col-md-9
+                                    select.form-control(multiple='multiple')
+                                        option Option 1
+                                        option Option 2
+                                        option Option 3
+                                        option Option 4
+                                        option Option 5
+                            .form-group
+                                label.col-md-3.control-label Static Control
+                                .col-md-9
+                                    p.form-control-static example@email.com
+                            .form-group
+                                label.col-md-3.control-label(for='exampleInputFile') File input
+                                .col-md-9
+                                    input#exampleInputFile(type='file')
+                                    p.help-block some help text here.
+                            .form-group
+                                label.col-md-3.control-label Radio
+                                .col-md-9
+                                    .radio.mtx
+                                        label
+                                            input#optionsRadios22(type='radio', name='optionsRadios', value='option1', checked='checked')
+                                            | &nbsp;
+                                            | Option 1
+                                    .radio.mtx
+                                        label
+                                            input#optionsRadios23(type='radio', name='optionsRadios', value='option2', checked='checked')
+                                            | &nbsp;
+                                            | Option 2
+                                    .radio.mtx
+                                        label
+                                            input#optionsRadios24(type='radio', name='optionsRadios', value='option2', disabled='disabled')
+                                            | &nbsp;
+                                            | Disabled
+                            .form-group
+                                label.col-md-3.control-label Inline Radio
+                                .col-md-9
+                                    .radio
+                                        label
+                                            input#optionsRadios25(type='radio', name='optionsRadios', value='option1', checked='checked')
+                                            | &nbsp;
+                                            | Option 1
+                                        label
+                                            input#optionsRadios26(type='radio', name='optionsRadios', value='option2', checked='checked')
+                                            | &nbsp;
+                                            | Option 2
+                                        label
+                                            input#optionsRadios27(type='radio', name='optionsRadios', value='option3', disabled='disabled')
+                                            | &nbsp;
+                                            | Disabled
+.row
+    .col-lg-12
+        .portlet.box.portlet-yellow
+            .portlet-header
+                .caption Validate States
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form(role='form')
+                .row
+                    .col-md-6
+                        h4.block-heading Validation States
+                        .form-group
+                            label.control-label(for='inputSuccess') Defalt input
+                            input#inputDefault.form-control(type='text')
+                        .form-group.has-success
+                            label.control-label(for='inputSuccess') Input with success
+                            input#inputSuccess.form-control(type='text')
+                        .form-group.has-warning
+                            label.control-label(for='inputWarning') Input with warning
+                            input#inputWarning.form-control(type='text')
+                        .form-group.has-error
+                            label.control-label(for='inputError') Input with error
+                            input#inputError.form-control(type='text')
+                    .col-md-6
+                        h4.block-heading Validation States With Icons
+                        .form-group
+                            label.control-label(for='inputSuccess') Default input
+                            .input-icon.right
+                                i.glyphicon.glyphicon-info-sign.tooltips(data-hover='tooltip', data-original-title='Email address', data-container='body')
+                                input.form-control(type='text')
+                        .form-group.has-success
+                            label.control-label(for='inputSuccess') Input with success
+                            .input-icon.right
+                                i.glyphicon.glyphicon-ok.tooltips(data-hover='tooltip', data-original-title='You look OK!', data-container='body')
+                                input.form-control(type='text')
+                        .form-group.has-warning
+                            label.control-label(for='inputWarning') Input with warning
+                            .input-icon.right
+                                i.glyphicon.glyphicon-warning-sign.tooltips(data-hover='tooltip', data-original-title='please provide an email', data-container='body')
+                                input.form-control(type='text')
+                        .form-group.has-error
+                            label.control-label(for='inputError') Input with error
+                            .input-icon.right
+                                i.glyphicon.glyphicon-exclamation-sign.tooltips(data-hover='tooltip', data-original-title='please write a valid email', data-container='body')
+                                input.form-control(type='text')
+.row
+    .col-lg-12
+        .portlet.box.portlet-green
+            .portlet-header
+                .caption Search Toolbar
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                h4.block-heading Checkboxes Addons
+                .row
+                    .col-md-6.mbm
+                        .input-group
+                            span.input-group-addon
+                                input(type='checkbox')
+                            input.form-control(type='text')
+                    .col-md-6.mbm
+                        .input-group
+                            input.form-control(type='text')
+                            span.input-group-addon
+                                input(type='checkbox')
+                .clearfix.mbxxl
+                h4.block-heading Button Addons
+                .row
+                    .col-md-6.mbm
+                        .input-group
+                            span.input-group-btn
+                                button.btn.btn-primary(type='button') Go!
+                            input.form-control(type='text')
+                    .col-md-6.mbm
+                        .input-group
+                            input.form-control(type='text')
+                            span.input-group-btn
+                                button.btn.btn-primary(type='button') Go!
+                .clearfix.mbxxl
+                h4.block-heading Button Addons On Both Sides
+                .row
+                    .col-md-12.mbm
+                        .input-group
+                            span.input-group-btn
+                                button.btn.btn-orange(type='button') Go!
+                            input.form-control(type='text')
+                            span.input-group-btn
+                                button.btn.btn-orange(type='button') Go!
+                .clearfix.mbxxl
+                h4.block-heading Buttons With Dropdowns
+                .row
+                    .col-md-6.mbm
+                        .input-group
+                            .input-group-btn
+                                button.btn.btn-green.dropdown-toggle(type='button', data-toggle='dropdown')
+                                    | Action
+                                    = ' '
+                                    i.fa.fa-angle-down
+                                ul.dropdown-menu
+                                    li
+                                        a(href='javascript:void(0);') Action
+                                    li
+                                        a(href='javascript:void(0);') Another action
+                                    li
+                                        a(href='javascript:void(0);') Something else here
+                                    li.divider
+                                    li
+                                        a(href='javascript:void(0);') Separated link
+                            input.form-control(type='text')
+                    .col-md-6.mbm
+                        .input-group
+                            input.form-control(type='text')
+                            .input-group-btn
+                                button.btn.btn-green.dropdown-toggle(type='button', data-toggle='dropdown')
+                                    | Action
+                                    = ' '
+                                    i.fa.fa-angle-down
+                                ul.dropdown-menu.pull-right
+                                    li
+                                        a(href='javascript:void(0);') Action
+                                    li
+                                        a(href='javascript:void(0);') Another action
+                                    li
+                                        a(href='javascript:void(0);') Something else here
+                                    li.divider
+                                    li
+                                        a(href='javascript:void(0);') Separated link
+                .clearfix.mbxxl
+                h4.block-heading Buttons With Dropdowns On Both Sides
+                .row
+                    .col-md-12.mbm
+                        .input-group
+                            .input-group-btn
+                                button.btn.btn-yellow.dropdown-toggle(type='button', data-toggle='dropdown')
+                                    | Action
+                                    = ' '
+                                    i.fa.fa-angle-down
+                                ul.dropdown-menu
+                                    li
+                                        a(href='javascript:void(0);') Action
+                                    li
+                                        a(href='javascript:void(0);') Another action
+                                    li
+                                        a(href='javascript:void(0);') Something else here
+                                    li.divider
+                                    li
+                                        a(href='javascript:void(0);') Separated link
+                            input.form-control(type='text')
+                            .input-group-btn
+                                button.btn.btn-yellow.dropdown-toggle(type='button', data-toggle='dropdown')
+                                    | Action
+                                    = ' '
+                                    i.fa.fa-angle-down
+                                ul.dropdown-menu.pull-right
+                                    li
+                                        a(href='javascript:void(0);') Action
+                                    li
+                                        a(href='javascript:void(0);') Another action
+                                    li
+                                        a(href='javascript:void(0);') Something else here
+                                    li.divider
+                                    li
+                                        a(href='javascript:void(0);') Separated link
+                .clearfix.mbxxl
+                h4.block-heading Segmented Buttons
+                .row
+                    .col-md-6.mbm
+                        .input-group
+                            .input-group-btn
+                                button.btn.btn-blue(type='button', tabindex='-1') Action
+                                button.btn.btn-blue.dropdown-toggle(type='button', data-toggle='dropdown', tabindex='-1')
+                                    i.fa.fa-angle-down
+                                ul.dropdown-menu(role='menu')
+                                    li
+                                        a(href='javascript:void(0);') Action
+                                    li
+                                        a(href='javascript:void(0);') Another action
+                                    li
+                                        a(href='javascript:void(0);') Something else here
+                                    li.divider
+                                    li
+                                        a(href='javascript:void(0);') Separated link
+                            input.form-control(type='text')
+                    .col-md-6.mbm
+                        .input-group
+                            input.form-control(type='text')
+                            .input-group-btn
+                                button.btn.btn-blue(type='button', tabindex='-1') Action
+                                button.btn.btn-blue.dropdown-toggle(type='button', data-toggle='dropdown', tabindex='-1')
+                                    i.fa.fa-angle-down
+                                ul.dropdown-menu.pull-right(role='menu')
+                                    li
+                                        a(href='javascript:void(0);') Action
+                                    li
+                                        a(href='javascript:void(0);') Another action
+                                    li
+                                        a(href='javascript:void(0);') Something else here
+                                    li.divider
+                                    li
+                                        a(href='javascript:void(0);') Separated link

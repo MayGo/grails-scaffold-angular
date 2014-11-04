@@ -1,0 +1,50 @@
+// Loading config with variables (changing them leads to changing a color scheme)
+@import "global/_variables";
+
+// Utility mixins for greater good
+@import "global/_mixins";
+
+@import "global/_scaffolding";
+
+// Spaces
+@import "global/_spaces";
+// FORM WIZARD
+.alert-hide {
+  display: none;
+}
+.alert {
+  color: @color-red;
+}
+#rootwizard-tabdetail2 {
+	.navbar-inner .nav-pills {
+		li {
+			width: 20%;
+			a {
+
+				p.top {
+					position: absolute;
+					top: 10px;
+					left: 0px
+				}
+				p.icon {
+					i.fa {
+						width: 50px;
+						height: 50px;
+						border-radius: 25px !important;
+						border: 3px solid @brand-primary;
+						background-color: transparent;
+						position: absolute;
+						top: 0px;
+						left: 0px;
+					}
+				}
+				p.bottom {
+					position: absolute;
+					top: -10px;
+					left: 0px;
+				}
+			}
+			
+		}
+	}
+}

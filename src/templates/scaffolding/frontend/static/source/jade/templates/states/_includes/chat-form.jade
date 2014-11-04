@@ -1,0 +1,87 @@
+.chat-inner
+    h2.chat-header
+        a.chat-form-close.pull-right(href='javascript:;', ng-click="header.toggle('chat')")
+            i.glyphicon.glyphicon-remove
+        i.fa.fa-user
+        | &nbsp;
+        | Chat
+        | &nbsp;
+        span.badge.badge-info 3
+    .chat-group#group-1
+        strong Favorites
+        a(href='#')
+            span.user-status.is-online
+            small Verna Morton
+            span.badge.badge-info 2
+        a(href='#')
+            span.user-status.is-online
+            small Delores Blake
+            span.badge.badge-info.is-hidden 0
+        a(href='#')
+            span.user-status.is-busy
+            small Nathaniel Morris
+            span.badge.badge-info.is-hidden 0
+        a(href='#')
+            span.user-status.is-idle
+            small Boyd Bridges
+            span.badge.badge-info.is-hidden 0
+        a(href='#')
+            span.user-status.is-offline
+            small Meredith Houston
+            span.badge.badge-info.is-hidden 0
+    .chat-group#group-2
+        strong Office
+        a(href='#')
+            span.user-status.is-busy
+            small Ann Scott
+            span.badge.badge-info.is-hidden 0
+        a(href='#')
+            span.user-status.is-offline
+            small Sherman Stokes
+            span.badge.badge-info.is-hidden 0
+        a(href='#')
+            span.user-status.is-offline
+            small Florence Pierce
+            span.badge.badge-info 1
+    .chat-group#group-3
+        strong Friends
+        a(href='#')
+            span.user-status.is-online
+            small Willard Mckenzie
+            span.badge.badge-info.is-hidden 0
+        a(href='#')
+            span.user-status.is-busy
+            small Jenny Frazier
+            span.badge.badge-info.is-hidden 0
+        a(href='#')
+            span.user-status.is-offline
+            small Chris Stewart
+            span.badge.badge-info.is-hidden 0
+        a(href='#')
+            span.user-status.is-offline
+            small Olivia Green
+            span.badge.badge-info.is-hidden 0
+
+#chat-box(style='top:400px')
+    .chat-box-header
+        a.chat-box-close.pull-right(href='#')
+            i.glyphicon.glyphicon-remove
+        span.user-status.is-online
+        span.display-name Willard Mckenzie
+        small Online
+    .chat-content
+        ul.chat-box-body
+            li
+                p
+                    img.avt(src="https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg")
+                    span.user John Doe
+                    span.time 09:33
+                p Hi Swlabs, we have some comments for you.
+            li.odd
+                p
+                    img.avt(src="https://s3.amazonaws.com/uifaces/faces/twitter/alagoon/48.jpg")
+                    span.user Swlabs
+                    span.time 09:33
+                p Hi, we're listening you...
+    .chat-textarea
+        input.form-control(placeholder='Type your message')

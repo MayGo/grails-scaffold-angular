@@ -1,0 +1,122 @@
+.row
+    .col-lg-12
+        .panel
+            .panel-body
+                .row
+                    .col-md-3
+                        .form-group
+                            label.control-label(for='title') Title
+                            input#title.form-control(type='text', value='Toastr Notifications', placeholder='Enter a title ...')
+                        .form-group
+                            label.control-label(for='message') Message
+                            textarea#message.form-control(rows='3', placeholder='Enter a message ...')
+                        .form-group
+                            .checkbox.mbm
+                                label(for='closeButton')
+                                    input#closeButton.input-mini(type='checkbox', value='checked')
+                                    | &nbsp;
+                                    | Close Button
+                            .checkbox.mbm
+                                label(for='addBehaviorOnToastClick')
+                                    input#addBehaviorOnToastClick.input-mini(type='checkbox', value='checked')
+                                    | &nbsp;
+                                    | Add behavior on toast click
+                            .checkbox
+                                label(for='debugInfo')
+                                    input#debugInfo.input-mini(type='checkbox', value='checked')
+                                    | &nbsp;
+                                    | Debug
+                    .col-md-3
+                        .form-group#toastTypeGroup
+                            label Toast Type
+                            .radio.mbm
+                                label
+                                    input(type='radio', name='toasts', value='success', checked='')
+                                    | &nbsp;
+                                    | Success
+                            .radio.mbm
+                                label
+                                    input(type='radio', name='toasts', value='info')
+                                    | &nbsp;
+                                    | Info
+                            .radio.mbm
+                                label
+                                    input(type='radio', name='toasts', value='warning')
+                                    | &nbsp;
+                                    | Warning
+                            .radio.mbm
+                                label
+                                    input(type='radio', name='toasts', value='error')
+                                    | &nbsp;
+                                    | Error
+                        .form-group#positionGroup
+                            label Position
+                            .radio.mbm
+                                label
+                                    input(type='radio', name='positions', value='toast-top-right', checked='')
+                                    | &nbsp;
+                                    | Top Right
+                            .radio.mbm
+                                label
+                                    input(type='radio', name='positions', value='toast-bottom-right')
+                                    | &nbsp;
+                                    | Bottom Right
+                            .radio.mbm
+                                label
+                                    input(type='radio', name='positions', value='toast-bottom-left')
+                                    | &nbsp;
+                                    | Bottom Left
+                            .radio.mbm
+                                label
+                                    input(type='radio', name='positions', value='toast-top-left')
+                                    | &nbsp;
+                                    | Top Left
+                            .radio.mbm
+                                label
+                                    input(type='radio', name='positions', value='toast-top-full-width')
+                                    | &nbsp;
+                                    | Top Full Width
+                            .radio.mbm
+                                label
+                                    input(type='radio', name='positions', value='toast-bottom-full-width')
+                                    | &nbsp;
+                                    | Bottom Full Width
+                    .col-md-3
+                        .form-group
+                            .controls
+                                label.control-label(for='showEasing') Show Easing
+                                input#showEasing.form-control.input-small(type='text', placeholder='swing, linear', value='swing')
+                                br
+                                label.control-label(for='hideEasing') Hide Easing
+                                input#hideEasing.form-control.input-small(type='text', placeholder='swing, linear', value='linear')
+                                br
+                                label.control-label(for='showMethod') Show Method
+                                input#showMethod.form-control.input-small(type='text', placeholder='show, fadeIn, slideDown', value='fadeIn')
+                                br
+                                label.control-label(for='hideMethod') Hide Method
+                                input#hideMethod.form-control.input-small(type='text', placeholder='hide, fadeOut, slideUp', value='fadeOut')
+                    .col-md-3
+                        .form-group
+                            .controls
+                                .controls
+                                    label.control-label(for='showDuration') Show Duration
+                                    input#showDuration.form-control.input-small(type='text', placeholder='ms', value='300')
+                                    br
+                                    label.control-label(for='hideDuration') Hide Duration
+                                    input#hideDuration.form-control.input-small(type='text', placeholder='ms', value='1000')
+                                    br
+                                    label.control-label(for='timeOut') Time out
+                                    input#timeOut.form-control.input-small(type='text', placeholder='ms', value='5000')
+                                    br
+                                    label.control-label(for='timeOut') Extended time out
+                                    input#extendedTimeOut.form-control.input-small(type='text', placeholder='ms', value='1000')
+                .row
+                    .col-md-12
+                        button#showtoast.btn.btn-primary(type='button') Show Toast
+                        | &nbsp;
+                        button#cleartoasts.btn.btn-danger(type='button') Clear Toasts
+                        | &nbsp;
+                        button#clearlasttoast.btn.btn-danger(type='button') Clear Last Toast
+                .row.mtxl
+                    .col-md-12
+                        pre#toastrOptions

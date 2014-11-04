@@ -1,0 +1,364 @@
+.row
+    .col-lg-6
+        .panel.panel-yellow
+            .panel-heading Login Form
+            .panel-body.pan
+                form.form-horizontal(action='')
+                    .form-body.pal
+                        .form-group
+                            label.col-md-3.control-label(for='inputName') Name
+                            .col-md-9
+                                .input-icon.right
+                                    i.fa.fa-user
+                                    input#inputName.form-control(type='text', placeholder='')
+                        .form-group
+                            label.col-md-3.control-label(for='inputPassword') Password
+                            .col-md-9
+                                .input-icon.right
+                                    i.fa.fa-lock
+                                    input#inputPassword.form-control(type='text', placeholder='')
+                                span.help-block.mbn
+                                    a(href='#')
+                                        small Forgot password?
+                        .form-group.mbn
+                            .col-md-offset-3.col-md-6
+                                .checkbox
+                                    label
+                                        input(tabindex='5', type='checkbox')
+                                        | &nbsp;
+                                        | Keep me logged in
+                    .form-actions.pal
+                        .form-group.mbn
+                            .col-md-offset-3.col-md-6
+                                a.btn.btn-default(href='javascript:void(0);') Register
+                                | &nbsp;&nbsp;
+                                button.btn.btn-primary(type='submit') Login
+        .panel.panel-green
+            .panel-heading Contacts Form
+            .panel-body.pan
+                form(action='')
+                    .form-body.pal
+                        .row
+                            .col-md-6
+                                .form-group
+                                    label.control-label(for='inputName') Name
+                                    .input-icon.right
+                                        i.fa.fa-user
+                                        input#inputName.form-control(type='text', placeholder='')
+                            .col-md-6
+                                .form-group
+                                    label.control-label(for='inputEmail') E-mail
+                                    .input-icon.right
+                                        i.fa.fa-envelope
+                                        input#inputEmail.form-control(type='text', placeholder='')
+                        .form-group
+                            label.control-label(for='inputSubject') Subject
+                            .input-icon.right
+                                i.fa.fa-tag
+                                input#inputSubject.form-control(type='text', placeholder='')
+                        .form-group
+                            label.control-label(for='inputMessage') Message
+                            textarea.form-control(rows='5')
+                        .form-group.mbn
+                            .checkbox
+                                label
+                                    input(tabindex='5', type='checkbox')
+                                    | &nbsp;
+                                    | Send a copy to my e-mail address
+                    .form-actions.text-right.pal
+                        button.btn.btn-primary(type='submit') Send message
+    .col-lg-6
+        .panel.panel-grey
+            .panel-heading Checkout form
+            .panel-body.pan
+                form(action='')
+                    .form-body.pal
+                        .row
+                            .col-md-6
+                                .form-group
+                                    .input-icon
+                                        i.fa.fa-user
+                                        input#inputFirstName.form-control(type='text', placeholder='First Name')
+                            .col-md-6
+                                .form-group
+                                    .input-icon
+                                        i.fa.fa-user
+                                        input#inputLastName.form-control(type='text', placeholder='Last Name')
+                        .row
+                            .col-md-6
+                                .form-group
+                                    .input-icon
+                                        i.fa.fa-envelope
+                                        input#inputEmail.form-control(type='text', placeholder='E-mail')
+                            .col-md-6
+                                .form-group
+                                    .input-icon
+                                        i.fa.fa-phone
+                                        input#inputPhone.form-control(type='text', placeholder='Phone')
+                        hr
+                        .row
+                            .col-md-4
+                                .form-group
+                                    select.form-control
+                                        option Country
+                            .col-md-4
+                                .form-group
+                                    input#inputCity.form-control(type='text', placeholder='City')
+                            .col-md-4
+                                .form-group
+                                    input#inputPostCode.form-control(type='text', placeholder='Post code')
+                        .form-group
+                            input#inputAddress.form-control(type='text', placeholder='Address')
+                        .form-group
+                            textarea.form-control(rows='8', placeholder='Additional info')
+                        hr
+                        .form-group
+                            .radio
+                                label.radio-inline
+                                    input#optionsVisa(type='radio', name='optionsRadios', value='Visa', checked='checked')
+                                    | &nbsp;
+                                    | Visa
+                                label.radio-inline
+                                    input#optionsMasterCard(type='radio', name='optionsRadios', value='MasterCard')
+                                    | &nbsp;
+                                    | MasterCard
+                                label.radio-inline
+                                    input#optionsPayPal(type='radio', name='optionsRadios', value='PayPal')
+                                    | &nbsp;
+                                    | PayPal
+                             br
+                        .form-group
+                            input#inputNameCard.form-control(type='text', placeholder='Name on card')
+                        .row
+                            .col-md-9
+                                .form-group
+                                    input#inputCardNumber.form-control(type='text', placeholder='Card number')
+                            .col-md-3
+                                .form-group
+                                    input#inputCVV2.form-control(type='text', placeholder='CVV2')
+                        .row
+                            .col-md-4
+                                .form-group.mbn
+                                    label.pts Expiration date
+                            .col-md-5
+                                .form-group
+                                    select.form-control
+                                        option Month
+                            .col-md-3
+                                .form-group.mbn
+                                    input#inputYear.form-control(type='text', placeholder='Year')
+                    .form-actions.text-right.pal
+                        button.btn.btn-primary(type='submit') Continue
+    
+.row
+    .col-lg-6
+        .panel.panel-orange
+            .panel-heading Registration form
+            .panel-body.pan
+                form(action='')
+                    .form-body.pal
+                        .form-group
+                            .input-icon.right
+                                i.fa.fa-user
+                                input#inputName.form-control(type='text', placeholder='Username')
+                        .form-group
+                            .input-icon.right
+                                i.fa.fa-envelope
+                                input#inputEmail.form-control(type='text', placeholder='Email address')
+                        .form-group
+                            .input-icon.right
+                                i.fa.fa-lock
+                                input#inputPassword.form-control(type='password', placeholder='Password')
+                        .form-group
+                            .input-icon.right
+                                i.fa.fa-lock
+                                input#inputConfirmPassword.form-control(type='password', placeholder='Confirm Password')
+                        hr
+                        .row
+                            .col-md-6
+                                .form-group
+                                    input#inputFirstName.form-control(type='text', placeholder='First Name')
+                            .col-md-6
+                                .form-group
+                                    input#inputLastName.form-control(type='text', placeholder='Last Name')
+                        .form-group
+                            select.form-control
+                                option Gender
+                                option(value='0') Male
+                                option(value='1') Female
+                                option(value='2') Other
+                        .form-group
+                            .checkbox
+                                label
+                                    input(tabindex='5', type='checkbox')
+                                    | &nbsp;
+                                    | I want to receive news and special offers
+                        .form-group.mbn
+                            .checkbox
+                                label
+                                    input(tabindex='5', type='checkbox')
+                                    | &nbsp;
+                                    | I agree with the Terms and Conditions
+                    .form-actions.text-right.pal
+                        button.btn.btn-primary(type='submit') Submit
+        .panel.panel-blue
+            .panel-heading Comment Form
+            .panel-body.pan
+                form(action='')
+                    .form-body.pal
+                        .row
+                            .col-md-4
+                                .form-group
+                                    label.control-label(for='inputName') Name
+                                    .input-icon.right
+                                        i.fa.fa-user
+                                        input#inputName.form-control(type='text', placeholder='')
+                            .col-md-4
+                                .form-group
+                                    label.control-label(for='inputEmail') E-mail
+                                    .input-icon.right
+                                        i.fa.fa-envelope
+                                        input#inputeMail.form-control(type='text', placeholder='')
+                            .col-md-4
+                                .form-group
+                                    label.control-label(for='inputWebsite') Website
+                                    .input-icon.right
+                                        i.fa.fa-globe
+                                        input#inputWebsite.form-control(type='text', placeholder='')
+                        .form-group
+                            label.control-label(for='inputMessage') Comment
+                            textarea.form-control(rows='5')
+                            small.help-block You may use these HTML tags and attributes: &#x3C;a href=&#x22;&#x22; title=&#x22;&#x22;&#x3E;, &#x3C;abbr title=&#x22;&#x22;&#x3E;, &#x3C;acronym title=&#x22;&#x22;&#x3E;, &#x3C;b&#x3E;, &#x3C;blockquote cite=&#x22;&#x22;&#x3E;, &#x3C;cite&#x3E;, &#x3C;code&#x3E;, &#x3C;del datetime=&#x22;&#x22;&#x3E;, &#x3C;em&#x3E;, &#x3C;i&#x3E;, &#x3C;q cite=&#x22;&#x22;&#x3E;, &#x3C;strike&#x3E;, &#x3C;strong&#x3E;.
+                        .form-group.mbn
+                            label.control-label(for='inputSubject') Enter characters below
+                            .input-icon.right
+                                i.fa.fa-font
+                                input#inputSubject.form-control(type='text', placeholder='')
+                    .form-actions.text-right.pal
+                        button.btn.btn-primary(type='submit') Add comment
+        
+    .col-lg-6
+        
+        
+        .panel.panel-violet
+            .panel-heading Order services
+            .panel-body.pan
+                form(action='')
+                    .form-body.pal
+                        .row
+                            .col-md-6
+                                .form-group
+                                    .input-icon.right
+                                        i.fa.fa-user
+                                        input#inputName.form-control(type='text', placeholder='Name')
+                            .col-md-6
+                                .form-group
+                                    .input-icon.right
+                                        i.fa.fa-briefcase
+                                        input#inputCompany.form-control(type='text', placeholder='Company')
+                        .row
+                            .col-md-6
+                                .form-group
+                                    .input-icon.right
+                                        i.fa.fa-envelope
+                                        input#inputEmail.form-control(type='text', placeholder='E-mail')
+                            .col-md-6
+                                .form-group
+                                    .input-icon.right
+                                        i.fa.fa-phone
+                                        input#inputPhone.form-control(type='text', placeholder='Phone')
+                        hr
+                        .row
+                            .col-md-6
+                                .form-group
+                                    select.form-control
+                                        option Interested in
+                                        option(value='design') Design
+                                        option(value='development') Development
+                                        option(value='illustration') Illustration
+                                        option(value='brading') Branding
+                                        option(value='video') Video
+                            .col-md-6
+                                .form-group
+                                    select.form-control
+                                        option Budget
+                                        option(value='0') Less than 5000$
+                                        option(value='1') 5000$ - 10000$
+                                        option(value='2') 10000$ - 20000$
+                                        option(value='3') More than 20000$
+                        .row
+                            .col-md-6
+                                .form-group
+                                    .input-icon.right
+                                        i.fa.fa-calendar
+                                        input#inputStartDate.form-control(type='text', placeholder='Expected start date')
+                            .col-md-6
+                                .form-group
+                                    .input-icon.right
+                                        i.fa.fa-calendar
+                                        input#inputFinishDate.form-control(type='text', placeholder='Expected finish date')
+                        .form-group
+                            input#inputIncludeFile(type='file', placeholder='Inlcude some file')
+                        .form-group.mbn
+                            textarea.form-control(rows='5', placeholder='Tell us about your project')
+                    .form-actions.text-right.pal
+                        button.btn.btn-primary(type='submit') Send request
+        .panel.panel-pink
+            .panel-heading Review form
+            .panel-body.pan
+                form(action='')
+                    .form-body.pal
+                        .form-group
+                            .input-icon.right
+                                i.fa.fa-user
+                                input#inputName.form-control(type='text', placeholder='Your name')
+                        .form-group
+                            .input-icon.right
+                                i.fa.fa-envelope
+                                input#inputEmail.form-control(type='text', placeholder='Your e-mail')
+                        .form-group
+                            textarea.form-control(rows='5', placeholder='Text of the review')
+                        .form-group
+                            .rating
+                                label(for='quality-5')
+                                    i.fa.fa-star
+                                label(for='quality-4')
+                                    i.fa.fa-star
+                                label(for='quality-3')
+                                    i.fa.fa-star
+                                label(for='quality-2')
+                                    i.fa.fa-star.text-yellow
+                                label(for='quality-1')
+                                    i.fa.fa-star.text-yellow
+                                | Quality of the product
+                        .form-group
+                            .rating
+                                label(for='reliability-5')
+                                    i.fa.fa-star
+                                label(for='reliability-4')
+                                    i.fa.fa-star.text-yellow
+                                label(for='reliability-3')
+                                    i.fa.fa-star.text-yellow
+                                label(for='reliability-2')
+                                    i.fa.fa-star.text-yellow
+                                label(for='reliability-1')
+                                    i.fa.fa-star.text-yellow
+                                | Reliability of the product
+                        .form-group.mbn
+                            .rating
+                                label(for='overall-5')
+                                    i.fa.fa-star
+                                label(for='overall-4')
+                                    i.fa.fa-star
+                                label(for='overall-3')
+                                    i.fa.fa-star.text-yellow
+                                label(for='overall-2')
+                                    i.fa.fa-star.text-yellow
+                                label(for='overall-1')
+                                    i.fa.fa-star.text-yellow
+                                | Overall rating
+                    .form-actions.text-right.pal
+                        button.btn.btn-primary(type='submit') Submit a review
+    .col-lg-6
+        
+        

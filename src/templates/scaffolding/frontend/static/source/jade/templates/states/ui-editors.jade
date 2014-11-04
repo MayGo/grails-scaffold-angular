@@ -1,0 +1,70 @@
+.row
+    .col-lg-12
+        .panel.panel-white
+            .panel-heading Ckeditor
+            .panel-body.pan
+                form.form-horizontal.form-bordered(action='#')
+                    .form-body
+                        .form-group
+                            label.col-md-3.control-label Default
+                            .col-md-9
+                                textarea.ckeditor.form-control(name='editor1', rows='6')
+                        .form-group
+                            label.col-md-3.control-label Inline Ckeditor
+                            .col-md-9
+                                h3(contenteditable='true')
+                                    strong CKEDITOR GOES INLINE!
+                                p(contenteditable='true')
+                                  | Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.
+                                  | Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim. Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac
+        .panel.panel-white
+            .panel-heading Bootstrap WYSIWYG5 Editors
+            .panel-body.pan
+                form.form-horizontal.form-bordered(action='#')
+                    .form-body
+                        .form-group
+                            label.col-md-3.control-label Default
+                            .col-md-9
+                                textarea.wysihtml5.form-control(rows='6')
+        .panel.panel-white
+            .panel-heading Summernote
+            .panel-body.pan
+                form.form-horizontal.form-bordered(action='#')
+                    .form-body
+                        .form-group
+                            label.col-md-3.control-label Default
+                            .col-md-9
+                                #summernote-default Hello Summernote
+                        .form-group
+                            label.col-md-3.control-label Click to Edit
+                            .col-md-9
+                                button#summernote-edit.btn.btn-primary.btn-sm(type='button') Edit
+                                | &nbsp;
+                                button#summernote-save.btn.btn-primary.btn-sm(type='button') Save
+                                .mbm
+                                .click2edit Hello Summernote
+        .panel.panel-white
+            .panel-heading Bootstrap Markdown
+            .panel-body.pan
+                form.form-horizontal.form-bordered(action='#')
+                    .form-body
+                        .form-group
+                            label.col-md-3.control-label Default
+                            .col-md-9
+                                textarea.form-control(name='content', data-provide='markdown', rows='10')
+                        .form-group
+                            label.col-md-3.control-label Fixed Width
+                            .col-md-9
+                                textarea.form-control(name='content', data-provide='markdown', rows='10', data-width='400')
+                                span.help-block Custom width using <code>data-width="400"</code> attribute
+                        .form-group
+                            label.col-md-3.control-label Inline Editor
+                            .col-md-9
+                                .well(data-provide='markdown-editable')
+                                    h3 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    p Well, actually all contents within this "markdown-editable" context is really editable. Just click anywhere!
+                        .form-group
+                            label.col-md-3.control-label Font Awesome icons
+                            .col-md-9
+                                textarea.form-control(name='content', data-provide='markdown', rows='10', data-iconlibrary='fa')
+                                span.help-block using <code>data-iconlibrary="fa"</code>

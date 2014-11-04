@@ -1,0 +1,26 @@
+.row(style='height: 770px')
+    .col-lg-12
+        .panel
+            .panel-body
+                .row
+                    .col-md-3
+                        #external-events
+                            h4 Draggable Events
+                            input#event-name.form-control(type='text', value='', placeholder='Event name...')
+                            br
+                            a#event-add.btn.btn-primary.btn-sm(href='javascript:;') Add Event
+                            hr
+                            #event-box
+                                .external-event.label.label-default My Event 1
+                                .external-event.label.label-default My Event 2
+                                .external-event.label.label-default My Event 3
+                                .external-event.label.label-default My Event 4
+                                .external-event.label.label-default My Event 5
+                            #event-block
+                            p
+                                input#drop-remove(type='checkbox')
+                                | &nbsp;
+                                label(for='drop-remove') Remove after drop
+                    .col-md-9
+                        #calendar
+

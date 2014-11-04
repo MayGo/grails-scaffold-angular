@@ -1,0 +1,149 @@
+.row
+    .col-sm-3.col-md-2
+        .btn-group.btn-group-sm
+            button.btn.btn-primary.dropdown-toggle(type='button', data-toggle='dropdown')
+                | Mail
+                | &nbsp;
+                span.caret
+            ul.dropdown-menu(role='menu')
+                li
+                    a(href='javascript:void(0);') Mail
+                li
+                    a(href='javascript:void(0);') Contacts
+                li
+                    a(href='javascript:void(0);') Tasks
+    .col-sm-9.col-md-10
+
+.mtl.mbl
+.row
+    .col-sm-3.col-md-2
+        a.btn.btn-danger.btn-sm.btn-block(href='javascript:void(0);', role='button') COMPOSE
+        .mtm.mbm
+        ul.nav.nav-pills.nav-stacked(style='background: #fff')
+            li.active
+                a(href='javascript:void(0);')
+                    span.badge.pull-right 42
+                    i.fa.fa-inbox.fa-fw.mrs
+                    | Inbox
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-star-o.fa-fw.mrs
+                    | Starred
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-info-circle.fa-fw.mrs
+                    | Important
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-plane.fa-fw.mrs
+                    | Sent Mail
+            li
+                a(href='javascript:void(0);')
+                    span.badge.badge-orange.pull-right 3
+                    i.fa.fa-edit.fa-fw.mrs
+                    | Drafts
+        hr
+        ul.nav.nav-pills.nav-stacked(style='background: #fff')
+            li.active
+                a(href='javascript:void(0);') Buddy Online
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-circle.text-yellow.pull-right
+                    | Home
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-circle.text-success.pull-right
+                    | Work
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-circle.text-red.pull-right
+                    | Family
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-circle.text-muted.pull-right
+                    | Other
+    .col-sm-9.col-md-10
+        .compose-mail
+            .portlet.box.portlet-white
+                .portlet-header
+                    .caption Excepteur sint occaecat cupidatat non proident
+                    .tools
+                        a.btn.btn-default.btn-xs(href='javascript:void(0);')
+                            i.fa.fa-mail-reply.mln
+                            | &nbsp;
+                            | Reply
+                        | &nbsp;
+                        a.btn.btn-default.btn-xs(href='javascript:void(0);', data-hover='tooltip', title='Print')
+                            i.fa.fa-print.mln
+                        | &nbsp;
+                        a.btn.btn-default.btn-xs(href='javascript:void(0);', data-hover='tooltip', title='Trash')
+                            i.fa.fa-trash-o.mln
+                .portlet-body
+                    .mail-content
+                        .mail-sender
+                            .row
+                                .col-md-8
+                                    img.img-circle.mrm(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg', alt='', width='30px')
+                                    strong John Doe
+                                    = ' '
+                                    span [example@gmail.com]
+                                    | &nbsp;
+                                    | to
+                                    | &nbsp;
+                                    strong me
+                                .col-md-4
+                                    p.date  4:15AM 04 April 2014
+                        .mail-view
+                            p Donec ultrices faucibus rutrum. Phasellus sodales vulputate urna, vel accumsan augue egestas ac. Donec vitae leo at sem lobortis porttitor eu consequat risus. <a href='javascript:void(0);'>Mauris sed congue</a> orci. Donec ultrices faucibus rutrum. Phasellus sodales vulputate urna, vel accumsan augue egestas ac. Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci. Donec ultrices faucibus rutrum. Phasellus sodales vulputate urna, vel accumsan augue egestas ac. Donec vitae leo at sem lobortis porttitor eu consequat risus. Mauris sed congue orci.
+                            blockquote
+                                em
+                                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    br
+                                    | At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident
+                                    br
+                                    | Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                            p Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam <a href='javascript:void(0);'>aliquam quaerat</a> voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam <a href='javascript:void(0);'>aliquam quaerat</a> voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.
+                        .mail-attachment
+                            p
+                                span
+                                    i.fa.fa-paperclip.mrs
+                                    | 3 attachments ---
+                                    a.mrm.mls(href='javascript:void(0);') Download all attachments
+                                    | |
+                                    a.mlm(href='javascript:void(0);') View all images
+                            ul
+                                li
+                                    a.thumb-attach(href='javascript:void(0);')
+                                        img(src='images/gallery/1.jpg')
+                                    a.name(href='javascript:void(0);') IMG_001.jpg
+                                    br
+                                    a.link(href='javascript:void(0);')
+                                        small Download
+                                li
+                                    a.thumb-attach(href='javascript:void(0);')
+                                        img(src='images/gallery/2.jpg')
+                                    a.name(href='javascript:void(0);') IMG_002.jpg
+                                    br
+                                    a.link(href='javascript:void(0);')
+                                        small Download
+                                li
+                                    a.thumb-attach(href='javascript:void(0);')
+                                        img(src='images/gallery/3.jpg')
+                                    a.name(href='javascript:void(0);') IMG_003.jpg
+                                    br
+                                    a.link(href='javascript:void(0);')
+                                        small Download
+                        .clearfix
+                        hr
+                        p
+                            a.btn.btn-default.btn-xs(href='javascript:void(0);')
+                                i.fa.fa-mail-reply.mln
+                                | &nbsp;
+                                | Reply
+                            | &nbsp;
+                            a.btn.btn-default.btn-xs(href='javascript:void(0);', data-hover='tooltip', title='Print')
+                                i.fa.fa-print.mln
+                            | &nbsp;
+                            a.btn.btn-default.btn-xs(href='javascript:void(0);', data-hover='tooltip', title='Trash')
+                                i.fa.fa-trash-o.mln
+

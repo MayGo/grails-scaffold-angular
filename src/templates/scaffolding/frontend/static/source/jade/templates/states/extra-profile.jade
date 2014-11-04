@@ -1,0 +1,426 @@
+.row#page-user-profile
+    .col-md-12
+        .row
+            .col-md-3
+                .form-group
+                    div.text-center.mbl
+                        img.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/oliveirasimoes/128.jpg', style='border: 5px solid #fff; box-shadow: 0 2px 3px rgba(0,0,0,0.25);')
+                table.table.table-striped.table-hover
+                    tbody
+                        tr
+                            td(width="50%") User Name
+                            td
+                                | Diane Harris
+                        tr
+                            td(width="50%") Email
+                            td
+                                | name@example.com
+                        tr
+                            td(width="50%") Address
+                            td
+                                | Street 123, Avenue 45, Country
+                        tr
+                            td(width="50%") Status
+                            td
+                                span.label.label-success Active
+                        tr
+                            td(width="50%") Rating
+                            td
+                                i.fa.fa-star.text-yellow.fa-fw
+                                i.fa.fa-star.text-yellow.fa-fw
+                                i.fa.fa-star.text-yellow.fa-fw
+                                i.fa.fa-star.text-yellow.fa-fw
+                                i.fa.fa-star.text-yellow.fa-fw
+                        tr
+                            td(width="50%") Join Since
+                            td  Jun 03, 2014
+            .col-md-9
+                ul.nav.nav-tabs.ul-edit.responsive(ng-tab="")
+                    li.active
+                        a(href='#tab-activity', data-toggle='tab')
+                            i.fa.fa-bolt
+                            | &nbsp;
+                            | Activity
+                    li
+                        a(href='#tab-edit', data-toggle='tab')
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit Profile
+                    li
+                        a(href='#tab-messages', data-toggle='tab')
+                            i.fa.fa-envelope-o
+                            | &nbsp;
+                            | Messages
+                #generalTabContent.tab-content
+                    #tab-activity.tab-pane.fade.in.active
+                        ul.list-activity.list-unstyled
+                            li
+                                .avatar
+                                    img.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/uxceo/48.jpg')
+                                .body
+                                    .desc
+                                        strong.mrs Diane Harris
+                                        | posted a new note
+                                        br
+                                        small.text-muted 1 days ago at 6:18am
+                                    .content
+                                        a(href='#')
+                                            strong Ut enim ad minim veniam
+                                        p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            li
+                                .avatar
+                                    img.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/rssems/48.jpg')
+                                .body
+                                    .desc
+                                        strong.mrs Justin Coleman
+                                        | posted a new blog
+                                        br
+                                        small.text-muted 3 days ago at 12:20am
+                                    .content
+                                        .content-thumb
+                                            img.img-responsive(src='http://swlabs.co/madmin/code/images/gallery/media4.jpg', alt='')
+                                        .content-info
+                                            a(href='#')
+                                                strong Excepteur sint occaecat cupidatat
+                                            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+                            li
+                                .avatar
+                                    img.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/claudioguglieri/48.jpg')
+                                .body
+                                    .desc
+                                        strong.mrs Jack Price
+                                        | posted a new blog
+                                        br
+                                        small.text-muted 4 days ago at 3:08pm
+                                    .content
+                                        .content-thumb
+                                            img.img-responsive(src='http://swlabs.co/madmin/code/images/gallery/media5.jpg', alt='')
+                                        .content-info
+                                            a(href='#')
+                                                strong Finibus Bonorum et Malorum
+                                            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+                            li
+                                .avatar
+                                    img.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/jackmcdade/48.jpg')
+                                .body
+                                    .desc
+                                        strong.mrs Jordan Walsh
+                                        | uploaded 3 pictures
+                                        br
+                                        small.text-muted 7 days ago at 9:15pm
+                                    .content
+                                        .content-thumb-large
+                                            img.img-responsive(src='http://swlabs.co/madmin/code/images/gallery/media1.jpg', alt='')
+                                            img.img-responsive(src='http://swlabs.co/madmin/code/images/gallery/media2.jpg', alt='')
+                                            img.img-responsive(src='http://swlabs.co/madmin/code/images/gallery/media3.jpg', alt='')
+                            li
+                                .avatar
+                                    img.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/dominikmartn/48.jpg')
+                                .body
+                                    .desc
+                                        strong.mrs Phillip Bailey
+                                        | posted news 3 tasks
+                                        br
+                                        small.text-muted 10 days ago at 2:15pm
+                                    .content
+                                        .row
+                                            .col-md-4
+                                                span.task-item
+                                                    span.task-item
+                                                    | Admin Template
+                                                    small.pull-right.text-muted 80%
+                                                .progress.progress-sm
+                                                    .progress-bar.progress-bar-orange(role='progressbar', aria-valuenow='80', aria-valuemin='0', aria-valuemax='100', style='width: 80%;')
+                                                        span.sr-only 80% Complete (success)
+                                                span.task-item
+                                                    | Wordpress Themes
+                                                    small.pull-right.text-muted 40%
+                                                .progress.progress-sm
+                                                    .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='40', aria-valuemin='0', aria-valuemax='100', style='width: 40%;')
+                                                        span.sr-only 40% Complete (success)
+                                                span.task-item
+                                                    | Landing Page
+                                                    small.pull-right.text-muted 67%
+                                                .progress.progress-sm
+                                                    .progress-bar.progress-bar-warning(role='progressbar', aria-valuenow='67', aria-valuemin='0', aria-valuemax='100', style='width: 67%;')
+                                                        span.sr-only 67% Complete (success)
+                    #tab-edit.tab-pane.fade
+                        .row
+                            .col-md-9
+                                .tab-content
+                                    #tab-profile-setting.tab-pane.fade.in.active
+                                        form.form-horizontal(action='#')
+                                            .form-group
+                                                label.col-sm-3.control-label First Name
+                                                .col-sm-9.controls
+                                                    input.form-control(type='text', placeholder='first name')
+                                            .form-group
+                                                label.col-sm-3.control-label Last Name
+                                                .col-sm-9.controls
+                                                    input.form-control(type='text', placeholder='last name')
+                                            .form-group
+                                                label.col-sm-3.control-label Gender
+                                                .col-sm-9.controls
+                                                    .radio-list
+                                                        label.radio-inline
+                                                            input(type='radio', value='0', name='gender', checked='checked')
+                                                            | &nbsp;
+                                                            | Male
+                                                        label.radio-inline
+                                                            input(type='radio', value='1', name='gender')
+                                                            | &nbsp;
+                                                            | Female
+                                            .form-group
+                                                label.col-sm-3.control-label Birthday
+                                                .col-sm-9.controls
+                                                    .row
+                                                        .col-xs-6
+                                                            input.datepicker-normal.form-control(type='text', data-date-format='dd/mm/yyyy', placeholder='dd/mm/yyyy')
+                                            .form-group
+                                                label.col-sm-3.control-label Marital Status
+                                                .col-sm-9.controls
+                                                    .row
+                                                        .col-xs-6
+                                                            select.form-control
+                                                                option Single
+                                                                option Married
+                                            .form-group
+                                                label.col-sm-3.control-label Position
+                                                .col-sm-9.controls
+                                                    .row
+                                                        .col-xs-6
+                                                            select.form-control
+                                                                option CEO
+                                                                option Director
+                                                                option Manager
+                                                                option Staff
+                                                                option Office Boy
+                                            .form-group
+                                                label.col-sm-3.control-label About
+                                                .col-sm-9.controls
+                                                    textarea.form-control(rows='3')
+                                            .form-group.mbn
+                                                label.col-sm-3.control-label
+                                                .col-sm-9.controls
+                                                    button.btn.btn-success(type='submit')
+                                                        i.fa.fa-save
+                                                        | &nbsp;
+                                                        | Save
+                                                    | &nbsp; &nbsp;
+                                                    a.btn.btn-default(href='#') Cancel
+                                    #tab-account-setting.tab-pane.fade
+                                        form.form-horizontal(action='#')
+                                            .form-body
+                                                .form-group
+                                                    label.col-sm-3.control-label Email
+                                                    .col-sm-9.controls
+                                                        input.form-control(type='email', placeholder='email@yourcompany.com')
+                                                .form-group
+                                                    label.col-sm-3.control-label Username
+                                                    .col-sm-9.controls
+                                                        input.form-control(type='text', placeholder='username')
+                                                .form-group
+                                                    label.col-sm-3.control-label Password
+                                                    .col-sm-9.controls
+                                                        .row
+                                                            .col-xs-6
+                                                                input.form-control(type='password', placeholder='')
+                                                .form-group
+                                                    label.col-sm-3.control-label Confirm Password
+                                                    .col-sm-9.controls
+                                                        .row
+                                                            .col-xs-6
+                                                                input.form-control(type='password', placeholder='')
+                                                .form-group.mbn
+                                                    label.col-sm-3.control-label
+                                                    .col-sm-9.controls
+                                                        button.btn.btn-success(type='submit')
+                                                            i.fa.fa-save
+                                                            | &nbsp;
+                                                            | Save
+                                                        | &nbsp; &nbsp;
+                                                        a.btn.btn-default(href='#') Cancel
+                                    #tab-contact-setting.tab-pane.fade
+                                        form.form-horizontal(action='#')
+                                            .form-group
+                                                label.col-sm-3.control-label Mobile Phone
+                                                .col-sm-9.controls
+                                                    input.form-control(type='text', placeholder='0-123-456-789')
+                                            .form-group
+                                                label.col-sm-3.control-label Website
+                                                .col-sm-9.controls
+                                                    input.form-control(type='text', placeholder='http://website.com')
+                                            .form-group
+                                                label.col-sm-3.control-label Facebook
+                                                .col-sm-9.controls
+                                                    input.form-control(type='text', placeholder='')
+                                            .form-group
+                                                label.col-sm-3.control-label Twitter
+                                                .col-sm-9.controls
+                                                    input.form-control(type='text', placeholder='')
+                                            .form-group.mbn
+                                                label.col-sm-3.control-label
+                                                .col-sm-9.controls
+                                                    button.btn.btn-success(type='submit')
+                                                        i.fa.fa-save
+                                                        | &nbsp;
+                                                        | Save
+                                                    | &nbsp; &nbsp;
+                                                    a.btn.btn-default(href='#') Cancel
+                            .col-md-3
+                                ul.nav.nav-pills.nav-stacked
+                                    li.active
+                                        a(href='#tab-profile-setting', data-toggle='tab')
+                                            i.fa.fa-folder-open
+                                            | &nbsp;
+                                            | Profile Setting
+                                    li
+                                        a(href='#tab-account-setting', data-toggle='tab')
+                                            i.fa.fa-cogs
+                                            | &nbsp;
+                                            | Account Setting
+                                    li
+                                        a(href='#tab-contact-setting', data-toggle='tab')
+                                            i.fa.fa-envelope-o
+                                            | &nbsp;
+                                            | Contact Setting
+
+                    #tab-messages.tab-pane.fade.in
+                        .row.mbl
+                            .col-lg-6
+                                span(style='margin-left: 15px')
+                                input(type='checkbox')
+                                a.btn.btn-success.btn-sm.mlm.mrm(href='#')
+                                    i.fa.fa-send-o
+                                    | &nbsp;
+                                    | Write Mail
+                                a.btn.btn-white.btn-sm(href='javascript:void(0);')
+                                    i.fa.fa-trash-o
+                                    | &nbsp;
+                                    | Delete
+                            .col-lg-6
+                                .input-group
+                                    input.form-control(type='text')
+                                    span.input-group-btn
+                                        button.btn.btn-white(type='button') Search
+                        .list-group
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star.text-yellow.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star-o.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star.text-yellow.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur 
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star-o.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star-o.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star-o.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star-o.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star-o.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur 
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star-o.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet,
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star-o.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star-o.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur 
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip
+                            a.list-group-item(href='javascript:void(0);')
+                                input(type='checkbox')
+                                span.fa.fa-star-o.mrm.mlm
+                                span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                                span Sed ut perspiciatis unde
+                                | &nbsp; - &nbsp;
+                                span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet
+                                span.badge 12:10 AM
+                                span.pull-right.mrl
+                                    span.glyphicon.glyphicon-paperclip

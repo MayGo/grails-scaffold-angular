@@ -1,0 +1,88 @@
+.row
+    .col-lg-6
+        .portlet.box.portlet-yellow
+            .portlet-header
+                .caption Validate Types
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form.form-validate(action='#')
+                    .form-group
+                        label.control-label(for='') Text
+                        input.form-control(type='text', name='text', class='required')
+                    .form-group
+                        textarea.form-control(rows='10', name='textarea', class='required')
+                    .form-group
+                        label.control-label(for='') Email
+                        input.form-control(type='email', name='email', class='required email')
+                    .form-group
+                        label.control-label(for='') Password
+                        input#password.form-control(type='password', name='password', class='required password')
+                    .form-group
+                        label.control-label(for='') Confirm Password
+                        input.form-control(type='password', name='confirm_password', class='required password', equalTo='#password')
+                    .form-group
+                        label.control-label(for='') Min length 5
+                        input.form-control(type='text', name='min_length', class='required', minlength='5')
+                    .form-group
+                        label.control-label(for='') Max length 10
+                        input.form-control(type='text', name='max_length', class='required', maxlength='10')
+                    .form-group
+                        label.control-label(for='') Length from 3 to 10
+                        input.form-control(type='text', name='length_from_to', class='required', minlength='3', maxlength='10')
+                    .form-group
+                        label.control-label(for='') Url
+                        input.form-control(type='text', name='url', class='required url')
+                    .form-group
+                        label.control-label(for='') Number
+                        input.form-control(type='text', name='number', class='required number')
+                    button.btn.btn-success(type='submit') Submit
+                    | &nbsp;
+                    button.btn.btn-default(type='button') Cancel
+
+    .col-lg-6
+        .portlet.box.portlet-green
+            .portlet-header
+                .caption Sign In Form
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form.form-validate-signin(action='#')
+                    .form-group
+                        label.control-label(for='') Email
+                        input.form-control(type='email', name='email', class='required email')
+                    .form-group
+                        label.control-label(for='') Password
+                        input#password.form-control(type='password', name='password', class='required password')
+                    button.btn.btn-success(type='submit') Submit
+                    | &nbsp;
+                    button.btn.btn-default(type='button') Cancel
+        .portlet.box.portlet-blue
+            .portlet-header
+                .caption Sign Up Form
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form.form-validate-signup(action='#')
+                    .form-group
+                        label.control-label(for='') User Name <span class='require'>*</span>
+                        input.form-control(type='text', name='username1', class='required', minlength='2', maxlength='30', placeholder='Min length 2, Max length 30')
+                    .form-group
+                        label.control-label(for='') Email <span class='require'>*</span>
+                        input.form-control(type='email', name='email1', class='required email')
+                    .form-group
+                        label.control-label(for='') Password <span class='require'>*</span>
+                        input#password1.form-control(type='password', name='password1', class='required password', minlength='6', placeholder='Min length 6')
+                    .form-group
+                        label.control-label(for='') Age
+                        input.form-control(type='text', name='age', class='number', placeholder='Min value 0, max value 100')
+                    button.btn.btn-success.btn-block(type='submit') Sign Up

@@ -1,0 +1,84 @@
+.row
+    .col-lg-12
+        .panel
+            .panel-body
+                p
+                    strong Serialised Output (per list)
+                textarea#nestable-output
+                textarea#nestable2-output
+.row
+    .col-lg-6
+        .panel
+            .panel-body
+                h4.block-heading Style 1
+                #nestable.dd
+                    ol.dd-list
+                        li.dd-item(data-id='1')
+                            .dd-handle Item 1
+                        li.dd-item(data-id='2')
+                            .dd-handle Item 2
+                            ol.dd-list
+                                li.dd-item(data-id='3')
+                                    .dd-handle Item 3
+                                li.dd-item(data-id='4')
+                                    .dd-handle Item 4
+                                li.dd-item(data-id='5')
+                                    .dd-handle Item 5
+                                    ol.dd-list
+                                        li.dd-item(data-id='6')
+                                            .dd-handle Item 6
+                                        li.dd-item(data-id='7')
+                                            .dd-handle Item 7
+                                        li.dd-item(data-id='8')
+                                            .dd-handle Item 8
+                                li.dd-item(data-id='9')
+                                    .dd-handle Item 9
+                                li.dd-item(data-id='10')
+                                    .dd-handle Item 10
+                        li.dd-item(data-id='11')
+                            .dd-handle Item 11
+                        li.dd-item(data-id='12')
+                            .dd-handle Item 12
+    .col-lg-6
+        .panel
+            .panel-body
+                h4.block-heading Style 2
+                #nestable2.dd
+                    ol.dd-list
+                        li.dd-item(data-id='13')
+                            .dd-handle Item 13
+                        li.dd-item(data-id='14')
+                            .dd-handle Item 14
+                        li.dd-item(data-id='15')
+                            .dd-handle Item 15
+                            ol.dd-list
+                                li.dd-item(data-id='16')
+                                    .dd-handle Item 16
+                                li.dd-item(data-id='17')
+                                    .dd-handle Item 17
+                                li.dd-item(data-id='18')
+                                    .dd-handle Item 18
+        .panel
+            .panel-body
+                h4.block-heading Style 3
+                #nestable3.dd
+                    ol.dd-list
+                        li.dd-item.dd3-item(data-id='13')
+                            .dd-handle.dd3-handle
+                            .dd3-content Item 13
+                        li.dd-item.dd3-item(data-id='14')
+                            .dd-handle.dd3-handle
+                            .dd3-content Item 14
+                        li.dd-item.dd3-item(data-id='15')
+                            .dd-handle.dd3-handle
+                            .dd3-content Item 15
+                            ol.dd-list
+                                li.dd-item.dd3-item(data-id='16')
+                                    .dd-handle.dd3-handle
+                                    .dd3-content Item 16
+                                li.dd-item.dd3-item(data-id='17')
+                                    .dd-handle.dd3-handle
+                                    .dd3-content Item 17
+                                li.dd-item.dd3-item(data-id='18')
+                                    .dd-handle.dd3-handle
+                                    .dd3-content Item 18

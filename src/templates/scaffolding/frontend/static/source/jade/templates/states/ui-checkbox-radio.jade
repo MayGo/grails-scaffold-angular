@@ -1,0 +1,8 @@
+.row
+    .col-lg-12
+        ul#checkbox-radio-Tab.nav.nav-tabs
+            li.active
+                a(href='#icheck-tab', data-toggle='tab') iCheck
+        #checkbox-radio-Tab-Content.tab-content
+            #icheck-tab.tab-pane.fade.in.active
+                ng-include(src="'templates/states/_ui-checkbox-radio/ui-checkbox-radio-icheck-tab.html'", onload="updateCheckbox()")

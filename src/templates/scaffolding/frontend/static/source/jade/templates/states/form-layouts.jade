@@ -1,0 +1,1027 @@
+.row#form-layouts
+    .col-lg-12
+        .note.note-info
+            h4.box-heading Responsive tab
+            p Please resize browser to see tab version on Tablet & Mobile
+    .col-lg-12
+        ul.nav.ul-edit.nav-tabs.responsive
+            li.active
+                a(href='#tab-form-actions', data-toggle='tab') Form Actions
+            li
+                a(href='#tab-two-columns', data-toggle='tab') 2 Columns
+            li
+                a(href='#tab-two-columns-horizontal', data-toggle='tab') 2 Columns Horizontal
+            li
+                a(href='#tab-two-columns-readonly', data-toggle='tab') 2 Columns Readonly
+            li
+                a(href='#tab-form-seperated', data-toggle='tab') Form Seperated
+            li
+                a(href='#tab-form-bordered', data-toggle='tab') Form Bordered
+        .tab-content.pan.mtl.mbn.responsive(style='background: transparent; border: 0; box-shadow: none !important')
+            #tab-form-actions.tab-pane.fade.active.in
+                .row
+                    .col-lg-6
+                        .panel.panel-violet
+                            .panel-heading Form Actions On Top
+                            .panel-body.pan
+                                form.form-horizontal(action='#')
+                                    .form-actions.top
+                                        .col-md-offset-3.col-md-9
+                                            button.btn.btn-primary(type='submit') Send
+                                            | &nbsp;
+                                            button.btn.btn-green(type='button') Cancel
+                                    .form-body.pal
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputUsername') Username <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-icon
+                                                    i.fa.fa-user
+                                                    input#inputUsername.form-control(type='text', placeholder='Username')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-group
+                                                    span.input-group-addon
+                                                        i.fa.fa-envelope
+                                                    input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress') Address <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-icon.right
+                                                    i.fa.fa-location-arrow
+                                                    input.form-control(type="text", placeholder="Address")
+                                        .form-group.mbn
+                                            label.col-md-3.control-label(for='inputContent') Content
+                                            .col-md-9
+                                                textarea#inputContent.form-control(rows="3")
+                    .col-lg-6
+                        .panel.panel-green
+                            .panel-heading Form Actions On Bottom
+                            .panel-body.pan
+                                form.form-horizontal(action='#')
+                                    .form-body.pal
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputUsername') Username <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-icon
+                                                    i.fa.fa-user
+                                                    input#inputUsername.form-control(type='text', placeholder='Username')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-group
+                                                    span.input-group-addon
+                                                        i.fa.fa-envelope
+                                                    input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress') Address <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-icon.right
+                                                    i.fa.fa-location-arrow
+                                                    input.form-control(type="text", placeholder="Address")
+                                        .form-group.mbn
+                                            label.col-md-3.control-label(for='inputContent') Content
+                                            .col-md-9
+                                                textarea#inputContent.form-control(rows="3")
+                                    .form-actions
+                                        .col-md-offset-3.col-md-9
+                                            button.btn.btn-primary(type='submit') Send
+                                            | &nbsp;
+                                            button.btn.btn-green(type='button') Cancel
+                    .col-lg-12
+                        .panel.panel-blue
+                            .panel-heading Form Actions On Top & Bottom
+                            .panel-body.pan
+                                form.form-horizontal(action='#')
+                                    .form-actions.top
+                                        .col-md-offset-3.col-md-9
+                                            button.btn.btn-primary(type='submit') Send
+                                            | &nbsp;
+                                            button.btn.btn-green(type='button') Cancel
+                                    .form-body.pal
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputUsername') Username <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-icon
+                                                    i.fa.fa-user
+                                                    input#inputUsername.form-control(type='text', placeholder='Username')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-group
+                                                    span.input-group-addon
+                                                        i.fa.fa-envelope
+                                                    input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress') Address <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-icon.right
+                                                    i.fa.fa-location-arrow
+                                                    input.form-control(type="text", placeholder="Address")
+                                        .form-group.mbn
+                                            label.col-md-3.control-label(for='inputContent') Content
+                                            .col-md-9
+                                                textarea#inputContent.form-control(rows="3")
+                                    .form-actions
+                                        .col-md-offset-3.col-md-9
+                                            button.btn.btn-primary(type='submit') Send
+                                            | &nbsp;
+                                            button.btn.btn-green(type='button') Cancel
+                    .col-lg-6
+                        .panel.panel-yellow
+                            .panel-heading Left Aligned
+                            .panel-body.pan
+                                form(action='#')
+                                    .form-actions.top.pll.prl
+                                        button.btn.btn-primary(type='submit') Send
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+                                    .form-body.pal
+                                        .form-group
+                                            label.control-label(for='inputUsername') Username <span class='require'>*</span>
+                                            .input-icon
+                                                i.fa.fa-user
+                                                input#inputUsername.form-control(type='text', placeholder='Username')
+                                        .form-group
+                                            label.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .input-group
+                                                span.input-group-addon
+                                                    i.fa.fa-envelope
+                                                input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.control-label(for='inputAddress') Address <span class='require'>*</span>
+                                            .input-icon.right
+                                                i.fa.fa-location-arrow
+                                                input.form-control(type="text", placeholder="Address")
+                                        .form-group.mbn
+                                            label.control-label(for='inputContent') Content
+                                            textarea#inputContent.form-control(rows="3")
+                                    .form-actions.pll.prl
+                                        button.btn.btn-primary(type='submit') Send
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+                    .col-lg-6
+                        .panel.panel-orange
+                            .panel-heading Right Aligned
+                            .panel-body.pan
+                                form(action='#')
+                                    .form-actions.top.text-right.pll.prl
+                                        button.btn.btn-primary(type='submit') Send
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+                                    .form-body.pal
+                                        .form-group
+                                            label.control-label(for='inputUsername') Username <span class='require'>*</span>
+                                            .input-icon
+                                                i.fa.fa-user
+                                                input#inputUsername.form-control(type='text', placeholder='Username')
+                                        .form-group
+                                            label.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .input-group
+                                                span.input-group-addon
+                                                    i.fa.fa-envelope
+                                                input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.control-label(for='inputAddress') Address <span class='require'>*</span>
+                                            .input-icon.right
+                                                i.fa.fa-location-arrow
+                                                input.form-control(type="text", placeholder="Address")
+                                        .form-group.mbn
+                                            label.control-label(for='inputContent') Content
+                                            textarea#inputContent.form-control(rows="3")
+                                    .form-actions.text-right.pll.prl
+                                        button.btn.btn-primary(type='submit') Send
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+                    .col-lg-12
+                        .panel.panel-pink
+                            .panel-heading Form Actions Without Background
+                            .panel-body.pan
+                                form.form-horizontal(action='#')
+                                    .form-actions.top.none-bg
+                                        .col-md-offset-3.col-md-9
+                                            button.btn.btn-primary(type='submit') Send
+                                            | &nbsp;
+                                            button.btn.btn-green(type='button') Cancel
+                                    .form-body.pal
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputUsername') Username <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-icon
+                                                    i.fa.fa-user
+                                                    input#inputUsername.form-control(type='text', placeholder='Username')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-group
+                                                    span.input-group-addon
+                                                        i.fa.fa-envelope
+                                                    input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress') Address <span class='require'>*</span>
+                                            .col-md-9
+                                                .input-icon.right
+                                                    i.fa.fa-location-arrow
+                                                    input.form-control(type="text", placeholder="Address")
+                                        .form-group.mbn
+                                            label.col-md-3.control-label(for='inputContent') Content
+                                            .col-md-9
+                                                textarea#inputContent.form-control(rows="3")
+                                    .form-actions.none-bg
+                                        .col-md-offset-3.col-md-9
+                                            button.btn.btn-primary(type='submit') Send
+                                            | &nbsp;
+                                            button.btn.btn-green(type='button') Cancel
+            #tab-two-columns.tab-pane.fade
+                .row
+                    .col-lg-12
+                        .panel.panel-yellow
+                            .panel-heading Form 2 Columns
+                            .panel-body.pan
+                                form.horizontal-form(action='#')
+                                    .form-body.pal
+                                        h3 Personal
+                                        .row
+                                            .col-md-6
+                                                .form-group.has-success
+                                                    label.control-label(for='inputFirstName') First Name <span class='require'>*</span>
+                                                    .input-icon.right
+                                                        i.glyphicon.glyphicon-ok.tooltips(data-hover='tooltip', data-original-title='Correct')
+                                                        input#inputFirstName.form-control(type='text', placeholder='First Name')
+                                            .col-md-6
+                                                .form-group.has-error
+                                                    label.control-label(for='inputLastName') Last Name <span class='require'>*</span>
+                                                    .input-icon.right
+                                                        i.glyphicon.glyphicon-remove.tooltips(data-hover='tooltip', data-original-title='Last Name is empty')
+                                                        input#inputLastName.form-control(type="text", placeholder="Last Name")
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                                    .input-icon
+                                                        i.fa.fa-envelope
+                                                        input.form-control(type="text", placeholder="Email Address")
+                                            .col-md-6
+                                                .form-group
+                                                    label.control-label(for='selGender') Gender <span class='require'>*</span>
+                                                    select#selGender.form-control
+                                                        option(value='') Male
+                                                        option(value='') Female
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.control-label(for='inputBirthday') Birthday
+                                                    input#inputBirthday.form-control(type="text", placeholder="dd/mm/yyyy")
+                                            .col-md-6
+                                                .form-group
+                                                    label.control-label(for='inputPhone') Phone
+                                                    input#inputPhone.form-control(type="text", placeholder="")
+                                        h3 Address
+                                        .row
+                                            .col-md-12
+                                                .form-group
+                                                    label.control-label(for='inputStreet') Street <span class='require'>*</span>
+                                                    input#inputStreet.form-control(type='text', placeholder='')
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.control-label(for='inputFirstName') District
+                                                    input#inputDistrict.form-control(type='text', placeholder='')
+                                            .col-md-6
+                                                .form-group
+                                                    label.control-label(for='inputCity') City <span class='require'>*</span>
+                                                    input#inputCity.form-control(type="text", placeholder="")
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.control-label(for='inputPostCode') Post Code
+                                                    input#inputPostCode.form-control(type='text', placeholder='')
+                                            .col-md-6
+                                                .form-group
+                                                    label.control-label(for='selCountry') Country
+                                                    select#selCountry.form-control
+                                                        option(value='') Select a Country
+                                                        option(value='') United States
+                                                        option(value='') England
+                                                        option(value='') France
+                                                        option(value='') Spain
+                                    .form-actions.text-right.pal
+                                        button.btn.btn-primary(type='submit') Submit
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+            #tab-two-columns-horizontal.tab-pane.fade
+                .row
+                    .col-lg-12
+                        .panel.panel-yellow
+                            .panel-heading Form 2 Columns Horizontal
+                            .panel-body.pan
+                                form.form-horizontal(action='#')
+                                    .form-body.pal
+                                        h3 Personal
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputFirstName') First Name <span class='require'>*</span>
+                                                    .col-md-9
+                                                        input#inputFirstName.form-control(type='text', placeholder='First Name')
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputLastName') Last Name <span class='require'>*</span>
+                                                    .col-md-9
+                                                        input#inputLastName.form-control(type="text", placeholder="Last Name")
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                                    .col-md-9
+                                                        .input-icon
+                                                            i.fa.fa-envelope
+                                                            input.form-control(type="text", placeholder="Email Address")
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='selGender') Gender <span class='require'>*</span>
+                                                    .col-md-9
+                                                        select#selGender.form-control
+                                                            option(value='') Male
+                                                            option(value='') Female
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputBirthday') Birthday
+                                                    .col-md-9
+                                                        input#inputBirthday.form-control(type="text", placeholder="dd/mm/yyyy")
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputPhone') Phone
+                                                    .col-md-9
+                                                        input#inputPhone.form-control(type="text", placeholder="")
+                                        h3 Address
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputAddress1') Address 1 <span class='require'>*</span>
+                                                    .col-md-9
+                                                        input#inputAddress1.form-control(type='text', placeholder='')
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputAddress2') Address 2
+                                                    .col-md-9
+                                                        input#inputAddress2.form-control(type='text', placeholder='')
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputStates') States
+                                                    .col-md-9
+                                                        input#inputStates.form-control(type='text', placeholder='')
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputCity') City <span class='require'>*</span>
+                                                    .col-md-9
+                                                        input#inputCity.form-control(type="text", placeholder="")
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputPostCode') Post Code
+                                                    .col-md-9
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='selCountry') Country
+                                                    .col-md-9
+                                                        select#selCountry.form-control
+                                                            option(value='') Select a Country
+                                                            option(value='') United States
+                                                            option(value='') England
+                                                            option(value='') France
+                                                            option(value='') Spain
+                                    .form-actions.text-right.pal
+                                        button.btn.btn-primary(type='submit') Submit
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+            #tab-two-columns-readonly.tab-pane.fade
+                .row
+                    .col-lg-12
+                        .panel.panel-yellow
+                            .panel-heading Form 2 Columns Readonly
+                            .panel-body.pan
+                                form.form-horizontal(action='#')
+                                    .form-body.pal
+                                        h3 Personal
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputFirstName') First Name:
+                                                    .col-md-9
+                                                        p.form-control-static John
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputLastName') Last Name:
+                                                    .col-md-9
+                                                        p.form-control-static Doe
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputEmail') Email:
+                                                    .col-md-9
+                                                        p.form-control-static
+                                                            a(href='mailto:whisfat1935@jourrapide.com') whisfat1935@jourrapide.com
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='selGender') Gender:
+                                                    .col-md-9
+                                                        p.form-control-static Male
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputBirthday') Birthday
+                                                    .col-md-9
+                                                        p.form-control-static 20.02.1985
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputPhone') Phone
+                                                    .col-md-9
+                                                        p.form-control-static 607-656-6310
+                                        h3 Address
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputAddress1') Address 1
+                                                    .col-md-9
+                                                        p.form-control-static 1219 Quiet Subdivision
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputAddress2') Address 2
+                                                    .col-md-9
+                                                        p.form-control-static 2546 Sunny Branch Manor
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputStates') States
+                                                    .col-md-9
+                                                        p.form-control-static New York
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputCity') City
+                                                    .col-md-9
+                                                        p.form-control-static New York
+                                        .row
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputPostCode') Post Code
+                                                    .col-md-9
+                                                        p.form-control-static 746239
+                                            .col-md-6
+                                                .form-group
+                                                    label.col-md-3.control-label(for='inputCountry') Country
+                                                    .col-md-9
+                                                        p.form-control-static United States
+                                    .form-actions.text-right.pal
+                                        button.btn.btn-primary(type='button') Edit
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+            #tab-form-seperated.tab-pane.fade
+                .row
+                    .col-lg-12
+                        .panel.panel-yellow
+                            .panel-heading Form Seperated
+                            .panel-body.pan
+                                form.form-horizontal.form-seperated(action='#')
+                                    .form-body
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') First Name <span class='require'>*</span>
+                                            .col-md-4
+                                                input#inputFirstName.form-control(type='text', placeholder='First Name')
+                                                span.help-block This is help text
+                                        .form-group.has-error
+                                            label.col-md-3.control-label(for='inputLastName') Last Name <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.glyphicon.glyphicon-remove
+                                                    input#inputLastName.form-control(type="text", placeholder="Last Name")
+                                                span.help-block.text-danger Please enter your Last Name!
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon
+                                                    i.fa.fa-envelope
+                                                    input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.col-md-3.control-label(for='selGender') Gender <span class='require'>*</span>
+                                            .col-md-9
+                                                .radio
+                                                    label.radio-inline
+                                                        input(type='radio', value='0', name='gender')
+                                                        | &nbsp;
+                                                        | Male
+                                                    label.radio-inline
+                                                        input(type='radio', value='1', name='gender')
+                                                        | &nbsp;
+                                                        | Female
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputBirthday') Birthday
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputDay.form-control(type="text", placeholder="dd")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputMonth.form-control(type="text", placeholder="mm")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputYear.form-control(type="text", placeholder="yyyy")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPhone') Phone
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-mobile-phone
+                                                    input#inputPhone.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress1') Address 1 <span class='require'>*</span>
+                                            .col-md-9
+                                                input#inputAddress1.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress2') Address 2
+                                            .col-md-9
+                                                input#inputAddress2.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') District
+                                            .col-md-4
+                                                input#inputDistrict.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputCity') City <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-map-marker
+                                                    input#inputCity.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPostCode') Post Code <span class='require'>*</span>
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='selCountry') Country
+                                            .col-md-4
+                                                select#selCountry.form-control
+                                                    option(value='') Select a Country
+                                                    option(value='') United States
+                                                    option(value='') England
+                                                    option(value='') France
+                                                    option(value='') Spain
+                                    .form-actions.text-right.pal
+                                        button.btn.btn-primary(type='submit') Submit
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+                        .panel.panel-violet
+                            .panel-heading Form Dashed Seperated
+                            .panel-body.pan
+                                form.form-horizontal.form-seperated.dashed(action='#')
+                                    .form-body
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') First Name <span class='require'>*</span>
+                                            .col-md-4
+                                                input#inputFirstName.form-control(type='text', placeholder='First Name')
+                                                span.help-block This is help text
+                                        .form-group.has-error
+                                            label.col-md-3.control-label(for='inputLastName') Last Name <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.glyphicon.glyphicon-ok
+                                                    input#inputLastName.form-control(type="text", placeholder="Last Name")
+                                                span.help-block.text-danger Please enter your Last Name!
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon
+                                                    i.fa.fa-envelope
+                                                    input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.col-md-3.control-label(for='selGender') Gender <span class='require'>*</span>
+                                            .col-md-9
+                                                .radio
+                                                    label.radio-inline
+                                                        input(type='radio', value='0', name='gender')
+                                                        | &nbsp;
+                                                        | Male
+                                                    label.radio-inline
+                                                        input(type='radio', value='1', name='gender')
+                                                        | &nbsp;
+                                                        | Female
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputBirthday') Birthday
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputDay.form-control(type="text", placeholder="dd")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputMonth.form-control(type="text", placeholder="mm")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputYear.form-control(type="text", placeholder="yyyy")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPhone') Phone
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-mobile-phone
+                                                    input#inputPhone.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress1') Address 1 <span class='require'>*</span>
+                                            .col-md-9
+                                                input#inputAddress1.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress2') Address 2
+                                            .col-md-9
+                                                input#inputAddress2.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') District
+                                            .col-md-4
+                                                input#inputDistrict.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputCity') City <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-map-marker
+                                                    input#inputCity.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPostCode') Post Code <span class='require'>*</span>
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='selCountry') Country
+                                            .col-md-4
+                                                select#selCountry.form-control
+                                                    option(value='') Select a Country
+                                                    option(value='') United States
+                                                    option(value='') England
+                                                    option(value='') France
+                                                    option(value='') Spain
+                                    .form-actions.text-right.pal
+                                        button.btn.btn-primary(type='submit') Submit
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+                        .panel.panel-violet
+                            .panel-heading Form Row Stripped
+                            .panel-body.pan
+                                form.form-horizontal.form-seperated.form-row-stripped(action='#')
+                                    .form-body
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') First Name <span class='require'>*</span>
+                                            .col-md-4
+                                                input#inputFirstName.form-control(type='text', placeholder='First Name')
+                                                span.help-block This is help text
+                                        .form-group.has-error
+                                            label.col-md-3.control-label(for='inputLastName') Last Name <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.glyphicon.glyphicon-ok
+                                                    input#inputLastName.form-control(type="text", placeholder="Last Name")
+                                                span.help-block.text-danger Please enter your Last Name!
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon
+                                                    i.fa.fa-envelope
+                                                    input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.col-md-3.control-label(for='selGender') Gender <span class='require'>*</span>
+                                            .col-md-9
+                                                .radio
+                                                    label.radio-inline
+                                                        input(type='radio', value='0', name='gender')
+                                                        | &nbsp;
+                                                        | Male
+                                                    label.radio-inline
+                                                        input(type='radio', value='1', name='gender')
+                                                        | &nbsp;
+                                                        | Female
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputBirthday') Birthday
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputDay.form-control(type="text", placeholder="dd")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputMonth.form-control(type="text", placeholder="mm")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputYear.form-control(type="text", placeholder="yyyy")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPhone') Phone
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-mobile-phone
+                                                    input#inputPhone.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress1') Address 1 <span class='require'>*</span>
+                                            .col-md-9
+                                                input#inputAddress1.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress2') Address 2
+                                            .col-md-9
+                                                input#inputAddress2.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') District
+                                            .col-md-4
+                                                input#inputDistrict.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputCity') City <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-map-marker
+                                                    input#inputCity.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPostCode') Post Code <span class='require'>*</span>
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='selCountry') Country
+                                            .col-md-4
+                                                select#selCountry.form-control
+                                                    option(value='') Select a Country
+                                                    option(value='') United States
+                                                    option(value='') England
+                                                    option(value='') France
+                                                    option(value='') Spain
+                                    .form-actions.text-right.pal
+                                        button.btn.btn-primary(type='submit') Submit
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+            #tab-form-bordered.tab-pane.fade
+                .row
+                    .col-lg-12
+                        .panel.panel-blue
+                            .panel-heading Form Bordered
+                            .panel-body.pan
+                                form.form-horizontal.form-bordered(action='#')
+                                    .form-body
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') First Name <span class='require'>*</span>
+                                            .col-md-4
+                                                input#inputFirstName.form-control(type='text', placeholder='First Name')
+                                                span.help-block This is help text
+                                        .form-group.has-error
+                                            label.col-md-3.control-label(for='inputLastName') Last Name <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.glyphicon.glyphicon-ok
+                                                    input#inputLastName.form-control(type="text", placeholder="Last Name")
+                                                span.help-block.text-danger Please enter your Last Name!
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon
+                                                    i.fa.fa-envelope
+                                                    input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.col-md-3.control-label(for='selGender') Gender <span class='require'>*</span>
+                                            .col-md-9
+                                                .radio
+                                                    label.radio-inline
+                                                        input(type='radio', value='0', name='gender')
+                                                        | &nbsp;
+                                                        | Male
+                                                    label.radio-inline
+                                                        input(type='radio', value='1', name='gender')
+                                                        | &nbsp;
+                                                        | Female
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputBirthday') Birthday
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputDay.form-control(type="text", placeholder="dd")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputMonth.form-control(type="text", placeholder="mm")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputYear.form-control(type="text", placeholder="yyyy")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPhone') Phone
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-mobile-phone
+                                                    input#inputPhone.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress1') Address 1 <span class='require'>*</span>
+                                            .col-md-9
+                                                input#inputAddress1.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress2') Address 2
+                                            .col-md-9
+                                                input#inputAddress2.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') District
+                                            .col-md-4
+                                                input#inputDistrict.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputCity') City <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-map-marker
+                                                    input#inputCity.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPostCode') Post Code <span class='require'>*</span>
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='selCountry') Country
+                                            .col-md-4
+                                                select#selCountry.form-control
+                                                    option(value='') Select a Country
+                                                    option(value='') United States
+                                                    option(value='') England
+                                                    option(value='') France
+                                                    option(value='') Spain
+                                    .form-actions.text-right.pal
+                                        button.btn.btn-primary(type='submit') Submit
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+                        .panel.panel-pink
+                            .panel-heading Form Dashed Bordered
+                            .panel-body.pan
+                                form.form-horizontal.form-bordered.dashed(action='#')
+                                    .form-body
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') First Name <span class='require'>*</span>
+                                            .col-md-4
+                                                input#inputFirstName.form-control(type='text', placeholder='First Name')
+                                                span.help-block This is help text
+                                        .form-group.has-error
+                                            label.col-md-3.control-label(for='inputLastName') Last Name <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.glyphicon.glyphicon-ok
+                                                    input#inputLastName.form-control(type="text", placeholder="Last Name")
+                                                span.help-block.text-danger Please enter your Last Name!
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon
+                                                    i.fa.fa-envelope
+                                                    input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.col-md-3.control-label(for='selGender') Gender <span class='require'>*</span>
+                                            .col-md-9
+                                                .radio
+                                                    label.radio-inline
+                                                        input(type='radio', value='0', name='gender')
+                                                        | &nbsp;
+                                                        | Male
+                                                    label.radio-inline
+                                                        input(type='radio', value='1', name='gender')
+                                                        | &nbsp;
+                                                        | Female
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputBirthday') Birthday
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputDay.form-control(type="text", placeholder="dd")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputMonth.form-control(type="text", placeholder="mm")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputYear.form-control(type="text", placeholder="yyyy")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPhone') Phone
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-mobile-phone
+                                                    input#inputPhone.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress1') Address 1 <span class='require'>*</span>
+                                            .col-md-9
+                                                input#inputAddress1.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress2') Address 2
+                                            .col-md-9
+                                                input#inputAddress2.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') District
+                                            .col-md-4
+                                                input#inputDistrict.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputCity') City <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-map-marker
+                                                    input#inputCity.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPostCode') Post Code <span class='require'>*</span>
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='selCountry') Country
+                                            .col-md-4
+                                                select#selCountry.form-control
+                                                    option(value='') Select a Country
+                                                    option(value='') United States
+                                                    option(value='') England
+                                                    option(value='') France
+                                                    option(value='') Spain
+                                    .form-actions.text-right.pal
+                                        button.btn.btn-primary(type='submit') Submit
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel
+                        .panel.panel-green
+                            .panel-heading Form Row Stripped
+                            .panel-body.pan
+                                form.form-horizontal.form-bordered.form-row-stripped(action='#')
+                                    .form-body
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') First Name <span class='require'>*</span>
+                                            .col-md-4
+                                                input#inputFirstName.form-control(type='text', placeholder='First Name')
+                                                span.help-block This is help text
+                                        .form-group.has-error
+                                            label.col-md-3.control-label(for='inputLastName') Last Name <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.glyphicon.glyphicon-ok
+                                                    input#inputLastName.form-control(type="text", placeholder="Last Name")
+                                                span.help-block.text-danger Please enter your Last Name!
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon
+                                                    i.fa.fa-envelope
+                                                    input.form-control(type="text", placeholder="Email Address")
+                                        .form-group
+                                            label.col-md-3.control-label(for='selGender') Gender <span class='require'>*</span>
+                                            .col-md-9
+                                                .radio
+                                                    label.radio-inline
+                                                        input(type='radio', value='0', name='gender')
+                                                        | &nbsp;
+                                                        | Male
+                                                    label.radio-inline
+                                                        input(type='radio', value='1', name='gender')
+                                                        | &nbsp;
+                                                        | Female
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputBirthday') Birthday
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputDay.form-control(type="text", placeholder="dd")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputMonth.form-control(type="text", placeholder="mm")
+                                                    .col-md-2.col-xs-4
+                                                        input#inputYear.form-control(type="text", placeholder="yyyy")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPhone') Phone
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-mobile-phone
+                                                    input#inputPhone.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress1') Address 1 <span class='require'>*</span>
+                                            .col-md-9
+                                                input#inputAddress1.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputAddress2') Address 2
+                                            .col-md-9
+                                                input#inputAddress2.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputFirstName') District
+                                            .col-md-4
+                                                input#inputDistrict.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputCity') City <span class='require'>*</span>
+                                            .col-md-4
+                                                .input-icon.right
+                                                    i.fa.fa-map-marker
+                                                    input#inputCity.form-control(type="text", placeholder="")
+                                        .form-group
+                                            label.col-md-3.control-label(for='inputPostCode') Post Code <span class='require'>*</span>
+                                            .col-md-6
+                                                .row
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                                    .col-md-2.col-xs-4
+                                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                        .form-group
+                                            label.col-md-3.control-label(for='selCountry') Country
+                                            .col-md-4
+                                                select#selCountry.form-control
+                                                    option(value='') Select a Country
+                                                    option(value='') United States
+                                                    option(value='') England
+                                                    option(value='') France
+                                                    option(value='') Spain
+                                    .form-actions.text-right.pal
+                                        button.btn.btn-primary(type='submit') Edit
+                                        | &nbsp;
+                                        button.btn.btn-green(type='button') Cancel

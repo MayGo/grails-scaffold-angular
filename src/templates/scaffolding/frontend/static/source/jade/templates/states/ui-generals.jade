@@ -1,0 +1,44 @@
+.row
+    .col-lg-12
+        .note.note-info
+            h4.box-heading Responsive tab
+            p Please resize browser to see tab version on Tablet & Mobile
+    .col-lg-12(ng-generaltab="")
+        ul#generalTab.nav.nav-tabs.ul-edit.responsive
+            li.active
+                a(href='#alert-tab', data-toggle='tab') Alerts
+            li
+                a(href='#note-tab', data-toggle='tab') Notes
+            li
+                a(href='#label-badge-tab', data-toggle='tab') Labels & Badges
+            li
+                a(href='#pagination-tab', data-toggle='tab') Paginations
+            li
+                a(href='#input-group-tab', data-toggle='tab') Input Groups
+            li
+                a(href='#list-group-tab', data-toggle='tab') List Group
+            li
+                a(href='#navbar-tab', data-toggle='tab') Navbar
+            li
+                a(href='#thumbnail-tab', data-toggle='tab') Thumbnails
+            li
+                a(href='#other-tab', data-toggle='tab') Others
+        #generalTabContent.tab-content.responsive.mtl
+            #alert-tab.tab-pane.fade.in.active
+                ng-include(src="'templates/states/_ui-generals/ui-generals-alert-tab.html'")
+            #note-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-generals/ui-generals-note-tab.html'")
+            #label-badge-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-generals/ui-generals-label-badge-tab.html'")
+            #pagination-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-generals/ui-generals-pagination-tab.html'")
+            #input-group-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-generals/ui-generals-input-group-tab.html'", onload="loadInputGroupTab();")
+            #list-group-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-generals/ui-generals-list-group-tab.html'")
+            #navbar-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-generals/ui-generals-navbar-tab.html'")
+            #thumbnail-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-generals/ui-generals-thumbnail-tab.html'")
+            #other-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-generals/ui-generals-other-tab.html'")

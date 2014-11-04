@@ -1,0 +1,56 @@
+.row
+    .col-lg-6
+        h3 Basic
+        .alert.alert-success
+            strong Well done!
+            = ' '
+            | You successfully read this important alert message.
+        .alert.alert-info
+            strong Heads up!
+            = ' '
+            | This alert needs your attention, but it's not super important.
+        .alert.alert-warning
+            strong Warning!
+            = ' '
+            | Best check yo self, you're not looking too good.
+        .alert.alert-danger
+            strong Oh snap!
+            = ' '
+            | Change a few things up and try submitting again.
+        .mbxl
+        h3 Dismissable alerts
+        .alert.alert-warning.alert-dismissable
+            button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
+            strong Warning!
+            = ' '
+            | Best check yo self, you're not looking too good.
+    .col-lg-6
+        h3 Links In Alerts
+        .alert.alert-success
+            strong Well done!
+            = ' '
+            | You successfully read
+            = ' '
+            a.alert-link(href='#') this important alert message
+            | .
+        .alert.alert-info
+            strong Heads up!
+            = ' '
+            | This
+            = ' '
+            a.alert-link(href='#') alert needs your attention
+            = ' '
+            | , but it's not super important.
+        .alert.alert-warning
+            strong Warning!
+            = ' '
+            | Best check yo self, you're
+            = ' '
+            a.alert-link(href='#') not looking too good
+            | .
+        .alert.alert-danger
+            strong Oh snap!
+            = ' '
+            a.alert-link(href='#') Change a few things up
+            = ' '
+            | and try submitting again.

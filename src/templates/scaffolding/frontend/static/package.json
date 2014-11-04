@@ -1,0 +1,20 @@
+{
+  "name": "app",
+ "version": "0.0.0",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-less": "*",
+    "grunt-concurrent": "*",
+    "load-grunt-tasks": "*",
+    "connect-livereload": "*",
+    "time-grunt": "*",
+    "grunt-contrib-jade": "~0.8.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}

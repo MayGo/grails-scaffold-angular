@@ -1,0 +1,71 @@
+form.form-horizontal.form-bordered(action='#')
+    .form-body
+        .form-group
+            label.col-md-3.control-label Default
+            .col-md-6
+                #slider-default.slider
+        .form-group
+            label.col-md-3.control-label Range
+            .col-md-6
+                p
+                    label(for='amount') Price range:
+                    input#amount(type='text', style='border: 0; color: #f6931f; font-weight: bold;')
+                #slider-range
+        .form-group
+            label.col-md-3.control-label
+                | Multiple
+                | sliders
+            .col-md-6
+                #slider-multi.slider
+                    span 88
+                    span 77
+                    span 55
+                    span 33
+                    span 40
+                    span 45
+                    span 70
+        .form-group
+            label.col-md-3.control-label Maximum
+            .col-md-6
+                p
+                    label(for='amount') Maximum Value:
+                    input#amount-max(type='text', style='border: 0; color: #f6931f; font-weight: bold;')
+                #slider-range-max.slider
+        .form-group
+            label.col-md-3.control-label Minimum
+            .col-md-6
+                p
+                    label(for='amount') Minimum Value:
+                    input#amount-min(type='text', style='border: 0; color: #f6931f; font-weight: bold;')
+                #slider-range-min.slider
+        .form-group
+            label.col-md-3.control-label
+                | Snap to
+                | increments
+            .col-md-6
+                p
+                    label(for='amount-snap')
+                        | Donation amount ($50
+                        | increments):
+                    input#amount-snap(type='text', style='border: 0; color: #f6931f; font-weight: bold;')
+                #slider-snap.slider
+        .form-group
+            label.col-md-3.control-label
+                | Vertical
+                | slider
+            .col-md-6
+                p
+                    label(for='amount-vertical') Volume:
+                    input#amount-vertical(type='text', style='border: 0; color: #f6931f; font-weight: bold;')
+                #slider-vertical.slider(style='height: 200px;')
+        .form-group.last
+            label.col-md-3.control-label
+                | Vertical range
+                | slider
+            .col-md-6
+                p
+                    label(for='amount-vertical-range')
+                        | Target sales goal
+                        | (Millions):
+                    input#amount-vertical-range(type='text', style='border: 0; color: #f6931f; font-weight: bold;')
+                #slider-vertical-range.slider(style='height: 200px;')

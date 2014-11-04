@@ -1,0 +1,344 @@
+nav#sidebar.navbar-default(role='navigation')
+    .sidebar-collapse.menu-scroll
+        ul.menu-hover.dropdown-menu(role='menu', aria-labelledby='dropdownMenu', style='border: 0;')
+            li(class="#{ current.source == 'index' ? 'active' : '' }")
+                a(href='index.html')
+                    i.fa.fa-tachometer.fa-fw
+                    span.menu-title Dashboard
+            li.dropdown-submenu(class="#{ nav == 'Layouts' ? 'active' : '' }")
+                a(tabindex='-1', href='#')
+                    i.fa.fa-desktop.fa-fw
+                    span.menu-title Layouts
+                ul.dropdown-menu
+                    li(class="#{ current.source == 'layout-left-sidebar' ? 'active' : '' }")
+                        a(href='layout-left-sidebar.html')
+                            span.submenu-title Left Sidebar
+                    li(class="#{ current.source == 'layout-left-sidebar-collapsed' ? 'active' : '' }")
+                        a(href='layout-left-sidebar-collapsed.html')
+                            span.submenu-title Left Sidebar Collapsed
+                    li(class="#{ current.source == 'layout-right-sidebar' ? 'active' : '' }")
+                        a(href='layout-right-sidebar.html')
+                            span.submenu-title Right Sidebar
+                    li(class="#{ current.source == 'layout-right-sidebar-collapsed' ? 'active' : '' }")
+                        a(href='layout-right-sidebar-collapsed.html')
+                            span.submenu-title Right Sidebar Collapsed
+                    li(class="#{ current.source == 'layout-horizontal-menu' ? 'active' : '' }")
+                        a(href='layout-horizontal-menu.html')
+                            span.submenu-title Horizontal Menu
+                    li(class="#{ current.source == 'layout-horizontal-menu-sidebar' ? 'active' : '' }")
+                        a(href='layout-horizontal-menu-sidebar.html')
+                            span.submenu-title Horizontal Menu & Sidebar
+                    li(class="#{ current.source == 'layout-fixed-topbar' ? 'active' : '' }")
+                        a(href='layout-fixed-topbar.html')
+                            span.submenu-title Fixed Topbar
+                    li(class="#{ current.source == 'layout-boxed' ? 'active' : '' }")
+                        a(href='layout-boxed.html')
+                            span.submenu-title Boxed Layout
+                    li(class="#{ current.source == 'layout-hidden-footer' ? 'active' : '' }")
+                        a(href='layout-hidden-footer.html')
+                            span.submenu-title Hidden Footer
+                    li(class="#{ current.source == 'layout-header-topbar' ? 'active' : '' }")
+                        a(href='layout-header-topbar.html')
+                            span.submenu-title Header & Topbar
+                    li(class="#{ current.source == 'layout-title-breadcrumb' ? 'active' : '' }")
+                        a(href='layout-title-breadcrumb.html')
+                            span.submenu-title Title & Breadcrumb
+            li.dropdown-submenu(class="#{ nav == 'UI' ? 'active' : '' }")
+                a(tabindex='-1', href='#')
+                    i.fa.fa-send-o.fa-fw
+                    span.menu-title UI Elements
+                ul.dropdown-menu
+                    li(class="#{ current.source == 'ui-generals' ? 'active' : '' }")
+                        a(href='ui-generals.html')
+                            span.submenu-title Generals
+                    li(class="#{ current.source == 'ui-panels' ? 'active' : '' }")
+                        a(href='ui-panels.html')
+                            span.submenu-title Panels
+                    li(class="#{ current.source == 'ui-buttons' ? 'active' : '' }")
+                        a(href='ui-buttons.html')
+                            span.submenu-title Buttons
+                    li(class="#{ current.source == 'ui-tabs' ? 'active' : '' }")
+                        a(href='ui-tabs.html')
+                            span.submenu-title Tabs
+                    li(class="#{ current.source == 'ui-progressbars' ? 'active' : '' }")
+                        a(href='ui-progressbars.html')
+                            span.submenu-title Progress Bars
+                    li(class="#{ current.source == 'ui-editors' ? 'active' : '' }")
+                        a(href='ui-editors.html')
+                            span.submenu-title Editors
+                    li(class="#{ current.source == 'ui-typography' ? 'active' : '' }")
+                        a(href='ui-typography.html')
+                            span.submenu-title Typography
+                    li(class="#{ current.source == 'ui-modals' ? 'active' : '' }")
+                        a(href='ui-modals.html')
+                            span.submenu-title Modals
+                    li(class="#{ current.source == 'ui-sliders' ? 'active' : '' }")
+                        a(href='ui-sliders.html')
+                            span.submenu-title Sliders
+                    li(class="#{ current.source == 'ui-nestable-list' ? 'active' : '' }")
+                        a(href='ui-nestable-list.html')
+                            span.submenu-title Nestable List
+                    li(class="#{ current.source == 'ui-icons' ? 'active' : '' }")
+                        a(href='ui-icons.html')
+                            span.submenu-title Icons
+                    li(class="#{ current.source == 'ui-notific8-notifications' ? 'active' : '' }")
+                        a(href='ui-notific8-notifications.html')
+                            span.submenu-title Notific8 Notifications
+                    li(class="#{ current.source == 'ui-toastr-notifications' ? 'active' : '' }")
+                        a(href='ui-toastr-notifications.html')
+                            span.submenu-title Toastr Notifications
+                    li(class="#{ current.source == 'ui-checkbox-radio' ? 'active' : '' }")
+                        a(href='ui-checkbox-radio.html')
+                            span.submenu-title Checkbox & Radio
+                    li(class="#{ current.source == 'ui-treeview' ? 'active' : '' }")
+                        a(href='ui-treeview.html')
+                            span.submenu-title Tree View
+                    li(class="#{ current.source == 'ui-portlets' ? 'active' : '' }")
+                        a(href='ui-portlets.html')
+                            span.submenu-title Portlets
+            li.dropdown-submenu(class="#{ nav == 'Forms' ? 'active' : '' }")
+                a(href='#')
+                    i.fa.fa-edit.fa-fw
+                    span.menu-title Forms
+                ul.dropdown-menu
+                    li(class="#{ current.source == 'form-layouts' ? 'active' : '' }")
+                        a(href='form-layouts.html')
+                            span.submenu-title Form Layouts
+                    li(class="#{ current.source == 'form-basic' ? 'active' : '' }")
+                        a(href='form-basic.html')
+                            span.submenu-title Form Basics
+                    li(class="#{ current.source == 'form-components' ? 'active' : '' }")
+                        a(href='form-components.html')
+                            span.submenu-title Form Components
+                    li(class="#{ current.source == 'form-wizard' ? 'active' : '' }")
+                        a(href='form-wizard.html')
+                            span.submenu-title From Wizard
+                    li(class="#{ current.source == 'form-validation' ? 'active' : '' }")
+                        a(href='form-validation.html')
+                            span.submenu-title Form Validation
+                    li(class="#{ current.source == 'form-multiple-file-upload' ? 'active' : '' }")
+                        a(href='form-multiple-file-upload.html')
+                            span.submenu-title Multiple File Upload
+                    li(class="#{ current.source == 'form-dropzone-file-upload' ? 'active' : '' }")
+                        a(href='form-dropzone-file-upload.html')
+                            span.submenu-title Dropzone File Upload
+            li.dropdown-submenu(class="#{ nav == 'Tables' ? 'active' : '' }")
+                a(href='#')
+                    i.fa.fa-th-list.fa-fw
+                    span.menu-title Tables
+                ul.dropdown-menu
+                    li(class="#{ current.source == 'table-basic' ? 'active' : '' }")
+                        a(href='table-basic.html')
+                            span.submenu-title Basic Tables
+                    li(class="#{ current.source == 'table-responsive' ? 'active' : '' }")
+                        a(href='table-responsive.html')
+                            span.submenu-title Responsive Tables
+                    li(class="#{ current.source == 'table-action' ? 'active' : '' }")
+                        a(href='table-action.html')
+                            span.submenu-title Action Tables
+                    li(class="#{ current.source == 'table-filter' ? 'active' : '' }")
+                        a(href='table-filter.html')
+                            span.submenu-title Filter Tables
+                    li(class="#{ current.source == 'table-advanced' ? 'active' : '' }")
+                        a(href='table-advanced.html')
+                            span.submenu-title Advanced Tables
+                    li(class="#{ current.source == 'table-sample' ? 'active' : '' }")
+                        a(href='table-sample.html')
+                            span.submenu-title Sample Tables
+            li.dropdown-submenu(class="#{ nav == 'Grids' ? 'active' : '' }")
+                a(href='#')
+                    i.fa.fa-database.fa-fw
+                    span.menu-title Data Grids
+                ul.dropdown-menu
+                    li.dropdown-submenu(class="#{ sub_nav == 'Grids-Layout' ? 'active' : '' }")
+                        a(href='#')
+                            i.fa.fa-th-large
+                            span.submenu-title Layout Examples
+                        ul.dropdown-menu
+                            li(class="#{ current.source == 'grid-layout-div' ? 'active' : '' }")
+                                a(href='grid-layout-div.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title DIVs Layout
+                            li(class="#{ current.source == 'grid-layout-table-1' ? 'active' : '' }")
+                                a(href='grid-layout-table-1.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Table Demo 1
+                            li(class="#{ current.source == 'grid-layout-table-2' ? 'active' : '' }")
+                                a(href='grid-layout-table-2.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Table Demo 2
+                            li(class="#{ current.source == 'grid-layout-2-table' ? 'active' : '' }")
+                                a(href='grid-layout-2-table.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title 2 Tables on the Page
+                            li(class="#{ current.source == 'grid-layout-ul-li' ? 'active' : '' }")
+                                a(href='grid-layout-ul-li.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title UL LI
+                    li.dropdown-submenu(class="#{ sub_nav == 'Grids-Actions' ? 'active' : '' }")
+                        a(href='#')
+                            i.fa.fa-tencent-weibo
+                            span.submenu-title Actions Examples
+                        ul.dropdown-menu
+                            li(class="#{ current.source == 'grid-filter-with-ul-li' ? 'active' : '' }")
+                                a(href='grid-filter-with-ul-li.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Filters With UL/LI
+                            li(class="#{ current.source == 'grid-filter-with-select' ? 'active' : '' }")
+                                a(href='grid-filter-with-select.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Filters With SELECT
+                            li(class="#{ current.source == 'grid-double-sort' ? 'active' : '' }")
+                                a(href='grid-double-sort.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Double Sort
+                            li(class="#{ current.source == 'grid-deep-linking' ? 'active' : '' }")
+                                a(href='grid-deep-linking.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Deep Linking
+                            li(class="#{ current.source == 'grid-pagination-only' ? 'active' : '' }")
+                                a(href='grid-pagination-only.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Pagination Only
+                            li(class="#{ current.source == 'grid-without-item-per-page' ? 'active' : '' }")
+                                a(href='grid-without-item-per-page.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Without "Items per Page"
+                            li(class="#{ current.source == 'grid-hidden-sort' ? 'active' : '' }")
+                                a(href='grid-hidden-sort.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Hidden Sort
+                    li.dropdown-submenu(class="#{ sub_nav == 'Grids-UI' ? 'active' : '' }")
+                        a(href='#')
+                            i.fa.fa-table
+                            span.submenu-title jPList with jQuery UI
+                        ul.dropdown-menu
+                            li(class="#{ current.source == 'grid-range-slider' ? 'active' : '' }")
+                                a(href='grid-range-slider.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Range Slider
+                            li(class="#{ current.source == 'grid-datepicker' ? 'active' : '' }")
+                                a(href='grid-datepicker.html')
+                                    i.fa.fa-angle-right
+                                    span.submenu-title Date Picker Filter
+            li.dropdown-submenu(class="#{ nav == 'Pages' ? 'active' : '' }")
+                a(href='#')
+                    i.fa.fa-file-o.fa-fw
+                    span.menu-title Pages
+                ul.dropdown-menu
+                    li(class="#{ current.source == 'page-gallery' ? 'active' : '' }")
+                        a(href='page-gallery.html')
+                            span.submenu-title Gallery
+                    li(class="#{ current.source == 'page-timeline' ? 'active' : '' }")
+                        a(href='page-timeline.html')
+                            span.submenu-title Timeline
+                    li(class="#{ current.source == 'page-blog' ? 'active' : '' }")
+                        a(href='page-blog.html')
+                            span.submenu-title Blog
+                    li(class="#{ current.source == 'page-blog-item' ? 'active' : '' }")
+                        a(href='page-blog-item.html')
+                            span.submenu-title Blog Item
+                    li(class="#{ current.source == 'page-about' ? 'active' : '' }")
+                        a(href='page-about.html')
+                            span.submenu-title About Us
+                    li(class="#{ current.source == 'page-contact' ? 'active' : '' }")
+                        a(href='page-contact.html')
+                            span.submenu-title Contact Us
+                    li(class="#{ current.source == 'page-calendar' ? 'active' : '' }")
+                        a(href='page-calendar.html')
+                            span.submenu-title Full Calendar
+            li.dropdown-submenu(class="#{ nav == 'Extras' ? 'active' : '' }")
+                a(href='#')
+                    i.fa.fa-gift.fa-fw
+                    span.menu-title Extras
+                ul.dropdown-menu
+                    li(class="#{ current.source == 'extra-profile' ? 'active' : '' }")
+                        a(href='extra-profile.html')
+                            span.submenu-title User Profile
+                    li(class="#{ current.source == 'extra-signin' ? 'active' : '' }")
+                        a(href='extra-signin.html')
+                            span.submenu-title Sign In
+                    li(class="#{ current.source == 'extra-signup' ? 'active' : '' }")
+                        a(href='extra-signup.html')
+                            span.submenu-title Sign Up
+                    li(class="#{ current.source == 'extra-lock-screen' ? 'active' : '' }")
+                        a(href='extra-lock-screen.html')
+                            span.submenu-title Lock Screen
+                    li(class="#{ current.source == 'extra-invoice' ? 'active' : '' }")
+                        a(href='extra-invoice.html')
+                            span.submenu-title Invoice
+                    li(class="#{ current.source == 'extra-faq' ? 'active' : '' }")
+                        a(href='extra-faq.html')
+                            span.submenu-title FAQ
+                    li(class="#{ current.source == 'extra-pricing-table' ? 'active' : '' }")
+                        a(href='extra-pricing-table.html')
+                            span.submenu-title Pricing Tables
+                    li(class="#{ current.source == 'extra-blank' ? 'active' : '' }")
+                        a(href='extra-blank.html')
+                            span.submenu-title Blank
+                    li(class="#{ current.source == 'extra-404' ? 'active' : '' }")
+                        a(href='extra-404.html')
+                            span.submenu-title 404 Page
+                    li(class="#{ current.source == 'extra-500' ? 'active' : '' }")
+                        a(href='extra-500.html')
+                            span.submenu-title 500 Page
+                    li
+                        a.btn-fullscreen(href='javascript:void(0)',title='FullScreen')
+                            span.submenu-title Full Screen
+            li.dropdown-submenu(class="#{ nav == 'Emails' ? 'active' : '' }")
+                a(href='#')
+                    i.fa.fa-envelope-o
+                    span.menu-title Email
+                ul.dropdown-menu
+                    li(class="#{ current.source == 'email-inbox' ? 'active' : '' }")
+                        a(href='email-inbox.html')
+                            span.submenu-title Inbox
+                    li(class="#{ current.source == 'email-compose-mail' ? 'active' : '' }")
+                        a(href='email-compose-mail.html')
+                            span.submenu-title Compose Mail
+                    li(class="#{ current.source == 'email-view-mail' ? 'active' : '' }")
+                        a(href='email-view-mail.html')
+                            span.submenu-title View Mail
+            li.dropdown-submenu(class="#{ nav == 'Charts' ? 'active' : '' }")
+                a(href='#')
+                    i.fa.fa-bar-chart-o.fa-fw
+                    span.menu-title Charts
+                ul.dropdown-menu
+                    li(class="#{ current.source == 'charts-flotchart' ? 'active' : '' }")
+                        a(href='charts-flotchart.html')
+                            span.submenu-title Flot Charts
+                    li(class="#{ current.source == 'charts-chartjs' ? 'active' : '' }")
+                        a(href='charts-chartjs.html')
+                            span.submenu-title Chartjs
+                    li.dropdown-submenu
+                        a(href='#')
+                            span.submenu-title Highchart
+                        ul.dropdown-menu
+                            li(class="#{ current.source == 'charts-highchart-line' ? 'active' : '' }")
+                                a(href='charts-highchart-line.html')
+                                    span.submenu-title Line Charts
+                            li(class="#{ current.source == 'charts-highchart-area' ? 'active' : '' }")
+                                a(href='charts-highchart-area.html')
+                                    span.submenu-title Area Charts
+                            li(class="#{ current.source == 'charts-highchart-column-bar' ? 'active' : '' }")
+                                a(href='charts-highchart-column-bar.html')
+                                    span.submenu-title Column & Bar Charts
+                            li(class="#{ current.source == 'charts-highchart-pie' ? 'active' : '' }")
+                                a(href='charts-highchart-pie.html')
+                                    span.submenu-title Pie Charts
+                            li(class="#{ current.source == 'charts-highchart-scatter-bubble' ? 'active' : '' }")
+                                a(href='charts-highchart-scatter-bubble.html')
+                                    span.submenu-title Scatter & Bubble Charts
+                            li(class="#{ current.source == 'charts-highchart-dynamic' ? 'active' : '' }")
+                                a(href='charts-highchart-dynamic.html')
+                                    span.submenu-title Dynamic Charts
+                            li(class="#{ current.source == 'charts-highchart-combinations' ? 'active' : '' }")
+                                a(href='charts-highchart-combinations.html')
+                                    span.submenu-title Combinations
+                            li(class="#{ current.source == 'charts-highchart-more' ? 'active' : '' }")
+                                a(href='charts-highchart-more.html')
+                                    span.submenu-title More Chart Types
+            li(class="#{ nav == 'Animations' ? 'active' : '' }")
+                a(href='animations.html')
+                    i.fa.fa-slack.fa-fw
+                    span.menu-title Animations

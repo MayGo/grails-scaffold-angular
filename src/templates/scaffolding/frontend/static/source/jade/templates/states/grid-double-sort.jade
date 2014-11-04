@@ -1,0 +1,186 @@
+.row
+    .col-lg-12
+        .panel
+            .panel-body
+                #grid-double-sort.box.jplist.double-sort
+                    .jplist-ios-button
+                        i.fa.fa-sort
+                        | jPList Actions
+                    .jplist-panel.box.panel-top
+                        .jplist-drop-down.form-control(data-control-type='drop-down', data-control-name='paging', data-control-action='paging')
+                            ul.dropdown-menu
+                                li
+                                    span(data-number='3')  3 per page
+                                li
+                                    span(data-number='5')  5 per page
+                                li
+                                    span(data-number='10', data-default='true')  10 per page
+                                li
+                                    span(data-number='all')  view all
+                        .jplist-drop-down.form-control(data-control-type='drop-down', data-control-name='sort1', data-control-action='sort')
+                            ul.dropdown-menu
+                                li
+                                    span(data-path='default') Sort by
+                                li
+                                    span(data-path='.subject', data-order='asc', data-type='text') Subject A-Z
+                                li
+                                    span(data-path='.course', data-order='asc', data-type='text') Course A-Z
+                        .jplist-drop-down.form-control(data-control-type='drop-down', data-control-name='sort2', data-control-action='sort')
+                            ul.dropdown-menu
+                                li
+                                    span(data-path='default') Sort by
+                                li
+                                    span(data-path='.subject', data-order='asc', data-type='text') Subject A-Z
+                                li
+                                    span(data-path='.course', data-order='asc', data-type='text') Course A-Z
+                        .text-filter-box
+                            .input-group
+                                span.input-group-addon
+                                    i.fa.fa-search
+                                input.form-control(data-path='.subject', type='text', value='', placeholder='Filter by Subject', data-control-type='textbox', data-control-name='subject-filter', data-control-action='filter')
+                        .jplist-label.btn.btn-default(data-type='Page {current} of {pages}', data-control-type='pagination-info', data-control-name='paging', data-control-action='paging')
+                        .jplist-pagination(data-control-type='pagination', data-control-name='paging', data-control-action='paging')
+                    .list.text-shadow.box
+                        //
+                           item
+                        .list-item.box
+                            span.subject Mathematics
+                            | -
+                            span.course Statistics
+                        //
+                           item
+                        .list-item.box
+                            span.subject Chemistry
+                            | -
+                            span.course Biochemistry
+                        //
+                           item
+                        .list-item.box
+                            span.subject Mathematics
+                            | -
+                            span.course Applied Mathematics
+                        //
+                           item
+                        .list-item.box
+                            span.subject Biology
+                            | -
+                            span.course Herbology
+                        //
+                           item
+                        .list-item.box
+                            span.subject Language and Linguistics
+                            | -
+                            span.course Dutch
+                        //
+                           item
+                        .list-item.box
+                            span.subject Biology
+                            | -
+                            span.course Neurobiology
+                        //
+                           item
+                        .list-item.box
+                            span.subject Chemistry
+                            | -
+                            span.course Clinical Chemistry
+                        //
+                           item
+                        .list-item.box
+                            span.subject Mathematics
+                            | -
+                            span.course Industrial Mathematics
+                        //
+                           item
+                        .list-item.box
+                            span.subject History
+                            | -
+                            span.course Art History
+                        //
+                           item
+                        .list-item.box
+                            span.subject Language and Linguistics
+                            | -
+                            span.course Spanish
+                        //
+                           item
+                        .list-item.box
+                            span.subject Chemistry
+                            | -
+                            span.course Computational Chemistry
+                        //
+                           item
+                        .list-item.box
+                            span.subject Mathematics
+                            | -
+                            span.course Biomathematics
+                        //
+                           item
+                        .list-item.box
+                            span.subject History
+                            | -
+                            span.course Victorian Studies
+                        //
+                           item
+                        .list-item.box
+                            span.subject Biology
+                            | -
+                            span.course Botany
+                        //
+                           item
+                        .list-item.box
+                            span.subject History
+                            | -
+                            span.course Genealogy
+                        //
+                           item
+                        .list-item.box
+                            span.subject Language and Linguistics
+                            | -
+                            span.course Korean
+                        //
+                           item
+                        .list-item.box
+                            span.subject Mathematics
+                            | -
+                            span.course Algorithms
+                        //
+                           item
+                        .list-item.box
+                            span.subject Language and Linguistics
+                            | -
+                            span.course French
+                        //
+                           item
+                        .list-item.box
+                            span.subject History
+                            | -
+                            span.course Museology
+                        //
+                           item
+                        .list-item.box
+                            span.subject Biology
+                            | -
+                            span.course Cell Biology
+                    
+                    //
+                       ios button: show/hide panel
+                    .jplist-ios-button
+                        i.fa.fa-sort
+                        | jPList Actions
+                    //
+                       panel
+                    .jplist-panel.box.panel-bottom
+                        .jplist-drop-down.form-control(data-control-type='drop-down', data-control-name='paging', data-control-action='paging', data-control-animate-to-top='true')
+                            ul.dropdown-menu
+                                li
+                                    span(data-number='3')  3 per page
+                                li
+                                    span(data-number='5')  5 per page
+                                li
+                                    span(data-number='10', data-default='true')  10 per page
+                                li
+                                    span(data-number='all')  view all
+                        .jplist-label.btn.btn-default(data-type='{start} - {end} of {all}', data-control-type='pagination-info', data-control-name='paging', data-control-action='paging')
+                        .jplist-pagination(data-control-type='pagination', data-control-name='paging', data-control-action='paging', data-control-animate-to-top='true')
+                    .box.jplist-no-results.text-shadow.align-center
+                        p No results found

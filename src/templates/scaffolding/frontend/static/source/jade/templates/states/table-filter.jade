@@ -1,0 +1,273 @@
+.row
+    .col-lg-6
+        .panel.panel-orange
+            .panel-heading &#x3C;select&#x3E; tag on Top & Bottom
+            .panel-body
+                table.table.table-hover.table-bordered.table-advanced
+                    thead
+                        tr
+                            th #
+                            th Username
+                            th Age
+                            th Status
+                    tbody
+                        tr
+                            td
+                                select.form-control
+                                    option number
+                                    option 1
+                                    option 2
+                                    option 3
+                                    option 4
+                            td
+                                select.form-control
+                                    option name
+                                    option Henry
+                                    option John
+                                    option Larry
+                                    option Lahm
+                            td
+                                select.form-control
+                                    option age
+                                    option 23
+                                    option 45
+                                    option 30
+                                    option 15
+                            td
+                                select.form-control
+                                    option status
+                                    option Approved
+                                    option Pending
+                                    option Suspended
+                                    option Blocked
+                        tr
+                            td 1
+                            td Henry
+                            td 23
+                            td
+                                span.label.label-sm.label-success Approved
+                        tr
+                            td 2
+                            td John
+                            td 45
+                            td
+                                span.label.label-sm.label-info Pending
+                        tr
+                            td 3
+                            td Larry
+                            td 30
+                            td
+                                span.label.label-sm.label-warning Suspended
+                        tr
+                            td 4
+                            td Lahm
+                            td 15
+                            td
+                                span.label.label-sm.label-danger Blocked
+                        tr
+                            td
+                                select.form-control
+                                    option number
+                                    option 1
+                                    option 2
+                                    option 3
+                                    option 4
+                            td
+                                select.form-control
+                                    option name
+                                    option Henry
+                                    option John
+                                    option Larry
+                                    option Lahm
+                            td
+                                select.form-control
+                                    option age
+                                    option 23
+                                    option 45
+                                    option 30
+                                    option 15
+                            td
+                                select.form-control
+                                    option status
+                                    option Approved
+                                    option Pending
+                                    option Suspended
+                                    option Blocked
+    .col-lg-6
+        .panel.panel-yellow
+            .panel-heading &#x3C;input&#x3E; tag on Top & Bottom
+            .panel-body
+                table.table.table-hover.table-bordered.table-advanced
+                    thead
+                        tr
+                            th #
+                            th Username
+                            th Age
+                            th Status
+                    tbody
+                        tr
+                            td
+                                input.form-control(type='text', placeholder='number')
+                            td
+                                input.form-control(type='text', placeholder='username')
+                            td
+                                input.form-control(type='text', placeholder='age')
+                            td
+                                input.form-control(type='text', placeholder='status')
+                        tr
+                            td 1
+                            td Henry
+                            td 23
+                            td
+                                span.label.label-sm.label-success Approved
+                        tr
+                            td 2
+                            td John
+                            td 45
+                            td
+                                span.label.label-sm.label-info Pending
+                        tr
+                            td 3
+                            td Larry
+                            td 30
+                            td
+                                span.label.label-sm.label-warning Suspended
+                        tr
+                            td 4
+                            td Lahm
+                            td 15
+                            td
+                                span.label.label-sm.label-danger Blocked
+                        tr
+                            td
+                                input.form-control(type='text', placeholder='number')
+                            td
+                                input.form-control(type='text', placeholder='username')
+                            td
+                                input.form-control(type='text', placeholder='age')
+                            td
+                                input.form-control(type='text', placeholder='status')
+.row
+    .col-lg-12
+        .panel.panel-green
+            .panel-heading Date & Input (From - To)
+            .panel-body
+                table.table.table-hover.table-bordered.table-advanced
+                    thead
+                        tr.heading(role='row')
+                            th.sorting_disabled(width='3%')
+                                input.checkall(type='checkbox')
+                            th.sorting(width='9%') Record #
+                            th.sorting(width='18%') Date
+                            th.sorting_asc(width='15%') Customer
+                            th.sorting(width='10%') Ship To
+                            th.sorting(width='10%') Price
+                            th.sorting(width='10%') Amount
+                            th.sorting(width='11%') Status
+                            th.sorting(width='10%') Actions
+                        tr.filter(role='row')
+                            td
+                            td
+                                input.form-control.form-filter.input-sm(type='text', name='order_id')
+                            td
+                                .input-group.date.datepicker-filter.mbs(data-date-format='dd/mm/yyyy')
+                                    input.form-control(type='text', readonly='')
+                                    span.input-group-addon
+                                        i.fa.fa-calendar
+                                .input-group.date.datepicker-filter(data-date-format='dd/mm/yyyy')
+                                    input.form-control(type='text', readonly='')
+                                    span.input-group-addon
+                                        i.fa.fa-calendar
+                            td
+                                input.form-control.input-sm(type='text')
+                            td
+                                input.form-control.input-sm(type='text')
+                            td
+                                .mbs
+                                    input.form-control.input-sm(type='text', placeholder='From')
+                                input.form-control.input-sm(type='text', placeholder='To')
+                            td
+                                .mbs
+                                    input.form-control.input-sm.mbs(type='text', placeholder='From')
+                                input.form-control.input-sm(type='text', placeholder='To')
+                            td
+                                select.form-control.input-sm
+                                    option(value='') Select...
+                                    option(value='pending') Pending
+                                    option(value='closed') Closed
+                                    option(value='hold') On Hold
+                            td
+                                .mbs
+                                    button.btn.btn-xs.btn-success.filter-submit
+                                        i.fa.fa-search
+                                        | &nbsp;
+                                        | Search
+                                button.btn.btn-xs.btn-info.filter-cancel
+                                    i.fa.fa-times
+                                    | &nbsp;
+                                    | Reset
+                    tbody
+                        tr
+                            td
+                                input.checkbox(type='checkbox')
+                            td 1
+                            td 05/12/2014
+                            td Jessica
+                            td Jessica
+                            td 210.20$
+                            td 1
+                            td
+                                span.label.label-sm.label-success Pending
+                            td
+                                a.btn.btn-xs.btn-default(href='javascript:;')
+                                    i.fa.fa-search
+                                    | &nbsp;
+                                    | View
+                        tr
+                            td
+                                input.checkbox(type='checkbox')
+                            td 2
+                            td 05/12/2014
+                            td Jessica
+                            td Jessica
+                            td 410.50$
+                            td 4
+                            td
+                                span.label.label-sm.label-danger Closed
+                            td
+                                a.btn.btn-xs.btn-default(href='javascript:;')
+                                    i.fa.fa-search
+                                    | &nbsp;
+                                    | View
+                        tr
+                            td
+                                input.checkbox(type='checkbox')
+                            td 3
+                            td 05/12/2014
+                            td Jessica
+                            td Jessica
+                            td 270.20$
+                            td 3
+                            td
+                               span.label.label-sm.label-success Pending
+                            td
+                               a.btn.btn-xs.btn-default(href='javascript:;')
+                                  i.fa.fa-search
+                                  | &nbsp;
+                                  | View
+                        tr
+                            td
+                                input.checkbox(type='checkbox')
+                            td 4
+                            td 05/12/2014
+                            td Jessica
+                            td Jessica
+                            td 410.50$
+                            td 6
+                            td
+                                span.label.label-sm.label-warning On Hold
+                            td
+                                a.btn.btn-xs.btn-default(href='javascript:;')
+                                    i.fa.fa-search
+                                    | &nbsp;
+                                    | View

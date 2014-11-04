@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+html(lang="en", ng-app='MAdmin')
+  head
+    title madmin
+    meta(charset='utf-8')
+    meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700")
+    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Oswald:400,700,300")
+    link(rel='stylesheet', href='vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css')
+    link(rel='stylesheet', href='vendors/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='vendors/bootstrap/css/bootstrap.min.css')
+    link(rel='stylesheet', href='vendors/intro.js/introjs.css')
+    link(rel='stylesheet', href='vendors/calendar/zabuto_calendar.min.css')
+    link(rel='stylesheet', href='vendors/sco.message/sco.message.css')
+    link(rel='stylesheet', href='vendors/animate.css/animate.css')
+    link(rel='stylesheet', href='vendors/iCheck/skins/all.css')
+    link(rel='stylesheet', href='vendors/jquery-notific8/jquery.notific8.min.css')
+    link(rel='stylesheet', href='vendors/sco.message/sco.message.css')
+    link(rel='stylesheet', href='vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.1.1.min.css')
+    link(rel='stylesheet', href='vendors/bootstrap-markdown/css/bootstrap-markdown.min.css')
+    link(rel='stylesheet', href='vendors/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')
+    link(rel='stylesheet', href='vendors/summernote/summernote.css')
+    link(rel='stylesheet', href='vendors/ion.rangeSlider/css/ion.rangeSlider.css')
+    link(rel='stylesheet', href='vendors/nouislider/jquery.nouislider.css')
+    link(rel='stylesheet', href='vendors/jquery-nestable/nestable.css')
+    link(rel='stylesheet', href='vendors/jquery-toastr/toastr.min.css')
+    link(rel='stylesheet', href='vendors/jstree/dist/themes/default/style.min.css')
+    link(rel='stylesheet', href='vendors/jquery-treetable/stylesheets/jquery.treetable.css')
+    link(rel='stylesheet', href='vendors/jquery-treetable/stylesheets/jquery.treetable.theme.custom.css')
+    link(rel='stylesheet', href='vendors/bootstrap-datepicker/css/datepicker.css')
+    link(rel='stylesheet', href='vendors/fullcalendar/fullcalendar.css')
+    link(rel='stylesheet', href='vendors/fullcalendar/fullcalendar.print.css')
+    link(rel='stylesheet', href='vendors/lightbox/css/lightbox.css')
+    link(rel='stylesheet', href='vendors/DataTables/media/css/jquery.dataTables.css')
+    link(rel='stylesheet', href='vendors/DataTables/media/css/dataTables.bootstrap.css')
+    link(rel='stylesheet', href='vendors/jquery-tablesorter/themes/blue/style-custom.css')
+    link(rel='stylesheet', href='vendors/DataTables/media/css/dataTables.bootstrap.css')
+    link(rel='stylesheet', href='vendors/bootstrap-datepicker/css/datepicker3.css')
+    link(rel='stylesheet', href='vendors/dropzone/css/dropzone.css')
+    link(rel='stylesheet', href='vendors/jquery-file-upload/css/jquery.fileupload.css')
+    link(rel='stylesheet', href='vendors/jquery-file-upload/css/jquery.fileupload-ui.css')
+    link(rel='stylesheet', href='vendors/jquery-file-upload/css/blueimp-gallery.min.css')
+    link(rel='stylesheet', href='vendors/jquery-steps/css/jquery.steps.css')
+    link(rel='stylesheet', href='vendors/bootstrap-colorpicker/css/colorpicker.css')
+    link(rel='stylesheet', href='vendors/bootstrap-daterangepicker/daterangepicker-bs3.css')
+    link(rel='stylesheet', href='vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css')
+    link(rel='stylesheet', href='vendors/bootstrap-timepicker/css/bootstrap-timepicker.min.css')
+    link(rel='stylesheet', href='vendors/bootstrap-clockface/css/clockface.css')
+    link(rel='stylesheet', href='vendors/bootstrap-switch/css/bootstrap-switch.css')
+    link(rel='stylesheet', href='css/style.css')
+    link(rel='stylesheet', href='vendors/jplist/html/css/jplist-custom.css')
+    link(rel='stylesheet', href='vendors/select2/select2-madmin.css')
+    link(rel='stylesheet', href='vendors/bootstrap-select/bootstrap-select.min.css')
+    link(rel='stylesheet', href='vendors/multi-select/css/multi-select-madmin.css')
+    link(rel='stylesheet', href='vendors/x-editable/select2/lib/select2-madmin.css')
+    link(rel='stylesheet', href='vendors/x-editable/bootstrap3-editable/css/bootstrap-editable.css')
+    link(rel='stylesheet', href='vendors/x-editable/inputs-ext/address/address.css')
+    link(rel='stylesheet', data-ng-href="css/themes/style1/pink-blue.css")
+    link(rel='stylesheet', data-ng-href="css/themes/{{style}}/{{theme}}.css")
+    link(rel='shortcut icon', href='images/icons/favicon.ico')
+    link(rel='apple-touch-icon', href='images/icons/favicon.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='images/icons/favicon-72x72.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='images/icons/favicon-114x114.png')
+    script(src='http://maps.google.com/maps/api/js?sensor=true')
+    script(src='vendors/ckeditor/ckeditor.js')
+    script(src='js/lib.js')
+    script(src='vendors/iCheck/icheck.min.js')
+    script(src='vendors/iCheck/custom.min.js')
+    script(src='js/main.js')
+  body(ng-controller="AppController", ng-class="[header.menu_style, header.header_topbar, header.effect]", class="animated")
+    .default-page(ng-class="header.boxed")
+        .news-ticker.bg-orange
+            .container
+                ul#news-ticker-content.list-unstyled.mbn
+                    li
+                        a(href='http://swlabs.co/madmin/code/', target='_blank') This is Angular app version of this template. To see HTML version, please click here
+                a#news-ticker-close(href='javascript:;')
+                    i.fa.fa-times
+        a#totop(href='/#/')
+            i.fa.fa-angle-up
+        #header-topbar-option-demo.page-header-topbar(ng-include="'templates/states/header.html'", onload='load_header()')
+        #wrapper(ng-class="header.layout_menu")
+            nav#sidebar.navbar-default.navbar-static-side(role='navigation', data-step='3', data-intro='Template has <b>many navigation styles</b>', data-position='right', ng-include="'templates/states/sitebar.html'", ng-menu="")
+            #chat-form.fixed(ng-include="'templates/states/_includes/chat-form.html'", ng-class="{show:header.chat}")
+            #page-wrapper(ng-class="header.animation", class="animated")
+                .page-title-breadcrumb#title-breadcrumb-option-demo(ng-include="'templates/states/breadcrumb.html'")
+                .page-content(ng-view='')
+                //BEGIN CONTENT QUICK SIDEBAR
+                .quick-sidebar(ng-include="'templates/states/_includes/quick-sidebar.html'", ng-class="{show:header.history}")
+                //END CONTENT QUICK SIDEBAR
+            #footer(ng-include="'templates/states/footer.html'", ng-show="header.footer", class="hide")
+    .extra-page(hide)
+    //BEGIN MODAL CONFIG PORTLET
+    .modal.fade#modal-config
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4.modal-title Modal title
+              .modal-body
+                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend et nisl eget porta. Curabitur elementum sem molestie nisl varius, eget tempus odio molestie. Nunc vehicula sem arcu, eu pulvinar neque cursus ac. Aliquam ultricies lobortis magna et aliquam. Vestibulum egestas eu urna sed ultricies. Nullam pulvinar dolor vitae quam dictum condimentum. Integer a sodales elit, eu pulvinar leo. Nunc nec aliquam nisi, a mollis neque. Ut vel felis quis tellus hendrerit placerat. Vivamus vel nisl non magna feugiat dignissim sed ut nibh. Nulla elementum, est a pretium hendrerit, arcu risus luctus augue, mattis aliquet orci ligula eget massa. Sed ut ultricies felis.
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') Save changes
+    //END MODAL CONFIG PORTLET
+    //Modal Default
+    #modal-default.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-default-label', aria-hidden='true')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#modal-default-label.modal-title Modal Default
+              .modal-body
+                  | Modal body goes here
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') Save changes
+    //Modal Left Footer
+    #modal-left-footer.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-left-footer-label', aria-hidden='true')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#modal-left-footer-label.modal-title Modal Left Footer
+              .modal-body
+                  | Modal body goes here
+              .modal-footer.modal-footer-left
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') Save changes
+    //Modal Header Color Primary
+    #modal-header-primary.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-header-primary-label', aria-hidden='true')
+      .modal-dialog
+          .modal-content
+              .modal-header.modal-header-primary
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#modal-header-primary-label.modal-title Modal Header Primary
+              .modal-body
+                  | Modal body goes here
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') Save changes
+    //Modal Responsive
+    #modal-responsive.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-responsive-label', aria-hidden='true')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#modal-responsive-label.modal-title Modal Responsive
+              .modal-body
+                  .row
+                      .col-md-6
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                      .col-md-6
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+                          .mbm
+                              input.form-control(type='text')
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') Save changes
+    //Modal Stackable
+    #modal-stackable.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-stackable-label', aria-hidden='true')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#modal-stackable-label.modal-title Modal Stackable
+              .modal-body
+                  p One fine body…
+                  p One fine body…
+                  p One fine body…
+                  input.form-control.mbm(type='text', data-tabindex='1')
+                  input.form-control.mbm(type='text', data-tabindex='2')
+                  a.btn.btn-primary(data-toggle='modal', data-target='#stack2') Launch modal
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') Save changes
+    #stack2.modal.fade(tabindex='-1', data-focus-on='input:first')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4 Stack Two
+              .modal-body
+                  p One fine body…
+                  p One fine body…
+                  input.form-control.mbm(type='text', data-tabindex='1')
+                  input.form-control.mbm(type='text', data-tabindex='2')
+                  a.btn.btn-default(data-toggle='modal', href='#stack3') Launch modal
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') Ok
+    #stack3.modal.fade(tabindex='-1')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4 Stack Three
+              .modal-body
+                  p One fine body…
+                  input.form-control.mbm(type='text', data-tabindex='1')
+                  input.form-control.mbm(type='text', data-tabindex='2')
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') Ok
+    //Modal Full Width
+    #modal-full-width.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-full-width-label', aria-hidden='true')
+      .modal-dialog.modal-full-width
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#modal-full-width-label.modal-title Modal Full Width
+              .modal-body
+                  | Modal body goes here
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') Save changes
+    //Modal Wide Width
+    #modal-wide-width.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-wide-width-label', aria-hidden='true')
+      .modal-dialog.modal-wide-width
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#modal-wide-width-label.modal-title Modal Wide Width
+              .modal-body
+                  | Modal body goes here
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') Save changes
+    //Modal Static
+    #modal-static.modal.fade(tabindex='-1', data-backdrop='static', data-keyboard='false')
+      .modal-dialog
+          .modal-content
+              .modal-body
+                  p Would you like to continue with some arbitrary task?
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                  button.btn.btn-primary(type='button', data-dismiss='modal') Continue Task
+    //Modal Long
+    #modal-long.modal.fade(tabindex='-1', data-replace='true')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4 A Fairly Long Modal
+              .modal-body
+                  a.btn.btn-primary(data-toggle='modal', href='#modal-notlong', style="position: absolute; top: 50%; right: 12px") Not So Long Modal
+                  img(style='height: 800px;', src='http://i.imgur.com/KwPYo.jpg')
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+    #modal-notlong.modal.fade(tabindex='-1', data-replace='true')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4 Not That Long
+              .modal-body
+                  img(style='height: 300px;', src='http://i.imgur.com/KwPYo.jpg')
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+    //Modal Alert
+    #modal-alert.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+      .modal-dialog
+          .modal-content
+              .modal-body
+                  | Hello world !
+              .modal-footer
+                  button.btn.btn-primary(type='button', data-dismiss='modal') Ok
+    //Modal Confirm
+    #modal-confirm.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+      .modal-dialog
+          .modal-content
+              .modal-body
+                  | Are you sure?
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+                  button.btn.btn-primary(type='button', data-dismiss='modal') Ok
+    //Modal Custom Dialog
+    #modal-custom-dialog.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4.modal-title Custom Dialog
+              .modal-body
+                  | I am a custom dialog
+              .modal-footer
+                  button.btn.btn-success(type='button', data-dismiss='modal') Success !
+                  button.btn.btn-info(type='button', data-dismiss='modal') Information !
+                  button.btn.btn-danger(type='button', data-dismiss='modal') Danger !
+    //Modal Login
+    #modal-login.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-login-label', aria-hidden='true')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#modal-login-label.modal-title Login
+              .modal-body
+                  .form
+                      form.form-horizontal
+                          .form-group
+                              label.control-label.col-md-3(for='username') Username
+                              .col-md-9
+                                  input#username.form-control(type='text')
+                          .form-group
+                              label.control-label.col-md-3(for='password') Password
+                              .col-md-9
+                                  input#password.form-control(type='password')
+                          .form-group
+                              .col-md-9.col-md-offset-3
+                                  button.btn.btn-primary(type='button') Login
+    //Modal Prompt
+    #modal-prompt.modal.fade(tabindex='-1', role='dialog', aria-labelledby='modal-prompt-label', aria-hidden='true')
+      .modal-dialog
+          .modal-content
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#modal-prompt-label.modal-title What is your name?
+              .modal-body
+                  input#fullname.form-control(type='text')
+              .modal-footer
+                  button.btn.btn-default(type='button', data-dismiss='modal') Close
+                  button.btn.btn-primary(type='button') OK

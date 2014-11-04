@@ -1,0 +1,17 @@
+.row
+    .col-lg-12(ng-generaltab="")
+        ul#treeviewTab.nav.nav-tabs
+            li.active
+                a(href='#jstree-tab', data-toggle='tab') JsTree
+            li
+                a(href='#family-treeview-tab', data-toggle='tab') Family Treeview
+            li
+                a(href='#treetable-tab', data-toggle='tab') TreeTable
+        #treeviewTabContent.tab-content
+            #jstree-tab.tab-pane.fade.in.active
+                ng-include(src="'templates/states/_ui-treeview/ui-treeview-jstree-tab.html'", onload="jstree_tab()")
+            #family-treeview-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-treeview/ui-treeview-family-treeview-tab.html'", onload="family_treeview_tab()")
+            #treetable-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-treeview/ui-treeview-treetable-tab.html'", onload="treetable_tab()")
+

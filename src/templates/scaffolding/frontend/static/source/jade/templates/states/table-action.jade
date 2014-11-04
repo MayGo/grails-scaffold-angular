@@ -1,0 +1,16 @@
+.row#table-action
+    .col-lg-12
+        ul#tableactiondTab.nav.nav-tabs(ng-tab="")
+            li.active
+                a(href='#table-table-tab', data-toggle='tab') Action Tables
+            li
+                a(href='#table-row-tab', data-toggle='tab') Action Rows
+            li
+                a(href='#table-panel-tab', data-toggle='tab') Action Panels
+        #tableactionTabContent.tab-content
+            #table-table-tab.tab-pane.fade.in.active
+                ng-include(src="'templates/states/_table-action/table-action-table-tab.html'", onload="table_action_update()")
+            #table-row-tab.tab-pane.fade
+                ng-include(src="'templates/states/_table-action/table-action-row-tab.html'", onload="table_action_update()")
+            #table-panel-tab.tab-pane.fade
+                ng-include(src="'templates/states/_table-action/table-action-panel-tab.html'", onload="table_action_update()")

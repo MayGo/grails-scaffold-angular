@@ -1,0 +1,18 @@
+.page-header.pull-right
+    .page-title
+        | Title & Breadcrumb Inline Right
+ol.breadcrumb.page-breadcrumb.pull-left
+    li
+        i.fa.fa-home
+        | &nbsp;
+        a(href='index.html') Home
+        | &nbsp;&nbsp;
+        i.fa.fa-angle-right
+    li(ng-repeat="(k,v) in data.breadcrumb", ng-class="{active:$last}")
+        | &nbsp;&nbsp;
+        | {{v}}
+        | &nbsp;&nbsp;
+        i.fa.fa-angle-right(ng-if="!$last")
+    li.active
+        = title
+.clearfix

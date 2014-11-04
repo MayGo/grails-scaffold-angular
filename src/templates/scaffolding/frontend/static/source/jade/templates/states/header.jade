@@ -1,0 +1,515 @@
+nav#topbar.navbar.navbar-default.navbar-static-top(role='navigation', style='margin-bottom: 0;', data-step='1', data-intro='<b>Topbar</b> has other styles with live demo. Go to <b>Layouts->Header&Topbar</b> and check it out.')
+    .navbar-header
+        button.navbar-toggle(type='button', data-toggle='collapse', data-target='.sidebar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        a#logo.navbar-brand(href='/#/')
+            span.fa.fa-rocket
+            span.logo-text µAdmin
+            span.logo-text-icon(style='display: none') µ
+    .topbar-main
+        a#menu-toggle.hidden-xs(href='javascript:void(0);', ng-click="header.toggle('sitebar')")
+            i.fa.fa-bars
+        form#topbar-search(action='/#/', method='GET', ng-class="{open:header.form}")
+            .input-group(ng-click="header.toggle('form')")
+                input.form-control(type='text', placeholder='Search...')
+                span.input-group-btn
+                    a.btn.submit(href='javascript:;')
+                        i.fa.fa-search
+        ul.nav.navbar-nav(ng-class="header.layout_horizontal_menu")
+            li.active
+                a(href='/#/') Dashboard
+            li
+                a.dropdown-toggle(href='javascript:;', data-toggle='dropdown')
+                    | Layouts
+                    | &nbsp;
+                    i.fa.fa-angle-down
+                ul.dropdown-menu
+                    li
+                        a(href='/#/layout-left-sidebar') Left Sidebar
+                    li
+                        a(href='/#/layout-right-sidebar') Right Sidebar
+                    li
+                        a(href='/#/layout-left-sidebar-collasped') Left Sidebar Collasped
+                    li
+                        a(href='/#/layout-right-sidebar-collasped') Right Sidebar Collasped
+                    li.dropdown-submenu
+                        a.dropdown-toggle(href='javascript:;', data-toggle='dropdown')
+                            | More Options
+                        ul.dropdown-menu
+                            li
+                                a(href='javascript:void(0);') Second level link
+                            li.dropdown-submenu
+                                a.dropdown-toggle(href='javascript:;', data-toggle='dropdown')
+                                    | More Options
+                                ul.dropdown-menu
+                                    li
+                                        a(href='javascript:void(0);')
+                                            | Third level link
+                                    li
+                                        a(href='javascript:void(0);')
+                                            | Third level link
+                                    li
+                                        a(href='javascript:void(0);')
+                                            | Third level link
+                                    li
+                                        a(href='javascript:void(0);')
+                                            | Third level link
+                                    li
+                                        a(href='javascript:void(0);')
+                                            | Third level link
+                            li
+                                a(href='javascript:void(0);') Second level link
+            li.mega-menu-dropdown
+                a.dropdown-toggle(href='javascript:;', data-toggle='dropdown')
+                    | UI Elements
+                    | &nbsp;
+                    i.fa.fa-angle-down
+                ul.dropdown-menu
+                    li
+                        .mega-menu-content
+                            .row
+                                ul.col-md-4.mega-menu-submenu
+                                    li
+                                        h3 Neque porro quisquam
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Lorem ipsum dolor sit amet
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Consectetur adipisicing elit
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Sed ut perspiciatis unde omnis
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | At vero eos et accusamus et iusto
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Nam libero tempore cum soluta
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Et harum quidem rerum facilis est
+                                ul.col-md-4.mega-menu-submenu
+                                    li
+                                        h3 Neque porro quisquam
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Lorem ipsum dolor sit amet
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Consectetur adipisicing elit
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Sed ut perspiciatis unde omnis
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | At vero eos et accusamus et iusto
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Nam libero tempore cum soluta
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Et harum quidem rerum facilis est
+                                ul.col-md-4.mega-menu-submenu
+                                    li
+                                        h3 Neque porro quisquam
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Lorem ipsum dolor sit amet
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Consectetur adipisicing elit
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Sed ut perspiciatis unde omnis
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | At vero eos et accusamus et iusto
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Nam libero tempore cum soluta
+                                    li
+                                        a(href='javascript:void(0);')
+                                            i.fa.fa-angle-right
+                                            | Et harum quidem rerum facilis est
+            li.mega-menu-dropdown.mega-menu-full
+                a.dropdown-toggle(href='javascript:;', data-toggle='dropdown')
+                    | Extras
+                    | &nbsp;
+                    i.fa.fa-angle-down
+                ul.dropdown-menu
+                    li
+                        .mega-menu-content
+                            .row
+                                .col-md-7
+                                    ul.col-md-4.mega-menu-submenu
+                                        li
+                                            h3 Neque porro quisquam
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Lorem ipsum dolor sit amet
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Consectetur adipisicing elit
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Sed ut perspiciatis unde omnis
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | At vero eos et accusamus et iusto
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Nam libero tempore cum soluta
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Et harum quidem rerum facilis est
+                                    ul.col-md-4.mega-menu-submenu
+                                        li
+                                            h3 Neque porro quisquam
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Lorem ipsum dolor sit amet
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Consectetur adipisicing elit
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Sed ut perspiciatis unde omnis
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | At vero eos et accusamus et iusto
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Nam libero tempore cum soluta
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Et harum quidem rerum facilis est
+                                    ul.col-md-4.mega-menu-submenu
+                                        li
+                                            h3 Neque porro quisquam
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Lorem ipsum dolor sit amet
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Consectetur adipisicing elit
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Sed ut perspiciatis unde omnis
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | At vero eos et accusamus et iusto
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Nam libero tempore cum soluta
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-angle-right
+                                                | Et harum quidem rerum facilis est
+                                .col-md-5.document-demo
+                                    ul.col-md-4.mega-menu-submenu
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-info-circle
+                                                span Introduction
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-download
+                                                span Installation
+                                    ul.col-md-4.mega-menu-submenu
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-cog
+                                                span T3 Settings
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-desktop
+                                                span Layout System
+                                    ul.col-md-4.mega-menu-submenu
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-magic
+                                                span Customization
+                                        li
+                                            a(href='javascript:void(0);')
+                                                i.fa.fa-question-circle
+                                                span FAQs
+        ul.nav.navbar.navbar-top-links.navbar-right.mbn
+            li.dropdown
+                a.dropdown-toggle(data-hover='dropdown', href='javascript:void(0);')
+                    i.fa.fa-bell.fa-fw
+                    span.badge.badge-green 3
+                ul.dropdown-menu.dropdown-alerts
+                    li
+                        p You have 14 new notifications
+                    li
+                        .dropdown-slimscroll
+                            ul
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.label.label-blue
+                                            i.fa.fa-comment
+                                        | New Comment
+                                        span.pull-right.text-muted.small 4 mins ago
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.label.label-violet
+                                            i.fa.fa-twitter
+                                        | 3 New Followers
+                                        span.pull-right.text-muted.small 12 mins ago
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.label.label-pink
+                                            i.fa.fa-envelope
+                                        | Message Sent
+                                        span.pull-right.text-muted.small 15 mins ago
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.label.label-green
+                                            i.fa.fa-tasks
+                                        | New Task
+                                        span.pull-right.text-muted.small 18 mins ago
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.label.label-yellow
+                                            i.fa.fa-upload
+                                        | Server Rebooted
+                                        span.pull-right.text-muted.small 19 mins ago
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.label.label-green
+                                            i.fa.fa-tasks
+                                        | New Task
+                                        span.pull-right.text-muted.small 2 days ago
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.label.label-pink
+                                            i.fa.fa-envelope
+                                        | Message Sent
+                                        span.pull-right.text-muted.small 5 days ago
+                    li.last
+                        a.text-right(href='javascript:void(0);') See all alerts
+            li.dropdown
+                a.dropdown-toggle(data-hover='dropdown', href='javascript:void(0);')
+                    i.fa.fa-envelope.fa-fw
+                    span.badge.badge-orange 7
+                ul.dropdown-menu.dropdown-messages
+                    li
+                        p You have 14 new messages
+                    li
+                        .dropdown-slimscroll
+                            ul
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.avatar
+                                            img.img-responsive.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg', alt='')
+                                        span.info
+                                            span.name Jessica Spencer
+                                            span.desc Lorem ipsum dolor sit amet...
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.avatar
+                                            img.img-responsive.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg', alt='')
+                                        span.info
+                                            span.name
+                                                | John Smith
+                                                span.label.label-blue.pull-right New
+                                            span.desc Lorem ipsum dolor sit amet...
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.avatar
+                                            img.img-responsive.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg', alt='')
+                                        span.info
+                                            span.name
+                                                | John Doe
+                                                span.label.label-orange.pull-right 10 min
+                                            span.desc Lorem ipsum dolor sit amet...
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.avatar
+                                            img.img-responsive.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg', alt='')
+                                        span.info
+                                            span.name John Smith
+                                            span.desc Lorem ipsum dolor sit amet...
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.avatar
+                                            img.img-responsive.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg', alt='')
+                                        span.info
+                                            span.name John Smith
+                                            span.desc Lorem ipsum dolor sit amet...
+                    li.last
+                        a(href='javascript:void(0);') Read all messages
+            li.dropdown
+                a.dropdown-toggle(data-hover='dropdown', href='javascript:void(0);')
+                    i.fa.fa-tasks.fa-fw
+                    span.badge.badge-yellow 8
+                ul.dropdown-menu.dropdown-tasks
+                    li
+                        p You have 14 pending tasks
+                    li
+                        .dropdown-slimscroll
+                            ul
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.task-item
+                                            | Fix the HTML code
+                                            small.pull-right.text-muted 40%
+                                        .progress.progress-sm
+                                            .progress-bar.progress-bar-orange(role='progressbar', aria-valuenow='40', aria-valuemin='0', aria-valuemax='100', style='width: 40%;')
+                                                span.sr-only 40% Complete (success)
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.task-item
+                                            | Make a wordpress theme
+                                            small.pull-right.text-muted 60%
+                                        .progress.progress-sm
+                                            .progress-bar.progress-bar-blue(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width: 60%;')
+                                                span.sr-only 60% Complete (success)
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.task-item
+                                            | Convert PSD to HTML
+                                            small.pull-right.text-muted 55%
+                                        .progress.progress-sm
+                                            .progress-bar.progress-bar-green(role='progressbar', aria-valuenow='55', aria-valuemin='0', aria-valuemax='100', style='width: 55%;')
+                                                span.sr-only 55% Complete (success)
+                                li
+                                    a(href='javascript:void(0);')
+                                        span.task-item
+                                            | Convert HTML to Wordpress
+                                            small.pull-right.text-muted 78%
+                                        .progress.progress-sm
+                                            .progress-bar.progress-bar-yellow(role='progressbar', aria-valuenow='78', aria-valuemin='0', aria-valuemax='100', style='width: 78%;')
+                                                span.sr-only 78% Complete (success)
+                    li.last
+                        a(href='javascript:void(0);') See all tasks
+            li.dropdown.topbar-user
+                a.dropdown-toggle(data-hover='dropdown', href='javascript:void(0);')
+                    img.img-responsive.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg', alt='')
+                    | &nbsp;
+                    span.hidden-xs John Doe
+                    | &nbsp;
+                    span.caret
+                ul.dropdown-menu.dropdown-user.pull-right
+                    li
+                        a(href='/#/extra-profile')
+                            i.fa.fa-user
+                            | My Profile
+                    li
+                        a(href='/#/page-calendar')
+                            i.fa.fa-calendar
+                            | My Calendar
+                    li
+                        a(href='/#/email-inbox')
+                            i.fa.fa-envelope
+                            | My Inbox
+                            span.badge.badge-danger 3
+                    li
+                        a(href='javascript:void(0);')
+                            i.fa.fa-tasks
+                            | My Tasks
+                            span.badge.badge-success
+                                | 7
+                    li.divider
+                    li
+                        a(href='/#/extra-lock-screen')
+                            i.fa.fa-lock
+                            | Lock Screen
+                    li
+                        a(href='/#/extra-signin')
+                            i.fa.fa-key
+                            | Log Out
+            li#topbar-chat.hidden-xs
+                a.btn-chat(href='javascript:void(0)', data-step='2', data-intro='<b>Form chat</b> keep you connecting with other coworker', data-position='left', ng-click="header.toggle('chat')")
+                    i.fa.fa-comments
+                    span.badge.badge-info 3
+            li.dropdown.hidden-xs
+                a.btn-quick-sidebar(href='javascript:void(0)', data-step='2', data-intro='This template keep changes to come better. Take a look for <b>changelog</b>!', data-position='left', ng-click="header.toggle('history')")
+                    i.fa.fa-bullhorn
+                    span.badge.badge-danger 9
+            li.dropdown
+                //BEGIN THEME SETTING
+                a#theme-setting.dropdown-toggle(href='javascript:;', data-hover='dropdown', data-step='4', data-intro='<b>Many styles</b> and <b>colors</b> be created for you. Let choose one and enjoy it!', data-position='left')
+                    i.fa.fa-cogs(ng-click="header.toggle('theme')")
+                    ul.dropdown-menu.dropdown-theme-setting.pull-right(ng-class="{show:header.theme}")
+                        li
+                            h4.mtn Theme Styles
+                            select#list-style.form-control(ng-model='header.theme_style', ng-change="style_change()")
+                                option(value='style1') Flat Squared style
+                                option(value='style2') Flat Rounded style
+                                option(value='style3') Flat Border style
+                        li
+                            h4.mtn Menu Styles
+                            select#list-menu.form-control(ng-model='header.menu_style')
+                                option(value="sidebar-default") Menu style 1
+                                option(value="sidebar-colors") Menu style 2
+                                option(value="sidebar-icons") Menu style 3
+                                option(value="sidebar-collapsed") Menu style 4
+                        li
+                            h4.mtn Header & Topbar
+                            select#list-header.form-control(ng-model='header.header_topbar')
+                                option(value="static") Static
+                                option(value="header-fixed") Fixed
+                        li
+                            h4.mtn Theme Colors
+                            ul#list-color.list-unstyled.list-inline
+                                li.green-dark(data-color='green-dark', ng-click="theme_change('green-dark')", data-hover='tooltip', title="Green - Dark")
+                                li.red-dark(data-color='red-dark', ng-click="theme_change('red-dark')", data-hover='tooltip', title="Red - Dark")
+                                li.pink-dark(data-color='pink-dark', ng-click="theme_change('pink-dark')", data-hover='tooltip', title="Pink - Dark")
+                                li.blue-dark(data-color='blue-dark', ng-click="theme_change('blue-dark')", data-hover='tooltip', title="Blue - Dark")
+                                li.yellow-dark(data-color='yellow-dark', ng-click="theme_change('yellow-dark')", data-hover='tooltip', title="Yellow - Dark")
+                                li.green-grey(data-color='green-grey', ng-click="theme_change('green-grey')", data-hover='tooltip', title="Green - Grey")
+                                li.red-grey(data-color='red-grey', ng-click="theme_change('red-grey')", data-hover='tooltip', title="Red - Grey")
+                                li.pink-grey(data-color='pink-grey', ng-click="theme_change('pink-grey')", data-hover='tooltip', title="Pink - Grey")
+                                li.blue-grey(data-color='blue-grey', ng-click="theme_change('blue-grey')", data-hover='tooltip', title="Blue - Grey")
+                                li.yellow-grey(data-color='yellow-grey', ng-click="theme_change('yellow-grey')", data-hover='tooltip', title="Yellow - Grey")
+                                li.yellow-green(data-color='yellow-green', ng-click="theme_change('yellow-green')", data-hover='tooltip', title="Yellow - Green")
+                                li.orange-grey(data-color='orange-grey', ng-click="theme_change('orange-grey')", data-hover='tooltip', title="Orange - Grey")
+                                li.pink-blue(data-color='pink-blue', ng-click="theme_change('pink-blue')", data-hover='tooltip', title="Pink - Blue")
+                                li.pink-violet.active(data-color='pink-violet', ng-click="theme_change('pink-violet')", data-hover='tooltip', title="Pink - Violet")
+                                li.orange-violet(data-color='orange-violet', ng-click="theme_change('orange-violet')", data-hover='tooltip', title="Orange - Violet")
+                                li.pink-green(data-color='pink-green', ng-click="theme_change('orange-violet')", data-hover='tooltip', title="Pink - Green")
+                                li.pink-brown(data-color='pink-brown', ng-click="theme_change('pink-brown')", data-hover='tooltip', title="Pink - Brown")
+                                li.orange-blue(data-color='orange-blue', ng-click="theme_change('orange-blue')", data-hover='tooltip', title="Orange - Blue")
+                                li.yellow-blue(data-color='yellow-blue', ng-click="theme_change('yellow-blue')", data-hover='tooltip', title="Yellow - Blue")
+                                li.green-blue(data-color='green-blue', ng-click="theme_change('green-blue')", data-hover='tooltip', title="Green - Blue")
+                //END THEME SETTING
+                                                  

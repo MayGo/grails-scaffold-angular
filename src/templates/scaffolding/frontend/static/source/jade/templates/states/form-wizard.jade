@@ -1,0 +1,185 @@
+.row
+    .col-lg-12
+        .portlet.box.portlet-green
+            .portlet-header
+                .caption Advanced wizard
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                #rootwizard-custom-circle
+                    .navbar
+                        .navbar-inner
+                            ul
+                                li
+                                    a(href='#tab1-wizard-custom-circle', data-toggle='tab')
+                                        i.glyphicon.glyphicon-user
+                                        p.anchor 1. Log in
+                                        p.description Set up account
+                                li
+                                    a(href='#tab2-wizard-custom-circle', data-toggle='tab')
+                                        i.glyphicon.glyphicon-send.mln
+                                        p.anchor 2. Address
+                                        p.description Provide information
+                                li
+                                    a(href='#tab3-wizard-custom-circle', data-toggle='tab')
+                                        i.glyphicon.glyphicon-shopping-cart
+                                        p.anchor 3. Cart detail
+                                        p.description Check products
+                                li
+                                    a(href='#tab4-wizard-custom-circle', data-toggle='tab')
+                                        i.glyphicon.glyphicon-check
+                                        p.anchor 4. Finish
+                                        p.description Confirm all
+                    #bar.progress.active
+                        .bar.progress-bar.progress-bar-primary
+                    .tab-content
+                        #tab1-wizard-custom-circle.tab-pane
+                            h3.mbxl Set up your account
+                            form.form-horizontal(action='#')
+                                .form-group
+                                    label.col-sm-3.control-label(for='inputUsername') Username <span class='require'>*</span>
+                                    .col-sm-9
+                                        .input-group
+                                            span.input-group-addon
+                                                i.fa.fa-user
+                                            input.inputUsername.form-control(type='text', placeholder='Username')
+                                        i.alert.alert-hide Oops! Forgot something? Let try again.
+                                .form-group
+                                    label.col-sm-3.control-label(for='inputEmail') Password <span class='require'>*</span>
+                                    .col-sm-9
+                                        .input-group
+                                            span.input-group-addon
+                                                i.fa.fa-key
+                                            input.inputPwd.form-control(type="text", placeholder="Password")
+                                        i.alert.alert-hide Oops! Forgot something? Let try again.
+                                .form-group
+                                    label.col-sm-3.control-label(for='inputAddress') Password confirm <span class='require'>*</span>
+                                    .col-sm-9
+                                        .input-group
+                                            span.input-group-addon
+                                                i.fa.fa-key
+                                            input.inputPwdC.form-control(type="text", placeholder="Password confirm")
+                                        i.alert.alert-hide Oops! Forgot something? Let try again.
+                        #tab2-wizard-custom-circle.tab-pane
+                            h3.mbxl Delivery information
+                            .row
+                                .col-md-12
+                                    .form-group
+                                        label.control-label(for='inputStreet') Street <span class='require'>*</span>
+                                        input#inputStreet.form-control(type='text', placeholder='')
+                                        i.alert.alert-hide Oops! Forgot something? Let try again.
+                            .row
+                                .col-md-6
+                                    .form-group
+                                        label.control-label(for='inputFirstName') District
+                                        input#inputDistrict.form-control(type='text', placeholder='')
+                                        i.alert.alert-hide Oops! Forgot something? Let try again.
+                                .col-md-6
+                                    .form-group
+                                        label.control-label(for='inputCity') City <span class='require'>*</span>
+                                        input#inputCity.form-control(type="text", placeholder="")
+                                        i.alert.alert-hide Oops! Forgot something? Let try again.
+                            .row
+                                .col-md-6
+                                    .form-group
+                                        label.control-label(for='inputPostCode') Post Code
+                                        input#inputPostCode.form-control(type='text', placeholder='')
+                                        i.alert.alert-hide Oops! Forgot something? Let try again.
+                                .col-md-6
+                                    .form-group
+                                        label.control-label(for='selCountry') Country
+                                        select#selCountry.form-control
+                                            option(value='') Select a Country
+                                            option(value='') United States
+                                            option(value='') England
+                                            option(value='') France
+                                            option(value='') Spain
+                        #tab3-wizard-custom-circle.tab-pane.fadeIn
+                            h3.mbxl Checking products
+                            form.form-horizontal(action='#')
+                                .form-group
+                                    label.col-md-2.control-label(for='inputUsername') Product 1:
+                                    .col-md-10
+                                        input.inputUsername.form-control(type='text', placeholder='Detail')
+                                .form-group
+                                    label.col-md-2.control-label(for='inputUsername') Product 2:
+                                    .col-md-10
+                                        input.inputUsername.form-control(type='text', placeholder='Detail')
+                                .form-group
+                                    label.col-md-2.control-label(for='inputUsername') Product 3:
+                                    .col-md-10
+                                        input.inputUsername.form-control(type='text', placeholder='Detail')
+                                .form-group
+                                    label.col-md-2.control-label(for='selCountry') Check out method
+                                    .col-lg-3.col-md-5
+                                        select#selCountry.form-control
+                                            option(value='') Cash
+                                            option(value='') Visa Card
+                                            option(value='') Credit Card
+                        #tab4-wizard-custom-circle.tab-pane.fadeIn
+                            h3.mbxl Thank you!
+                            p Congragulation! You have completed checkout steps.
+                            p Thank you for use our products.
+                        div.action.text-right
+                            button.btn.btn-info.button-previous(type='button', name='previous', value='Previous')
+                                i.fa.fa-arrow-circle-o-left.mrx
+                                | Previous
+                                
+                            button.btn.btn-info.button-next.mlm(type='button', name='next', value='Next')
+                                | Next
+                                i.fa.fa-arrow-circle-o-right.mlx
+                                
+    .col-lg-12
+        .portlet.box.portlet-yellow
+            .portlet-header
+                .caption Basic Wizard
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form#form-2(action='#')
+                    #wizard-1
+    .col-lg-12
+        .portlet.box.portlet-green
+            .portlet-header
+                .caption Basic Form
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form#form-2(action='#')
+                    #wizard-2
+.row
+    .col-lg-12
+        .portlet.box.portlet-blue
+            .portlet-header
+                .caption Vertical Steps
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form#form-3(action='#')
+                    #wizard-3
+    .col-lg-12
+        .portlet.box.portlet-pink
+            .portlet-header
+                .caption Async Content Loading
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form#form-4(action='#')
+                    #wizard-4
+script(src='vendors/bootstrap/js/bootstrap.min.js')
+script(src='vendors/jquery-bootstrap-wizard/jquery.bootstrap.wizard.min.js')

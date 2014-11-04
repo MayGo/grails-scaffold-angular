@@ -1,0 +1,8 @@
+.row
+    .col-lg-12
+        ul#galleryTab.nav.nav-tabs(ng-tab="")
+            li.active
+                a(href='#tab1', data-toggle='tab') 4 Columns
+        #galleryTabContent.tab-content
+            #tab1.tab-pane.fade.in.active
+                ng-include(src="'templates/states/_page-gallery/page-gallery-4-columns-tab.html'", onload="update_gallery()")

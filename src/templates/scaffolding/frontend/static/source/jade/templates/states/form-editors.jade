@@ -1,0 +1,121 @@
+.row
+    .col-lg-12
+        .portlet
+            .portlet-header
+                .caption CKEditor
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form.form-horizontal(action='#')
+                    .form-body.pal
+                        .form-group
+                            label.col-md-3.control-label(for='inputUsername') Username <span class='require'>*</span>
+                            .col-md-9
+                                .input-icon
+                                    i.fa.fa-user
+                                    input#inputUsername.form-control(type='text', placeholder='Username')
+                        .form-group
+                            label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                            .col-md-9
+                                .input-group
+                                    span.input-group-addon
+                                        i.fa.fa-envelope
+                                    input.form-control(type="text", placeholder="Email Address")
+                        .form-group
+                            label.col-md-3.control-label(for='inputAddress') Address <span class='require'>*</span>
+                            .col-md-9
+                                .input-icon.right
+                                    i.fa.fa-location-arrow
+                                    input.form-control(type="text", placeholder="Address")
+                        .form-group.mbn
+                            label.col-md-3.control-label(for='inputContent') Content
+                            .col-md-9
+                                textarea#area4.form-control(rows="3")
+.row
+    .col-lg-12
+        .portlet
+            .portlet-header
+                .caption Inline Edit with CKEditor
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                .row
+                    .col-md-6
+                        div(contenteditable="true")
+                            h4.block-heading Sample text with lead body
+                            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales at. Nulla tellus elit, varius non commodo eget, mattis vel eros. In sed ornare nulla.
+                        .clearfix
+                        h4(contenteditable="true").block-heading Heading
+                        h1(contenteditable="true") h1.Heading 1
+                        h2(contenteditable="true") h2.Heading 2
+                        h3(contenteditable="true") h3.Heading 3
+                        h4(contenteditable="true") h4.Heading 4
+                        h5(contenteditable="true") h5.Heading 5
+                        h6(contenteditable="true") h6.Heading 6
+                        .clearfix
+
+                    .col-md-6
+                        h4(contenteditable="true").block-heading Text States
+                        p.text-muted(contenteditable="true") Muted text Lorem ipsum dolor sit
+                        p.text-primary(contenteditable="true") Primary text Lorem ipsum dolor sit
+                        p.text-orange(contenteditable="true") Orange text Lorem ipsum Lorem dolor sit
+                        p.text-green(contenteditable="true") Green text Lorem ipsum dolor sit
+                        p.text-yellow(contenteditable="true") Yellow text Lorem ipsum dolor sit
+                        p.text-blue(contenteditable="true") Blue text Lorem ipsum dolor sit
+                        .clearfix
+                        h4.block-heading Address
+                    .col-md-6
+                        .well(contenteditable="true")
+                            address
+                                strong Twitter, Inc.
+                                br
+                                | 795 Folsom Ave, Suite 600
+                                br
+                                | San Francisco, CA 94107
+                                br
+                                abbr(title='Phone') P:
+                                | (123) 456-7890
+                            address
+                                strong Full Name
+                                br
+                                a(href='mailto:#') first.last@example.com
+.row
+    .col-lg-12
+        .portlet
+            .portlet-header
+                .caption Tinymce Editor
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                form.form-horizontal(action='#')
+                    .form-body.pal
+                        .row
+                            .form-group
+                                label.col-md-3.control-label(for='inputUsername') Username <span class='require'>*</span>
+                                .col-md-9
+                                        input#inputUsername.form-control(type='text', placeholder='Username')
+                            .form-group
+                                label.col-md-3.control-label(for='inputEmail') Email <span class='require'>*</span>
+                                .col-md-9
+                                        input#inputEmail.form-control(type="text", placeholder="Email")
+                            .form-group
+                                label.col-md-3.control-label(for='inputAddress') Address <span class='require'>*</span>
+                                .col-md-9
+                                    .input-icon.right
+                                        i.fa.fa-location-arrow
+                                        input#inputAddress.form-control(type="text", placeholder="Address")
+
+                        .row
+                            .form-group.mbn
+                                label.col-md-3.control-label(for='inputContent') Content
+                                .col-md-9
+                                    textarea#area2.form-control(rows="3")

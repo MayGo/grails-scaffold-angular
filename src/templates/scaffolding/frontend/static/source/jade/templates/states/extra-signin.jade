@@ -1,0 +1,49 @@
+#signin-page
+    .page-form-wrapper
+    .page-form
+        form.form(action='/#/')
+            .header-content
+                h1 Log In
+            .body-content
+                p Log in with a social network:
+                .row.mbm.text-center
+                    .col-md-4
+                        a.btn.btn-sm.btn-twitter.btn-block(href='javascript:void(0);')
+                            i.fa.fa-twitter.fa-fw
+                            | Twitter
+                    .col-md-4
+                        a.btn.btn-sm.btn-facebook.btn-block(href='javascript:void(0);')
+                            i.fa.fa-facebook.fa-fw
+                            | Facebook
+                    .col-md-4
+                        a.btn.btn-sm.btn-google-plus.btn-block(href='javascript:void(0);')
+                            i.fa.fa-google-plus.fa-fw
+                            | Google +
+                .form-group
+                    .input-icon.right
+                        i.fa.fa-user
+                        input.form-control(type='text', placeholder='Username', name='username')
+                .form-group
+                    .input-icon.right
+                        i.fa.fa-key
+                        input.form-control(type='password', placeholder='Password', name='password')
+                .form-group.pull-left
+                    .checkbox-list
+                        label
+                            input(type='checkbox')
+                            | &nbsp;
+                            | Keep me signed in
+                .form-group.pull-right
+                    button.btn.btn-success(type='button', onclick='window.location.href="/#/"')
+                        | Log In
+                        | &nbsp;
+                        i.fa.fa-chevron-circle-right
+                .clearfix
+                .forget-password
+                    h4 Forgotten your Password?
+                    p no worries, click <a href='javascript:void(0);' class='btn-forgot-pwd'>here</a> to reset your password.
+                hr
+                p
+                    | Don't have an account?
+                    = ' '
+                    a#btn-register(href='/#/extra-signup') Register Now

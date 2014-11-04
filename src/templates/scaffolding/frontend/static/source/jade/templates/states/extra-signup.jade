@@ -1,0 +1,59 @@
+#signup-page
+    .page-form
+        form#signup-form.form.signup-form(action='/#/')
+            .header-content
+                h1 Register
+            .body-content
+                .form-group
+                    .input-icon.right
+                        i.fa.fa-user
+                        input.form-control(type='text', placeholder='Username', name='username')
+                .form-group
+                    .input-icon.right
+                        i.fa.fa-envelope
+                        input.form-control(type='email', placeholder='Email address', name='email')
+                .form-group
+                    .input-icon.right
+                        i.fa.fa-key
+                        input#password.form-control(type='password', placeholder='Password', name='password')
+                .form-group
+                    .input-icon.right
+                        i.fa.fa-key
+                        input.form-control(type='password', placeholder='Confirm Password', name='passwordConfirm')
+                hr
+                .row(style='margin-bottom: 15px')
+                    .col-lg-6
+                        label
+                            input.form-control(type='text', placeholder='First Name', name='firstname')
+                    .col-lg-6
+                        label
+                            input.form-control(type='text', placeholder='Last Name', name='lastname')
+                .form-group
+                    label.select(style='display: block')
+                        select.form-control(name='gender')
+                            option(value='0', selected, disabled) Gender
+                            option(value='1') Male
+                            option(value='2') Female
+                            option(value='3') Other
+                .form-group
+                    .checkbox-list
+                        label
+                            input#subscription(type='checkbox', name='subscription')
+                            | &nbsp;
+                            | I want to receive news and special offers
+                .form-group
+                    .checkbox-list
+                        label
+                            input#terms(type='checkbox', name='terms')
+                            | &nbsp;
+                            | I agree with the Terms and Conditions
+                hr
+                .form-group.mbn
+                    a.btn.btn-warning(href='/#/extra-signin')
+                        i.fa.fa-chevron-circle-left
+                        | &nbsp;
+                        | Back
+                    button.btn.btn-info.pull-right(type='submit')
+                        | Submit
+                        | &nbsp;
+                        i.fa.fa-chevron-circle-right

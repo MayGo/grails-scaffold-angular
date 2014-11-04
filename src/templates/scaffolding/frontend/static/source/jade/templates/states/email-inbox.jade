@@ -1,0 +1,623 @@
+.row
+    .col-sm-3.col-md-2
+        .btn-group.btn-group-sm
+            button.btn.btn-primary.dropdown-toggle(type='button', data-toggle='dropdown')
+                | Mail
+                | &nbsp;
+                span.caret
+            ul.dropdown-menu(role='menu')
+                li
+                    a(href='javascript:void(0);') Mail
+                li
+                    a(href='javascript:void(0);') Contacts
+                li
+                    a(href='javascript:void(0);') Tasks
+    .col-sm-9.col-md-10
+        .btn-group
+            button.btn.btn-default(type='button')
+                input.checkall(type='checkbox', style='margin: 0; vertical-align: middle;')
+            button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                span.caret
+                span.sr-only Toggle Dropdown
+            ul.dropdown-menu(role='menu')
+                li
+                    a(href='javascript:void(0);') All
+                li
+                    a(href='javascript:void(0);') None
+                li
+                    a(href='javascript:void(0);') Read
+                li
+                    a(href='javascript:void(0);') Unread
+                li
+                    a(href='javascript:void(0);') Starred
+                li
+                    a(href='javascript:void(0);') Unstarred
+        button.btn.btn-default.mls.mrs(type='button', data-toggle='tooltip', title='Refresh')
+            span.glyphicon.glyphicon-refresh
+        .btn-group
+            button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                | More
+                | &nbsp;
+                span.caret
+            ul.dropdown-menu(role='menu')
+                li
+                    a(href='javascript:void(0);') Mark all as read
+                li.divider
+                li.text-center.pbm
+                    small.text-muted Select messages to see more actions
+        .pull-right
+            span.text-muted
+                b 1
+                | &nbsp; – &nbsp;
+                b 50
+                | &nbsp; of &nbsp;
+                b 277
+            .btn-group.mlm
+                button.btn.btn-default(type='button')
+                    span.glyphicon.glyphicon-chevron-left
+                button.btn.btn-default(type='button')
+                    span.glyphicon.glyphicon-chevron-right
+.mtl.mbl
+.row
+    .col-sm-3.col-md-2
+
+        a.btn.btn-danger.btn-sm.btn-block(href='javascript:void(0);', role='button') COMPOSE
+        .mtm.mbm
+        .panel
+            .panel-body.pan
+                ul.nav.nav-pills.nav-stacked(style='background: #fff')
+                    li.active
+                        a(href='javascript:void(0);')
+                            span.badge.pull-right 42
+                            i.fa.fa-inbox.fa-fw.mrs
+                            | Inbox
+                    li
+                        a(href='javascript:void(0);')
+                            i.fa.fa-star-o.fa-fw.mrs
+                            | Starred
+                    li
+                        a(href='javascript:void(0);')
+                            i.fa.fa-info-circle.fa-fw.mrs
+                            | Important
+                    li
+                        a(href='javascript:void(0);')
+                            i.fa.fa-plane.fa-fw.mrs
+                            | Sent Mail
+                    li
+                        a(href='javascript:void(0);')
+                            span.badge.badge-orange.pull-right 3
+                            i.fa.fa-edit.fa-fw.mrs
+                            | Drafts
+        hr
+        .panel
+            .panel-body.pan
+                ul.nav.nav-pills.nav-stacked(style='background: #fff')
+                    li.active
+                        a(href='javascript:void(0);') Buddy Online
+                    li
+                        a(href='javascript:void(0);')
+                            i.fa.fa-circle.text-yellow.pull-right
+                            | Home
+                    li
+                        a(href='javascript:void(0);')
+                            i.fa.fa-circle.text-success.pull-right
+                            | Work
+                    li
+                        a(href='javascript:void(0);')
+                            i.fa.fa-circle.text-red.pull-right
+                            | Family
+                    li
+                        a(href='javascript:void(0);')
+                            i.fa.fa-circle.text-muted.pull-right
+                            | Other
+    .col-sm-9.col-md-10
+        ul.nav.nav-tabs(ng-tab="")
+            li.active
+                a(href='#home', data-toggle='tab')
+                    span.glyphicon.glyphicon-inbox
+                    | &nbsp;
+                    | Primary
+            li
+                a(href='#profile', data-toggle='tab')
+                    span.glyphicon.glyphicon-user
+                    | &nbsp;
+                    | Social
+            li
+                a(href='#messages', data-toggle='tab')
+                    span.glyphicon.glyphicon-tags
+                    | &nbsp;
+                    | Promotions
+            li
+                a(href='#settings', data-toggle='tab')
+                    span.glyphicon.glyphicon-plus.man
+        .tab-content
+            #home.tab-pane.fade.in.active
+                .list-group.mail-box
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+            #profile.tab-pane.fade.in
+                .list-group.mail-box
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+            #messages.tab-pane.fade.in
+                .list-group.mail-box
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+            #settings.tab-pane.fade.in
+                .list-group.mail-box
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+                    a.list-group-item(href='javascript:void(0);')
+                        input(type='checkbox')
+                        span.fa.fa-star-o.mrm.mlm
+                        span.name(style='min-width: 120px; display: inline-block;') Bhaumik Patel
+                        span Sed ut perspiciatis unde
+                        | &nbsp; - &nbsp;
+                        span.text-muted(style='font-size: 11px;') Lorem ipsum dolor sit amet, consectetur adipisicing elit ...
+                        span.time-badge 12:10 AM
+                        span.pull-right.mrl
+                            span.glyphicon.glyphicon-paperclip
+
+

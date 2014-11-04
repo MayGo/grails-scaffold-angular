@@ -1,0 +1,480 @@
+.row#demo-checkbox-radio
+    .col-lg-12
+        h3 Minimal skin
+        .row.skin#minimal-skin
+            .col-md-4
+                h4.box-heading Live Checkbox
+                ul.list-unstyled
+                    li.pbm
+                        input#minimal-checkbox-1(tabindex='5', type='checkbox')
+                        | &nbsp;&nbsp;
+                        label(for='minimal-checkbox-1') Checkbox 1
+                    li.pbm
+                        input#minimal-checkbox-2(tabindex='6', type='checkbox', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='minimal-checkbox-2') Checkbox 2
+                    li.pbm
+                        input#minimal-checkbox-disabled(type='checkbox', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='minimal-checkbox-disabled') Disabled
+                    li.pbm
+                        input#minimal-checkbox-disabled-checked(type='checkbox', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='minimal-checkbox-disabled-checked') Disabled & checked
+                .colors
+                    strong Color schemes
+                    ul.list-unstyled
+                        li.active(title='Black')
+                        li.red(title='Red')
+                        li.green(title='Green')
+                        li.blue(title='Blue')
+                        li.aero(title='Aero')
+                        li.grey(title='Grey')
+                        li.orange(title='Orange')
+                        li.yellow(title='Yellow')
+                        li.pink(title='Pink')
+                        li.purple(title='Purple')
+            .col-md-4
+                h4.box-heading Live Radio
+                ul.list-unstyled
+                    li.pbm
+                        input#minimal-radio-1(tabindex='7', type='radio', name='minimal-radio')
+                        | &nbsp;&nbsp;
+                        label(for='minimal-radio-1') Radio button 1
+                    li.pbm
+                        input#minimal-radio-2(tabindex='8', type='radio', name='minimal-radio', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='minimal-radio-2') Radio button 2
+                    li.pbm
+                        input#minimal-radio-disabled(type='radio', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='minimal-radio-disabled') Disabled
+                    li.pbm
+                        input#minimal-radio-disabled-checked(type='radio', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='minimal-radio-disabled-checked') Disabled & checked
+            .col-md-4.skin-states
+                h4.box-heading State
+                ul.list-unstyled
+                    li.pbm
+                        .state.icheckbox_minimal
+                        | &nbsp;&nbsp;
+                        .state.iradio_minimal
+                        | &nbsp;&nbsp;
+                        label Normal
+                    li.pbm
+                        .state.icheckbox_minimal.hover
+                        | &nbsp;&nbsp;
+                        .state.iradio_minimal.hover
+                        | &nbsp;&nbsp;
+                        label Hover
+                    li.pbm
+                        .state.icheckbox_minimal.checked
+                        | &nbsp;&nbsp;
+                        .state.iradio_minimal.checked
+                        | &nbsp;&nbsp;
+                        label Checked
+                    li.pbm
+                        .state.icheckbox_minimal.disabled
+                        | &nbsp;&nbsp;
+                        .state.iradio_minimal.disabled
+                        | &nbsp;&nbsp;
+                        label Disabled
+                    li.pbm
+                        .state.icheckbox_minimal.checked.disabled
+                        | &nbsp;&nbsp;
+                        .state.iradio_minimal.checked.disabled
+                        | &nbsp;&nbsp;
+                        label Disabled & checked
+        hr.mtxxl.mbxxl
+        h3 Square skin
+        .row.skin.skin-square#square-skin
+            .col-md-4
+                h4.box-heading Live Checkbox
+                ul.list-unstyled
+                    li.pbm
+                        input#square-checkbox-1(tabindex='9', type='checkbox')
+                        | &nbsp;&nbsp;
+                        label(for='square-checkbox-1') Checkbox 1
+                    li.pbm
+                        input#square-checkbox-2(tabindex='10', type='checkbox', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='square-checkbox-2') Checkbox 2
+                    li.pbm
+                        input#square-checkbox-disabled(type='checkbox', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='square-checkbox-disabled') Disabled
+                    li.pbm
+                        input#square-checkbox-disabled-checked(type='checkbox', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='square-checkbox-disabled-checked') Disabled & checked
+                .colors.clear
+                    strong Color schemes
+                    ul.list-unstyled
+                        li(title='Black')
+                        li.red(title='Red')
+                        li.green.active(title='Green')
+                        li.blue(title='Blue')
+                        li.aero(title='Aero')
+                        li.grey(title='Grey')
+                        li.orange(title='Orange')
+                        li.yellow(title='Yellow')
+                        li.pink(title='Pink')
+                        li.purple(title='Purple')
+            .col-md-4
+                h4.box-heading Live Radio
+                ul.list-unstyled
+                    li.pbm
+                        input#square-radio-1(tabindex='11', type='radio', name='square-radio')
+                        | &nbsp;&nbsp;
+                        label(for='square-radio-1') Radio button 1
+                    li.pbm
+                        input#square-radio-2(tabindex='12', type='radio', name='square-radio', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='square-radio-2') Radio button 2
+                    li.pbm
+                        input#square-radio-disabled(type='radio', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='square-radio-disabled') Disabled
+                    li.pbm
+                        input#square-radio-disabled-checked(type='radio', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='square-radio-disabled-checked') Disabled & checked
+            .col-md-4.skin-states
+                h4.box-heading State
+                ul.list-unstyled
+                    li.pbm
+                        .state.icheckbox_square-green
+                        | &nbsp;&nbsp;
+                        .state.iradio_square-green
+                        | &nbsp;&nbsp;
+                        | Normal
+                    li.pbm
+                        .state.icheckbox_square-green.hover
+                        | &nbsp;&nbsp;
+                        .state.iradio_square-green.hover
+                        | &nbsp;&nbsp;
+                        | Hover
+                    li.pbm
+                        .state.icheckbox_square-green.checked
+                        | &nbsp;&nbsp;
+                        .state.iradio_square-green.checked
+                        | &nbsp;&nbsp;
+                        | Checked
+                    li.pbm
+                        .state.icheckbox_square-green.disabled
+                        | &nbsp;&nbsp;
+                        .state.iradio_square-green.disabled
+                        | &nbsp;&nbsp;
+                        | Disabled
+                    li.pbm
+                        .state.icheckbox_square-green.checked.disabled
+                        | &nbsp;&nbsp;
+                        .state.iradio_square-green.checked.disabled
+                        | &nbsp;&nbsp;
+                        | Disabled & checked
+        hr.mtxxl.mbxxl
+        h3 Flat skin
+        .row.skin.skin-flat#flat-skin
+            .col-md-4
+                h4.box-heading Live Checkbox
+                ul.list-unstyled
+                    li.pbm
+                        input#flat-checkbox-1(tabindex='13', type='checkbox')
+                        | &nbsp;&nbsp;
+                        label(for='flat-checkbox-1') Checkbox 1
+                    li.pbm
+                        input#flat-checkbox-2(tabindex='14', type='checkbox', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='flat-checkbox-2') Checkbox 2
+                    li.pbm
+                        input#flat-checkbox-disabled(type='checkbox', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='flat-checkbox-disabled') Disabled
+                    li.pbm
+                        input#flat-checkbox-disabled-checked(type='checkbox', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='flat-checkbox-disabled-checked') Disabled & checked
+                .colors
+                    strong Color schemes
+                    ul.list-unstyled
+                        li(title='Black')
+                        li.red.active(title='Red')
+                        li.green(title='Green')
+                        li.blue(title='Blue')
+                        li.aero(title='Aero')
+                        li.grey(title='Grey')
+                        li.orange(title='Orange')
+                        li.yellow(title='Yellow')
+                        li.pink(title='Pink')
+                        li.purple(title='Purple')
+            .col-md-4
+                h4.box-heading Live Radio
+                ul.list-unstyled
+                    li.pbm
+                        input#flat-radio-1(tabindex='15', type='radio', name='flat-radio')
+                        | &nbsp;&nbsp;
+                        label(for='flat-radio-1') Radio button 1
+                    li.pbm
+                        input#flat-radio-2(tabindex='16', type='radio', name='flat-radio', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='flat-radio-2') Radio button 2
+                    li.pbm
+                        input#flat-radio-disabled(type='radio', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='flat-radio-disabled') Disabled
+                    li.pbm
+                        input#flat-radio-disabled-checked(type='radio', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='flat-radio-disabled-checked') Disabled & checked
+            .col-md-4.skin-states
+                h4.box-heading State
+                ul.list-unstyled
+                    li.pbm
+                        .state.icheckbox_flat-red
+                        | &nbsp;&nbsp;
+                        .state.iradio_flat-red
+                        | &nbsp;&nbsp;
+                        | Normal
+                    li.pbm
+                        .state.icheckbox_flat-red.checked
+                        | &nbsp;&nbsp;
+                        .state.iradio_flat-red.checked
+                        | &nbsp;&nbsp;
+                        | Checked
+                    li.pbm
+                        .state.icheckbox_flat-red.disabled
+                        | &nbsp;&nbsp;
+                        .state.iradio_flat-red.disabled
+                        | &nbsp;&nbsp;
+                        | Disabled
+                    li.pbm
+                        .state.icheckbox_flat-red.checked.disabled
+                        | &nbsp;&nbsp;
+                        .state.iradio_flat-red.checked.disabled
+                        | &nbsp;&nbsp;
+                        | Disabled & checked
+        hr.mtxxl.mbxxl
+        h3 Line skin
+        .row.skin.skin-line#line-skin
+            .col-md-4
+                h4.box-heading Live Checkbox
+                ul.list-unstyled
+                    li.pbm
+                        input#line-checkbox-1(tabindex='17', type='checkbox')
+                        | &nbsp;&nbsp;
+                        label(for='line-checkbox-1') Checkbox 1
+                    li.pbm
+                        input#line-checkbox-2(tabindex='18', type='checkbox', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='line-checkbox-2') Checkbox 2
+                    li.pbm
+                        input#line-checkbox-disabled(type='checkbox', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='line-checkbox-disabled') Disabled
+                    li.pbm
+                        input#line-checkbox-disabled-checked(type='checkbox', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='line-checkbox-disabled-checked') Disabled & checked
+                .colors
+                    strong Color schemes
+                    ul.list-unstyled
+                        li(title='Black')
+                        li.red(title='Red')
+                        li.green(title='Green')
+                        li.blue.active(title='Blue')
+                        li.aero(title='Aero')
+                        li.grey(title='Grey')
+                        li.orange(title='Orange')
+                        li.yellow(title='Yellow')
+                        li.pink(title='Pink')
+                        li.purple(title='Purple')
+            .col-md-4
+                h4.box-heading Live Radio
+                ul.list-unstyled
+                    li.pbm
+                        input#line-radio-1(tabindex='19', type='radio', name='line-radio')
+                        | &nbsp;&nbsp;
+                        label(for='line-radio-1') Radio button 1
+                    li.pbm
+                        input#line-radio-2(tabindex='20', type='radio', name='line-radio', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='line-radio-2') Radio button 2
+                    li.pbm
+                        input#line-radio-disabled(type='radio', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='line-radio-disabled') Disabled
+                    li.pbm
+                        input#line-radio-disabled-checked(type='radio', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='line-radio-disabled-checked') Disabled & checked
+            .col-md-4.skin-states
+                h4.box-heading State
+                ul.list-unstyled
+                    li.pbm
+                        .state.icheckbox_line-blue
+                            .icheck_line-icon
+                            | &nbsp;&nbsp;
+                            | Normal
+                    li.pbm
+                        .state.icheckbox_line-blue.hover
+                            .icheck_line-icon
+                            | &nbsp;&nbsp;
+                            | Hover
+                    li.pbm
+                        .state.icheckbox_line-blue.checked
+                            .icheck_line-icon
+                            | &nbsp;&nbsp;
+                            | Checked
+                    li.pbm
+                        .state.icheckbox_line-blue.disabled
+                            .icheck_line-icon
+                            | &nbsp;&nbsp;
+                            | Disabled
+                    li.pbm
+                        .state.icheckbox_line-blue.checked.disabled
+                            .icheck_line-icon
+                            | &nbsp;&nbsp;
+                            | Disabled & checked
+        hr.mtxxl.mbxxl
+        h3 Polaris skin
+        .row.skin.skin-polaris#polaris-skin
+            .col-md-4
+                h4.box-heading Live Checkbox
+                ul.list-unstyled
+                    li.pbm
+                        input#polaris-checkbox-1(tabindex='21', type='checkbox')
+                        | &nbsp;&nbsp;
+                        label(for='polaris-checkbox-1') Checkbox 1
+                    li.pbm
+                        input#polaris-checkbox-2(tabindex='22', type='checkbox', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='polaris-checkbox-2') Checkbox 2
+                    li.pbm
+                        input#polaris-checkbox-disabled(type='checkbox', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='polaris-checkbox-disabled') Disabled
+                    li.pbm
+                        input#polaris-checkbox-disabled-checked(type='checkbox', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='polaris-checkbox-disabled-checked') Disabled & checked
+            .col-md-4
+                h4.box-heading Live Radio
+                ul.list-unstyled
+                    li.pbm
+                        input#polaris-radio-1(tabindex='23', type='radio', name='polaris-radio')
+                        | &nbsp;&nbsp;
+                        label(for='polaris-radio-1') Radio button 1
+                    li.pbm
+                        input#polaris-radio-2(tabindex='24', type='radio', name='polaris-radio', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='polaris-radio-2') Radio button 2
+                    li.pbm
+                        input#polaris-radio-disabled(type='radio', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='polaris-radio-disabled') Disabled
+                    li.pbm
+                        input#polaris-radio-disabled-checked(type='radio', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='polaris-radio-disabled-checked') Disabled & checked
+            .col-md-4.skin-states
+                h4.box-heading State
+                ul.list-unstyled
+                    li.pbm
+                        .state.icheckbox_polaris
+                        | &nbsp;&nbsp;
+                        .state.iradio_polaris
+                        | &nbsp;&nbsp;
+                        | Normal
+                    li.pbm
+                        .state.icheckbox_polaris.hover
+                        | &nbsp;&nbsp;
+                        .state.iradio_polaris.hover
+                        | &nbsp;&nbsp;
+                        | Hover
+                    li.pbm
+                        .state.icheckbox_polaris.checked
+                        | &nbsp;&nbsp;
+                        .state.iradio_polaris.checked
+                        | &nbsp;&nbsp;
+                        | Checked
+                    li.pbm
+                        .state.icheckbox_polaris.disabled
+                        | &nbsp;&nbsp;
+                        .state.iradio_polaris.disabled
+                        | &nbsp;&nbsp;
+                        | Disabled
+                    li.pbm
+                        .state.icheckbox_polaris.checked.disabled
+                        | &nbsp;&nbsp;
+                        .state.iradio_polaris.checked.disabled
+                        | &nbsp;&nbsp;
+                        | Disabled & checked
+        hr.mtxxl.mbxxl
+        h3 Futurico skin
+        .row.skin.skin-futurico#futurico-skin
+            .col-md-4
+                h4.box-heading Live Checkbox
+                ul.list-unstyled
+                    li.pbm
+                        input#futurico-checkbox-1(tabindex='25', type='checkbox')
+                        | &nbsp;&nbsp;
+                        label(for='futurico-checkbox-1') Checkbox 1
+                    li.pbm
+                        input#futurico-checkbox-2(tabindex='26', type='checkbox', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='futurico-checkbox-2') Checkbox 2
+                    li.pbm
+                        input#futurico-checkbox-disabled(type='checkbox', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='futurico-checkbox-disabled') Disabled
+                    li.pbm
+                        input#futurico-checkbox-disabled-checked(type='checkbox', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='futurico-checkbox-disabled-checked') Disabled & checked
+            .col-md-4
+                h4.box-heading Live Radio
+                ul.list-unstyled
+                    li.pbm
+                        input#futurico-radio-1(tabindex='27', type='radio', name='futurico-radio')
+                        | &nbsp;&nbsp;
+                        label(for='futurico-radio-1') Radio button 1
+                    li.pbm
+                        input#futurico-radio-2(tabindex='28', type='radio', name='futurico-radio', checked='checked')
+                        | &nbsp;&nbsp;
+                        label(for='futurico-radio-2') Radio button 2
+                    li.pbm
+                        input#futurico-radio-disabled(type='radio', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='futurico-radio-disabled') Disabled
+                    li.pbm
+                        input#futurico-radio-disabled-checked(type='radio', checked='checked', disabled='disabled')
+                        | &nbsp;&nbsp;
+                        label(for='futurico-radio-disabled-checked') Disabled & checked
+            .col-md-4.skin-states
+                h4.box-heading State
+                ul.list-unstyled
+                    li.pbm
+                        .state.icheckbox_futurico
+                        | &nbsp;&nbsp;
+                        .state.iradio_futurico
+                        | &nbsp;&nbsp;
+                        | Normal
+                    li.pbm
+                        .state.icheckbox_futurico.checked
+                        | &nbsp;&nbsp;
+                        .state.iradio_futurico.checked
+                        | &nbsp;&nbsp;
+                        | Checked
+                    li.pbm
+                        .state.icheckbox_futurico.disabled
+                        | &nbsp;&nbsp;
+                        .state.iradio_futurico.disabled
+                        | &nbsp;&nbsp;
+                        | Disabled
+                    li.pbm
+                        .state.icheckbox_futurico.checked.disabled
+                        | &nbsp;&nbsp;
+                        .state.iradio_futurico.checked.disabled
+                        | &nbsp;&nbsp;
+                        | Disabled & checked

@@ -1,0 +1,113 @@
+.row
+    .col-sm-3.col-md-2
+        .btn-group.btn-group-sm
+            button.btn.btn-primary.dropdown-toggle(type='button', data-toggle='dropdown')
+                | Mail
+                | &nbsp;
+                span.caret
+            ul.dropdown-menu(role='menu')
+                li
+                    a(href='javascript:void(0);') Mail
+                li
+                    a(href='javascript:void(0);') Contacts
+                li
+                    a(href='javascript:void(0);') Tasks
+    .col-sm-9.col-md-10
+
+.mtl.mbl
+.row
+    .col-sm-3.col-md-2
+        a.btn.btn-danger.btn-sm.btn-block(href='javascript:void(0);', role='button') COMPOSE
+        .mtm.mbm
+        ul.nav.nav-pills.nav-stacked(style='background: #fff')
+            li.active
+                a(href='javascript:void(0);')
+                    span.badge.pull-right 42
+                    i.fa.fa-inbox.fa-fw.mrs
+                    | Inbox
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-star-o.fa-fw.mrs
+                    | Starred
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-info-circle.fa-fw.mrs
+                    | Important
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-plane.fa-fw.mrs
+                    | Sent Mail
+            li
+                a(href='javascript:void(0);')
+                    span.badge.badge-orange.pull-right 3
+                    i.fa.fa-edit.fa-fw.mrs
+                    | Drafts
+        hr
+        ul.nav.nav-pills.nav-stacked(style='background: #fff')
+            li.active
+                a(href='javascript:void(0);') Buddy Online
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-circle.text-yellow.pull-right
+                    | Home
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-circle.text-success.pull-right
+                    | Work
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-circle.text-red.pull-right
+                    | Family
+            li
+                a(href='javascript:void(0);')
+                    i.fa.fa-circle.text-muted.pull-right
+                    | Other
+    .col-sm-9.col-md-10
+        .compose-mail
+            .portlet.box.portlet-white
+                .portlet-header
+                    .caption Compose Mail
+                    .tools
+                        a.mrm(onclick='$(this).hide(); $(\'#cc\').parent().parent().removeClass(\'hidden\'); $(\'#cc\').focus();', href='javascript:;') Cc
+                        a(onclick='$(this).hide(); $(\'#bcc\').parent().parent().removeClass(\'hidden\'); $(\'#bcc\').focus();', href='javascript:;') Bcc
+                .portlet-body
+                    form(role='form-horizontal', method='post')
+                        .form-group
+                            .input-group
+                                span.input-group-addon To:
+                                input#to.form-control(type='text', placeholder='')
+                        .form-group.hidden
+                            .input-group
+                                span.input-group-addon Cc:
+                                input#cc.form-control(type='text', placeholder='')
+                        .form-group.hidden
+                            .input-group
+                                span.input-group-addon Bcc:
+                                input#bcc.form-control(type='text', placeholder='')
+                        .form-group
+                            .input-group
+                                span.input-group-addon Subject:
+                                input#subject.form-control(type='text', placeholder='')
+                        .compose-editor.mbl
+                            textarea.wysihtml5.form-control(rows='6')
+                        .form-group
+                            input(type='file')
+                            p.help-block
+                                i.fa.fa-paperclip
+                                | &nbsp;
+                                | Attachments
+                        hr
+                        .compose-btn
+                            button.btn.btn-sm.btn-primary
+                                i.fa.fa-check
+                                | &nbsp;
+                                | Send
+                            | &nbsp;
+                            button.btn.btn-default.btn-sm
+                                i.fa.fa-times
+                                | &nbsp;
+                                | Discard
+                            | &nbsp;
+                            button.btn.btn-sm.btn-default Draft
+
+

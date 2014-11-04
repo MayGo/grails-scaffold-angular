@@ -1,0 +1,352 @@
+#tab-general
+    #sum_box.row.mbl
+        .col-sm-6.col-md-3
+            .panel.profit.db.mbm
+                .panel-body
+                    p.icon
+                        i.icon.fa.fa-shopping-cart
+                    h4.value
+                        span(data-counter="", data-start="10", data-end="50", data-step="1", data-duration="0") 189
+                        span $
+                    p.description Profit description
+                    .progress.progress-sm.mbn
+                        .progress-bar.progress-bar-success(role='progressbar', aria-valuenow='80', aria-valuemin='0', aria-valuemax='100', style='width: 80%;')
+                            span.sr-only 80% Complete (success)
+        .col-sm-6.col-md-3
+            .panel.income.db.mbm
+                .panel-body
+                    p.icon
+                        i.icon.fa.fa-money
+                    h4.value
+                        span 215
+                        span $
+                    p.description Income detail
+                    .progress.progress-sm.mbn
+                        .progress-bar.progress-bar-info(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width: 60%;')
+                            span.sr-only 60% Complete (success)
+        .col-sm-6.col-md-3
+            .panel.task.db.mbm
+                .panel-body
+                    p.icon
+                        i.icon.fa.fa-signal
+                    h4.value
+                        span 215
+                    p.description Task completed
+                    .progress.progress-sm.mbn
+                        .progress-bar.progress-bar-danger(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%;')
+                            span.sr-only 50% Complete (success)
+        .col-sm-6.col-md-3
+            .panel.visit.db.mbm
+                .panel-body
+                    p.icon
+                        i.icon.fa.fa-group
+                    h4.value
+                        span 128
+                    p.description Visitor description
+                    .progress.progress-sm.mbn
+                        .progress-bar.progress-bar-warning(role='progressbar', aria-valuenow='70', aria-valuemin='0', aria-valuemax='100', style='width: 70%;')
+                            span.sr-only 70% Complete (success)
+    .row.mbl
+        .col-lg-8
+            .panel
+                .panel-body
+                    .row
+                        .col-md-8
+                            h4.mbs.text-uppercase Network Performance
+                            p.help-block Sed ut perspiciatis unde omnis iste natus error sit voluptatem...
+                            #area-chart-spline(style="width: 100%; height:300px", ng-areachartspline="")
+                        .col-md-4
+                            h4.mbm.text-uppercase Server Status
+                            span.task-item
+                                | CPU Usage (25 - 32 cpus)
+                                small.pull-right.text-muted 40%
+                                .progress.progress-sm
+                                    .progress-bar.progress-bar-orange(role='progressbar', aria-valuenow='40', aria-valuemin='0', aria-valuemax='100', style='width: 40%;')
+                                        span.sr-only 40% Complete (success)
+                            span
+                                | Memory Usage (2.5GB)
+                                small.pull-right.text-muted 60%
+                                .progress.progress-sm
+                                    .progress-bar.progress-bar-blue(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width: 60%;')
+                                        span.sr-only 60% Complete (success)
+                            span
+                                | Disk Usage (C:\ 120GB , D:\ 430GB)
+                                small.pull-right.text-muted 55%
+                                .progress.progress-sm
+                                    .progress-bar.progress-bar-green(role='progressbar', aria-valuenow='55', aria-valuemin='0', aria-valuemax='100', style='width: 55%;')
+                                        span.sr-only 55% Complete (success)
+                            span
+                                | Domain (2/5)
+                                small.pull-right.text-muted 66%
+                                .progress.progress-sm
+                                    .progress-bar.progress-bar-yellow(role='progressbar', aria-valuenow='66', aria-valuemin='0', aria-valuemax='100', style='width: 66%;')
+                                        span.sr-only 66% Complete (success)
+                            span
+                                | Database (90/100)
+                                small.pull-right.text-muted 90%
+                                .progress.progress-sm
+                                    .progress-bar.progress-bar-pink(role='progressbar', aria-valuenow='90', aria-valuemin='0', aria-valuemax='100', style='width: 90%;')
+                                        span.sr-only 90% Complete (success)
+                            span
+                                | Email Account (25/50)
+                                small.pull-right.text-muted 50%
+                                .progress.progress-sm
+                                    .progress-bar.progress-bar-violet(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%;')
+                                        span.sr-only 50% Complete (success)
+        .col-lg-4
+            .portlet.box
+                .portlet-header
+                    .caption.text-uppercase Chats
+                .portlet-body
+                    .chat-scroller
+                        ul.chats
+                            li.in
+                                img.avatar.img-responsive(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg')
+                                .message
+                                    span.chat-arrow
+                                    a.chat-name(href='javascript:void(0);') Admin
+                                    | &nbsp;
+                                    span.chat-datetime at July 06, 2014 17:06
+                                    span.chat-body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                            li.out
+                                img.avatar.img-responsive(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg')
+                                .message
+                                    span.chat-arrow
+                                    a.chat-name(href='javascript:void(0);') Admin
+                                    | &nbsp;
+                                    span.chat-datetime at July 06, 2014 18:06
+                                    span.chat-body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                            li.in
+                                img.avatar.img-responsive(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg')
+                                .message
+                                    span.chat-arrow
+                                    a.chat-name(href='javascript:void(0);') Admin
+                                    | &nbsp;
+                                    span.chat-datetime at July 06, 2014 17:06
+                                    span.chat-body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                            li.out
+                                img.avatar.img-responsive(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg')
+                                .message
+                                    span.chat-arrow
+                                    a.chat-name(href='javascript:void(0);') Admin
+                                    | &nbsp;
+                                    span.chat-datetime at July 06, 2014 18:06
+                                    span.chat-body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                            li.in
+                                img.avatar.img-responsive(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/48.jpg')
+                                .message
+                                    span.chat-arrow
+                                    a.chat-name(href='javascript:void(0);') Admin
+                                    | &nbsp;
+                                    span.chat-datetime at July 06, 2014 17:06
+                                    span.chat-body Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                    .chat-form
+                        .input-group
+                            input#input-chat.form-control(type='text', placeholder='Type a message here...')
+                            span#btn-chat.input-group-btn
+                                button.btn.btn-green(type='button')
+                                    i.fa.fa-check
+    .row.mbl
+        .col-lg-4
+            .panel
+                .panel-body
+                    .profile
+                        .row(style='margin-bottom: 15px')
+                            .col-xs-12.col-sm-8
+                                h2 John Doe
+                                p
+                                    strong About:
+                                    = ' '
+                                    | Web Designer / UI.
+                                p
+                                    strong Hobbies:
+                                    = ' '
+                                    | Read, out with friends, listen to music, draw and learn new things.
+                                p
+                                    strong.mrs Skills:
+                                    span.label.label-green.mrs html5
+                                    span.label.label-green.mrs css3
+                                    span.label.label-green.mrs jquery
+                            .col-xs-12.col-sm-4.text-center
+                                figure
+                                    img.img-responsive.img-circle(src='https://s3.amazonaws.com/uifaces/faces/twitter/kolage/128.jpg', alt='', style='display: inline-block')
+                                    figcaption.ratings
+                                        p
+                                            a(href='javascript:void(0);')
+                                                span.fa.fa-star
+                                            a(href='javascript:void(0);')
+                                                span.fa.fa-star
+                                            a(href='javascript:void(0);')
+                                                span.fa.fa-star
+                                            a(href='javascript:void(0);')
+                                                span.fa.fa-star
+                                            a(href='javascript:void(0);')
+                                                span.fa.fa-star-o
+                        .row.text-center.divider
+                            .col-xs-12.col-sm-4.emphasis
+                                h2
+                                    strong  20,7K
+                                p
+                                    small Followers
+                                button.btn.btn-yellow.btn-block
+                                    | Follow
+                            .col-xs-12.col-sm-4.emphasis
+                                h2
+                                    strong 43
+                                p
+                                    small Snippets
+                                .btn-group.dropdown
+                                    button.btn.btn-orange.dropdown-toggle(type='button', data-toggle='dropdown')
+                                        | Options&nbsp;
+                                        i.fa.fa-angle-down
+                                    ul.dropdown-menu.text-left(role='menu')
+                                        li
+                                            a(href='javascript:void(0);')
+                                                span.fa.fa-envelope
+                                                | &nbsp;
+                                                | Send an email
+                                        li
+                                            a(href='javascript:void(0);')
+                                                span.fa.fa-list
+                                                | &nbsp;
+                                                | Add or remove from a list
+                                        li.divider
+                                        li
+                                            a(href='javascript:void(0);')
+                                                span.fa.fa-warning
+                                                | &nbsp;
+                                                | Report this user for spam
+                                       
+                            .col-xs-12.col-sm-4.emphasis
+                                h2
+                                    strong 245
+                                p
+                                    small Following
+                                button.btn.btn-blue.btn-block
+                                    | Profile
+                            
+        .col-lg-8
+            .portlet.box
+                .portlet-header
+                    .caption.text-uppercase Todo List
+                .portlet-body(style='overflow: hidden;')
+                    ul.todo-list.sortable
+                        li.clearfix
+                            span.drag-drop
+                                i
+                            .todo-check.pull-left
+                                input(type='checkbox', value='')
+                            .todo-title Sed ut perspiciatis unde omnis iste
+                            .todo-actions.pull-right.clearfix
+                                a.todo-complete(href='javascript:void(0);')
+                                    i.fa.fa-check
+                                a.todo-edit(href='javascript:void(0);')
+                                    i.fa.fa-edit
+                                a.todo-remove(href='javascript:void(0);')
+                                    i.fa.fa-trash-o
+                        li.clearfix
+                            span.drag-drop
+                                i
+                            .todo-check.pull-left
+                                input(type='checkbox', value='')
+                            .todo-title At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                            .todo-actions.pull-right.clearfix
+                                a.todo-complete(href='javascript:void(0);')
+                                    i.fa.fa-check
+                                a.todo-edit(href='javascript:void(0);')
+                                    i.fa.fa-edit
+                                a.todo-remove(href='javascript:void(0);')
+                                    i.fa.fa-trash-o
+                        li.clearfix
+                            span.drag-drop
+                                i
+                            .todo-check.pull-left
+                                input(type='checkbox', value='')
+                            .todo-title Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+                            .todo-actions.pull-right.clearfix
+                                a.todo-complete(href='javascript:void(0);')
+                                    i.fa.fa-check
+                                a.todo-edit(href='javascript:void(0);')
+                                    i.fa.fa-edit
+                                a.todo-remove(href='javascript:void(0);')
+                                    i.fa.fa-trash-o
+                        li.clearfix
+                            span.drag-drop
+                                i
+                            .todo-check.pull-left
+                                input(type='checkbox', value='')
+                            .todo-title Et harum quidem rerum facilis est
+                            .todo-actions.pull-right.clearfix
+                                a.todo-complete(href='javascript:void(0);')
+                                    i.fa.fa-check
+                                a.todo-edit(href='javascript:void(0);')
+                                    i.fa.fa-edit
+                                a.todo-remove(href='javascript:void(0);')
+                                    i.fa.fa-trash-o
+                        li.clearfix
+                            span.drag-drop
+                                i
+                            .todo-check.pull-left
+                                input(type='checkbox', value='')
+                            .todo-title Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet
+                            .todo-actions.pull-right.clearfix
+                                a.todo-complete(href='javascript:void(0);')
+                                    i.fa.fa-check
+                                a.todo-edit(href='javascript:void(0);')
+                                    i.fa.fa-edit
+                                a.todo-remove(href='javascript:void(0);')
+                                    i.fa.fa-trash-o
+                        li.clearfix
+                            span.drag-drop
+                                i
+                            .todo-check.pull-left
+                                input(type='checkbox', value='')
+                            .todo-title Excepteur sint occaecat cupidatat non proident
+                            .todo-actions.pull-right.clearfix
+                                a.todo-complete(href='javascript:void(0);')
+                                    i.fa.fa-check
+                                a.todo-edit(href='javascript:void(0);')
+                                    i.fa.fa-edit
+                                a.todo-remove(href='javascript:void(0);')
+                                    i.fa.fa-trash-o
+    .row.mtxl
+        .col-lg-8
+            .timeline-centered.timeline-sm
+                article.timeline-entry
+                    .timeline-entry-inner
+                        time.timeline-time(datetime='2014-01-10T03:45')
+                            span 12:45 AM
+                            span Today
+                        .timeline-icon.bg-violet
+                            i.fa.fa-exclamation
+                        .timeline-label
+                            h4.timeline-title New Project
+                            p Tolerably earnestly middleton extremely distrusts she boy now not. Add and offered prepare how cordial.
+                article.timeline-entry.left-aligned
+                    .timeline-entry-inner
+                        time.timeline-time(datetime='2014-01-10T03:45')
+                            span 9:15 AM
+                            span Today
+                        .timeline-icon.bg-green
+                            i.fa.fa-group
+                        .timeline-label.bg-green
+                            h4.timeline-title Job Meeting
+                            p Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu courgette.
+                article.timeline-entry
+                    .timeline-entry-inner
+                        time.timeline-time(datetime='2014-01-09T13:22')
+                            span 8:20 PM
+                            span 04/03/2013
+                        .timeline-icon.bg-orange
+                            i.fa.fa-paper-plane
+                        .timeline-label.bg-orange
+                            h4.timeline-title Daily Feeds
+                            p
+                                img.timeline-img.pull-left(src="http://lorempixel.com/45/45/nature/3/", alt='')
+                                | Parsley amaranth tigernut silver beet maize fennel spinach ricebean black-eyed. Tolerably earnestly middleton extremely distrusts she boy now not. Add and offered prepare how cordial.
+                    .timeline-entry-inner
+                        .timeline-icon(style='-webkit-transform: rotate(-90deg); -moz-transform: rotate(-90deg);')
+                            i.fa.fa-plus
+        .col-lg-4
+            #my-calendar(ng-zabutocalendar="")
+

@@ -1,0 +1,200 @@
+.row
+    .col-lg-4
+        .portlet.box.portlet-pink
+            .portlet-header
+                .caption Default
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt nulla elit, at sollicitudin ipsum mattis quis. Vivamus vitae diam at libero fringilla condimentum. Vestibulum laoreet nulla ut neque eleifend, ut hendrerit felis mollis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam congue, risus ac tincidunt ultrices, nunc enim consectetur purus, vitae faucibus dolor turpis ut justo. Duis id feugiat sem, ac commodo nisi. Curabitur tincidunt volutpat nisi id ullamcorper.
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt nulla elit, at sollicitudin ipsum mattis quis. Vivamus vitae diam at libero fringilla condimentum. Vestibulum laoreet nulla ut neque eleifend, ut hendrerit felis mollis.
+    .col-lg-4
+        .portlet.box.color.portlet-primary
+            .portlet-header
+                .caption Colors
+                .actions
+                    a.btn.btn-white.btn-sm(href="javascript:void(0)")
+                        i.fa.fa-edit
+                        | &nbsp;
+                        | Edit
+                    | &nbsp;
+                    .btn-group
+                        button.btn.btn-default.btn-sm.dropdown-toggle(type='button', data-toggle='dropdown')
+                            i.fa.fa-user
+                            | &nbsp;
+                            | User
+                            | &nbsp;
+                            span.caret
+                        ul.dropdown-menu.pull-right
+                            li
+                                a(href="javascript:void(0)")
+                                    i.fa.fa-pencil
+                                    | &nbsp;
+                                    | Edit
+                            li
+                                a(href="javascript:void(0)")
+                                    i.fa.fa-trash-o
+                                    | &nbsp;
+                                    | Delete
+                            li
+                                a(href="javascript:void(0)")
+                                    i.fa.fa-refresh
+                                    | &nbsp;
+                                    | Update
+            .portlet-body
+                p Pellentesque augue dui, tempus nec consequat bibendum, facilisis non nulla. Aliquam ac mollis libero, vel mattis ligula. Aenean viverra metus ligula, ut rhoncus tortor vulputate vitae. Quisque rhoncus tempus dignissim. Curabitur nisl augue, gravida in dignissim sed, imperdiet vitae nibh.
+                p Aliquam ac mollis libero, vel mattis ligula. Pellentesque augue dui, tempus nec consequat bibendum, facilisis non nulla. Aliquam ac mollis libero, vel mattis ligula. Aenean viverra metus ligula Pellentesque augue dui, tempus nec consequat bibendum, facilisis non nulla. Aliquam ac mollis libero, vel mattis ligula. Aenean viverra metus ligula, ut rhoncus tortor vulputate vitae. Quisque rhoncus tempus dignissim. Curabitur nisl augue, gravida in dignissim sed, imperdiet vitae nibh.
+    .col-lg-4
+        .portlet.box.portlet-yellow
+            .portlet-header
+                .caption Scroll
+                .tools
+                    i.fa.fa-chevron-up
+                    i.fa.fa-cog(data-toggle="modal", data-target="#modal-config")
+                    i.fa.fa-refresh
+                    i.fa.fa-times
+            .portlet-body(style='overflow: hidden;')
+                .portlet-scroll
+                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt nulla elit, at sollicitudin ipsum mattis quis. Vivamus vitae diam at libero fringilla condimentum. Vestibulum laoreet nulla ut neque eleifend, ut hendrerit felis mollis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam congue, risus ac tincidunt ultrices, nunc enim consectetur purus, vitae faucibus dolor turpis ut justo. Duis id feugiat sem, ac commodo nisi. Curabitur tincidunt volutpat nisi id ullamcorper.
+                    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt nulla elit, at sollicitudin ipsum mattis quis. Vivamus vitae diam at libero fringilla condimentum. Vestibulum laoreet nulla ut neque eleifend, ut hendrerit felis mollis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam congue, risus ac tincidunt ultrices, nunc enim consectetur purus, vitae faucibus dolor turpis ut justo. Duis id feugiat sem, ac commodo nisi. Curabitur tincidunt volutpat nisi id ullamcorper.
+                    p Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Etiam congue, risus ac tincidunt ultrices, nunc enim consectetur purus, vitae faucibus dolor turpis ut justo. Duis id feugiat sem, ac commodo nisi. Curabitur tincidunt volutpat nisi id ullamcorper.
+    .row
+        .col-lg-6(ng-generaltab="")
+            .portlet.box.portlet-blue.tabbable
+                .portlet-header
+                    .caption Tabs
+                .portlet-body
+                    .tabbable.portlet-tabs
+                        ul.nav.nav-tabs
+                            li
+                                a(href='#portlet-tab3', data-toggle='tab') Tab 3
+                            li
+                                a(href='#portlet-tab2', data-toggle='tab') Tab 2
+                            li.active
+                                a(href='#portlet-tab1', data-toggle='tab') Tab 1
+                        .tab-content
+                            #portlet-tab1.tab-pane.fade.in.active
+                                p Maecenas nec justo non neque vulputate gravida id ac risus. Aliquam dictum est non mattis condimentum. Sed tincidunt laoreet elit eu cursus. Etiam venenatis libero aliquet magna rhoncus blandit. Mauris sed sapien vitae magna imperdiet rutrum et eget quam.
+                                p Maecenas nec justo non neque vulputate gravida id ac risus. Aliquam dictum est non mattis condimentum. Sed tincidunt laoreet elit eu cursus. Etiam venenatis libero aliquet magna rhoncus blandit. Mauris sed sapien vitae magna imperdiet rutrum et eget quam.
+                            #portlet-tab2.tab-pane.fade
+                                p Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo.
+                                p Maecenas nec justo non neque vulputate gravida id ac risus. Aliquam dictum est non mattis condimentum. Sed tincidunt laoreet elit eu cursus. Etiam venenatis libero aliquet magna rhoncus blandit. Mauris sed sapien vitae magna imperdiet rutrum et eget quam.
+                            #portlet-tab3.tab-pane.fade
+                                p Ut wisi enim ad btn-smm veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+                                p Maecenas nec justo non neque vulputate gravida id ac risus. Aliquam dictum est non mattis condimentum. Sed tincidunt laoreet elit eu cursus. Etiam venenatis libero aliquet magna rhoncus blandit. Mauris sed sapien vitae magna imperdiet rutrum et eget quam.
+        .col-lg-6
+            .portlet.box.portlet-violet
+                .portlet-header
+                    .caption Paginations
+                    ul.pagination.pagination-sm
+                        li
+                            a(href="javascript:void(0)")
+                                i.fa.fa-angle-left
+                        li
+                            a(href="javascript:void(0)") 1
+                        li
+                            a(href="javascript:void(0)") 2
+                        li
+                            a(href="javascript:void(0)") 3
+                        li
+                            a(href="javascript:void(0)")
+                                i.fa.fa-angle-right
+                .portlet-body
+                    p Pellentesque augue dui, tempus nec consequat bibendum, facilisis non nulla. Aliquam ac mollis libero, vel mattis ligula. Aenean viverra metus ligula, ut rhoncus tortor vulputate vitae. Quisque rhoncus tempus dignissim. Curabitur nisl augue, gravida in dignissim sed, imperdiet vitae nibh.Maecenas nec justo non neque vulputate gravida id ac risus. Aliquam dictum est non mattis condimentum. Sed tincidunt laoreet elit eu cursus. Etiam venenatis libero aliquet magna rhoncus blandit. Mauris sed sapien vitae magna imperdiet rutrum et eget quam.
+    .row
+        .col-lg-4.sortable.column
+            .portlet.box.portlet-orange
+                .portlet-header
+                    .caption Portlet
+                    .actions
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+                        | &nbsp;
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-user
+                            | &nbsp;
+                            | User
+                .portlet-body
+                    p Pellentesque augue dui, tempus nec consequat bibendum, facilisis non nulla. Aliquam ac mollis libero, vel mattis ligula. Aenean viverra metus ligula, ut rhoncus tortor vulputate vitae. Quisque rhoncus tempus dignissim. Curabitur nisl augue, gravida in dignissim sed, imperdiet vitae nibh.
+            .portlet.box.portlet-green
+                .portlet-header
+                    .caption Portlet
+                    .actions
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+                        | &nbsp;
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-user
+                            | &nbsp;
+                            | User
+                .portlet-body
+                    p Pellentesque augue dui, tempus nec consequat bibendum, facilisis non nulla. Aliquam ac mollis libero, vel mattis ligula. Aenean viverra metus ligula, ut rhoncus tortor vulputate vitae. Quisque rhoncus tempus dignissim. Curabitur nisl augue, gravida in dignissim sed, imperdiet vitae nibh.
+        .col-lg-4.sortable.column
+            .portlet.box.portlet-yellow
+                .portlet-header
+                    .caption Portlet
+                    .actions
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+                        | &nbsp;
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-user
+                            | &nbsp;
+                            | User
+                .portlet-body
+                    p Pellentesque augue dui, tempus nec consequat bibendum, facilisis non nulla. Aliquam ac mollis libero, vel mattis ligula. Aenean viverra metus ligula, ut rhoncus tortor vulputate vitae. Quisque rhoncus tempus dignissim. Curabitur nisl augue, gravida in dignissim sed, imperdiet vitae nibh.
+            .portlet.box.portlet-blue
+                .portlet-header
+                    .caption Portlet
+                    .actions
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+                        | &nbsp;
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-user
+                            | &nbsp;
+                            | User
+                .portlet-body
+                    p Pellentesque augue dui, tempus nec consequat bibendum, facilisis non nulla. Aliquam ac mollis libero, vel mattis ligula. Aenean viverra metus ligula, ut rhoncus tortor vulputate vitae. Quisque rhoncus tempus dignissim. Curabitur nisl augue, gravida in dignissim sed, imperdiet vitae nibh.
+        .col-lg-4.sortable.column
+            .portlet.box.portlet-pink
+                .portlet-header
+                    .caption Portlet
+                    .actions
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+                        | &nbsp;
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-user
+                            | &nbsp;
+                            | User
+                .portlet-body
+                    p Pellentesque augue dui, tempus nec consequat bibendum, facilisis non nulla. Aliquam ac mollis libero, vel mattis ligula. Aenean viverra metus ligula, ut rhoncus tortor vulputate vitae. Quisque rhoncus tempus dignissim. Curabitur nisl augue, gravida in dignissim sed, imperdiet vitae nibh.
+            .portlet.box.portlet-violet
+                .portlet-header
+                    .caption Portlet
+                    .actions
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+                        | &nbsp;
+                        a.btn.btn-sm.btn-white(href="javascript:void(0)")
+                            i.fa.fa-user
+                            | &nbsp;
+                            | User
+                .portlet-body
+                    p Pellentesque augue dui, tempus nec consequat bibendum, facilisis non nulla. Aliquam ac mollis libero, vel mattis ligula. Aenean viverra metus ligula, ut rhoncus tortor vulputate vitae. Quisque rhoncus tempus dignissim. Curabitur nisl augue, gravida in dignissim sed, imperdiet vitae nibh.

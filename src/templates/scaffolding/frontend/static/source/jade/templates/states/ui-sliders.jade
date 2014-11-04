@@ -1,0 +1,16 @@
+.row
+    .col-lg-12(ng-generaltab="")
+        ul#sliderTab.nav.nav-tabs.ul-edit
+            li.active
+                a(href='#ui-slider-tab', data-toggle='tab') jQuery UI Sliders
+            li
+                a(href='#noui-slider-tab', data-toggle='tab') NoUI Sliders
+            li
+                a(href='#ion-range-slider-tab', data-toggle='tab') Ion Range Sliders
+        #sliderTabContent.tab-content.pan
+            #ui-slider-tab.tab-pane.fade.in.active
+                ng-include(src="'templates/states/_ui-sliders/ui-sliders-ui-slider-tab.html'", onload="ui_slider_tab()")
+            #noui-slider-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-sliders/ui-sliders-noui-slider-tab.html'", onload="noui_slider_tab()")
+            #ion-range-slider-tab.tab-pane.fade
+                ng-include(src="'templates/states/_ui-sliders/ui-sliders-ion-range-slider-tab.html'", onload="ion_range_slider_tab()")

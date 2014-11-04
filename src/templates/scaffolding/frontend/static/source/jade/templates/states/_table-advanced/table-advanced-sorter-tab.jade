@@ -1,0 +1,139 @@
+.row
+    .col-lg-12
+        h3.mtn Basic Sorter
+        table.table.table-hover.table-striped.table-bordered.table-advanced.tablesorter
+            thead
+                tr
+                    th(width='3%')
+                        input.checkall(type='checkbox')
+                    th(width='9%') Record #
+                    th Username
+                    th(width='10%') Country
+                    th(width='10%') Gender
+                    th(width='7%') Order
+                    th(width='12%') Date
+                    th(width='10%') Price
+                    th(width='9%') Status
+                    th(width='12%') Actions
+            tbody
+                tr
+                    td
+                        input(type='checkbox')
+                    td 1
+                    td Henry
+                    td United States
+                    td Male
+                    td 32
+                    td 20-05-2014
+                    td $240.50
+                    td
+                        span.label.label-sm.label-success Approved
+                    td
+                        button.btn.btn-default.btn-xs(type='button')
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+                tr
+                    td
+                        input(type='checkbox')
+                    td 2
+                    td John
+                    td United States
+                    td Female
+                    td 45
+                    td 20-05-2014
+                    td $240.50
+                    td
+                        span.label.label-sm.label-info Pending
+                    td
+                        button.btn.btn-default.btn-xs(type='button')
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+                tr
+                    td
+                        input(type='checkbox')
+                    td 3
+                    td Larry
+                    td United States
+                    td Female
+                    td 40
+                    td 20-05-2014
+                    td $240.50
+                    td
+                        span.label.label-sm.label-warning Suspended
+                    td
+                        button.btn.btn-default.btn-xs(type='button')
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+                tr
+                    td
+                        input(type='checkbox')
+                    td 4
+                    td Lahm
+                    td United States
+                    td Female
+                    td 15
+                    td 20-05-2014
+                    td $240.50
+                    td
+                        span.label.label-sm.label-danger Blocked
+                    td
+                        button.btn.btn-default.btn-xs(type='button')
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+                tr
+                    td
+                        input(type='checkbox')
+                    td 5
+                    td Henry
+                    td United States
+                    td Male
+                    td 32
+                    td 20-05-2014
+                    td $240.50
+                    td
+                        span.label.label-sm.label-success Approved
+                    td
+                        button.btn.btn-default.btn-xs(type='button')
+                            i.fa.fa-edit
+                            | &nbsp;
+                            | Edit
+        hr.mtxl.mbxl
+        h3 Multiple Headers Sorter
+        table.table.table-hover.table-striped.table-bordered.table-advanced.tablesorter
+            thead
+                tr
+                    th(colspan='2') General information
+                    th(colspan='3') Degree information
+                    th(rowspan='2') Geometry
+                    tr
+                        th Major
+                        th Gender
+                        th English
+                        th Japanese
+                        th Calculus
+            tbody
+                tr
+                    td Student01
+                    td Languages
+                    td male
+                    td
+                    td 70
+                    td
+                tr
+                    td Student02
+                    td Mathematics
+                    td male
+                    td 90
+                    td 88
+                    td
+                tr
+                    td Student03
+                    td Languages
+                    td female
+                    td 85
+                    td 95
+                    td 80

@@ -1,0 +1,111 @@
+.row#invoice-page
+    .col-md-7
+        .panel
+            .panel-body
+                .invoice-title
+                    h2 Invoice
+                    p.mbn.text-left Invoice# 10335
+                    p.text-left April 22, 2014
+                .pull-left
+                    h2.text-green.logo μAdmin
+                    address.mbn
+                        | 78183 Sweards Bluff Ave
+                        br
+                        | New York, CA 94107
+                        br
+                        abbr(title='Phone') P:
+                        | (123) 456-7890
+                        br
+                        br
+                        | info@email.com
+                .clearfix
+                hr
+                .row
+                    .col-md-3
+                        address
+                            strong Billed To:
+                            br
+                            | John Smith
+                            br
+                            | Incorporesano Ltd.
+                            br
+                            | (123) 456-7890
+                    .col-md-3
+                        address
+                            strong Shipped To:
+                            br
+                            | John Doe
+                            br
+                            | 78183 Sweards Bluff Ave
+                            br
+                            | (123) 456-7890
+                    .col-md-3
+                        address
+                            strong Due Date:
+                            br
+                            | 21 March 2014
+                    .col-md-3
+                        address
+                            strong Due Balance:
+                            br
+                            h2.text-green.mtn
+                                strong $685.99
+                hr
+                h4.block-heading Order summary
+                .table-responsive
+                    table.table.table-condensed
+                        thead
+                            tr
+                                td
+                                    strong Item
+                                td.text-center
+                                    strong Price
+                                td.text-center
+                                    strong Quantity
+                                td.text-right
+                                    strong Totals
+                        tbody
+                            tr
+                                td BS-200
+                                td.text-center $10.99
+                                td.text-center 1
+                                td.text-right $10.99
+                            tr
+                                td BS-400
+                                td.text-center $20.00
+                                td.text-center 3
+                                td.text-right $60.00
+                            tr
+                                td BS-1000
+                                td.text-center $600.00
+                                td.text-center 1
+                                td.text-right $600.00
+                            tr
+                                td.thick-line
+                                td.thick-line
+                                td.thick-line.text-center
+                                    strong Subtotal
+                                td.thick-line.text-right $670.99
+                            tr
+                                td.no-line
+                                td.no-line
+                                td.no-line.text-center
+                                    strong Shipping
+                                td.no-line.text-right $15
+                            tr
+                                td.no-line
+                                td.no-line
+                                td.no-line.text-center
+                                    strong Total
+                                td.no-line.text-right $685.99
+                hr.mbm
+                p Thank you for your business. Please remit the total amount due within 30 days.
+    .col-lg-5
+        button.btn.btn-success.mrm(type='submit')
+            i.fa.fa-print
+            | &nbsp;
+            | Print
+        button.btn.btn-white(type='button')
+            i.fa.fa-edit
+            | &nbsp;
+            | Edit

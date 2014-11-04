@@ -1,0 +1,92 @@
+.row
+    .col-lg-12
+        .portlet
+            .portlet-body
+                h2.mtn Settings
+                div.mbm
+                    label.mrxxl
+                        input#autoopen(type='checkbox', style='vertical-align: baseline;')
+                        | &nbsp;
+                        | auto-open next field
+                    label.mrxxl
+                        input#inline-editing(type='checkbox', style='vertical-align: baseline;')
+                        | &nbsp;
+                        | Inline Editing
+                    span.mrm Enable:
+                    #enable.make-switch.switch-small(data-on='success', data-off='danger')
+                        input.switch(type='checkbox', checked='checked')
+                table#user.table.table-bordered.table-striped
+                    tbody
+                        tr
+                            td(width='35%') Simple text field
+                            td(width='65%')
+                                a#username.editable.editable-click(href='#', data-type='text', data-pk='1', data-title='Enter username') superuser
+                        tr
+                            td Empty text field, required
+                            td
+                                a#firstname.editable.editable-click.editable-empty(href='#', data-type='text', data-pk='1', data-placement='right', data-placeholder='Required', data-title='Enter your firstname') Empty
+                        tr
+                            td Select, local array, custom display
+                            td
+                                a#sex.editable.editable-click(href='#', data-type='select', data-pk='1', data-value='', data-title='Select sex', style='color: gray;') not selected
+                        tr
+                            td Select, remote array, no buttons
+                            td
+                                a#group.editable.editable-click(href='#', data-type='select', data-pk='1', data-value='5', data-source='/groups', data-title='Select group') Admin
+                        tr
+                            td Select, error while loading
+                            td
+                                a#status.editable.editable-click(href='#', data-type='select', data-pk='1', data-value='0', data-source='/status', data-title='Select status') Active
+                        tr
+                            td Datepicker
+                            td
+                                span.notready not implemented for Bootstrap 3 yet
+                        tr
+                            td Combodate (date)
+                            td
+                                a#dob.editable.editable-click(href='#', data-type='combodate', data-value='1984-05-15', data-format='YYYY-MM-DD', data-viewformat='DD/MM/YYYY', data-template='D / MMM / YYYY', data-pk='1', data-title='Select Date of birth') 15/05/1984
+                        tr
+                            td Combodate (datetime)
+                            td
+                                a#event.editable.editable-click.editable-empty(href='#', data-type='combodate', data-template='D MMM YYYY  HH:mm', data-format='YYYY-MM-DD HH:mm', data-viewformat='MMM D, YYYY, HH:mm', data-pk='1', data-title='Setup event date and time') Empty
+                        tr
+                            td
+                                | Textarea, buttons below. Submit by
+                                i ctrl+enter
+                            td
+                                a#comments.editable.editable-pre-wrapped.editable-click(href='#', data-type='textarea', data-pk='1', data-placeholder='Your comments here...', data-title='Enter comments')
+                                    | awesome
+                                    | user!
+                        tr
+                            td Twitter typeahead.js
+                            td
+                                a#state2.editable.editable-click(href='#', data-type='typeaheadjs', data-pk='1', data-placement='right', data-title='Start typing State..') California
+                        tr
+                            td Checklist
+                            td
+                                a#fruits.editable.editable-click(href='#', data-type='checklist', data-value='2,3', data-title='Select fruits')
+                                    | peach
+                                    br
+                                    | apple
+                        tr
+                            td Select2 (tags mode)
+                            td
+                                a#tags.editable.editable-click(href='#', data-type='select2', data-pk='1', data-title='Enter tags') html, javascript
+                        tr
+                            td Select2 (dropdown mode)
+                            td
+                                a#country.editable.editable-click(href='#', data-type='select2', data-pk='1', data-value='BS', data-title='Select country') Bahamas
+                        tr
+                            td Custom input, several fields
+                            td
+                                a#address.editable.editable-click(href='#', data-type='address', data-pk='1', data-title='Please, fill address')
+                                    b Moscow
+                                    | , Lenina st., bld. 12
+                h3
+                    | Console
+                    | &nbsp;
+                    small (all ajax requests here are emulated)
+                div
+                    textarea#console.form-control(rows='8', style='width: 70%;', autocomplete='off')
+
+

@@ -1,0 +1,77 @@
+.row
+    .col-lg-4
+        .panel.panel-white
+            .panel-heading Delayed progressbars
+            .panel-body#delayed-progressbars
+                .progress
+                    .progress-bar(role='progressbar', aria-valuetransitiongoal='75')
+                .progress
+                    .progress-bar.progress-bar-info(role='progressbar', aria-valuetransitiongoal='40')
+                .progress
+                    .progress-bar.progress-bar-success(role='progressbar', aria-valuetransitiongoal='60')
+                .progress
+                    .progress-bar.progress-bar-warning(role='progressbar', aria-valuetransitiongoal='80')
+                .progress
+                    .progress-bar.progress-bar-danger(role='progressbar', aria-valuetransitiongoal='100')
+        .panel.panel-white
+            .panel-heading Custom amount format
+            .panel-body#amount-format
+                .progress
+                    .progress-bar(role='progressbar', aria-valuetransitiongoal='20')
+                .progress
+                    .progress-bar.progress-bar-info(role='progressbar', aria-valuetransitiongoal='40')
+                .progress
+                    .progress-bar.progress-bar-success(role='progressbar', aria-valuetransitiongoal='60')
+                .progress
+                    .progress-bar.progress-bar-warning(role='progressbar', aria-valuetransitiongoal='80')
+                .progress
+                    .progress-bar.progress-bar-danger(role='progressbar', aria-valuetransitiongoal='100')
+    .col-lg-4
+        .panel.panel-white
+            .panel-heading Refresh speed progressbars
+            .panel-body#refresh-speed-progressbars
+                .progress
+                    .progress-bar.six-sec-ease-in-out(role='progressbar', aria-valuetransitiongoal='20')
+                .progress
+                    .progress-bar.progress-bar-info.six-sec-ease-in-out(role='progressbar', aria-valuetransitiongoal='40')
+                .progress
+                    .progress-bar.progress-bar-success.six-sec-ease-in-out(role='progressbar', aria-valuetransitiongoal='60')
+                .progress
+                    .progress-bar.progress-bar-warning.six-sec-ease-in-out(role='progressbar', aria-valuetransitiongoal='80')
+                .progress
+                    .progress-bar.progress-bar-danger.six-sec-ease-in-out(role='progressbar', aria-valuetransitiongoal='100')
+        .panel.panel-white
+            .panel-heading Custom amount format
+            .panel-body
+                button#m-multi-trigger-0.btn.btn-primary.btn-sm(type='button') 0
+                | &nbsp;
+                button#m-multi-trigger-50.btn.btn-primary.btn-sm(type='button') 50
+                | &nbsp;
+                button#m-multi-trigger-100.btn.btn-primary.btn-sm(type='button') 100
+                br
+                br
+                .m-multi-trigger
+                    .progress
+                        .progress-bar
+                    .progress
+                        .progress-bar.progress-bar-info
+                    .progress
+                        .progress-bar.progress-bar-success
+                    .progress
+                        .progress-bar.progress-bar-warning
+                    .progress
+                        .progress-bar.progress-bar-danger
+    .col-lg-4
+        .panel.panel-white
+            .panel-heading Custom percentage format
+            .panel-body#percentage-format
+                .progress
+                    .progress-bar(role='progressbar', aria-valuetransitiongoal='20')
+                .progress
+                    .progress-bar.progress-bar-info(role='progressbar', aria-valuetransitiongoal='40')
+                .progress
+                    .progress-bar.progress-bar-success(role='progressbar', aria-valuetransitiongoal='60')
+                .progress
+                    .progress-bar.progress-bar-warning(role='progressbar', aria-valuetransitiongoal='80')
+                .progress
+                    .progress-bar.progress-bar-danger(role='progressbar', aria-valuetransitiongoal='100')

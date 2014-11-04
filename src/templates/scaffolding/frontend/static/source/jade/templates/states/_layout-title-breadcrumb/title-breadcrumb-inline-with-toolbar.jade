@@ -1,0 +1,33 @@
+.page-header.pull-right
+    .page-toolbar
+        button.btn.btn-blue(type='button', data-hover='tooltip', title='Download')
+            i.fa.fa-download
+        | &nbsp;
+        button.btn.btn-yellow(type='button', data-hover='tooltip', title='Send Message')
+            i.fa.fa-envelope-o
+        | &nbsp;
+        .btn-group
+            button.btn.btn-orange.dropdown-toggle(type='button', data-toggle='dropdown')
+                | Setting
+                | &nbsp;
+                span.caret
+            ul.dropdown-menu.pull-right
+                li
+                    a(href='#') Dropdown link
+                li
+                    a(href='#') Dropdown link
+ol.breadcrumb.page-breadcrumb.pull-left
+    li
+        i.fa.fa-home
+        | &nbsp;
+        a(href='index.html') Home
+        | &nbsp;&nbsp;
+        i.fa.fa-angle-right
+    li(ng-repeat="(k,v) in data.breadcrumb", ng-class="{active:$last}")
+        | &nbsp;&nbsp;
+        | {{v}}
+        | &nbsp;&nbsp;
+        i.fa.fa-angle-right(ng-if="!$last")
+    li.active
+        = title
+.clearfix

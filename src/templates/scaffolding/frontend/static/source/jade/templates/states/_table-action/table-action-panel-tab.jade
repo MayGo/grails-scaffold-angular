@@ -1,0 +1,131 @@
+.row
+    .col-lg-12
+        .portlet.portlet-white
+            .portlet-header.pam.mbn
+                .caption Customer Listing
+                .actions
+                    a.btn.btn-info.btn-sm(href='javascript:void(0);')
+                        i.fa.fa-plus
+                        | &nbsp;
+                        | New Customer
+                    | &nbsp;
+                    .btn-group
+                        a.btn.btn-warning.btn-sm.dropdown-toggle(href='javascript:void(0);', data-toggle='dropdown')
+                            i.fa.fa-wrench
+                            | &nbsp;
+                            | Tools
+                        ul.dropdown-menu.pull-right
+                            li
+                                a(href='#')
+                                    | Export to Excel
+                            li
+                                a(href='#')
+                                    | Export to CSV
+                            li
+                                a(href='#')
+                                    | Export to XML
+                            li.divider
+                            li
+                                a(href='#')
+                                    | Print Invoices
+            .portlet-body.pan
+                table.table.table-hover.table-striped.table-bordered.table-advanced.tablesorter.mbn
+                    thead
+                        tr
+                            th(width='3%')
+                                input.checkall(type='checkbox')
+                            th(width='9%') Record #
+                            th Username
+                            th(width='10%') Country
+                            th(width='10%') Gender
+                            th(width='7%') Order
+                            th(width='12%') Date
+                            th(width='10%') Price
+                            th(width='9%') Status
+                            th(width='12%') Actions
+                    tbody
+                        tr
+                            td
+                                input(type='checkbox')
+                            td 1
+                            td Henry
+                            td United States
+                            td Male
+                            td 32
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-success Approved
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td
+                                input(type='checkbox')
+                            td 2
+                            td John
+                            td United States
+                            td Female
+                            td 45
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-info Pending
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td
+                                input(type='checkbox')
+                            td 3
+                            td Larry
+                            td United States
+                            td Female
+                            td 40
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-warning Suspended
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td
+                                input(type='checkbox')
+                            td 4
+                            td Lahm
+                            td United States
+                            td Female
+                            td 15
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-danger Blocked
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit
+                        tr
+                            td
+                                input(type='checkbox')
+                            td 5
+                            td Henry
+                            td United States
+                            td Male
+                            td 32
+                            td 20-05-2014
+                            td $240.50
+                            td
+                                span.label.label-sm.label-success Approved
+                            td
+                                button.btn.btn-default.btn-xs(type='button')
+                                    i.fa.fa-edit
+                                    | &nbsp;
+                                    | Edit

@@ -1,0 +1,61 @@
+.row
+    .col-lg-12
+        .note.note-success
+            h4.box-heading Sco.message
+            p Sco.message is separate with Notific8, you can customize it easily
+    .col-lg-12
+        .panel
+            .panel-body.pan
+                form.form-horizontal.form-bordered(action='#')
+                    .form-body
+                        .form-group
+                            label.col-md-3.control-label(for='') Notification text:
+                            .col-md-6
+                                input#notific8Text.form-control(type='text', value='notific8 was inspired by Windows 8 notifications', placeholder='enter a text ...')
+                        .form-group
+                            label.col-md-3.control-label(for='') Sticky:
+                            .col-md-6
+                                input#notific8Sticky(type='checkbox', name='notific8Sticky')
+                                | &nbsp;
+                                | (if checked, setting life below will be ignored)
+                        .form-group
+                            label.col-md-3.control-label(for='') Life:
+                            .col-md-6
+                                select#notific8Life.form-control(name='notific8Life')
+                                    option(value='1000') 1 second
+                                    option(value='5000') 5 seconds
+                                    option(value='10000', selected='selected') 10 seconds (default)
+                                    option(value='25000') 25 seconds
+                                    option(value='60000') 60 seconds
+                        .form-group
+                            label.col-md-3.control-label(for='') Heading (optional):
+                            .col-md-6
+                                input#notific8Heading.form-control(type='text', name='notific8Heading', size='50', maxlength='50')
+                        .form-group
+                            label.col-md-3.control-label(for='') Theme:
+                            .col-md-6
+                                select#notific8Theme.form-control(name='notific8Theme')
+                                    option(value='teal', selected='selected') teal (default)
+                                    option(value='amethyst') amethyst
+                                    option(value='ruby') ruby
+                                    option(value='tangerine') tangerine
+                                    option(value='lemon') lemon
+                                    option(value='lime') lime
+                                    option(value='ebony') ebony
+                                    option(value='smoke') smoke
+                        .form-group
+                            label.col-md-3.control-label(for='') Position:
+                            .col-md-3
+                                select#notific8horizontal.form-control(name='notific8horizontal')
+                                    option(value='top') top (default)
+                                    option(value='bottom') bottom
+                            .col-md-3
+                                select#notific8vertical.form-control(name='notific8vertical')
+                                    option(value='right') right (default)
+                                    option(value='left') left
+                        .form-group
+                            label.col-md-3.control-label(for='')
+                            .col-md-9
+                                button#notific8Test.btn.btn-primary(type='button', name='notific8Test') Test notific8
+                                button#message_trigger_ok.btn.btn-success.mll(type='button', name='Sco.messageTest') Test Sco.message.ok
+                                button#message_trigger_err.btn.btn-danger.mll(type='button', name='Sco.messageTest') Test Sco.message.error

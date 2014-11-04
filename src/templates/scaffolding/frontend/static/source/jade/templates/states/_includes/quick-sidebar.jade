@@ -1,0 +1,255 @@
+.header-quick-sidebar
+    ul.nav.nav-tabs.nav-justified.ul-edit
+        li.active.dropdown
+            a#tab-quick-sidebar.dropdown-toggle(href='#', data-toggle='dropdown')
+                | Change logs
+                | &nbsp;
+                i.fa.fa-angle-down
+            ul.dropdown-menu(role='menu', aria-labelledby='tab-quick-sidebar', ng-tab="")
+                li
+                    a(href='#tab-version-1-1', tabindex='-1', data-toggle='tab') Version 1.1
+                li
+                    a(href='#tab-version-1-2', tabindex='-1', data-toggle='tab') Version 1.2
+                li
+                    a(href='#tab-version-2-0', tabindex='-1', data-toggle='tab') Version 2.0
+                li
+                    a(href='#tab-version-2-1', tabindex='-1', data-toggle='tab') Version 2.1
+                li.active
+                    a(href='#tab-version-3-0', tabindex='-1', data-toggle='tab') Version 3.0
+        li
+            a(href='#tab-hot-features', data-toggle='tab') Hot features
+    .content-quick-sidebar.tab-content
+        #tab-version-1-1.tab-pane.fade
+            h4 Version 1.1 - 04 July 2014
+            ul.list-update.list-unstyled
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add new: Bordered style
+                li
+                    | <span class='label label-success'>N</span>
+                    div
+                        | Add New: Data Grids menu using jPList plugin
+                        ul.sub-list-update
+                            li
+                                | Layout Examples
+                                ul.sub-list-update
+                                    li DIVs Layout
+                                    li Table Demo1
+                                    li Table Demo2
+                                    li 2 Tables on the Page
+                                    li UL/LI
+                            li
+                                | Actions Examples
+                                ul.sub-list-update
+                                    li Filters With UL/LI
+                                    li Filters With SELECT
+                                    li Double Sort
+                                    li Deep Linking
+                                    li Pagination Only
+                                    li Without "Items per Page"
+                                    li Hidden Sort
+                            li
+                                | jPList with jQuery UI
+                                ul.sub-list-update
+                                    li Ranger Slider
+                                    li Date Picker Filter
+                li
+                    | <span class='label label-success'>N</span>
+                    div
+                        | Add New: 2 options in timeline page
+                        ul.sub-list-update
+                            li
+                                | One column
+                            li
+                                | Full Responsive
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: chat form in sidebar and dashboard page
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: checkall in datatable
+                li
+                    | <span class='label label-danger'>B</span>
+                    div Fix: Minor bug
+        #tab-version-1-2.tab-pane.fade
+            h4 Version 1.2 - 08 July 2014
+            ul.list-update.list-unstyled
+                li
+                    | <span class='label label-success'>N</span>
+                    div
+                        | Add New: 2 new style navigation
+                        ul.sub-list-update
+                            li
+                                | Menu with big icon & flat design
+                            li
+                                | Menu with color transition
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: jQuery introjs. Introduce tips about this template
+                li
+                    | <span class='label label-success'>N</span>
+                    div
+                        | Add New: Set up responsive tabs for pages
+                        ul.sub-list-update
+                            li
+                                | Redesign for tab direction
+                            li
+                                | Mobile & Tablet version for tabs accordion
+                li
+                    | <span class='label label-info'>U</span>
+                    div
+                        | Upgrade: Improve jquery cookie
+                        ul.sub-list-update
+                            li
+                                | User can make best theme by mix the style and color
+                            li
+                                | Remember user's favourite theme and apply it to all pages
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: Apply styles(Squared, Rounded, Bordered) for all pages in Datagrid menu
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: Reconstruct menu on layout-horizontal-menu page
+                li
+                    | <span class='label label-danger'>B</span>
+                    div Fix: bug on layout-header-topbar page
+                li
+                    | <span class='label label-danger'>B</span>
+                    div Fix: Set up Animation page run on Firefox browser
+        #tab-version-2-0.tab-pane.fade
+            h4 Version 2.0 - 18 July 2014
+            ul.list-update.list-unstyled
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: Update Bootstrap 3.2
+                li
+                    | <span class='label label-success'>N</span>
+                    div
+                        | Add New: DataTalbes
+                        ul.sub-list-update
+                            li
+                                | Using own table template
+                            li
+                                | Filter feature
+                            li
+                                | Sorter
+                            li
+                                | Search
+                            li
+                                | Paging
+                            li
+                                | Edit and Export features are coming soon.
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: Fixed menu featured
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: Introduction part for some pages
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: New effect on search form
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: Badge on collapsed menu
+                li
+                    | <span class='label label-danger'>B</span>
+                    div Fix: Topbar welcome section on Firefox
+                li
+                    | <span class='label label-danger'>B</span>
+                    div Fix: Footer animation page on Firefox
+        #tab-version-2-1.tab-pane.fade
+            h4 Version 2.1 - 23 July 2014
+            ul.list-update.list-unstyled
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: Jeditable
+                li
+                    | <span class='label label-success'>N</span>
+                    div
+                        | Add New: Table Export
+                        ul.sub-list-update
+                            li
+                                | Type of file support: JSON, XML, SQL, CSV, TXT, Word, Excel, Powerpoint and PDF
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: User List Page in Extras menu
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: Dropdown Select in UI-Element
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: Advanced News Ticker
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: Sco.message in UI-Element menu
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: Export Tool in Datatables
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: search form style and theme setting style
+                li
+                    | <span class='label label-danger'>B</span>
+                    div Fix: iCheck in Datatables page
+        #tab-version-3-0.tab-pane.fade.in.active
+            h4 Version 3.0 - 28 July 2014
+            ul.list-update.list-unstyled
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: User List Page in Extras menu
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: Dropdown Select in UI-Element
+                li
+                    | <span class='label label-success'>N</span>
+                    div Add New: Advanced News Ticker
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: Sco.message in UI-Element menu
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: Export Tool in Datatables
+                li
+                    | <span class='label label-info'>U</span>
+                    div Upgrade: search form style and theme setting style
+                li
+                    | <span class='label label-danger'>B</span>
+                    div Fix: iCheck in Datatables page
+        #tab-hot-features.tab-pane.fade
+            ul.list-update.list-unstyled
+                li
+                    | +
+                    | &nbsp;
+                    | 3 Admin Themes Included (+more)
+                li
+                    | +
+                    | &nbsp;
+                    | 5 Menu Styles Included (+more)
+                li
+                    | +
+                    | &nbsp;
+                    | 4 Header Styles Included (+more)
+                li
+                    | +
+                    | &nbsp;
+                    | Unlimited Layout Options
+                li
+                    | +
+                    | &nbsp;
+                    | Bootstrap 3.2
+                li
+                    | +
+                    | &nbsp;
+                    | Full LESS Support
+                li
+                    | +
+                    | &nbsp;
+                    | 100+ Template Pages
+                li
+                    | +
+                    | &nbsp;
+                    | 500+ UI Components
+                li
+                    | +
+                    | &nbsp;
+                    | Update New Features Weekly
