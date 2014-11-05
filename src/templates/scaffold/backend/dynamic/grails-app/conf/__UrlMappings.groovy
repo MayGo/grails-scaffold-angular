@@ -10,10 +10,23 @@
 					linesToAdd += "\t\t" + line + "\n"
 				}
 		}
-		String redirectLine = "'/'(redirect:'/extapp/client/index.html')"
+		String redirectLine = "'/'(redirect:'/spa/index.html')"
 		if(!destFile.text.contains(redirectLine)) {
 			linesToAdd += "\t\t" + redirectLine + "\n"
 		}
+		
+		String spaLine = """
+		"/spa/\$asset**" {
+			controller = 'dirserve'
+			action = 'index'
+			dirserveBase = 'angular/app'
+		}
+		"""
+		if(!destFile.text.contains(spaLine)) {
+			linesToAdd += "\t\t" + spaLine + "\n"
+		}
+		
 		return linesToAdd
 	}
+	
 ]

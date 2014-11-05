@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .config(function ($stateProvider) {
-    $stateProvider
+  .config(function (\$stateProvider) {
+    \$stateProvider
       .state('main', {
-        url: '/',
+        url: '${appUrl}/spa/main/',
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'
       });
