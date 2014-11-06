@@ -9,7 +9,7 @@ angular.module('angularDemoApp', [
 ])
   .config(function (\$stateProvider, \$urlRouterProvider, \$locationProvider) {
     \$urlRouterProvider
-      .otherwise('${appUrl}/spa/main/');
+      .otherwise('/main');
 
     \$locationProvider.html5Mode(true);
   });
