@@ -49,7 +49,7 @@ if(domainClasses.size() < 8){
 			</a>
 			<ul>
 			<% domainClasses.each{d->%>
-				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}"><i class="fa fa-angle-double-right"></i> ${d.shortName}</a></li>
+				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}.list"><i class="fa fa-angle-double-right"></i> ${d.shortName}</a></li>
 			<%}%>
 			</ul>
 		</li>

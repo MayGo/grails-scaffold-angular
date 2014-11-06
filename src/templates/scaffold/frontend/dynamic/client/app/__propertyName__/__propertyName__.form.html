@@ -1,0 +1,29 @@
+<% 
+    import grails.plugin.scaffold.core.ScaffoldingHelper
+    ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
+    props = sh.getProps()
+%>
+<%
+private renderFieldRow(p, owningClass) {
+	return """
+<div class="control-group" data-ng-class="{error: errors.${p.name}}">
+		<label class="control-label" for="${p.name}">${p.naturalName}</label>
+		<div class="controls">
+			<input class="form-control required" type='text'  name='${p.name}' ng-model="${owningClass.propertyName}.${p.name}" value="${p.name}"/>
+			<span class="help-inline" data-ng-show="errors.${p.name}">{{errors.${p.name}}}</span>
+		</div>
+	</div>
+	"""
+}%>
+<div class="box-body">
+<%  
+for (p in props) {
+	if (!p.embedded && !p.oneToMany && !p.manyToMany) {%>
+${renderFieldRow(p, domainClass)}\
+	<%}%>
+<%}%>
+</div>
+<div class="box-footer">
+	<button class="btn btn-success" type='submit'>Submit</button> 
+	<button class="btn btn-default" type='submit'>Cancel</button> 
+</div>

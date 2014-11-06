@@ -4,19 +4,23 @@ angular.module('angularDemoApp')
 	.config(function (\$stateProvider) {
 \$stateProvider
 		.state('app.${domainClass.propertyName}', {
-			url: '/${domainClass.propertyName}/list',
+		    url: '/${domainClass.propertyName}',
+		    template: '<div ui-view class="fade-in-up"></div>'
+		})
+		.state('app.${domainClass.propertyName}.list', {
+			url: '/list',
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.list.html',
 			controller: '${domainClass.shortName}ListCtrl'
 		}).state('app.${domainClass.propertyName}.create',{
-			url: '/${domainClass.propertyName}/create',
+			url: '/create',
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.create.html',
 			controller: '${domainClass.shortName}CreateCtrl'
 		}).state('app.${domainClass.propertyName}.edit',{
-			url: '/${domainClass.propertyName}/edit',
+			url: '/edit/:id',
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.edit.html',
 			controller: '${domainClass.shortName}EditCtrl'
 		}).state('app.${domainClass.propertyName}.view',{
-			url: '/${domainClass.propertyName}/view',
+			url: '/view/:id',
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.view.html',
 			controller: '${domainClass.shortName}ViewCtrl'
 		});

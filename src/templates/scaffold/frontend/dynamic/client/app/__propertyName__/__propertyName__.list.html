@@ -1,0 +1,75 @@
+<% 
+    import grails.plugin.scaffold.core.ScaffoldingHelper
+    ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
+    allProps = sh.getProps()
+    props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany} 
+%>
+<%
+private renderFieldRow(p, owningClass) {
+    return "<td>{{${owningClass.propertyName}.${p.name}}}</td>"
+}
+%>
+<%
+private renderFieldHeader(p, owningClass) {
+    return "<th>${p.naturalName}</th>"
+}
+%>
+<%
+private renderFieldSearch(p, owningClass) {
+    return """
+             <td><input class="form-control form-filter input-sm" type='text'/></td>             
+"""
+}
+%>
+<div class="box">
+	<div class="box-header">
+		<h3 class="box-title">${domainClass.naturalName} list</h3>
+	</div><!-- /.box-header -->
+	<div class="box-body">
+		<table class=" table table-hover table-striped table-bordered table-advanced tablesorter">
+			<thead>
+				<tr>
+					<th width='3%'><input class="checkall" type='checkbox'/></th>
+		            <th width='9%'>Record #</th>\
+		<%for (p in props) {%>
+		                            ${renderFieldHeader(p, domainClass)}\
+		<%}%>
+		            <th width='12%'>Actions</th>
+				</tr>
+				<tr class="filter" role='row'>
+					<td></td>
+					<td><input class="form-control form-filter input-sm" type='text'/></td>
+<% for (p in props) {%>
+                            ${renderFieldSearch(p, domainClass)}\
+<%}%>
+					<td>
+						<button class="btn btn-success btn-xs filter-submit" >
+		            		<i class="fa fa-search">&nbsp;Search</i>
+		            	</button>
+		            	<button class="btn btn-info btn-xs filter-cancel" >
+		            		<i class="fa fa-times">&nbsp;Reset</i>
+		            	</button>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="${domainClass.propertyName} in ${domainClass.propertyName}s" >
+					<td><input type='checkbox' /></td>
+		            <td>{{${domainClass.propertyName}.id}}</td>\
+		            
+		<% for (p in props) {%>
+		                            ${renderFieldRow(p, domainClass)}\
+		<%}%>
+		            <td>
+		            	<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
+		            		<i class="fa fa-edit">&nbsp;Edit</i>
+		            	</a>
+		            	<a class="btn btn-danger btn-xs" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})">
+		            		<i class="fa fa-trash-o">&nbsp;Delete</i>
+		            	</a>
+		            </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
