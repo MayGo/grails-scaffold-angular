@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mydemoappApp')
+angular.module('angularDemoApp')
 	.controller('${domainClass.shortName}ListCtrl', function (\$scope) {
 	\$scope.message = 'Hello';
 });

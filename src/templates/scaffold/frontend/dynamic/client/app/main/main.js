@@ -3,7 +3,7 @@
 angular.module('angularDemoApp')
   .config(function (\$stateProvider) {
     \$stateProvider
-      .state('main', {
+      .state('app.main', {
         url: '/main',
         templateUrl: 'app/main/main.html',
         controller: 'MainCtrl'

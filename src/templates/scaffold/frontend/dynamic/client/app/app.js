@@ -9,7 +9,13 @@ angular.module('angularDemoApp', [
 ])
   .config(function (\$stateProvider, \$urlRouterProvider, \$locationProvider) {
     \$urlRouterProvider
-      .otherwise('/main');
+      .otherwise('/app/main');
+	\$stateProvider
+		.state('app', {
+			//abstract: true,
+			url: '/app',
+			templateUrl: 'app/app.html'
+		})
 
-    \$locationProvider.html5Mode(true);
+   // \$locationProvider.html5Mode(true);
   });

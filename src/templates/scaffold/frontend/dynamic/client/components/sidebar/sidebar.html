@@ -1,0 +1,59 @@
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar">
+	<!-- Sidebar user panel -->
+	<div class="user-panel">
+		<div class="pull-left image">
+			<img src="img/avatar3.png" class="img-circle" alt="User Image" />
+		</div>
+		<div class="pull-left info">
+			<p>Hello, Jane</p>
+
+			<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+		</div>
+	</div>
+	<!-- search form -->
+	<form action="#" method="get" class="sidebar-form">
+		<div class="input-group">
+			<input type="text" name="q" class="form-control" placeholder="Search..."/>
+			<span class="input-group-btn">
+				<button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+			</span>
+		</div>
+	</form>
+	<!-- /.search form -->
+	<!-- sidebar menu: : style can be found in sidebar.less -->
+	<ul class="sidebar-menu"  ng-menu>
+		<li ui-sref-active="active">
+			<a ui-sref="app.main">
+				<i class="fa fa-dashboard"></i> <span>Dashboard</span>
+			</a>
+		</li>	
+<%
+if(domainClasses.size() < 8){
+	for(d in domainClasses){%>
+		<li ui-sref-active="active">
+			<a ui-sref="app.${d.propertyName}">
+				<i class="fa fa-th"></i> <span>${d.shortName}</span>
+			</a>
+		</li>
+  <%}%>
+<%}else{//Group menu items based on package name
+	Map groupedDomainClasses = domainClasses.groupBy([{it.packageName}])
+	groupedDomainClasses.each{packageName, domainClasses->
+%>
+		<li>
+			<a href>
+				<i class="fa fa-bar-chart-o"></i>
+				<span>${packageName.tokenize('.').last()}</span>
+				<i class="fa fa-angle-left pull-right"></i>
+			</a>
+			<ul>
+			<% domainClasses.each{d->%>
+				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}"><i class="fa fa-angle-double-right"></i> ${d.shortName}</a></li>
+			<%}%>
+			</ul>
+		</li>
+	<%}%>
+<%}%>
+	</ul>
+</section>
