@@ -24,7 +24,13 @@ private renderFieldSearch(p, owningClass) {
 <div class="box">
 	<div class="box-header">
 		<h3 class="box-title">${domainClass.naturalName} list</h3>
+		<div class="box-tools pull-right">
+		<a class="btn btn-default" ui-sref="app.${domainClass.propertyName}.create">
+			<i class="fa fa-plus">&nbsp;New ${domainClass.naturalName}</i>
+       	</a>
+    </div>
 	</div><!-- /.box-header -->
+	
 	<div class="box-body">
 		<table class=" table table-hover table-striped table-bordered table-advanced tablesorter">
 			<thead>
@@ -61,6 +67,9 @@ private renderFieldSearch(p, owningClass) {
 		                            ${renderFieldRow(p, domainClass)}\
 		<%}%>
 		            <td>
+		            	<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.view({id:${domainClass.propertyName}.id})">
+		            		<i class="fa fa-eye">&nbsp;View</i>
+		            	</a>
 		            	<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
 		            		<i class="fa fa-edit">&nbsp;Edit</i>
 		            	</a>

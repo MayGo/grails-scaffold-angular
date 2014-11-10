@@ -3,14 +3,117 @@
     ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
     props = sh.getProps()
 %>
+
+<%
+private String renderEditField(p, owningClass){
+	boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
+	boolean required = false
+	if (hasHibernate) {
+		cp = owningClass.constrainedProperties[p.name]
+		required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
+	}
+	
+    switch (p.type) {
+        case Boolean:
+        case boolean:
+            return renderBooleanEditor(owningClass, p, cp)
+            break
+        case Number:
+        case byte:
+        case short:
+        case int:
+        case long:
+        case float:
+        case double:
+          	return renderNumberEditor(owningClass, p, cp)
+            break
+        case String:
+          	return renderStringEditor(owningClass, p, cp)
+            break
+        case Date:
+        case java.sql.Date:
+        case java.sql.Time:
+        case Calendar:
+         	return renderDateEditor(owningClass, p, cp)
+            break
+    }
+    return "<!-- No type for ${p.name} -->"
+}
+
+private String renderBooleanEditor(owningClass, p, cp) {
+      return """<input class="form-control" type="checkbox" name="${p.name}"  ng-model="${owningClass.propertyName}.${p.name}" >"""
+}
+
+
+private String renderDateEditor(owningClass, p, cp) {
+     String str =  """
+     <input type="text" class="form-control" name="${p.name}" ng-model="${owningClass.propertyName}.${p.name}" 
+	     datepicker-popup
+	     is-open="${owningClass.propertyName}.${p.name}Open" 
+
+	     ng-click="${owningClass.propertyName}.${p.name}Open = true"
+      """
+      
+      if (isRequired(cp)) str += " required"
+      str += """
+      />
+     <span class="input-group-addon">
+       <i class="glyphicon glyphicon-calendar"></i>
+     </span>
+      """
+      return str;
+}
+
+private String renderNumberEditor(owningClass, p, cp) {
+	String str = """<input class="form-control" name="${p.name}" ng-model="${owningClass.propertyName}.${p.name}" """
+
+	if (cp.range) {
+        str += """ type="range" """
+        str += """ ng-minlength="${cp.range.from}" """
+        str += """ ng-maxlength="${cp.range.to}" """
+		
+	} else {
+		if (p.type in [float, double, Float, Double, BigDecimal]){
+			str += """ type="text" """
+		}else{
+			str += """ type="number" """
+		}
+
+		if (cp.min != null) str += """ ng-minlength="${cp.min}" """
+		if (cp.max != null) str += """ ng-maxlength="${cp.max}" """
+	}
+	if (isRequired(cp)) str += " required"
+	str += " > "
+	return str;
+}
+
+private String renderStringEditor(owningClass, p, cp) {
+	String str = """<input class="form-control" type="text" name="${p.name}" ng-model="${owningClass.propertyName}.${p.name}" """
+	
+    if (cp.matches) str += """ ng-pattern="${cp.matches}" """
+    if (isRequired(cp)) str += " required"
+	str += " > "
+}
+
+private boolean isRequired(cp) {
+    !isOptional(cp)
+}
+
+private boolean isOptional(cp) {
+    if (!cp) {
+        return false
+    } else {
+        cp.nullable || (cp.propertyType == String && cp.blank) || cp.propertyType in [boolean, Boolean]
+    }
+}
+%>
 <%
 private renderFieldRow(p, owningClass) {
 	return """
-<div class="control-group" data-ng-class="{error: errors.${p.name}}">
-		<label class="control-label" for="${p.name}">${p.naturalName}</label>
-		<div class="controls">
-			<input class="form-control required" type='text'  name='${p.name}' ng-model="${owningClass.propertyName}.${p.name}" value="${p.name}"/>
-			<span class="help-inline" data-ng-show="errors.${p.name}">{{errors.${p.name}}}</span>
+	<div class="form-group" data-ng-class="{error: errors.${p.name}}">
+		<label for="${p.name}">${p.naturalName}</label>
+		<div class="input-group">
+			${renderEditField(p, owningClass)}
 		</div>
 	</div>
 	"""
@@ -24,6 +127,6 @@ ${renderFieldRow(p, domainClass)}\
 <%}%>
 </div>
 <div class="box-footer">
-	<button class="btn btn-success" type='submit'>Submit</button> 
+	<button class="btn btn-success" type='submit' ng-disabled="${domainClass.propertyName}Form.\$invalid">Submit</button> 
 	<button class="btn btn-default" type='submit'>Cancel</button> 
 </div>

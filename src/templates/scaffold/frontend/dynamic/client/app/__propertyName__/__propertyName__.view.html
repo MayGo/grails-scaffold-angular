@@ -1,10 +1,40 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
+<% 
+    import grails.plugin.scaffold.core.ScaffoldingHelper
+    ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
+    props = sh.getProps()
+%>
+<%
+private renderFieldRow(p, owningClass) {
+	return """
+		<tr>
+			<th>${p.naturalName}</<th>
+			<td data-ng-bind="${owningClass.propertyName}.${p.name}"></td>
+		</tr>
+	"""
+}%>
 
-VIEW
-<footer class="footer">
-  <div class="container">
-      <p>Angular Fullstack v2.0.13 |
-        <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
-         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
-  </div>
-</footer>
+<div class="col-xs-6">
+	<div class="box box-primary">
+		<div class="box-header">
+			<h3 class="box-title">Edit ${domainClass.naturalName}</h3>
+		</div><!-- /.box-header -->
+		<div class="box-body">
+			<table class="table table-responsive">		
+		<%  
+		for (p in props) {
+			if (!p.embedded && !p.oneToMany && !p.manyToMany) {%>
+		${renderFieldRow(p, domainClass)}\
+			<%}%>
+		<%}%>
+			</table>
+		</div>
+		<div class="box-footer">
+			<a class="btn btn-default" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
+		    	<i class="fa fa-edit">&nbsp;Edit</i>
+	       	</a>
+			<a class="btn btn-danger" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})">
+				<i class="fa fa-trash-o">&nbsp;Delete</i>
+	        </a>
+		</div>
+	</div>	
+</div>					
