@@ -6,79 +6,310 @@
 %>
 <%
 private renderFieldRow(p, owningClass) {
-    return "<td>{{${owningClass.propertyName}.${p.name}}}</td>"
+    if (p.type && p.isEnum()){
+        return "<td>{{${owningClass.propertyName}.${p.name}}}</td>"
+    }else if (p.manyToOne || p.oneToOne){
+        Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config, p) //.collect{key, value->"item." + key + ""}.join("+ ' ' +")
+        if(!useDisplaynames) useDisplaynames = ["id":null]
+        
+        String str ="<td>"
+        useDisplaynames.each{ key, value->
+            str += """{{${owningClass.propertyName}.${p.name}.${key}}}"""
+        }
+        str += "</td>"
+        return str
+    }else{
+        return "<td>{{${owningClass.propertyName}.${p.name}}}</td>"
+    }
+
 }
 %>
 <%
 private renderFieldHeader(p, owningClass) {
-    return "<th>${p.naturalName}</th>"
+	return """<th st-sort="${p.name}" translate="pages.${domainClass.shortName}.list.table.header.${p.name}" ></th>"""
 }
 %>
 <%
-private renderFieldSearch(p, owningClass) {
+
+//####################### SEARCH ###################################
+
+private renderFieldSearch2(p, owningClass) {
+    
+    
     return """
-             <td><input class="form-control form-filter input-sm" type='text'/></td>             
+    <div class="col-lg-2 form-group">
+		<div class="input-group input-group-sm">
+		  <span class="input-group-addon">O</span>
+		  <input class="form-control" st-search="'${p.name}'" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}">
+		</div>  
+	</div>    
 """
 }
+
+private String renderFieldSearch(p, owningClass){
+    boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
+    boolean required = false
+    if (hasHibernate) {
+        cp = owningClass.constrainedProperties[p.name]
+        required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
+    }
+    // Find if property is actually joinTable property. e.g. UserRole
+    def joinProperty 
+    if(p.referencedDomainClass)  {
+        def persistentProperties = p.referencedDomainClass.persistentProperties
+        joinProperty = persistentProperties.find{ 
+            it != p && 
+            persistentProperties.size() == 2 && it.referencedDomainClass 
+        }
+    }
+
+    String str = """<div class="col-lg-2 form-group">"""
+    if (p.type == Boolean || p.type == boolean)
+        str += renderBoolean(owningClass, p, cp)
+    else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean))
+        str += renderNumber(owningClass, p, cp)
+    else if (p.type == String)
+        str += renderString(owningClass, p, cp)
+    else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar)
+        str += renderDate(owningClass, p, cp)
+    else if (p.type == URL)
+        str += renderUrl(domainClass, p, cp)
+    else if (p.type && p.isEnum())
+        str += renderEnum(domainClass, p, cp)
+    else if (p.type == TimeZone)
+        str += renderSelectType(domainClass, p, cp, "timeZone")
+    else if (p.type == Locale)
+        str += renderSelectType(domainClass, p, cp, "locale")
+    else if (p.type == Currency)
+        str += renderSelectType(domainClass, p, cp, "currency")
+    else if (p.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
+        str += renderByteArray(domainClass, p, cp)
+    else if (p.manyToOne || p.oneToOne)
+        str += renderManyToOne(domainClass, p, cp) 
+    else if (joinProperty){
+        str += renderJoinProperty(domainClass, p, cp, joinProperty)
+    }
+    else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
+        str += renderManyToMany(domainClass, p, cp)
+    }
+    else if (p.oneToMany)
+        str += renderOneToMany(domainClass, p, cp)
+    else
+        return "<!-- No type for ${p.name} -->"
+        
+    str += "</div>"
+    return str
+ 
+}
+
+private String renderString(owningClass, p, cp) {
+    String str = """<div class="input-group input-group-sm">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input name="${p.name}" class="form-control" type="text" st-search="'${p.name}'" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" """
+    
+    if (cp.matches) str += """ ng-pattern="/${cp.matches}/" """
+    str += " ></div> "
+    return str
+}
+
+
+private String renderBoolean(owningClass, p, cp) {
+      return """<div class="input-group input-group-sm">
+                    <input name="${p.name}" type="checkbox" st-search="'${p.name}'" >
+                </div>"""
+}
+
+private String renderByteArray(owningClass, p, cp) {
+      return """<div class="input-group input-group-sm">
+                    <span class="input-group-addon">file</span> 
+                    <input name="${p.name}" class="form-control" type="file"  st-search="'${p.name}'" >
+                </div>"""
+}
+
+
+
+private String renderDate(owningClass, p, cp) {
+     String str =  """
+     <div class="input-group input-group-sm">
+     <input name="${p.name}" ng-model="${p.name}" type="text" class="form-control"  placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"
+         datepicker-popup
+         is-open="${owningClass.propertyName}.${p.name}Open" 
+         ng-click="${owningClass.propertyName}.${p.name}Open = true"
+      """
+      
+      str += """
+      />
+     <span class="input-group-addon">
+       <i class="glyphicon glyphicon-calendar"></i>
+     </span>
+     </div>
+      """
+      return str;
+}
+
+
+
+private String renderNumber(owningClass, p, cp) {
+    String str = """<div class="input-group input-group-sm">
+                        <span class="input-group-addon">nr</span>
+                        <input name="${p.name}" ng-model="${p.name}" class="form-control" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" st-search="'${p.name}'" """
+                        
+    String rangeExtraInputStr = ""
+    if (cp.range) {
+        rangeExtraInputStr = """<span class="input-group-addon">{{${p.name}}}</span>"""
+        str += """ type="range" """
+        str += """ min="${cp.range.from}" """
+        str += """ max="${cp.range.to}" """
+    } else {
+        if (p.type in [float, double, Float, Double, BigDecimal]){
+            str += """ type="number" """
+        }else{
+            str += """ type="number" """
+        }
+
+        if (cp.min != null) str += """ min="${cp.min}" """
+        if (cp.max != null) str += """ max="${cp.max}" """
+    }
+    str += " >$rangeExtraInputStr</div> "
+    return str;
+}
+
+
+private String renderUrl(owningClass, p, cp) {
+    String str = """<div class="input-group input-group-sm">
+                    <span class="input-group-addon">url</span>
+                    <input name="${p.name}" class="form-control" type="url" st-search="'${p.name}'" 
+                    placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"  """
+    
+    if (isRequired(cp)) str += " required"
+    str += " ></div> "
+    return str
+}
+private renderSelectType(owningClass, p, cp, type) {
+    String str = """<div class="input-group input-group-sm">
+                    <span class="input-group-addon">$type</span>
+                    <input name="${p.name}" class="form-control" type="text" st-search="'${p.name}'" 
+                    placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"  """
+    
+    if (cp.matches) str += """ ng-pattern="${cp.matches}" """
+    str += " ></div> "
+    return str
+}
+
+private String renderEnum(owningClass, p, cp) {
+     String str =  """
+     <div class="input-group input-group-sm">
+          <span class="input-group-addon">enum</span>   
+          <input name="${p.name}" type="text" class="form-control" st-search="'${p.name}'" 
+            ng-model="${p.name}"
+            placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" 
+            typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List | filter:\$viewValue"  """
+     str += """></div> """
+     return str;
+}
+
+private String renderManyToOne(owningClass, p, cp) {
+    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config)
+    if(!useDisplaynames) useDisplaynames = ['id': null]
+    String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
+     String str =  """<!--ManyToOne-->
+     <div class="input-group input-group-sm" style="width:100%">
+           <tags-input custom-st-search
+              ng-model="${p.name}" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}">
+              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr])" ></auto-complete>
+            """
+     str += """</tags-input></div>"""
+
+     return str;
+}
+
+private String renderManyToMany(owningClass, p, cp) {
+     String str =  """<!--ManyToMany-->
+      """
+     return str;
+}
+
+private String renderOneToMany(owningClass, p, cp) {
+     String str =  """<!--OneToMany-->
+         
+            """
+     return str;
+}
+
+private renderJoinProperty(owningClass, p, cp, joinProperty) {
+    return  """//JoinProperty
+    //${grails.util.GrailsNameUtils.getShortName(p.getReferencedPropertyType()).toLowerCase()}
+                //${grails.util.GrailsNameUtils.getShortName(joinProperty.getReferencedPropertyType()).toLowerCase()}
+                //referencedPropertyName:'${p.getReferencedPropertyName()}.id'
+                //${p.naturalName}
+        """
+}
+
+//####################### SEARCH ###################################
 %>
-<div class="box">
-	<div class="box-header">
-		<h3 class="box-title">${domainClass.naturalName} list</h3>
-		<div class="box-tools pull-right">
-		<a class="btn btn-default" ui-sref="app.${domainClass.propertyName}.create">
-			<i class="fa fa-plus">&nbsp;New ${domainClass.naturalName}</i>
-       	</a>
+
+
+
+
+<div ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'" data-ng-include=" 'components/blocks/page_heading.html' "></div>
+<div class="wrapper-md ng-scope">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      	<span translate="pages.${domainClass.shortName}.list.table.title"></span>
+      	<div class="box-tools pull-right">
+			<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.create">
+				<i class="fa fa-plus" translate="pages.${domainClass.shortName}.list.new"></i>
+	       	</a>
+		</div>
     </div>
-	</div><!-- /.box-header -->
-	
-	<div class="box-body">
-		<table class=" table table-hover table-striped table-bordered table-advanced tablesorter">
-			<thead>
-				<tr>
-					<th width='3%'><input class="checkall" type='checkbox'/></th>
-		            <th width='9%'>Record #</th>\
-		<%for (p in props) {%>
-		                            ${renderFieldHeader(p, domainClass)}\
-		<%}%>
-		            <th width='12%'>Actions</th>
+    <div class="panel-body" st-table="rowCollection" st-pipe="callServer" >
+		<div class="row">
+		 <%for (p in props) {%>
+	   		${renderFieldSearch(p, domainClass)}\
+		 <%}%>
+		</div>
+		 <div>
+	      <table class="table table-responsive">
+	      	<thead>
+	      		<tr>
+	      			<th width='20' st-sort="id" translate="pages.${domainClass.shortName}.list.table.header.id"></th>\
+	      		<%for (p in props) {%>
+			   		${renderFieldHeader(p, domainClass)}\
+				 <%}%>
+				 	<th></th>
 				</tr>
-				<tr class="filter" role='row'>
-					<td></td>
-					<td><input class="form-control form-filter input-sm" type='text'/></td>
-<% for (p in props) {%>
-                            ${renderFieldSearch(p, domainClass)}\
-<%}%>
-					<td>
-						<button class="btn btn-success btn-xs filter-submit" >
-		            		<i class="fa fa-search">&nbsp;Search</i>
-		            	</button>
-		            	<button class="btn btn-info btn-xs filter-cancel" >
-		            		<i class="fa fa-times">&nbsp;Reset</i>
-		            	</button>
-					</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="${domainClass.propertyName} in ${domainClass.propertyName}s" >
-					<td><input type='checkbox' /></td>
-		            <td>{{${domainClass.propertyName}.id}}</td>\
-		            
-		<% for (p in props) {%>
-		                            ${renderFieldRow(p, domainClass)}\
-		<%}%>
-		            <td>
+	      	</thead>
+	      
+	      	<tbody ng-hide="isLoading">
+	      		
+				<tr ng-repeat="${domainClass.propertyName} in rowCollection">
+					 <td>{{${domainClass.propertyName}.id}}</td>\
+					<%for (p in props) {%>
+			   		${renderFieldRow(p, domainClass)}\
+				 	<%}%>
+				 	
+		            <td class="text-right">
 		            	<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.view({id:${domainClass.propertyName}.id})">
-		            		<i class="fa fa-eye">&nbsp;View</i>
+		            		<i class="fa fa-eye" translate="pages.${domainClass.shortName}.list.view"></i>
 		            	</a>
 		            	<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
-		            		<i class="fa fa-edit">&nbsp;Edit</i>
+		            		<i class="fa fa-edit" translate="pages.${domainClass.shortName}.list.edit"></i>
 		            	</a>
 		            	<a class="btn btn-danger btn-xs" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})">
-		            		<i class="fa fa-trash-o">&nbsp;Delete</i>
+		            		<i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.list.delete"></i>
 		            	</a>
 		            </td>
 				</tr>
 			</tbody>
-		</table>
+			<tfoot ng-hide="isLoading">
+	          <tr>
+	            <td colspan="10" class="text-center">
+	              <div st-pagination="" st-items-by-page="stTable.itemsByPage" st-displayed-pages="15" ></div>
+	            </td>
+	          </tr>
+	        </tfoot>
+	      </table>
+	    </div>
 	</div>
+  </div>
 </div>

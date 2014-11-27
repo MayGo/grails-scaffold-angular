@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <script type="text/javascript">
+    <script type="text/javascript">
 		document.write("<base href='" + location.href+ "' />");
 	</script>
     <title></title>
@@ -38,8 +38,9 @@
       <link rel="stylesheet" href="app/app.css">
       <link rel="stylesheet" href="app/main/main.css">
       <link rel="stylesheet" href="components/modal/modal.css">
-      
-  
+      <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" type="text/css" />
+      <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css" type="text/css" />
+      <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css"  />
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
@@ -67,22 +68,48 @@
       <script src="bower_components/angular-auto-validate/dist/jcs-auto-validate.min.js"></script>
       <script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
       <script src="bower_components/angular-inform/dist/angular-inform.min.js"></script>
+      <script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+      
+      <script src="bower_components/angular-touch/angular-touch.min.js"></script>
+	  <script src="bower_components/ngstorage/ngStorage.min.js"></script>
+	  <script src="bower_components/angular-translate/angular-translate.min.js"></script>
+	  <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+	  <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+	  <script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+	  <script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+	  <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+	  <script src="bower_components/angular-fullscreen/src/angular-fullscreen.js"></script>
+	  <script src="bower_components/satellizer/satellizer.min.js"></script>
+	  <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
+      <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+	  
+	  
       <!-- endbower -->
     <!-- endbuild -->
 	
         <!-- build:js({.tmp,client}) app/app.js -->
-        <script src="app/app.js"></script>
-          <!-- injector:js -->
-          <script src="app/main/main.controller.js"></script>
-          <script src="app/main/main.js"></script>
-		  <script src="app/directives/menu.directive.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/app.service.js"></script>
+	<script src="app/app.controller.js"></script>
+	<script src="app/dashboard/dashboard.controller.js"></script>
+	<script src="app/dashboard/dashboard.js"></script>
+	<script src="app/search/search.controller.js"></script>
+	<script src="app/search/search.js"></script>
+      <!-- injector:js -->
+      <script src="app/main/main.controller.js"></script>
+      <script src="app/main/main.js"></script>
+      <script src="app/login/login.controller.js"></script>
+      <script src="app/login/login.js"></script>
+      <script src="app/logout/logout.controller.js"></script>
+      <script src="app/logout/logout.js"></script>
+	  <script src="components/directives/menu.directive.js"></script>
+	  <script src="components/directives/smarttable.customstsearch.directive.js"></script>
 <%for(d in domainClasses){%>
-			<script src="app/${d.propertyName}/${d.propertyName}.js"></script>
-			<script src="app/${d.propertyName}/${d.propertyName}.create.controller.js"></script>
-			<script src="app/${d.propertyName}/${d.propertyName}.edit.controller.js"></script>
-			<script src="app/${d.propertyName}/${d.propertyName}.list.controller.js"></script>
-			<script src="app/${d.propertyName}/${d.propertyName}.view.controller.js"></script>
-			<script src="app/${d.propertyName}/${d.propertyName}.service.js"></script>
+		<script src="app/${d.propertyName}/${d.propertyName}.js"></script>
+		<script src="app/${d.propertyName}/${d.propertyName}.edit.controller.js"></script>
+		<script src="app/${d.propertyName}/${d.propertyName}.list.controller.js"></script>
+		<script src="app/${d.propertyName}/${d.propertyName}.view.controller.js"></script>
+		<script src="app/${d.propertyName}/${d.propertyName}.service.js"></script>
 <%}%>
 		  
           <script src="components/modal/modal.service.js"></script>

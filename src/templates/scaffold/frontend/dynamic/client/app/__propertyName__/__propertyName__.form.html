@@ -1,7 +1,9 @@
 <% 
     import grails.plugin.scaffold.core.ScaffoldingHelper
     ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
-    props = sh.getProps()
+    allProps = sh.getProps()
+    props = allProps.findAll{p->!p.embedded} 
+
 %>
 
 <%
@@ -12,88 +14,230 @@ private String renderEditField(p, owningClass){
 		cp = owningClass.constrainedProperties[p.name]
 		required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
 	}
-	
-    switch (p.type) {
-        case Boolean:
-        case boolean:
-            return renderBooleanEditor(owningClass, p, cp)
-            break
-        case Number:
-        case byte:
-        case short:
-        case int:
-        case long:
-        case float:
-        case double:
-          	return renderNumberEditor(owningClass, p, cp)
-            break
-        case String:
-          	return renderStringEditor(owningClass, p, cp)
-            break
-        case Date:
-        case java.sql.Date:
-        case java.sql.Time:
-        case Calendar:
-         	return renderDateEditor(owningClass, p, cp)
-            break
+	// Find if property is actually joinTable property. e.g. UserRole
+    def joinProperty 
+    if(p.referencedDomainClass)  {
+        def persistentProperties = p.referencedDomainClass.persistentProperties
+        joinProperty = persistentProperties.find{ 
+            it != p && 
+            persistentProperties.size() == 2 && it.referencedDomainClass 
+        }
     }
-    return "<!-- No type for ${p.name} -->"
+
+	
+	if (p.type == Boolean || p.type == boolean)
+	    return renderBoolean(owningClass, p, cp)
+	else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean))
+	    return renderNumber(owningClass, p, cp)
+	else if (p.type == String)
+	    return renderString(owningClass, p, cp)
+	else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar)
+	    return renderDate(owningClass, p, cp)
+	else if (p.type == URL)
+	    return renderUrl(domainClass, p, cp)
+	else if (p.type && p.isEnum())
+	    return renderEnum(domainClass, p, cp)
+	else if (p.type == TimeZone)
+	    return renderSelectType(domainClass, p, cp, "timeZone")
+	else if (p.type == Locale)
+	    return renderSelectType(domainClass, p, cp, "locale")
+	else if (p.type == Currency)
+	    return renderSelectType(domainClass, p, cp, "currency")
+	else if (p.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
+	    return renderByteArray(domainClass, p, cp)
+	else if (p.manyToOne || p.oneToOne)
+	    return renderManyToOne(domainClass, p, cp) 
+	else if (joinProperty){
+		return renderJoinProperty(domainClass, p, cp, joinProperty)
+	}
+	else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
+	    return renderManyToMany(domainClass, p, cp)
+	}
+	else if (p.oneToMany)
+	    return renderOneToMany(domainClass, p, cp)
+	else
+		return "<!-- No type for ${p.name} -->"
+		
+
+ 
 }
 
-private String renderBooleanEditor(owningClass, p, cp) {
-      return """<input class="form-control" type="checkbox" name="${p.name}"  ng-model="${owningClass.propertyName}.${p.name}" >"""
+private String renderString(owningClass, p, cp) {
+
+    String type="text"
+    if(cp.email) type="email"
+    String str = """<div class="input-group input-group-sm">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                    <input name="${p.name}" class="form-control" type="$type" ng-model="${owningClass.propertyName}.${p.name}" """
+    
+    if (cp.matches) str += """ ng-pattern="/${cp.matches}/" """
+    if (cp.minSize ) str += """ ng-minlength="${cp.minSize}" """
+    if (cp.maxSize) str += """ ng-maxlength="${cp.maxSize}" """
+      
+    if (isRequired(cp)) str += " required"
+    str += " ></div> "
+    return str
 }
 
 
-private String renderDateEditor(owningClass, p, cp) {
+private String renderBoolean(owningClass, p, cp) {
+      return """<div class="input-group input-group-sm">
+      				<input name="${p.name}" type="checkbox" ng-model="${owningClass.propertyName}.${p.name}" >
+      			</div>"""
+}
+
+private String renderByteArray(owningClass, p, cp) {
+      return """<div class="input-group input-group-sm">
+                    <span class="input-group-addon">file</span> 
+                    <input name="${p.name}" class="form-control" type="file"  ng-model="${owningClass.propertyName}.${p.name}" >
+                </div>"""
+}
+
+
+
+private String renderDate(owningClass, p, cp) {
      String str =  """
-     <input type="text" class="form-control" name="${p.name}" ng-model="${owningClass.propertyName}.${p.name}" 
+     <div class="input-group input-group-sm">
+     <input name="${p.name}" type="text" class="form-control" ng-model="${owningClass.propertyName}.${p.name}" 
 	     datepicker-popup
 	     is-open="${owningClass.propertyName}.${p.name}Open" 
-
 	     ng-click="${owningClass.propertyName}.${p.name}Open = true"
       """
-      
+
       if (isRequired(cp)) str += " required"
       str += """
       />
      <span class="input-group-addon">
        <i class="glyphicon glyphicon-calendar"></i>
      </span>
+     </div>
       """
       return str;
 }
 
-private String renderNumberEditor(owningClass, p, cp) {
-	String str = """<input class="form-control" name="${p.name}" ng-model="${owningClass.propertyName}.${p.name}" """
 
+
+private String renderNumber(owningClass, p, cp) {
+	String str = """<div class="input-group input-group-sm">
+	      				<span class="input-group-addon">nr</span>
+	      				<input name="${p.name}" class="form-control"  ng-model="${owningClass.propertyName}.${p.name}" """
+	      				
+	String rangeExtraInputStr = ""
 	if (cp.range) {
+		rangeExtraInputStr = """<span class="input-group-addon">{{${owningClass.propertyName}.${p.name}}}</span>"""
         str += """ type="range" """
-        str += """ ng-minlength="${cp.range.from}" """
-        str += """ ng-maxlength="${cp.range.to}" """
-		
+        str += """ min="${cp.range.from}" """
+        str += """ max="${cp.range.to}" """
 	} else {
 		if (p.type in [float, double, Float, Double, BigDecimal]){
-			str += """ type="text" """
+			str += """ type="number" """
 		}else{
 			str += """ type="number" """
 		}
 
-		if (cp.min != null) str += """ ng-minlength="${cp.min}" """
-		if (cp.max != null) str += """ ng-maxlength="${cp.max}" """
+		if (cp.min != null) str += """ min="${cp.min}" """
+		if (cp.max != null) str += """ max="${cp.max}" """
 	}
 	if (isRequired(cp)) str += " required"
-	str += " > "
+	str += " >$rangeExtraInputStr</div> "
 	return str;
 }
 
-private String renderStringEditor(owningClass, p, cp) {
-	String str = """<input class="form-control" type="text" name="${p.name}" ng-model="${owningClass.propertyName}.${p.name}" """
+
+private String renderUrl(owningClass, p, cp) {
+	String str = """<div class="input-group input-group-sm">
+      				<span class="input-group-addon">url</span>
+      				<input name="${p.name}" class="form-control" type="url" ng-model="${owningClass.propertyName}.${p.name}" """
+	
+    if (isRequired(cp)) str += " required"
+	str += " ></div> "
+	return str
+}
+private renderSelectType(owningClass, p, cp, type) {
+	String str = """<div class="input-group input-group-sm">
+      				<span class="input-group-addon">$type</span>
+      				<input name="${p.name}" class="form-control" type="text" ng-model="${owningClass.propertyName}.${p.name}" """
 	
     if (cp.matches) str += """ ng-pattern="${cp.matches}" """
     if (isRequired(cp)) str += " required"
-	str += " > "
+	str += " ></div> "
+	return str
 }
+
+private String renderEnum(owningClass, p, cp) {
+     String str =  """
+     <div class="input-group input-group-sm">
+          <span class="input-group-addon">enum</span>   
+          <input name="${p.name}" type="text" class="form-control" ng-model="${owningClass.propertyName}.${p.name}"  typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List  | filter:\$viewValue"  """
+     if (isRequired(cp)) str += " required"
+     str += """></div> """
+     return str;
+}
+
+private String renderManyToOne(owningClass, p, cp) {
+    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config)
+    if(!useDisplaynames) useDisplaynames = ['id': null]
+    String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
+    
+    String templStr="""
+     <script type="text/ng-template" id="${p.name}AutocompleteTemplate.html"><a>"""
+     useDisplaynames.each{key, value->
+        templStr += """<span bind-html-unsafe="match.model.$key | typeaheadHighlight:query"></span> """
+     } 
+     templStr += """</a></script>"""
+     String str =  """<!--ManyToOne-->
+     <div class="input-group input-group-sm">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>  
+          <input name="${p.name}" type="text" class="form-control" 
+          ng-model="${owningClass.propertyName}.${p.name}"   
+          typeahead-template-url="${p.name}AutocompleteTemplate.html" 
+          typeahead-editable="false" 
+          typeahead="b for b in autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr])" 
+         
+          typeahead-input-formatter="autocompleteService.${p.referencedDomainClass.propertyName}FormatLabel(\$model, [$useDisplaynamesStr])"
+      """
+      
+     if (isRequired(cp)) str += " required"
+     str += """></div> """
+     str +=templStr;
+     return str;
+}
+
+private String renderManyToMany(owningClass, p, cp) {
+     String str =  """<!--ManyToMany-->
+      <div class="input-group input-group-sm">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>  
+          
+            """
+     if (isRequired(cp)) str += " required"
+     str += """>
+            </bootstrap-tagsinput></div> """
+     return str;
+}
+
+private String renderOneToMany(owningClass, p, cp) {
+    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config)
+    if(!useDisplaynames) useDisplaynames = ['id': null]
+    String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
+    
+     String str =  """<!--OneToMany-->
+          <tags-input ng-model="${owningClass.propertyName}.${p.name}">
+              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr])" ></auto-complete>
+            """
+     if (isRequired(cp)) str += " minTags='1'"
+     str += """ </tags-input>"""
+     return str;
+}
+
+private renderJoinProperty(owningClass, p, cp, joinProperty) {
+    return  """//JoinProperty
+    //${grails.util.GrailsNameUtils.getShortName(p.getReferencedPropertyType()).toLowerCase()}
+                //${grails.util.GrailsNameUtils.getShortName(joinProperty.getReferencedPropertyType()).toLowerCase()}
+                //referencedPropertyName:'${p.getReferencedPropertyName()}.id'
+                //${p.naturalName}
+        """
+}
+
 
 private boolean isRequired(cp) {
     !isOptional(cp)
@@ -110,23 +254,36 @@ private boolean isOptional(cp) {
 <%
 private renderFieldRow(p, owningClass) {
 	return """
-	<div class="form-group" data-ng-class="{error: errors.${p.name}}">
-		<label for="${p.name}">${p.naturalName}</label>
-		<div class="input-group">
-			${renderEditField(p, owningClass)}
-		</div>
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="${p.name}" translate="pages.${domainClass.shortName}.edit.form.field.${p.name}"></label>
+		<div class="col-sm-10">
+            ${renderEditField(p, owningClass)}                     
+        </div>
 	</div>
+	<div class="line line-dashed b-b line-lg pull-in"></div>
 	"""
 }%>
-<div class="box-body">
-<%  
-for (p in props) {
-	if (!p.embedded && !p.oneToMany && !p.manyToMany) {%>
-${renderFieldRow(p, domainClass)}\
-	<%}%>
-<%}%>
-</div>
-<div class="box-footer">
-	<button class="btn btn-success" type='submit' ng-disabled="${domainClass.propertyName}Form.\$invalid">Submit</button> 
-	<button class="btn btn-default" type='submit'>Cancel</button> 
+
+<div ng-init="pageTitle = (isEditForm)?'pages.${domainClass.shortName}.edit.title':'pages.${domainClass.shortName}.create.title'" data-ng-include=" 'components/blocks/page_heading.html' "></div>
+<div class="wrapper-md ng-scope">
+    <div class="row">
+        <div class="col-sm-6">
+            <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal"  novalidate ng-submit="submit(${domainClass.propertyName}Form)" >
+                <div class="panel panel-default">
+                	<div class="panel-heading">
+                      <span class="h4" translate="pages.${domainClass.shortName}.edit.form.title"></span>
+                    </div>
+                    <div class="panel-body">
+                <%for (p in props) {%>
+                ${renderFieldRow(p, domainClass)}\
+                <%}%>
+                	</div>
+                    <footer class="panel-footer text-right bg-light lter">
+                      	<button class="btn btn-success" type='submit' ng-disabled="${domainClass.propertyName}Form.\$invalid" translate="pages.${domainClass.shortName}.edit.form.submit"></button> 
+                		<a class="btn btn-default" ng-click="back()" translate="pages.${domainClass.shortName}.edit.form.cancel"></a> 
+                    </footer>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

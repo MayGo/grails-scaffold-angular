@@ -29,11 +29,23 @@
 			</a>
 		</li>	
 <%
+
+List glyhs=['glyphicon-cloud','glyphicon-envelope','glyphicon-glass','glyphicon-music','glyphicon-user','glyphicon-film','glyphicon-th-large','glyphicon-th','glyphicon-th-list','glyphicon-off',
+'glyphicon-signal','glyphicon-home','glyphicon-file','glyphicon-time',
+'glyphicon-road','glyphicon-download-alt','glyphicon-download','glyphicon-upload','glyphicon-inbox','glyphicon-play-circle','glyphicon-repeat','glyphicon-refresh','glyphicon-list-alt',
+'glyphicon-lock','glyphicon-flag','glyphicon-headphones','glyphicon-volume-off','glyphicon-volume-down','glyphicon-volume-up','glyphicon-qrcode','glyphicon-barcode','glyphicon-tag',
+'glyphicon-tags','glyphicon-book','glyphicon-bookmark','glyphicon-print','glyphicon-camera','glyphicon-font','glyphicon-bold','glyphicon-italic','glyphicon-text-height',
+'glyphicon-text-width','glyphicon-align-left','glyphicon-align-center','glyphicon-align-right','glyphicon-align-justify','glyphicon-list','glyphicon-indent-left',
+'glyphicon-indent-right','glyphicon-facetime-video','glyphicon-picture','glyphicon-map-marker','glyphicon-adjust','glyphicon-tint']
+
+int i = -1
 if(domainClasses.size() < 8){
-	for(d in domainClasses){%>
+	for(d in domainClasses){
+		i++%>
 		<li ui-sref-active="active">
 			<a ui-sref="app.${d.propertyName}">
-				<i class="fa fa-th"></i> <span>${d.shortName}</span>
+				<i class="glyphicon ${glyhs[i]} icon text-success"></i>
+				<span class="font-bold">${d.shortName}</span>
 			</a>
 		</li>
   <%}%>
@@ -42,13 +54,17 @@ if(domainClasses.size() < 8){
 	groupedDomainClasses.each{packageName, domainClasses->
 %>
 		<li>
-			<a href>
-				<i class="fa fa-bar-chart-o"></i>
-				<span>${packageName.tokenize('.').last()}</span>
-				<i class="fa fa-angle-left pull-right"></i>
+			<a href class="auto">
+				<span class="pull-right text-muted">
+			        <i class="fa fa-fw fa-angle-right text"></i>
+			        <i class="fa fa-fw fa-angle-down text-active"></i>
+			    </span>
+			    <i class="glyphicon ${glyhs[i]} icon text-success"></i>
+				<span class="font-bold">${packageName.tokenize('.').last()}</span>
 			</a>
 			<ul>
-			<% domainClasses.each{d->%>
+			<% domainClasses.each{d->
+				i++%>
 				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}.list"><i class="fa fa-angle-double-right"></i> ${d.shortName}</a></li>
 			<%}%>
 			</ul>

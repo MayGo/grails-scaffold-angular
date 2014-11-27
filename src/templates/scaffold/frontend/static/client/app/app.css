@@ -52,3 +52,28 @@
 .form-validation .i-checks .ng-invalid.ng-dirty + i {
   border-color: #f05050;
 }
+
+
+
+.text-active,
+.active > .text,
+.active > .auto .text {
+  display: none !important;
+}
+
+.active > .text-active,
+.active > .auto .text-active {
+  display: inline-block !important;
+}
+
+
+
+
+.inform-message.alert{
+	margin-bottom: 0;
+}
+
+.pagination{
+	margin: 0 !important;	
+}
+
