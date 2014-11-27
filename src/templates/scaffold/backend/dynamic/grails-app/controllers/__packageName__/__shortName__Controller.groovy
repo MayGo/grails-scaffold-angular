@@ -42,4 +42,13 @@ class ${className}Controller extends RestfulController{
 	private getExcludes() {
 		params.excludes?.tokenize(',')
 	}
+	
+	@Override
+	protected ${className} queryForResource(Serializable id) {
+		if(id.isNumber()){
+			resource.get(id)
+		}else{
+			notFound()
+		}
+	}
 }
