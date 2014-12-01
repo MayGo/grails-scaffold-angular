@@ -16,14 +16,19 @@ angular.module('angularDemoApp')
 		}
 	    return '';
   	};
-  	var toAutocompleteObject = function(item, labelProperties){
+  	var toAutocompleteObject = function(item, labelProperties, tagsOutput){
   		var obj = {id:item.id};
-   		angular.forEach(labelProperties, function(label, i) {
-		  obj[label] = item[label];
-		}, item);
+  		if(tagsOutput){
+  			obj['name'] = _.map(labelProperties, function(label) { return item[label]  }).join(', ')
+		}else{
+			angular.forEach(labelProperties, function(label, i) {
+			  obj[label] = item[label];
+			}, item);
+		}
         return obj;
   	};
-  	var resourceQuery = function(val, urlPart, labelProperties, excludes){
+  	
+  	var resourceQuery = function(val, urlPart, labelProperties, excludes, tagsOutput){
   		var param = {limit: 15};
 		param.query = val;
 		param.excludes = excludes;
@@ -31,30 +36,36 @@ angular.module('angularDemoApp')
 		return resource.query(param).\$promise.then(
 	        function( response ){
 		       	return response.map(function(item){
-		       		return toAutocompleteObject(item, labelProperties);
+		       		return toAutocompleteObject(item, labelProperties, tagsOutput);
 			    });
 	       	}
      	);
   	};
   	var service = {
-	<%for(d in domainClasses){
+	
+	<%
+	List allEnums = []
+	for(d in domainClasses){
   		//Lets find field to display in autocomplete 
 		String useDisplaynamesStr = ScaffoldingHelper.getDomainClassDisplayNames(d, config).collect{key, value->"item." + key + ""}.join("+ ' ' +")
 		if(!useDisplaynamesStr) useDisplaynamesStr = "item.id"
 		ScaffoldingHelper sh = new ScaffoldingHelper(d, pluginManager, comparator, getClass().classLoader)
 		excludes = sh.getProps().findAll{it.isAssociation()}
 		enums = sh.getProps().findAll{it.type && it.isEnum()}
-		enums.each{p->
-			println "\t${p.getTypePropertyName().replace(".", "")}List: ${(p.type.values()*.name()).collect{"'$it'"}},"
-		}
+		allEnums +=enums
+	
   		%>
-  		${d.propertyName}Query : function(val, labelProperties){
-  			return resourceQuery(val, '${d.propertyName.toLowerCase()}s', labelProperties, "${excludes*.name.join(",")}");
+  		${d.propertyName}Query : function(val, labelProperties, tagsOutput){
+  			return resourceQuery(val, '${d.propertyName.toLowerCase()}s', labelProperties, "${excludes*.name.join(",")}", tagsOutput);
 	    },
 	    ${d.propertyName}FormatLabel : function(model, labelProperties) {
 		    return toLabel(model, labelProperties);
 		},
-    <%}%>
+    <%}
+	allEnums.unique{it.getTypePropertyName()}.each{p->
+		println "\t${p.getTypePropertyName().replace(".", "")}List: ${(p.type.values()*.name()).collect{"'$it'"}},"
+	}
+	%>
     };
     return service;
   });

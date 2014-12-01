@@ -50,7 +50,7 @@ private String renderFieldSearch(p, owningClass){
     boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
     boolean required = false
     if (hasHibernate) {
-        cp = owningClass.constrainedProperties[p.name]
+        cp = owningClass.constrainedProperties[p.name]?:[:]
         required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
     }
     // Find if property is actually joinTable property. e.g. UserRole
@@ -115,6 +115,7 @@ private String renderString(owningClass, p, cp) {
 
 private String renderBoolean(owningClass, p, cp) {
       return """<div class="input-group input-group-sm">
+      				<label class="control-label text-left" translate="pages.${domainClass.shortName}.list.search.placeholder.${p.name}"></label> 
                     <input name="${p.name}" type="checkbox" st-search="'${p.name}'" >
                 </div>"""
 }
@@ -209,14 +210,14 @@ private String renderEnum(owningClass, p, cp) {
 }
 
 private String renderManyToOne(owningClass, p, cp) {
-    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config)
+    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
      String str =  """<!--ManyToOne-->
      <div class="input-group input-group-sm" style="width:100%">
            <tags-input custom-st-search
               ng-model="${p.name}" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}">
-              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr])" ></auto-complete>
+              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
      str += """</tags-input></div>"""
 

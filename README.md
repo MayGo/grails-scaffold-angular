@@ -100,6 +100,7 @@ Class file:
 TODO
 =====
 
+* list view "action" column with fixed with or fixed height if it helps
 * view should show mantToOne items, as readonly tags or  in view should be associations
 * delete button to delete
 * one button click only
@@ -116,3 +117,4 @@ TODO
 * Core has to register multiple plugins. Register local files also.
 * Refactor displayNames in ScaffoldingHelper.
 * BUG whensearching with tags, sometimes comes error.(division1)
+* tagsInput multible fields separator ", " as config object

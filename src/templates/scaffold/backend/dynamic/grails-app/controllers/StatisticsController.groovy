@@ -21,9 +21,6 @@ class ${''}StatisticsController{
 		def lastInsertedDomainClasses = []
 		for (domainClass in grailsApplication.domainClasses) {
 			def items = domainClass.clazz.findAll(sort:'id', order:'desc', max:'5'){}
-			domainClass.persistentProperties.each{
-				println it.type
-			}
 			lastInsertedDomainClasses.addAll(items.collect{
 				[
 				'id':it.id, 

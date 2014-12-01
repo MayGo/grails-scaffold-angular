@@ -11,7 +11,7 @@ private String renderEditField(p, owningClass){
 	boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
 	boolean required = false
 	if (hasHibernate) {
-		cp = owningClass.constrainedProperties[p.name]
+		cp = owningClass.constrainedProperties[p.name]?:[:]
 		required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
 	}
 	// Find if property is actually joinTable property. e.g. UserRole
@@ -175,7 +175,7 @@ private String renderEnum(owningClass, p, cp) {
 }
 
 private String renderManyToOne(owningClass, p, cp) {
-    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config)
+    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
     
@@ -203,26 +203,30 @@ private String renderManyToOne(owningClass, p, cp) {
      return str;
 }
 
-private String renderManyToMany(owningClass, p, cp) {
-     String str =  """<!--ManyToMany-->
-      <div class="input-group input-group-sm">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>  
-          
-            """
-     if (isRequired(cp)) str += " required"
-     str += """>
-            </bootstrap-tagsinput></div> """
-     return str;
-}
+
 
 private String renderOneToMany(owningClass, p, cp) {
-    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config)
+    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
     
      String str =  """<!--OneToMany-->
           <tags-input ng-model="${owningClass.propertyName}.${p.name}">
-              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr])" ></auto-complete>
+              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr], true)" ></auto-complete>
+            """
+     if (isRequired(cp)) str += " minTags='1'"
+     str += """ </tags-input>"""
+     return str;
+}
+
+private String renderManyToMany(owningClass, p, cp) {
+      Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config, p)
+    if(!useDisplaynames) useDisplaynames = ['id': null]
+    String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
+    
+     String str =  """<!--ManyToMany-->
+          <tags-input ng-model="${owningClass.propertyName}.${p.name}">
+              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr], true)" ></auto-complete>
             """
      if (isRequired(cp)) str += " minTags='1'"
      str += """ </tags-input>"""
@@ -268,7 +272,10 @@ private renderFieldRow(p, owningClass) {
 <div class="wrapper-md ng-scope">
     <div class="row">
         <div class="col-sm-6">
-            <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal"  novalidate ng-submit="submit(${domainClass.propertyName}Form)" >
+            <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal"  
+            	novalidate 
+            	ng-submit="submit(${domainClass.propertyName}Form)"
+            	 >
                 <div class="panel panel-default">
                 	<div class="panel-heading">
                       <span class="h4" translate="pages.${domainClass.shortName}.edit.form.title"></span>

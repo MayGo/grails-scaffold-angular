@@ -10,7 +10,7 @@ private String renderFieldRow(p, owningClass){
     boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
     boolean required = false
     if (hasHibernate) {
-        cp = owningClass.constrainedProperties[p.name]
+        cp = owningClass.constrainedProperties[p.name]?:[:]
         required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
     }
     // Find if property is actually joinTable property. e.g. UserRole

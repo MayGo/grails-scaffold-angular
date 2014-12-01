@@ -1,24 +1,6 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .constant("appConfig", (function() {
-  		function removeSlash(str){
- 			if(str.substr(0, 1) == "/" ) str = str.substr(1);
- 			return str
- 		}
- 		function appendSlash(str){
- 			if(str.substr(-1) != "/" ) str += "/";
- 			return str
- 		}
- 		var restUrl = appendSlash('${appUrl}');
- 	    return {
- 	    	restUrl : restUrl,
- 			loginUrl : restUrl + removeSlash('${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"api/login"}'),
- 			logoutUrl : restUrl + removeSlash('${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"api/logout"}'),
- 			validationUrl: restUrl + removeSlash('${(config.grails.plugin.springsecurity.rest.token.validation.endpointUrl)?:"api/validate"}'),
- 			securityEnabled : ${(config.grails.plugin.springsecurity.rest.login.active)?:false},
- 	    }
-   })())
   .controller('AppCtrl', function (\$scope, \$state, \$translate, \$localStorage, \$window, Fullscreen, AutocompleteService) {
 
   	\$scope.autocompleteService = AutocompleteService

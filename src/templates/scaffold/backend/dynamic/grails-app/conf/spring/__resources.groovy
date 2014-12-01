@@ -10,12 +10,12 @@
 		
 		String line2 = """
 	 for (domainClass in application.domainClasses) {
-	     "json\${domainClass.shortName}CollectionRenderer(grails.rest.render.json.JsonCollectionRenderer, domainClass.clazz)"
+	     "json\${domainClass.shortName}CollectionRenderer"(CustomJsonCollectionRenderer, domainClass.clazz)
 	 }
 		"""
-//		if(!destFile.text.contains(line2)) {
-//			linesToAdd += "\t\t" + line2 + "\n"
-//		}
+		if(!destFile.text.contains(line2)) {
+			linesToAdd += "\t\t" + line2 + "\n"
+		}
 		
 		return linesToAdd
 	}

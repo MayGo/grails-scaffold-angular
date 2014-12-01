@@ -6,17 +6,18 @@
     props = allProps.findAll{p->!p.embedded} 
     
     includeAngularServices = allProps.findAll{p->p.manyToOne || p.oneToMany || p.manyToMany || p.oneToOne}*.getReferencedPropertyType()
+
     includeAngularServices -= domainClass.clazz
    
     includeAngularServicesStr=""
-    if(includeAngularServices) includeAngularServicesStr=", "+ includeAngularServices.collect{grails.util.GrailsNameUtils.getShortName(it)}.join(", ")
+    if(includeAngularServices) includeAngularServicesStr=", "+ includeAngularServices.collect{grails.util.GrailsNameUtils.getShortName(it)}.unique().join(", ")
 %>
 <%
 private String renderFieldLogic(p, owningClass){
 	boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
 	boolean required = false
 	if (hasHibernate) {
-		cp = owningClass.constrainedProperties[p.name]
+		cp = owningClass.constrainedProperties[p.name]?:[:]
 		required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
 	}
 	
@@ -51,7 +52,7 @@ private String renderManyToMany(owningClass, p, cp) {
 
 private String renderOneToMany(owningClass, p, cp) {
     //Lets find field to display in autocomplete 
-	String useDisplaynamesStr = ScaffoldingHelper.getDomainClassDisplayNames(p.referencedDomainClass, config).collect{key, value->"item." + key + ""}.join("+ ' ' +")
+	String useDisplaynamesStr = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config, p).collect{key, value->"item." + key + ""}.join("+ ', ' +")
 	if(!useDisplaynamesStr) useDisplaynamesStr = "item.id"
 	ScaffoldingHelper sh2 = new ScaffoldingHelper(p.referencedDomainClass, pluginManager, comparator, getClass().classLoader)
 	excludes = sh2.getProps().findAll{it.isAssociation()}

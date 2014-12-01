@@ -1,5 +1,16 @@
 import grails.converters.JSON
+import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
 class CustomMarshallerRegistrar {
+	
+	static Map domainPropertiesCache = [:]
+	
+	static List getDomainProperties(Class domainClass){
+		String name = domainClass.name
+		if(domainPropertiesCache[name]) return domainPropertiesCache[name]
+		def grailsDomainClass = new DefaultGrailsDomainClass(domainClass)
+		domainPropertiesCache[name] = grailsDomainClass.getPersistentProperties()*.name
+		return domainPropertiesCache[name]
+	}
 	
 	static Map createMap(List excludesList = []){
 		Map excludes = { [:].withDefault{ owner.call() } }()
@@ -20,28 +31,29 @@ class CustomMarshallerRegistrar {
 		if(!domain) return [:]
 		Map res = [:]
 		if(!excludes.containsKey("id"))res << [id: domain.id]
-		for(d in domain.properties){
-			if(excludes.containsKey(d.key) && !excludes["\${d.key}"]) continue
-			if(excludes.containsKey(d.key) && excludes["\${d.key}"] && d.value){
-				boolean isCollection = (d.value instanceof SortedMap
-					|| d.value instanceof SortedSet
-					|| d.value instanceof Set
-					|| d.value instanceof Map
-					|| d.value instanceof Collection)
+		for(key in getDomainProperties(domain.class)){
+			def value = domain[key]
+			if(excludes.containsKey(key) && !excludes["\${key}"]) continue
+			if(excludes.containsKey(key) && excludes["\${key}"] && value){
+				boolean isCollection = (value instanceof SortedMap
+					|| value instanceof SortedSet
+					|| value instanceof Set
+					|| value instanceof Map
+					|| value instanceof Collection)
 				if(isCollection){
 					List objList = []
-					for(d2 in d.value){
-						objList << filter(d2, excludes["\${d.key}"])
+					for(d2 in value){
+						objList << filter(d2, excludes["\${key}"])
 					}
-					res << ["\${d.key}":objList]
+					res << ["\${key}":objList]
 				}else{
-					res << ["\${d.key}":filter(d.value, excludes["\${d.key}"])]
+					res << ["\${key}":filter(value, excludes["\${key}"])]
 				}
-			}else if(d.value){
-				if(d.value.class.isEnum()){
-					res << ["\${d.key}": d.value.name()]
+			}else if(value){
+				if(value.class.isEnum()){
+					res << ["\${key}": value.name()]
 				}else{
-					res << ["\${d.key}": d.value]
+					res << ["\${key}": value]
 				}
 			}
 		}
