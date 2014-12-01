@@ -1,7 +1,7 @@
 import grails.plugin.scaffold.core.ConfigUtility
 
 class ScaffoldAngularGrailsPlugin {
-    def version = "0.3"
+    def version = "0.3.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.4 > *"
 
@@ -29,6 +29,6 @@ Grails plugin for generating working demo with Angular frontend and REST backend
 
     def doWithSpring = {
 		ConfigUtility.mergeDefaultConfig(application, 'ScaffoldAngularDefaultConfig')
-		templatesLocator(grails.plugin.scaffold.core.DefaultTemplatesLocator, "scaffold-angular")
+		angularTemplatesLocator(grails.plugin.scaffold.core.DefaultTemplatesLocator, "scaffold-angular")
 	}
 }

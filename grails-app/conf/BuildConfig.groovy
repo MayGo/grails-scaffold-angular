@@ -44,6 +44,6 @@ grails.project.dependency.resolution = {
               ":rest-client-builder:1.0.3") {
             export = false
         }
-		compile ':scaffold-core:0.2.2'
+		compile ':scaffold-core:0.2.3'
     }
 }

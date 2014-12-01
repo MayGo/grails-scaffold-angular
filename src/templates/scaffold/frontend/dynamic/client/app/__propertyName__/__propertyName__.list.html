@@ -114,10 +114,12 @@ private String renderString(owningClass, p, cp) {
 
 
 private String renderBoolean(owningClass, p, cp) {
-      return """<div class="input-group input-group-sm">
-      				<label class="control-label text-left" translate="pages.${domainClass.shortName}.list.search.placeholder.${p.name}"></label> 
-                    <input name="${p.name}" type="checkbox" st-search="'${p.name}'" >
-                </div>"""
+      return """
+      <div class="input-group input-group-sm">
+      	 <input  name="${p.name}" type="checkbox" st-search="'${p.name}'" >
+ 		<label for="${p.name}"> {{'pages.${domainClass.shortName}.edit.form.field.${p.name}' | translate}}</label>
+	  </div>
+     """
 }
 
 private String renderByteArray(owningClass, p, cp) {
