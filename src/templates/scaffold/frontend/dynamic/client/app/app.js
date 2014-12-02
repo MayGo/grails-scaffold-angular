@@ -62,7 +62,7 @@ angular.module('angularDemoApp', [
   	
     cfpLoadingBarProvider.includeSpinner = true;
     cfpLoadingBarProvider.includeBar = true;
-    cfpLoadingBarProvider.latencyThreshold = 1;
+    cfpLoadingBarProvider.latencyThreshold = 150;
     
 	
 	datepickerConfig.showWeeks = false;

@@ -45,7 +45,7 @@ if(domainClasses.size() < 8){
 		<li ui-sref-active="active">
 			<a ui-sref="app.${d.propertyName}">
 				<i class="glyphicon ${glyhs[i]} icon text-success"></i>
-				<span class="font-bold">${d.shortName}</span>
+				<span class="font-bold" translate="menu.domain.${d.shortName}"></span>
 			</a>
 		</li>
   <%}%>
@@ -65,7 +65,7 @@ if(domainClasses.size() < 8){
 			<ul>
 			<% domainClasses.each{d->
 				i++%>
-				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}.list"><i class="fa fa-angle-double-right"></i> ${d.shortName}</a></li>
+				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}.list" translate="menu.domain.${d.shortName}"><i class="fa fa-angle-double-right"></i></a></li>
 			<%}%>
 			</ul>
 		</li>

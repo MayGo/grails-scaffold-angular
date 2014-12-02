@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-	.controller('${domainClass.shortName}ListController', function (\$scope, \$stateParams, ${domainClass.shortName}, inform) {
+	.controller('${domainClass.shortName}ListController', function (\$scope, ${domainClass.shortName}, inform) {
 		
 	\$scope.delete${domainClass.shortName} = function(${domainClass.shortName}) { 
 		${domainClass.shortName}.\$delete(function() {
@@ -11,28 +11,39 @@ angular.module('angularDemoApp')
 	\$scope.isLoading = false;
 	\$scope.rowCollection = [];
 	
-	\$scope.callServer = function getData(tableState, tableController) {
+	\$scope.callServer = function (tableState, tableController) {
 		
 		var query = {max: \$scope.stTable.itemsByPage, offset: tableState.pagination.start};
 		if (tableState.sort.predicate) {
 			query.order = tableState.sort.reverse ? 'asc' : 'desc';
 			query.sort = tableState.sort.predicate;
 		}
-		if(\$stateParams.search)tableState.search.predicateObject = \$stateParams.search;
-		var searchParams = tableState.search.predicateObject || \$stateParams.search;
+
+		var searchParams = tableState.search.predicateObject;
 		if (searchParams) {
 			query.filter = {};
 			angular.forEach(searchParams, function(value, key) {
 				this[key] = value;
 			}, query.filter);
 		}
-	
-		${domainClass.shortName}.query(query, function(response, responseHeaders){
-			\$scope.isLoading = false;
-			\$scope.rowCollection = response;
-			tableState.pagination.numberOfPages = Math.ceil(responseHeaders().total / tableState.pagination.number);
-		});
+		
+		if(!\$scope.skipFirstQueryInEmbeddedView ){
+			${domainClass.shortName}.query(query, function(response, responseHeaders){
+				\$scope.isLoading = false;
+				\$scope.rowCollection = response;
+				tableState.pagination.numberOfPages = Math.ceil(responseHeaders().total / tableState.pagination.number);
+			});
+		}else{
+			\$scope.skipFirstQueryInEmbeddedView = null;
+		}
 	};
 	
 
 });
+//Simple Controller to make new scope for ListController
+angular.module('angularDemoApp')
+	.controller('${domainClass.shortName}EmbeddedListController', function (\$scope) {
+	\$scope.isEmbeddedView = true;
+	\$scope.skipFirstQueryInEmbeddedView = true;
+});
+

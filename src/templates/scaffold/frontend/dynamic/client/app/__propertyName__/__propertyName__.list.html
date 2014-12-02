@@ -134,7 +134,7 @@ private String renderByteArray(owningClass, p, cp) {
 private String renderDate(owningClass, p, cp) {
      String str =  """
      <div class="input-group input-group-sm">
-     <input name="${p.name}" ng-model="${p.name}" type="text" class="form-control"  placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"
+     <input name="${p.name}" ng-model="search.${p.name}" type="text" class="form-control"  placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"
          datepicker-popup
          is-open="${owningClass.propertyName}.${p.name}Open" 
          ng-click="${owningClass.propertyName}.${p.name}Open = true"
@@ -155,7 +155,7 @@ private String renderDate(owningClass, p, cp) {
 private String renderNumber(owningClass, p, cp) {
     String str = """<div class="input-group input-group-sm">
                         <span class="input-group-addon">nr</span>
-                        <input name="${p.name}" ng-model="${p.name}" class="form-control" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" st-search="'${p.name}'" """
+                        <input name="${p.name}" ng-model="search.${p.name}" class="form-control" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" st-search="'${p.name}'" """
                         
     String rangeExtraInputStr = ""
     if (cp.range) {
@@ -204,7 +204,7 @@ private String renderEnum(owningClass, p, cp) {
      <div class="input-group input-group-sm">
           <span class="input-group-addon">enum</span>   
           <input name="${p.name}" type="text" class="form-control" st-search="'${p.name}'" 
-            ng-model="${p.name}"
+            ng-model="search.${p.name}"
             placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" 
             typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List | filter:\$viewValue"  """
      str += """></div> """
@@ -217,8 +217,8 @@ private String renderManyToOne(owningClass, p, cp) {
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
      String str =  """<!--ManyToOne-->
      <div class="input-group input-group-sm" style="width:100%">
-           <tags-input custom-st-search
-              ng-model="${p.name}" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}">
+           <tags-input custom-st-search="${p.name}" 
+              ng-model="search.${p.name}" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}">
               <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
      str += """</tags-input></div>"""
@@ -254,7 +254,7 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 
 
 
-<div ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'" data-ng-include=" 'components/blocks/page_heading.html' "></div>
+<div ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'" data-ng-include=" 'components/blocks/page_heading.html' " ng-hide="isEmbeddedView"></div>
 <div class="wrapper-md ng-scope">
   <div class="panel panel-default">
     <div class="panel-heading">

@@ -180,19 +180,7 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 				${renderFieldRow(p, domainClass)}\
 					<%}%>
 				<%}%>
-<%
-    relationsProps = sh.findRelationsProps(domainClasses as List)
-    relationsProps.each{property, domainCl->%>
-     <div class="form-group">
-        <div class="col-sm-10 form-control-static" >
-           <a class="h4" href ui-sref="app.${domainCl.propertyName}.list({search:{${property.name}:${domainClass.propertyName}.id}})" 
-                translate="pages.${domainCl.shortName}.view.lists" 
-                translate-value-isval="{{ 'pages.${property.getDomainClass().shortName}.view.field.${property.name}' | translate }}" translate-value-inval="{{ 'pages.${domainCl.shortName}.name' | translate }}">
-           </a>
-        </div>
-     </div>
-<%}%>
-				
+		
 					</div>
 			    </div>
 			    <footer class="panel-footer text-right bg-light lter">
@@ -205,5 +193,26 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 			    </footer>
 			 </div>
 		</div>
+        <div>
+		      <%
+            relationsProps = sh.findRelationsProps(domainClasses as List)
+            relationsProps.each{property, domainCl->%>
+             <div class="form-group"    
+             ng-init="search={${property.name}:[${domainClass.propertyName}]}"
+                    ng-controller="${domainCl.shortName}EmbeddedListController" 
+                    >
+                <div class="col-sm-10 form-control-static" 
+                    ng-controller="${domainCl.shortName}ListController" 
+                    ng-include="'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html'">
+                   <a class="h4" href ui-sref="app.${domainCl.propertyName}.list({search:{}})" 
+                        translate="pages.${domainCl.shortName}.view.lists" 
+                        translate-value-isval="{{ 'pages.${property.getDomainClass().shortName}.view.field.${property.name}' | translate }}" translate-value-inval="{{ 'pages.${domainCl.shortName}.name' | translate }}">
+                   </a>
+                </div>
+             </div>
+        <%}%>
+        </div>       
+		
+		
 	</div>
 </div>			
