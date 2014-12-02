@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .controller('DashboardCtrl', function (\$scope, \$http, appConfig) {
+  .controller('DashboardController', function (\$scope, \$http, appConfig) {
     \$scope.lastinsertedCollection = [].concat(\$scope.lastinsertedCollectionSafe);
 	\$http.get(appConfig.restUrl + 'statistics/lastInserted').success(function(lastinsertedCollection) {
       \$scope.lastinsertedCollectionSafe = lastinsertedCollection;

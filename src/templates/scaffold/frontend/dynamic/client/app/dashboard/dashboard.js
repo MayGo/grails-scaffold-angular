@@ -6,6 +6,6 @@ angular.module('angularDemoApp')
       .state('app.dashboard', {
         url: '/dashboard',
         templateUrl: 'app/dashboard/dashboard.html',
-        controller: 'DashboardCtrl'
+        controller: 'DashboardController'
       });
   });

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .controller('AppCtrl', function (\$scope, \$state, \$translate, \$localStorage, \$window, Fullscreen, AutocompleteService) {
+  .controller('AppController', function (\$scope, \$state, \$translate, \$localStorage, \$window, Fullscreen, AutocompleteService) {
 
   	\$scope.autocompleteService = AutocompleteService
   	

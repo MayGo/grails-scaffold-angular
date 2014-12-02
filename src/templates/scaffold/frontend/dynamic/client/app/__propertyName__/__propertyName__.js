@@ -10,19 +10,19 @@ angular.module('angularDemoApp')
 		.state('app.${domainClass.propertyName}.list', {
 			url: '/list?search',//TODO: search so that search is not an object in url
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.list.html',
-			controller: '${domainClass.shortName}ListCtrl'
+			controller: '${domainClass.shortName}ListController'
 		}).state('app.${domainClass.propertyName}.create',{
 			url: '/create',
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.form.html',
-			controller: '${domainClass.shortName}EditCtrl'
+			controller: '${domainClass.shortName}EditController'
 		}).state('app.${domainClass.propertyName}.edit',{
 			url: '/edit/:id',
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.form.html',
-			controller: '${domainClass.shortName}EditCtrl'
+			controller: '${domainClass.shortName}EditController'
 		}).state('app.${domainClass.propertyName}.view',{
 			url: '/view/:id',
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.view.html',
-			controller: '${domainClass.shortName}ViewCtrl'
+			controller: '${domainClass.shortName}ViewController'
 		});
 		
 });

@@ -48,7 +48,7 @@ angular.module('angularDemoApp', [
 			//abstract: true,
 			url: '/app',
 			templateUrl: 'app/app.html',
-			controller: 'AppCtrl',
+			controller: 'AppController',
 			resolve: {
 	          authenticated: function(\$location, \$auth, appConfig) {
 	            if (appConfig.securityEnabled && !\$auth.isAuthenticated()) {

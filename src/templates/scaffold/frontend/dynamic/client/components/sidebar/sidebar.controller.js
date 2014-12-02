@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .controller('SidebarCtrl', function (\$scope, \$location) {
+  .controller('SidebarController', function (\$scope, \$location) {
     \$scope.menu = [{
       'title': 'User list',
       'link': 'user'

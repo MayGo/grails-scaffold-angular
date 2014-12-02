@@ -81,7 +81,7 @@ private String renderOneToMany(owningClass, p, cp) {
 %>
 
 angular.module('angularDemoApp')
-    .controller('${domainClass.shortName}EditCtrl', function (\$scope, \$state, \$stateParams, ${domainClass.shortName}, inform $includeAngularServicesStr) {
+    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$stateParams, ${domainClass.shortName}, inform $includeAngularServicesStr) {
     	\$scope.isEditForm = (\$stateParams.id)?true:false;
     	
     	
@@ -97,11 +97,11 @@ angular.module('angularDemoApp')
     	}
 		
 	
-	    \$scope.submit = function(frmCtrl) {
+	    \$scope.submit = function(frmController) {
 	    	var errorCallback = function(response){
 				if (response.data.errors) {
 	                angular.forEach(response.data.errors, function (error) {
-	                    frmCtrl.setExternalValidation(error.field, undefined, error.message);
+	                    frmController.setExternalValidation(error.field, undefined, error.message);
 	                })
 	            }
 	        }

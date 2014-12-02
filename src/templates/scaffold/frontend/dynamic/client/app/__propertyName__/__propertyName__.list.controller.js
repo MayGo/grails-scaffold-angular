@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-	.controller('${domainClass.shortName}ListCtrl', function (\$scope, \$stateParams, ${domainClass.shortName}, inform) {
+	.controller('${domainClass.shortName}ListController', function (\$scope, \$stateParams, ${domainClass.shortName}, inform) {
 		
 	\$scope.delete${domainClass.shortName} = function(${domainClass.shortName}) { 
 		${domainClass.shortName}.\$delete(function() {

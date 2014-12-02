@@ -5,6 +5,6 @@ angular.module('angularDemoApp')
     \$stateProvider
       .state('logout', {
         url: '/logout',
-        controller: 'LogoutCtrl'
+        controller: 'LogoutController'
       });
   });

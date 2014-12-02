@@ -6,6 +6,6 @@ angular.module('angularDemoApp')
       .state('app.search', {
         url: '/search',
         templateUrl: 'app/search/search.html',
-        controller: 'SearchCtrl'
+        controller: 'SearchController'
       });
   });

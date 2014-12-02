@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .controller('LogoutCtrl', function(\$auth) {
+  .controller('LogoutController', function(\$auth) {
     if (!\$auth.isAuthenticated()) {
         return;
     }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .controller('LoginCtrl', function (\$scope, \$http, \$state, appConfig, \$auth) {
+  .controller('LoginController', function (\$scope, \$http, \$state, appConfig, \$auth) {
   	\$scope.user = {};
     \$scope.authError = null;
 

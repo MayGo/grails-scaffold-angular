@@ -27,8 +27,6 @@
     "angular-translate-storage-cookie": "~2.4.2",
     "angular-translate-storage-local": "~2.4.2",
     "angular-fullscreen": "~1.0.0",
-    "angucomplete": "*",
-    "angucomplete-alt": "~0.0.31",
     "angular-strap": "~2.1.3"
   },
   "devDependencies": {
