@@ -23,7 +23,7 @@ private String renderFieldRow(p, owningClass){
         }
     }
 
-    
+   
     if (p.type == Boolean || p.type == boolean)
         return renderBoolean(owningClass, p, cp)
     else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean))

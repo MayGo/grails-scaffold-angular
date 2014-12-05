@@ -1,5 +1,5 @@
 [
-		/(.*init\s*\=\s*\{\sservletContext\s->)/: {destFile->//select entire line
+	/(.*init\s*\=\s*\{\sservletContext\s->)/: {destFile->//select entire line
 		String linesToAdd = ""
 		
 		String line = "CustomMarshallerRegistrar.registerMarshallers()"

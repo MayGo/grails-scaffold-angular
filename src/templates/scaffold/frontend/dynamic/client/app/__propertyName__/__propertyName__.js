@@ -23,6 +23,5 @@ angular.module('angularDemoApp')
 			url: '/view/:id',
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.view.html',
 			controller: '${domainClass.shortName}ViewController'
-		});
-		
+		});		
 });

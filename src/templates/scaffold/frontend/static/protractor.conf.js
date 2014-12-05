@@ -12,9 +12,7 @@ exports.config = {
   // with relative paths will be prepended with this.
   baseUrl: 'http://localhost:' + (process.env.PORT || '9000'),
 
-  // If true, only chromedriver will be started, not a standalone selenium.
-  // Tests for browsers other than chrome will not run.
-  chromeOnly: true,
+  directConnect: true,
 
   // list of files / patterns to load in the browser
   specs: [

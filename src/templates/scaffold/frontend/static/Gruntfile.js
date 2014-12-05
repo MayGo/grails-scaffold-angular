@@ -2,16 +2,10 @@
 'use strict';
 
 module.exports = function (grunt) {
-  var localConfig;
-  try {
-    localConfig = require('./server/config/local.env');
-  } catch(e) {
-    localConfig = {};
-  }
+ 
 
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
-    express: 'grunt-express-server',
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn',
@@ -23,35 +17,65 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  var appConfig = {
+    client: require('./bower.json').appPath || 'client',
+    dist: 'dist'
+  };
   // Define the configuration for all the tasks
   grunt.initConfig({
 
     // Project settings
     pkg: grunt.file.readJSON('package.json'),
-    yeoman: {
-      // configurable paths
-      client: require('./bower.json').appPath || 'client',
-      dist: 'dist'
-    },
-    express: {
+    yeoman: appConfig,
+   // The actual grunt server settings
+    connect: {
       options: {
-        port: process.env.PORT || 9000
+        port: 9002,
+        // Change this to '0.0.0.0' to access the server from outside.
+        hostname: 'localhost',
+        livereload: 35729
       },
-      dev: {
+      livereload: {
         options: {
-          script: 'server/app.js',
-          debug: true
+          open: true,
+          middleware: function (connect) {
+            return [
+              connect.static('.tmp'),
+              connect().use(
+                '/bower_components',
+                connect.static('./bower_components')
+              ),
+              connect.static(appConfig.client)
+            ];
+          }
         }
       },
-      prod: {
+      test: {
         options: {
-          script: 'dist/server/app.js'
+          port: 9001,
+          middleware: function (connect) {
+            return [
+              connect.static('.tmp'),
+              connect.static('test'),
+              connect().use(
+                '/bower_components',
+                connect.static('./bower_components')
+              ),
+              connect.static(appConfig.client)
+            ];
+          }
+        }
+      },
+      dist: {
+        options: {
+          open: true,
+          base: '<%= yeoman.dist %>'
         }
       }
     },
     open: {
-      server: {
-        url: 'http://localhost:<%= express.options.port %>'
+      client: {
+        url: 'http://localhost:<%= connect.options.port %>'
       }
     },
     watch: {
@@ -65,14 +89,11 @@ module.exports = function (grunt) {
       },
       injectCss: {
         files: [
-          '<%= yeoman.client %>/{app,components}/**/*.css'
+          '<%= yeoman.client %>/{app,components,assets}/**/*.css'
         ],
         tasks: ['injector:css']
       },
-      mochaTest: {
-        files: ['server/**/*.spec.js'],
-        tasks: ['env:test', 'mochaTest']
-      },
+    
       jsTest: {
         files: [
           '<%= yeoman.client %>/{app,components}/**/*.spec.js',
@@ -85,27 +106,18 @@ module.exports = function (grunt) {
       },
       livereload: {
         files: [
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.css',
+          '{.tmp,<%= yeoman.client %>}/{app,components,assets}/**/*.css',
           '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.html',
           '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
           '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
           '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
-          '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= yeoman.client %>/assets/img/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         options: {
-          livereload: true
-        }
-      },
-      express: {
-        files: [
-          'server/**/*.{js,json}'
-        ],
-        tasks: ['express:dev', 'wait'],
-        options: {
-          livereload: true,
-          nospawn: true //Without this option specified express won't be reloaded
+          livereload: '<%= connect.options.livereload %>'
         }
       }
+      
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -224,8 +236,8 @@ module.exports = function (grunt) {
           src: [
             '<%= yeoman.dist %>/public/{,*/}*.js',
             '<%= yeoman.dist %>/public/{,*/}*.css',
-            '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= yeoman.dist %>/public/assets/fonts/*'
+            '<%= yeoman.dist %>/public/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+           // '<%= yeoman.dist %>/public/assets/fonts/*'
           ]
         }
       }
@@ -249,12 +261,12 @@ module.exports = function (grunt) {
       options: {
         assetsDirs: [
           '<%= yeoman.dist %>/public',
-          '<%= yeoman.dist %>/public/assets/images'
+          '<%= yeoman.dist %>/public/assets/img'
         ],
         // This is so we update image references in our ng-templates
         patterns: {
           js: [
-            [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+            [/(assets\/img\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved img']
           ]
         }
       }
@@ -265,9 +277,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.client %>/assets/images',
+          cwd: '<%= yeoman.client %>/assets/img',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
-          dest: '<%= yeoman.dist %>/public/assets/images'
+          dest: '<%= yeoman.dist %>/public/assets/img'
         }]
       }
     },
@@ -276,9 +288,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.client %>/assets/images',
+          cwd: '<%= yeoman.client %>/assets/img',
           src: '{,*/}*.svg',
-          dest: '<%= yeoman.dist %>/public/assets/images'
+          dest: '<%= yeoman.dist %>/public/assets/img'
         }]
       }
     },
@@ -343,14 +355,16 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             'bower_components/**/*',
-            'assets/images/{,*/}*.{webp}',
+            'assets/img/{,*/}*.{webp}',
             'assets/fonts/**/*',
+            'assets/css/**/*',
+            'l10n/*',
             'index.html'
           ]
         }, {
           expand: true,
-          cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/public/assets/images',
+          cwd: '.tmp/img',
+          dest: '<%= yeoman.dist %>/public/assets/img',
           src: ['generated/*']
         }, {
           expand: true,
@@ -365,7 +379,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= yeoman.client %>',
         dest: '.tmp/',
-        src: ['{app,components}/**/*.css']
+        src: ['{app,components,assets}/**/*.css']
       }
     },
 
@@ -440,16 +454,6 @@ module.exports = function (grunt) {
       }
     },
 
-    env: {
-      test: {
-        NODE_ENV: 'test'
-      },
-      prod: {
-        NODE_ENV: 'production'
-      },
-      all: localConfig
-    },
-
     injector: {
       options: {
 
@@ -488,7 +492,7 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= yeoman.client %>/index.html': [
-            '<%= yeoman.client %>/{app,components}/**/*.css'
+            '<%= yeoman.client %>/{app,components,assets}/**/*.css'
           ]
         }
       }
@@ -507,19 +511,14 @@ module.exports = function (grunt) {
     }, 1500);
   });
 
-  grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
-    this.async();
-  });
-
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'env:all', 'env:prod', 'express:prod', 'wait', 'open', 'express-keepalive']);
+      return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
 
     if (target === 'debug') {
       return grunt.task.run([
         'clean:server',
-        'env:all',
         'concurrent:server',
         'injector',
         'wiredep',
@@ -530,14 +529,11 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'env:all',
       'concurrent:server',
       'injector',
       'wiredep',
       'autoprefixer',
-      'express:dev',
-      'wait',
-      'open',
+      'connect:livereload',
       'watch'
     ]);
   });
@@ -548,18 +544,11 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', function(target) {
-    if (target === 'server') {
-      return grunt.task.run([
-        'env:all',
-        'env:test',
-        'mochaTest'
-      ]);
-    }
+ 
 
-    else if (target === 'client') {
+   if (target === 'client') {
       return grunt.task.run([
         'clean:server',
-        'env:all',
         'concurrent:test',
         'injector',
         'autoprefixer',
@@ -570,13 +559,11 @@ module.exports = function (grunt) {
     else if (target === 'e2e') {
       return grunt.task.run([
         'clean:server',
-        'env:all',
-        'env:test',
         'concurrent:test',
         'injector',
         'wiredep',
         'autoprefixer',
-        'express:dev',
+        'connect:livereload',
         'protractor'
       ]);
     }
@@ -599,9 +586,9 @@ module.exports = function (grunt) {
     'ngAnnotate',
     'copy:dist',
     'cdnify',
-    'cssmin',
+   // 'cssmin',
     'uglify',
-    'rev',
+   // 'rev',
     'usemin'
   ]);
 

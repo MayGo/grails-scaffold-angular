@@ -5,7 +5,7 @@
     allProps = sh.getProps()
     props = allProps.findAll{p->!p.embedded} 
     
-    includeAngularServices = allProps.findAll{p->p.manyToOne || p.oneToMany || p.manyToMany || p.oneToOne}*.getReferencedPropertyType()
+    includeAngularServices = allProps.findAll{p->p.oneToMany || p.manyToMany}*.getReferencedPropertyType()
 
     includeAngularServices -= domainClass.clazz
    
@@ -34,7 +34,6 @@ private String renderFieldLogic(p, owningClass){
     return  ""
 }
 
-
 private String renderEnum(owningClass, p, cp) {
       return """"""
 }
@@ -58,7 +57,7 @@ private String renderOneToMany(owningClass, p, cp) {
 	excludes = sh2.getProps().findAll{it.isAssociation()}
     String str =  """
 	     if(\$scope.isEditForm){
-			${p.referencedDomainClass.shortName}.query({filter:{${p.referencedPropertyName}:\$stateParams.id}, excludes:"${excludes*.name.join(",")}"}).\$promise.then(
+			${p.referencedDomainClass.shortName}.query({filter:{${p.referencedPropertyName}:\$stateParams.id}, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
 		        function( response ){
 			       	\$scope.${domainClass.propertyName} = angular.extend({}, \$scope.${domainClass.propertyName});
 	     			\$scope.${domainClass.propertyName}.${p.name} = response.map(function(item){
@@ -71,7 +70,7 @@ private String renderOneToMany(owningClass, p, cp) {
 		 //Watch for oneToMany property, to add custom object to each value. Without this, adding elements have no effect when POSTing.
      	 \$scope.\$watch('${domainClass.propertyName}.${p.name}', function(values) {
      	 	if(values && values.length>0){
-				_.forEach(values, function(value) { value['${p.getReferencedPropertyName()}']={id:\$stateParams.id}; });
+				_.forEach(values, function(value) { value.${p.getReferencedPropertyName()}={id:\$stateParams.id}; });
 		    }
 	     }, true);
      """
@@ -81,7 +80,7 @@ private String renderOneToMany(owningClass, p, cp) {
 %>
 
 angular.module('angularDemoApp')
-    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$stateParams, ${domainClass.shortName}, inform $includeAngularServicesStr) {
+    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$stateParams, ${domainClass.shortName}, \$translate, inform $includeAngularServicesStr) {
     	\$scope.isEditForm = (\$stateParams.id)?true:false;
     	
     	
@@ -99,24 +98,26 @@ angular.module('angularDemoApp')
 	
 	    \$scope.submit = function(frmController) {
 	    	var errorCallback = function(response){
-				if (response.data.errors) {
-	                angular.forEach(response.data.errors, function (error) {
-	                    frmController.setExternalValidation(error.field, undefined, error.message);
-	                })
-	            }
-	        }
+					if (response.data.errors) {
+		                angular.forEach(response.data.errors, function (error) {
+		                    frmController.setExternalValidation(error.field, undefined, error.message);
+		                });
+		            }
+		       };
+	       
 	    	if(\$scope.isEditForm){
 	    		${domainClass.shortName}.update(\$scope.${domainClass.propertyName}, function(response) {
-		            inform.add("Updated ${domainClass.shortName}", {
-		            	  "type": "success"
-	            	});
+	    			\$translate('pages.${domainClass.shortName}.messages.update').then(function (msg) {
+				    	inform.add(msg, {'type': 'success'});
+					});
 	            	\$state.go('^.view', { id: response.id });
 		        },errorCallback);
 	    	}else{
     			${domainClass.shortName}.save(\$scope.${domainClass.propertyName},function(response) {
-		            inform.add("Created ${domainClass.shortName}", {
-		            	  "type": "success"
-	            	});
+    				\$translate('pages.${domainClass.shortName}.messages.create').then(function (msg) {
+				    	inform.add(msg, {'type': 'success'});
+					});
+					
             	 	\$state.go('^.view', { id: response.id });
 		        },errorCallback);
 	    	}

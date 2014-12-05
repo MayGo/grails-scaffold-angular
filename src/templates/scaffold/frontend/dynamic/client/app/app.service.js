@@ -7,9 +7,11 @@ angular.module('angularDemoApp')
   .factory('AutocompleteService', function(\$resource, appConfig){
   	var toLabel = function(model, labelProperties){
   		if(model){
-  			var str = "";
+  			var str = '';
 			angular.forEach(labelProperties, function(label, i) {
-				if(i > 0) str += " ";
+				if(i > 0){
+					str += ' ';
+				}
 				str += model[label];
 			}, str);
 			return str;
@@ -19,9 +21,9 @@ angular.module('angularDemoApp')
   	var toAutocompleteObject = function(item, labelProperties, tagsOutput){
   		var obj = {id:item.id};
   		if(tagsOutput){
-  			obj['name'] = _.map(labelProperties, function(label) { return item[label]  }).join(', ')
+  			obj.name = _.map(labelProperties, function(label) { return item[label];  }).join(', ');
 		}else{
-			angular.forEach(labelProperties, function(label, i) {
+			angular.forEach(labelProperties, function(label) {
 			  obj[label] = item[label];
 			}, item);
 		}
@@ -56,7 +58,7 @@ angular.module('angularDemoApp')
 	
   		%>
   		${d.propertyName}Query : function(val, labelProperties, tagsOutput){
-  			return resourceQuery(val, '${d.propertyName.toLowerCase()}s', labelProperties, "${excludes*.name.join(",")}", tagsOutput);
+  			return resourceQuery(val, '${d.propertyName.toLowerCase()}s', labelProperties, '${excludes*.name.join(",")}', tagsOutput);
 	    },
 	    ${d.propertyName}FormatLabel : function(model, labelProperties) {
 		    return toLabel(model, labelProperties);
@@ -69,3 +71,29 @@ angular.module('angularDemoApp')
     };
     return service;
   });
+  
+  
+angular.module('angularDemoApp').factory('SessionService', function (\$localStorage) {
+	var service = {};
+	var _currentUser = {};
+	
+	service.afterLogin = function(userData){
+    	_currentUser = userData;
+    	// save settings to local storage
+    	\$localStorage.userData = userData;
+    };
+    
+    service.getCurrentUser = function(){
+    	if(!_.isEmpty(_currentUser)){
+    		return _currentUser;
+    	}
+    	
+    	//get from local storage
+    	if ( angular.isDefined(\$localStorage.userData) ) {
+			_currentUser = \$localStorage.userData;
+		}
+		return	_currentUser;
+    };
+    
+    return service;
+});

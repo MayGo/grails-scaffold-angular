@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .directive("ngMenu", function($parse, $compile){
+  .directive('ngMenu', function($parse, $compile){
     return {
         link: function($scope, element, attributes){
             $scope._menu = {status:[], collapse:{}};
@@ -18,7 +18,7 @@ angular.module('angularDemoApp')
 
             };
 
-            attributes.$$element.find('li').children('a').each(function(index, value){
+            attributes.$$element.find('li').children('a').each(function(index){
                 $scope._menu.status[index] = true;
                 $(this).attr({'ng-click': '_menu.collapse('+index+')', 'index':index});
                 $('>ul', $(this).parent('li')).attr({'collapse': '_menu.status['+index+']', 'index':index});

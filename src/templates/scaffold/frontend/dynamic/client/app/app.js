@@ -24,25 +24,61 @@ angular.module('angularDemoApp', [
   'satellizer',
   'mgcrea.ngStrap'
 ])
-	.constant("appConfig", (function() {
-  		function removeSlash(str){
- 			if(str.substr(0, 1) == "/" ) str = str.substr(1);
- 			return str
- 		}
- 		function appendSlash(str){
- 			if(str.substr(-1) != "/" ) str += "/";
- 			return str
- 		}
- 		var restUrl = appendSlash('${appUrl}');
- 	    return {
- 	    	restUrl : restUrl,
- 			loginUrl : restUrl + removeSlash('${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"api/login"}'),
- 			logoutUrl : restUrl + removeSlash('${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"api/logout"}'),
- 			validationUrl: restUrl + removeSlash('${(config.grails.plugin.springsecurity.rest.token.validation.endpointUrl)?:"api/validate"}'),
- 			securityEnabled : ${(config.grails.plugin.springsecurity.rest.login.active)?:false},
- 	    }
+	.constant('appConfig', (function() {
+		
+		var removeSlash = function(str){
+ 			if(str.substr(0, 1) === '/' ){
+ 				 str = str.substr(1);
+ 			}
+ 			return str;
+ 		};
+ 	
+ 		var appendSlash = function(str){
+ 			if(str.substr(-1) !== '/' ){
+ 				str += '/';
+ 			}
+ 			return str;
+ 		};
+ 		
+ 		//Set defaults
+		var defaultConfig = {
+ 				restUrl : '${appUrl}',
+ 	 			loginUrl : '${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"api/login"}',
+ 	 			logoutUrl : '${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"api/logout"}',
+ 	 			validationUrl: '${(config.grails.plugin.springsecurity.rest.token.validation.endpointUrl)?:"api/validate"}',
+ 	 			securityEnabled: ${(config.grails.plugin.springsecurity.active)?:false},
+		};
+ 		var loadSuccess = function( data ) {
+			 if(data){
+			 	  angular.extend(defaultConfig, data);   
+			 }
+		};
+		// Load external config
+		\$.ajax({
+		    type: 'GET',
+		    url: 'config.json',
+		    dataType: 'json',
+		    success: loadSuccess,
+		    error: function(){console.log('Error loading config.json');},
+		    async: false
+		});
+		
+		// Return correct config
+		var restUrl = appendSlash(defaultConfig.restUrl);
+		var config = {
+			restUrl : restUrl,
+ 			loginUrl : restUrl + removeSlash(defaultConfig.loginUrl),
+ 			logoutUrl : restUrl + removeSlash(defaultConfig.logoutUrl),
+ 			validationUrl: restUrl + removeSlash(defaultConfig.validationUrl),
+ 			securityEnabled : defaultConfig.securityEnabled,
+		};
+		
+		
+ 	    return config;
    })())
+     
   .config(function (\$stateProvider, \$urlRouterProvider, \$locationProvider, cfpLoadingBarProvider, datepickerConfig, datepickerPopupConfig) {
+  	// Override default config from custom config  file
   	\$stateProvider
 		.state('app', {
 			//abstract: true,
@@ -88,7 +124,7 @@ angular.module('angularDemoApp', [
   })
   .config(function(tagsInputConfigProvider) {
        tagsInputConfigProvider.setDefaults('tagsInput', {
-        displayProperty:"name",
+        displayProperty:'name',
         addFromAutocompleteOnly:true
       })
       .setDefaults('autoComplete', {
@@ -102,11 +138,11 @@ angular.module('angularDemoApp', [
     
   })
   .config(function(\$authProvider, appConfig) {
-      \$authProvider.loginOnSignup = true;
-    \$authProvider.logoutRedirect =  '/';
+	\$authProvider.loginOnSignup = true;
+    \$authProvider.logoutRedirect = '/';
     \$authProvider.loginUrl =  appConfig.loginUrl;
-    \$authProvider.unlinkUrl = appConfig.logoutUrl,
-    \$authProvider.loginRoute =  '/login';
+    \$authProvider.unlinkUrl = appConfig.logoutUrl;
+    \$authProvider.loginRoute = '/login';
     \$authProvider.tokenName =  'access_token';
     \$authProvider.authHeader =  'Authorization';
     
@@ -116,6 +152,6 @@ angular.module('angularDemoApp', [
 
 		Date.prototype.toJSON = function() {
 	    	var grailsAcceptableFormat = 'yyyy-MM-dd HH:mm:ss.sssZ';
-	    	return \$filter('date')(this, grailsAcceptableFormat)
+	    	return \$filter('date')(this, grailsAcceptableFormat);
 	    };
   });

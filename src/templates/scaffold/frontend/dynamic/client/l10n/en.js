@@ -9,6 +9,10 @@
     "new" : {
       "NEW" : "New"
     },
+    "user":{
+    	"settings":"Settings",
+    	"docs":"Help"
+    },
     "NOTIFICATIONS" : "Notifications"
   }
 },
@@ -23,6 +27,15 @@
 					"name":"Name",
 					"description":"Description"
 				}
+			}
+		}
+	},
+	"settings":{
+		"view":{
+			"title":"Settings",
+			"info":{
+				"title":"User info",
+				"permissions":"Permissions"
 			}
 		}
 	},
@@ -80,6 +93,11 @@
 					}
 				}
 			},
+			"messages":{
+				"delete": "Deleted ${d.naturalName}",
+				"update": "Updated ${d.naturalName}",
+				"create": "Created ${d.naturalName}"
+			},	
 			"create":{
 				"title": "Create ${d.naturalName}"
 			}

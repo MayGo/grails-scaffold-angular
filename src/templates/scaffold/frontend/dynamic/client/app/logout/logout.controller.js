@@ -5,8 +5,8 @@ angular.module('angularDemoApp')
     if (!\$auth.isAuthenticated()) {
         return;
     }
-   \$auth.logout()
+    \$auth.logout()
       .then(function() {
-        console.log("Logged out");
+        console.log('Logged out');
       });
   });

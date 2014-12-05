@@ -1,15 +1,26 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .controller('AppController', function (\$scope, \$state, \$translate, \$localStorage, \$window, Fullscreen, AutocompleteService) {
-
-  	\$scope.autocompleteService = AutocompleteService
+  .controller('AppController', function (\$scope, \$state, \$translate, \$localStorage, \$window, Fullscreen, AutocompleteService, SessionService) {
+  	var isSmartDevice = function( \$window ){
+		// Adapted from http://www.detectmobilebrowsers.com
+		var ua = \$window.navigator.userAgent || \$window.navigator.vendor || \$window.opera;
+		// Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
+		return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
+	};
+  	
+	\$scope.username = SessionService.getCurrentUser().login;
+  	\$scope.autocompleteService = AutocompleteService;
   	
 	\$scope.stTable={'itemsByPage':20};
      // add 'ie' classes to html
-      var isIE = !!navigator.userAgent.match(/MSIE/i);
-      isIE && angular.element(\$window.document.body).addClass('ie');
-      isSmartDevice( \$window ) && angular.element(\$window.document.body).addClass('smart');
+     var isIE = !!navigator.userAgent.match(/MSIE/i);
+     if(isIE){
+     	angular.element(\$window.document.body).addClass('ie');
+     }
+     if(isSmartDevice( \$window )){
+     	angular.element(\$window.document.body).addClass('smart');
+     }
 
       // config
      
@@ -39,7 +50,7 @@ angular.module('angularDemoApp')
           asideDock: false,
           container: false
         }
-      }
+      };
 
       // save settings to local storage
       if ( angular.isDefined(\$localStorage.settings) ) {
@@ -58,9 +69,9 @@ angular.module('angularDemoApp')
 
       // angular translate
       \$scope.lang = { isopen: false };
-      \$scope.langs = {en:'English', de_DE:'German', it_IT:'Italian'};
-      \$scope.selectLang = \$scope.langs[\$translate.proposedLanguage()] || "English";
-      \$scope.setLang = function(langKey, \$event) {
+      \$scope.langs = {'en':'English', 'de_DE':'German', 'it_IT':'Italian'};
+      \$scope.selectLang = \$scope.langs[\$translate.proposedLanguage()] || 'English';
+      \$scope.setLang = function(langKey) {
         // set the current lang
         \$scope.selectLang = \$scope.langs[langKey];
         // You can change the language during runtime
@@ -68,35 +79,29 @@ angular.module('angularDemoApp')
         \$scope.lang.isopen = !\$scope.lang.isopen;
       };
 
-      function isSmartDevice( \$window )
-      {
-          // Adapted from http://www.detectmobilebrowsers.com
-          var ua = \$window['navigator']['userAgent'] || \$window['navigator']['vendor'] || \$window['opera'];
-          // Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
-          return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
-      }
-      
-      \$scope.goFullscreen = function () {
-	      if (Fullscreen.isEnabled())
-	         Fullscreen.cancel();
-	      else
-	         Fullscreen.all();
 	
-	   };
+      
+	\$scope.goFullscreen = function () {
+		if (Fullscreen.isEnabled()){
+			Fullscreen.cancel();
+		}else{
+			Fullscreen.all();
+		}
+	};
 	   
-      \$scope.\$on("\$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {
-            // to be used for back button //won't work when page is reloaded.
-            \$scope.previousStateName = fromState.name;
-            \$scope.previousStateParams = fromParams;
-      });
-      //back button function called from back button's ng-click="back()"
-      \$scope.back = function() {
-          if(\$scope.previousStateName){
-            \$state.go(\$scope.previousStateName, \$scope.previousStateParams);
-        }else{
-            \$state.go("^.list");
-        }
-      };
+	\$scope.\$on('\$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
+		// to be used for back button //won't work when page is reloaded.
+		\$scope.previousStateName = fromState.name;
+		\$scope.previousStateParams = fromParams;
+	});
+	//back button function called from back button's ng-click='back()'
+	\$scope.back = function() {
+		if(\$scope.previousStateName){
+			\$state.go(\$scope.previousStateName, \$scope.previousStateParams);
+		}else{
+			\$state.go('^.list');
+		}
+	};
 
 
   });

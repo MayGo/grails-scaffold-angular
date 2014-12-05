@@ -17,6 +17,23 @@
 		}
 
 		return linesToAdd
+	},
+	/(.*\s*\}\s*$)/: {destFile->
+		String linesToAdd = ""
+		
+		String line1 = """
+		grails.war.copyToWebApp = { args ->
+			fileset(dir:"angular") {
+				include(name: "client/**")
+			}
+			fileset(dir:"web-app") {
+				include(name: "WEB-INF/**")
+			}
+		}
+		"""
+		if(!destFile.text.contains("grails.war.copyToWebApp")) {
+			linesToAdd += line1
+		}
+		return linesToAdd
 	}
-	
 ]

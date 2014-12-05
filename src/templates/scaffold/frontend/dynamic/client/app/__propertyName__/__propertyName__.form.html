@@ -5,7 +5,6 @@
     props = allProps.findAll{p->!p.embedded} 
 
 %>
-
 <%
 private String renderEditField(p, owningClass){
 	boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')

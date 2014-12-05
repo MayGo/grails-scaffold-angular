@@ -1,0 +1,19 @@
+<div ng-init="pageTitle = 'pages.settings.view.title'" data-ng-include=" 'components/blocks/page_heading.html' "></div>
+<div class="wrapper-md ng-scope">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                  <span class="h4" translate="pages.settings.view.info.title"></span>
+                </div>
+                <div class="panel-body">
+                <h3 translate="pages.settings.view.info.permissions"></h3>
+                <ul>
+                  <li ng-repeat="perm in user.permissions">{{perm}}</li>
+                </ul>
+                </div>
+             </div>
+        </div>
+    </div>
+</div>      
+

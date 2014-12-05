@@ -7,7 +7,7 @@ angular.module('angularDemoApp')
       \$scope.lastinsertedCollectionSafe = lastinsertedCollection;
 	});
 	
-	\$scope.totalInsertedCollection = []
+	\$scope.totalInsertedCollection = [];
 	\$http.get(appConfig.restUrl + 'statistics/totalInserted').success(function(totalInsertedCollection) {
       \$scope.totalInsertedCollection = totalInsertedCollection;
 	});

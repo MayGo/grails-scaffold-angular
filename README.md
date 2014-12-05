@@ -2,6 +2,26 @@ grails-scaffold-angular
 =======================
 
 Using generator-angular-fullstack frontend as basis (https://www.npmjs.org/package/generator-angular-fullstack)
+Run 
+grunt for building, 
+grunt serve for preview, and 
+grunt serve:dist for a preview of the built app.
+
+Testing
+-------------
+Running grunt test will run the client and server unit tests with karma and mocha.
+
+Use grunt test:server to only run server tests.
+
+Use grunt test:client to only run client tests.
+
+Protractor tests
+-------------
+To setup protractor e2e tests, you must first run
+
+npm run update-webdriver
+
+Use grunt test:e2e to have protractor go through tests located in the e2e folder.
 
 
 Config
@@ -100,6 +120,7 @@ Class file:
 TODO
 =====
 
+* remove Inform "Updated" "Created" (add delete/save functions to service)
 * list view "action" column with fixed with or fixed height if it helps
 * view should show mantToOne items, as readonly tags or  in view should be associations
 * delete button to delete

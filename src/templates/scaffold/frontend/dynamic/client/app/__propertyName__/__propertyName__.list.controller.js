@@ -1,17 +1,24 @@
 'use strict';
 
 angular.module('angularDemoApp')
-	.controller('${domainClass.shortName}ListController', function (\$scope, ${domainClass.shortName}, inform) {
+	.controller('${domainClass.shortName}ListController', function (\$scope, ${domainClass.shortName}, \$translate, inform) {
 		
 	\$scope.delete${domainClass.shortName} = function(${domainClass.shortName}) { 
 		${domainClass.shortName}.\$delete(function() {
-				inform.add("Deleted ${domainClass.naturalName}", {"type": "warning"});	
+			\$translate('pages.${domainClass.shortName}.messages.delete').then(function (msg) {
+		    	inform.add(msg, {'type': 'warning'});
+			});
+				
+			var index = \$scope.rowCollection.indexOf(${domainClass.shortName});
+	        if (index !== -1) {
+	            \$scope.rowCollection.splice(index, 1);
+	        }
 		});
 	};
 	\$scope.isLoading = false;
 	\$scope.rowCollection = [];
 	
-	\$scope.callServer = function (tableState, tableController) {
+	\$scope.callServer = function (tableState) {
 		
 		var query = {max: \$scope.stTable.itemsByPage, offset: tableState.pagination.start};
 		if (tableState.sort.predicate) {
@@ -23,7 +30,9 @@ angular.module('angularDemoApp')
 		if (searchParams) {
 			query.filter = {};
 			angular.forEach(searchParams, function(value, key) {
-				this[key] = value;
+				if(!_.isEmpty(value)){
+					this[key] = value;
+				}
 			}, query.filter);
 		}
 		
@@ -37,7 +46,6 @@ angular.module('angularDemoApp')
 			\$scope.skipFirstQueryInEmbeddedView = null;
 		}
 	};
-	
 
 });
 //Simple Controller to make new scope for ListController
