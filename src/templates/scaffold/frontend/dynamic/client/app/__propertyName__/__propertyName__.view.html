@@ -119,11 +119,12 @@ private String renderManyToOne(owningClass, p, cp) {
     String str = """<!--ManyToOne-->
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${p.name}"></label>
+            <div class="col-sm-10 form-control-static">
             """
     useDisplaynames.each{ key, value->
-        str += """<div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${p.name}.${key}"></div>"""
+        str += """<span ng-bind="${owningClass.propertyName}.${p.name}.${key}"></span> """
     }
-    str += """    </div>
+    str += """</div></div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
     
@@ -196,9 +197,13 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
         <div>
 		      <%
             relationsProps = sh.findRelationsProps(domainClasses as List)
-            relationsProps.each{property, domainCl->%>
+            relationsProps.each{property, domainCl->
+                Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(domainCl, config, property)
+                if(!useDisplaynames) useDisplaynames = ['id': null]
+                String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
+            %>
              <div class="form-group"    
-             ng-init="search={${property.name}:[${domainClass.propertyName}]}"
+             ng-init="search={${property.name}:[autocompleteService.promiseToLabel(${domainClass.propertyName}, $useDisplaynamesStr])]}"
                     ng-controller="${domainCl.shortName}EmbeddedListController" 
                     >
                 <div class="col-sm-10 form-control-static" 

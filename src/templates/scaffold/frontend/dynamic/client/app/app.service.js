@@ -44,6 +44,12 @@ angular.module('angularDemoApp')
      	);
   	};
   	var service = {
+  		promiseToLabel:function(model, labelProperties){
+			model.\$promise.then(function(user) {
+				model.name = toLabel(model, labelProperties);
+			});
+			return model;
+		},
 	
 	<%
 	List allEnums = []

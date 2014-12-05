@@ -14,7 +14,7 @@ private renderFieldRow(p, owningClass) {
         
         String str ="<td>"
         useDisplaynames.each{ key, value->
-            str += """{{${owningClass.propertyName}.${p.name}.${key}}}"""
+            str += """{{${owningClass.propertyName}.${p.name}.${key}}} """
         }
         str += "</td>"
         return str
@@ -32,18 +32,7 @@ private renderFieldHeader(p, owningClass) {
 
 //####################### SEARCH ###################################
 
-private renderFieldSearch2(p, owningClass) {
-    
-    
-    return """
-    <div class="col-lg-2 form-group">
-		<div class="input-group input-group-sm">
-		  <span class="input-group-addon">O</span>
-		  <input class="form-control" st-search="'${p.name}'" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}">
-		</div>  
-	</div>    
-"""
-}
+
 
 private String renderFieldSearch(p, owningClass){
     boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
