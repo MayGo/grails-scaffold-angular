@@ -23,7 +23,7 @@
 			dirserveBase = 'angular/client'
 		}
 		"""
-		if(!destFile.text.contains("/ng/$asset**")) {
+		if(!destFile.text.contains("/ng/\$asset**")) {
 			linesToAdd += "\t\t" + spaLine + "\n"
 		}
 		
