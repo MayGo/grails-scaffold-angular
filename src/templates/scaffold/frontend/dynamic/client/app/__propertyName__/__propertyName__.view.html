@@ -203,7 +203,7 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
                 String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
             %>
              <div class="form-group"    
-             ng-init="search={${property.name}:[autocompleteService.promiseToLabel(${domainClass.propertyName}, $useDisplaynamesStr])]}"
+             ng-init="search={${property.name}:[autocompleteService.promiseToLabel(${domainClass.propertyName}, $useDisplaynamesStr)]}"
                     ng-controller="${domainCl.shortName}EmbeddedListController" 
                     >
                 <div class="col-sm-10 form-control-static" 
