@@ -9,7 +9,7 @@ import grails.converters.JSON
 @Transactional
 class ${className}Service{
 
-  static List parseParamsAndRetrieveListAndCount(def resource, Map param){
+  List parseParamsAndRetrieveListAndCount(Map param){
 
 		//Search relation queries e.g: user.id=1
 		Map relations = param.findAll{k, v->
@@ -20,13 +20,13 @@ class ${className}Service{
 		def searchString = param.query
 
 
-		def persistentProperties = new DefaultGrailsDomainClass(resource).persistentProperties
+		def persistentProperties = new DefaultGrailsDomainClass(${className}.class).persistentProperties
 
 		def persistentPropertiesMap = [:] as HashMap
 		persistentProperties.each {
 			persistentPropertiesMap.put(it.name, it)
 		}
-		def	results = resource.createCriteria().list(offset:param.offset, max:param.max, order:param.order, sort:param.sort) {
+		def	results = ${className}.createCriteria().list(offset:param.offset, max:param.max, order:param.order, sort:param.sort) {
 
 			//make relation query
 			relations.each{k, v->
