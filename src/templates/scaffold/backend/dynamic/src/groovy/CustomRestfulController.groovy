@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package grails.rest
 
 import static org.springframework.http.HttpStatus.*
 import grails.artefact.Artefact
@@ -32,6 +31,12 @@ import org.restapidoc.pojo.RestApiParamType
 import org.restapidoc.pojo.RestApiVerb
 
 /**
+ * Added RestApi annotations
+ * Copyied from https://github.com/grails/grails-core/blob/3163360a1ecaa2cdd48e4dd05f1b48404fdea8d9/grails-plugin-rest/src/main/groovy/grails/rest/RestfulController.groovy
+ * @author Maigo Erit
+ */
+
+/**
  * Base class that can be extended to get the basic CRUD operations needed for a RESTful API.
  *
  * @author Graeme Rocher
@@ -40,7 +45,7 @@ import org.restapidoc.pojo.RestApiVerb
 @Artefact("Controller")
 @Transactional(readOnly = true)
 @RestApi(name = "Object services", description = "Methods for managing Objects")
-class RestfulController<T> {
+class CustomRestfulController<T> {
     static allowedMethods = [save: "POST", update: "PUT", patch: "PATCH", delete: "DELETE"]
 
     Class<T> resource
@@ -48,11 +53,11 @@ class RestfulController<T> {
     String resourceClassName
     boolean readOnly
     
-    RestfulController(Class<T> resource) {
+    CustomRestfulController(Class<T> resource) {
         this(resource, false)
     }
 
-    RestfulController(Class<T> resource, boolean readOnly) {
+    CustomRestfulController(Class<T> resource, boolean readOnly) {
         this.resource = resource
         this.readOnly = readOnly
         resourceClassName = resource.simpleName
@@ -82,7 +87,7 @@ class RestfulController<T> {
      * @param id The id of the resource
      * @return The rendered resource or a 404 if it doesn't exist
      */
-	@RestApiMethod(description="Get a")
+	@RestApiMethod(description="Get a Object")
 	@RestApiParams(params=[
 		@RestApiParam(name="id", type="long", paramType = RestApiParamType.PATH, description = "The Object id")
 	])
