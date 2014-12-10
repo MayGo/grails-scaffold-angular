@@ -5,9 +5,7 @@ import groovy.util.logging.Log4j
 
 @Log4j
 class InternalFrontendHelper{
-	
-	static Map domainPropertiesCache = [:]
-	
+		
 	static void writeAngularConfig(){
 		String filePath = "angular/client/config.json"
 		Map config = [:]

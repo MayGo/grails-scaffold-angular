@@ -23,10 +23,11 @@
 		
 		String line1 = """
 		grails.war.copyToWebApp = { args ->
-			fileset(dir:"angular") {
-				include(name: "client/**")
+			fileset(dir:"") {
+				include(name: "angular/client/**")
 			}
 			fileset(dir:"web-app") {
+		        include(name: "restapidoc.json")
 				include(name: "WEB-INF/**")
 			}
 		}
