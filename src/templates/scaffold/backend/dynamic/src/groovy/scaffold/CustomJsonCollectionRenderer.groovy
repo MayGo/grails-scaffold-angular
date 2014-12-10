@@ -1,4 +1,4 @@
-
+package scaffold
 import grails.rest.render.json.*
 import grails.converters.JSON
 import grails.rest.render.ContainerRenderer

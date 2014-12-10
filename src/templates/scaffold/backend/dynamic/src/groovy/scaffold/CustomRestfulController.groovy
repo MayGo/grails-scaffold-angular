@@ -1,3 +1,4 @@
+package scaffold
 /*
  * Copyright 2013 the original author or authors.
  *
@@ -110,7 +111,7 @@ class CustomRestfulController<T> {
      * Saves a resource
      */
     @Transactional
-	@RestApiMethod(description="Get a Object")
+	@RestApiMethod(description="Save a Object")
 	@RestApiParams(params=[
 		@RestApiParam(name="id", type="long", paramType = RestApiParamType.PATH, description = "The Object id")
 	])

@@ -1,5 +1,8 @@
+package scaffold
+
 import grails.converters.JSON
 import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
+
 class CustomMarshallerRegistrar {
 	
 	static Map domainPropertiesCache = [:]

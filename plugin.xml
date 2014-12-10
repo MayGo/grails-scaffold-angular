@@ -1,0 +1,12 @@
+<plugin name='scaffold-angular' version='0.3.15' grailsVersion='2.4 &gt; *'>
+  <author>Maigo Erit</author>
+  <authorEmail>maigo.erit@gmail.com</authorEmail>
+  <title>Scaffold Angular Plugin</title>
+  <description>Grails plugin for generating working demo with Angular frontend and REST backend.
+</description>
+  <documentation>http://grails.org/plugin/scaffold-angular</documentation>
+  <type>ScaffoldAngularGrailsPlugin</type>
+  <resources>
+    <resource>ScaffoldAngularDefaultConfig</resource>
+  </resources>
+</plugin>

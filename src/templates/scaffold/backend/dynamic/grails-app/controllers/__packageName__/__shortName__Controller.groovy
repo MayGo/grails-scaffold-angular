@@ -2,12 +2,18 @@
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import org.restapidoc.annotation.RestApiMethod
+import org.restapidoc.annotation.RestApiParam
+import org.restapidoc.annotation.RestApiParams
 import org.restapidoc.annotation.RestApi
-
+import org.restapidoc.annotation.RestApiResponseObject
+import org.restapidoc.pojo.RestApiParamType
+import org.restapidoc.pojo.RestApiVerb
+import scaffold.CustomRestfulController
 
 @Transactional(readOnly = true)
 @RestApi(name = "${className} services", description = "Methods for managing ${className}s")
-class ${className}Controller extends CustomRestfulController{
+class ${className}Controller extends CustomRestfulController<${className}>{
 
     static responseFormats = ['json']
     
@@ -17,6 +23,13 @@ class ${className}Controller extends CustomRestfulController{
 		super(${className}, false /* read-only */)
 	}
 	
+	@RestApiMethod(description="List all ${className}s", listing = true)
+	@RestApiParams(params=[
+		@RestApiParam(name="max", type="long", paramType = RestApiParamType.QUERY, description = "Max number of ${className} to retrieve"),
+		@RestApiParam(name="offset", type="long", paramType = RestApiParamType.QUERY, description = "Retrieved ${className} list offset"),
+		@RestApiParam(name="order", type="string", paramType = RestApiParamType.QUERY, description = "Retrieved ${className} list order",allowedvalues=['asc','desc']),
+		@RestApiParam(name="sort", type="string", paramType = RestApiParamType.QUERY, description = "Retrieved ${className} list sort")
+	])
 	def index(final Integer max) {
 		params.max = Math.min(max ?: 10, 100)
 		// Parses params.query for dynamic search and uses params.offset/params.max for paging. Returns results for paging grid.
@@ -28,6 +41,10 @@ class ${className}Controller extends CustomRestfulController{
 		respond results, [includes: includes, excludes: excludes]
 	}
 	
+	@RestApiMethod(description="Get a ${className}")
+	@RestApiParams(params=[
+		@RestApiParam(name="id", type="long", paramType = RestApiParamType.PATH, description = "The ${className} id")
+	])
 	def show() {
 		// We pass which fields to be rendered with the includes attributes,
 		// we exclude the class property for all responses.
