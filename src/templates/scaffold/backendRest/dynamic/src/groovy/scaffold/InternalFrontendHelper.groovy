@@ -6,8 +6,8 @@ import groovy.util.logging.Log4j
 @Log4j
 class InternalFrontendHelper{
 		
-	static void writeAngularConfig(){
-		String filePath = "angular/client/config.json"
+	static void writeConfig(String dir){
+		String filePath = dir + "config.json"
 		Map config = [:]
 		config.restUrl = Holders.config.grails.serverURL
 		config.securityEnabled = (Holders.config.grails.plugin.springsecurity.active)?:false

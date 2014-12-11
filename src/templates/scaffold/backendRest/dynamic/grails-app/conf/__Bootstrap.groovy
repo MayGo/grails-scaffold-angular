@@ -7,7 +7,7 @@
 			linesToAdd += "\t\t" + line + "\n"
 		}
 		
-		String line2 = "scaffold.InternalFrontendHelper.writeAngularConfig()"
+		String line2 = "scaffold.InternalFrontendHelper.writeConfig('angular/client/')"
 		if(!destFile.text.contains(line2)) {
 			linesToAdd += "\t\t" + line2 + "\n"
 		}
