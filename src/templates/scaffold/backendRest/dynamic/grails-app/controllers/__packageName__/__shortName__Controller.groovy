@@ -9,7 +9,7 @@ import org.restapidoc.annotation.RestApi
 import org.restapidoc.annotation.RestApiResponseObject
 import org.restapidoc.pojo.RestApiParamType
 import org.restapidoc.pojo.RestApiVerb
-import scaffold.CustomRestfulController
+import defpackage.CustomRestfulController
 
 @Transactional(readOnly = true)
 @RestApi(name = "${className} services", description = "Methods for managing ${className}s")

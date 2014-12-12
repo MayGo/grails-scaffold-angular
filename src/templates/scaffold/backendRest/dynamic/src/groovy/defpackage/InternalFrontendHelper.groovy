@@ -1,4 +1,4 @@
-package scaffold
+package defpackage
 import groovy.json.JsonBuilder
 import grails.util.Holders
 import groovy.util.logging.Log4j

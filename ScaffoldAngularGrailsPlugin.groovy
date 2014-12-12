@@ -1,4 +1,5 @@
 import grails.plugin.scaffold.core.ConfigUtility
+import grails.buildtestdata.DomainInstanceBuilder
 
 class ScaffoldAngularGrailsPlugin {
     def version = "0.3.20"
@@ -7,6 +8,7 @@ class ScaffoldAngularGrailsPlugin {
 
 	def dependsOn = [scaffoldCore: "* > 0.1"]
 	def loadAfter = ['scaffoldCore']
+	def loadBefore = ['buildTestData']
 	
     def title = "Scaffold Angular Plugin" 
     def author = "Maigo Erit"
@@ -30,5 +32,11 @@ Grails plugin for generating working demo with Angular frontend and REST backend
     def doWithSpring = {
 		ConfigUtility.mergeDefaultConfig(application, 'ScaffoldAngularDefaultConfig')
 		angularTemplatesLocator(grails.plugin.scaffold.core.DefaultTemplatesLocator, "scaffold-angular")
+		
+		DomainInstanceBuilder.metaClass.findRequiredPropertyNames = {domainArtefact->
+			def constrainedProperties = domainArtefact.constrainedProperties
+			def allPropertyNames = constrainedProperties.keySet()
+			return allPropertyNames
+		}
 	}
 }

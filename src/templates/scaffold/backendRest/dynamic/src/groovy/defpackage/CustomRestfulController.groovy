@@ -1,4 +1,4 @@
-package scaffold
+package defpackage
 /*
  * Copyright 2013 the original author or authors.
  *

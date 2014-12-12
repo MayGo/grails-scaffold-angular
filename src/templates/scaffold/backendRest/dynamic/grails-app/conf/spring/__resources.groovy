@@ -3,17 +3,17 @@
 
 		String linesToAdd = ""
 
-		String line1 = "customMarshallerRegistrar(scaffold.CustomMarshallerRegistrar)"
+		String line1 = "customMarshallerRegistrar(defpackage.CustomMarshallerRegistrar)"
 		if(!destFile.text.contains(line1)) {
 			linesToAdd += "\t\t" + line1 + "\n"
 		}
 		
 		String line2 = """
 	 for (domainClass in application.domainClasses) {
-	     "json\${domainClass.shortName}CollectionRenderer"(scaffold.CustomJsonCollectionRenderer, domainClass.clazz)
+	     "json\${domainClass.shortName}CollectionRenderer"(defpackage.CustomJsonCollectionRenderer, domainClass.clazz)
 	 }
 		"""
-		if(!destFile.text.contains('scaffold.CustomJsonCollectionRenderer')) {
+		if(!destFile.text.contains('defpackage.CustomJsonCollectionRenderer')) {
 			linesToAdd += "\t\t" + line2 + "\n"
 		}
 		

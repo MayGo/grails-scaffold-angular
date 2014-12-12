@@ -22,10 +22,11 @@ private String renderEditField(p, owningClass){
             persistentProperties.size() == 2 && it.referencedDomainClass 
         }
     }
-
 	
 	if (p.type == Boolean || p.type == boolean)
 	    return renderBoolean(owningClass, p, cp)
+	else if (cp && cp.inList) 
+		return renderInList(owningClass, p, cp)
 	else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean))
 	    return renderNumber(owningClass, p, cp)
 	else if (p.type == String)
@@ -59,6 +60,14 @@ private String renderEditField(p, owningClass){
 		
 
  
+}
+
+private String renderInList(owningClass, p, cp){
+	return """
+	<select name="${p.name}" ng-model="${owningClass.propertyName}.${p.name}" ng-options="obj as obj for obj in ${(domainClass.constraints."${p.name}".inList).collect{"'$it'"}}">
+      <option value=""></option>
+    </select>
+	"""
 }
 
 private String renderString(owningClass, p, cp) {
@@ -127,7 +136,7 @@ private String renderNumber(owningClass, p, cp) {
         str += """ type="range" """
         str += """ min="${cp.range.from}" """
         str += """ max="${cp.range.to}" """
-	} else {
+	}else {
 		if (p.type in [float, double, Float, Double, BigDecimal]){
 			str += """ type="number" """
 		}else{

@@ -19,7 +19,14 @@
 		if(!destFile.text.contains('runtime ":resources')) {
 			linesToAdd += "\t\t" + pluginLine4 + "\n"
 		}
+		
+		String pluginLine5 = 'compile ":build-test-data:2.2.2"'
+		if(!destFile.text.contains('runtime ":build-test-data')) {
+			linesToAdd += "\t\t" + pluginLine5 + "\n"
+		}
 
+		
+		
 		return linesToAdd
 	},
 	/(.*\s*\}\s*$)/: {destFile->

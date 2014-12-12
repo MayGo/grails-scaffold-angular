@@ -1,4 +1,4 @@
-package scaffold
+package defpackage
 
 import grails.converters.JSON
 import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
