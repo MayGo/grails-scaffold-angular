@@ -7,6 +7,10 @@ grunt for building,
 grunt serve for preview, and 
 grunt serve:dist for a preview of the built app.
 
+Override
+=====
+Override build-test-data plugins findRequiredPropertyNames method, so all properties are initiated with values, not only non nullable
+
 Testing
 -------------
 Running grunt test will run the client and server unit tests with karma and mocha.

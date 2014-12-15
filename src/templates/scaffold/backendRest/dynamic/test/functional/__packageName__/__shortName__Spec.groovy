@@ -24,6 +24,7 @@ private renderAll(boolean isResp = false, int groupId){
 	
 	String resp = ""
 	
+	
 	//Get instance from cache or create if does not exists
 	def inst
 	if(cachedInstances.containsKey(groupId)){
@@ -42,7 +43,7 @@ private renderAll(boolean isResp = false, int groupId){
 		if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean)){
 			str +="${p.name} $asign $val\n"
 		}else if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
-			String dateStr = (val)?new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").format(val):''
+			String dateStr = (val)?new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.sZ").format(val):''
 			str +="${p.name} $asign '$dateStr'\n"
 		}else{
 			str +="${p.name} $asign '$val'\n"
@@ -50,10 +51,10 @@ private renderAll(boolean isResp = false, int groupId){
 		resp += str
 	}
 	
-	
 	println resp
 }
 %>
+
 
 
 class ${className}Spec extends AbstractRestSpec {

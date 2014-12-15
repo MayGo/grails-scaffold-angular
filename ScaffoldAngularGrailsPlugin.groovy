@@ -2,7 +2,7 @@ import grails.plugin.scaffold.core.ConfigUtility
 import grails.buildtestdata.DomainInstanceBuilder
 
 class ScaffoldAngularGrailsPlugin {
-    def version = "0.3.21"
+    def version = "0.3.23"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.4 > *"
 
@@ -35,8 +35,12 @@ Grails plugin for generating working demo with Angular frontend and REST backend
 		
 		DomainInstanceBuilder.metaClass.findRequiredPropertyNames = {domainArtefact->
 			def constrainedProperties = domainArtefact.constrainedProperties
+			def propNames = domainArtefact.persistentProperties.findAll{p->!p.isAssociation()}*.name
+			println propNames
 			def allPropertyNames = constrainedProperties.keySet()
-			return allPropertyNames
+			return allPropertyNames.findAll { propName ->
+	            propNames.contains(propName)
+	        }
 		}
 	}
 }
