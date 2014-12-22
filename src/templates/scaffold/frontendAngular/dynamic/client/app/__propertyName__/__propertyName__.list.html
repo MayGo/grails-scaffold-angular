@@ -242,8 +242,18 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 
 
 
-<div ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'" data-ng-include=" 'components/blocks/page_heading.html' " ng-hide="isEmbeddedView"></div>
-<div class="wrapper-md ng-scope">
+<div ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'" data-ng-include=" 'components/blocks/page_heading.html' " ng-hide="isEmbeddedView" ></div>
+
+<div class="wrapper-md ng-scope"  st-table="rowCollection" st-pipe="callServer" >
+<accordion close-others="false">
+    <accordion-group  heading="{{'pages.${domainClass.shortName}.list.table.search' | translate}}"  is-open="isSearchOpen">
+      <div class="row">
+		 <%for (p in props) {%>
+	   		${renderFieldSearch(p, domainClass)}\
+		 <%}%>
+		</div>
+    </accordion-group>
+</accordion>
   <div class="panel panel-default">
     <div class="panel-heading">
       	<span translate="pages.${domainClass.shortName}.list.table.title"></span>
@@ -253,12 +263,8 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 	       	</a>
 		</div>
     </div>
-    <div class="panel-body" st-table="rowCollection" st-pipe="callServer" >
-		<div class="row">
-		 <%for (p in props) {%>
-	   		${renderFieldSearch(p, domainClass)}\
-		 <%}%>
-		</div>
+    <div class="panel-body">
+		
 		 <div>
 	      <table class="table table-responsive">
 	      	<thead>

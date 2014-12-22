@@ -1,0 +1,30 @@
+{
+  "name": "angular-blocking-click",
+  "version": "0.1.0",
+  "main": "blocking_click.js",
+  "authors": [
+    "Piotr Sokólski <p@pyetras.com>"
+  ],
+  "repository": "git://github.com/monterail/angular-blocking-click.git",
+  "dependencies": {
+    "angular": "~1.0"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/monterail/angular-blocking-click",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "description": "In place \"request in progress\" indicator",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.0",
+    "commit": "9f979e45384bf5bace07501acd48fbccf4d27b9c"
+  },
+  "_source": "git://github.com/monterail/angular-blocking-click.git",
+  "_target": "~0.1.0",
+  "_originalSource": "angular-blocking-click",
+  "_direct": true
+}

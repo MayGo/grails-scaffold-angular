@@ -50,6 +50,7 @@
 				"delete": " Delete",
 				"table":{
 					"title":"${d.naturalName} Table",	
+					"search":"Search in ${d.naturalName} Table",
 					"header":{
 						"id": "Id",\
 						<%for (p in d.persistentProperties) {%>

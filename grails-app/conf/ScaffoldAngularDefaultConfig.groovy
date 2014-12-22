@@ -2,7 +2,12 @@ grails{
 	plugin{
 		scaffold{
 			core{
-				folders = ['backendRest':'./', 'frontendAngular':'angular/']
+				folders = [
+				'backendRestGrailsApp':'./grails-app',
+				'backendRestSrc':'./src',
+				'backendRestTest':'./test',
+				'frontendAngular':'angular/'
+				]
 			}
 		}
 	}
