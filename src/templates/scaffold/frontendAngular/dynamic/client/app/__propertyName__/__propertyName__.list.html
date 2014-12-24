@@ -259,7 +259,7 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
       	<span translate="pages.${domainClass.shortName}.list.table.title"></span>
       	<div class="box-tools pull-right">
 			<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.create">
-				<i class="fa fa-plus" translate="pages.${domainClass.shortName}.list.new"></i>
+				<i class="fa fa-plus" translate="pages.${domainClass.shortName}.list.new" mx-show-loading></i>
 	       	</a>
 		</div>
     </div>
@@ -292,8 +292,8 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 		            	<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
 		            		<i class="fa fa-edit" translate="pages.${domainClass.shortName}.list.edit"></i>
 		            	</a>
-		            	<a class="btn btn-danger btn-xs" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})">
-		            		<i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.list.delete"></i>
+		            	<a class="btn btn-danger btn-xs" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
+		            		<i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.list.delete" ></i>
 		            	</a>
 		            </td>
 				</tr>

@@ -80,7 +80,7 @@ private String renderOneToMany(owningClass, p, cp) {
 %>
 
 angular.module('angularDemoApp')
-    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$stateParams, ${domainClass.shortName}, \$translate, inform $includeAngularServicesStr) {
+    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$q, \$stateParams, ${domainClass.shortName}, \$translate, inform $includeAngularServicesStr) {
     	\$scope.isEditForm = (\$stateParams.id)?true:false;
     	
     	
@@ -97,31 +97,34 @@ angular.module('angularDemoApp')
 		
 	
 	    \$scope.submit = function(frmController) {
+			var deferred = \$q.defer();
 	    	var errorCallback = function(response){
 					if (response.data.errors) {
 		                angular.forEach(response.data.errors, function (error) {
 		                    frmController.setExternalValidation(error.field, undefined, error.message);
 		                });
 		            }
+					deferred.reject(response);
 		       };
 	       
 	    	if(\$scope.isEditForm){
-	    		${domainClass.shortName}.update(\$scope.${domainClass.propertyName}, function(response) {
+	    		${domainClass.shortName}.update(\$scope.${domainClass.propertyName}, function(response) {	
 	    			\$translate('pages.${domainClass.shortName}.messages.update').then(function (msg) {
 				    	inform.add(msg, {'type': 'success'});
 					});
-	            	\$state.go('^.view', { id: response.id });
+	            	deferred.resolve(response);
 		        },errorCallback);
 	    	}else{
     			${domainClass.shortName}.save(\$scope.${domainClass.propertyName},function(response) {
+					
     				\$translate('pages.${domainClass.shortName}.messages.create').then(function (msg) {
 				    	inform.add(msg, {'type': 'success'});
 					});
-					
+					deferred.resolve(response);
             	 	\$state.go('^.view', { id: response.id });
 		        },errorCallback);
 	    	}
-	        
+	        return deferred.promise;
 	    };
        <%for (p in props) {%>
 		${renderFieldLogic(p, domainClass)}\

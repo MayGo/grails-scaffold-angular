@@ -77,3 +77,15 @@
 	margin: 0 !important;	
 }
 
+
+/**
+* blocking-click
+*/
+/* style up the indicator */
+.btn-spinner {
+  width: 16px;
+  height: 11px;
+  display: inline-block;
+  background-image: url(http://monterail.github.io/angular-blocking-click/images/spinner-small.gif);
+}
+
