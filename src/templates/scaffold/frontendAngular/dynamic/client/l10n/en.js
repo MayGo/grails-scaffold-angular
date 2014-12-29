@@ -72,6 +72,7 @@
 				"new": " New ${d.naturalName}",
 				"edit": " Edit",
 				"delete": " Delete",
+				"back": " Back",
 				"lists": "{{isval}} in {{inval}}",
 				"field":{
 					"id": "Id",\

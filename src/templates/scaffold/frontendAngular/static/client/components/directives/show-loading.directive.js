@@ -19,7 +19,7 @@ angular.module('angularDemoApp')
 			if (hasLoadingText){
 				loadingEl = loadingText;
 			}else{
-				loadingEl = angular.element('<span class="btn-spinner"/>');
+				loadingEl = angular.element('<span class="loading-spinner"/>');
 			}
 			
 			//wrap onClick so we can enable "busy" status

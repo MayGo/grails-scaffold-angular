@@ -79,10 +79,10 @@
 
 
 /**
-* blocking-click
+* Show loading directive
 */
-/* style up the indicator */
-.btn-spinner {
+
+.loading-spinner {
   width: 16px;
   height: 11px;
   display: inline-block;

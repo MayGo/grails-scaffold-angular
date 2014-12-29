@@ -181,7 +181,6 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 				${renderFieldRow(p, domainClass)}\
 					<%}%>
 				<%}%>
-		
 					</div>
 			    </div>
 			    <footer class="panel-footer text-right bg-light lter">
@@ -191,6 +190,11 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 					<a class="btn btn-danger" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
 						<i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.view.delete"></i>
 			        </a>
+					
+					<a class="btn btn-default" ng-click="back()">
+						<i class="fa fa-chevron-left" translate="pages.${domainClass.shortName}.view.back"></i>
+					</a>
+					
 			    </footer>
 			 </div>
 		</div>
