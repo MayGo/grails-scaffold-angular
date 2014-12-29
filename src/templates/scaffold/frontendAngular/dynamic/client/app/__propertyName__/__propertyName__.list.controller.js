@@ -3,27 +3,17 @@
 angular.module('angularDemoApp')
 	.controller('${domainClass.shortName}ListController', function (\$scope, \$q, ${domainClass.shortName}, \$translate, inform) {
 		
-	\$scope.delete${domainClass.shortName} = function(${domainClass.shortName}) {
-		var deferred = \$q.defer();	
-		${domainClass.shortName}.\$delete(
-			function() {
-				\$translate('pages.${domainClass.shortName}.messages.delete').then(function (msg) {
-					inform.add(msg, {'type': 'warning'});
-				});
-					
-				var index = \$scope.rowCollection.indexOf(${domainClass.shortName});
-				if (index !== -1) {
-					\$scope.rowCollection.splice(index, 1);
-				}
-				deferred.resolve(true);
-			},
-			function(response){
-				console.log("Could not delete item.");
-				deferred.reject(response);
-		    }
-		);
-		return deferred.promise;
+	\$scope.delete${domainClass.shortName} = function(instance){
+		return ${domainClass.shortName}.deleteInstance(instance).then(function(instance){
+			var index = \$scope.rowCollection.indexOf(instance);
+			if (index !== -1) {
+				\$scope.rowCollection.splice(index, 1);
+			}
+			return instance;
+		});
 	};
+	
+	
 	\$scope.isLoading = false;
 	\$scope.rowCollection = [];
 	

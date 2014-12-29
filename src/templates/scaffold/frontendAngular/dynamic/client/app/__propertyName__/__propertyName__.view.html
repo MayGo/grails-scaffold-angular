@@ -188,7 +188,7 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 			      	<a class="btn btn-default" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
 				    	<i class="fa fa-edit" translate="pages.${domainClass.shortName}.view.edit"></i>
 			       	</a>
-					<a class="btn btn-danger" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})">
+					<a class="btn btn-danger" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
 						<i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.view.delete"></i>
 			        </a>
 			    </footer>

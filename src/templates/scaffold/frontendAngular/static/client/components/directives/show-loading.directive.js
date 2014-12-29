@@ -36,7 +36,6 @@ angular.module('angularDemoApp')
 				ele.html(loadingEl);
 				var ret = $scope.$eval(onClick);
 				if (angular.isDefined(ret) && angular.isFunction(ret.then)) {
-					console.log("isDeferred")
 					ret.finally(function () {
 						ele.removeClass('disabled');
 						ele.html(defaultText);
