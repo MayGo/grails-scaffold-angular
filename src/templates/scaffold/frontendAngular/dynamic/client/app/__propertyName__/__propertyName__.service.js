@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .service('${domainClass.shortName}', function(\$resource, \$translate, appConfig, inform){
+  .service('${domainClass.shortName}Service', function(\$resource, \$translate, appConfig, inform){
   		var service = {};
   		
   		var resource = \$resource(appConfig.restUrl + '${domainClass.propertyName.toLowerCase()}s/:id', { id: '@id' }, {

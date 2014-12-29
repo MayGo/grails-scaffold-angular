@@ -10,7 +10,7 @@
     includeAngularServices -= domainClass.clazz
    
     includeAngularServicesStr=""
-    if(includeAngularServices) includeAngularServicesStr=", "+ includeAngularServices.collect{grails.util.GrailsNameUtils.getShortName(it)}.unique().join(", ")
+    if(includeAngularServices) includeAngularServicesStr=", "+ includeAngularServices.collect{grails.util.GrailsNameUtils.getShortName(it) + "Service"}.unique().join(", ")
 %>
 <%
 private String renderFieldLogic(p, owningClass){
@@ -57,7 +57,7 @@ private String renderOneToMany(owningClass, p, cp) {
 	excludes = sh2.getProps().findAll{it.isAssociation()}
     String str =  """
 	     if(\$scope.isEditForm){
-			${p.referencedDomainClass.shortName}.query({filter:{${p.referencedPropertyName}:\$stateParams.id}, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
+			${p.referencedDomainClass.shortName}Service.query({filter:{${p.referencedPropertyName}:\$stateParams.id}, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
 		        function( response ){
 			       	\$scope.${domainClass.propertyName} = angular.extend({}, \$scope.${domainClass.propertyName});
 	     			\$scope.${domainClass.propertyName}.${p.name} = response.map(function(item){
@@ -80,19 +80,18 @@ private String renderOneToMany(owningClass, p, cp) {
 %>
 
 angular.module('angularDemoApp')
-    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$q, \$stateParams, ${domainClass.shortName}, \$translate, inform $includeAngularServicesStr) {
+    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$q, \$stateParams, ${domainClass.shortName}Service, \$translate, inform $includeAngularServicesStr) {
     	\$scope.isEditForm = (\$stateParams.id)?true:false;
     	
-    	
     	if(\$scope.isEditForm){
-    		${domainClass.shortName}.get({id:\$stateParams.id}).\$promise.then(
+    		${domainClass.shortName}Service.get({id:\$stateParams.id}).\$promise.then(
 		        function( response ){
 			       	\$scope.${domainClass.propertyName} = angular.extend({}, \$scope.${domainClass.propertyName} , response);
 			       	\$scope.orig = angular.copy(\$scope.${domainClass.propertyName} );
 		       	}
 	     	);
     	}else{
-    		\$scope.${domainClass.propertyName} = new ${domainClass.shortName}();
+    		\$scope.${domainClass.propertyName} = new ${domainClass.shortName}Service();
     	}
 		
 	
@@ -108,14 +107,14 @@ angular.module('angularDemoApp')
 		       };
 	       
 	    	if(\$scope.isEditForm){
-	    		${domainClass.shortName}.update(\$scope.${domainClass.propertyName}, function(response) {	
+	    		${domainClass.shortName}Service.update(\$scope.${domainClass.propertyName}, function(response) {	
 	    			\$translate('pages.${domainClass.shortName}.messages.update').then(function (msg) {
 				    	inform.add(msg, {'type': 'success'});
 					});
 	            	deferred.resolve(response);
 		        },errorCallback);
 	    	}else{
-    			${domainClass.shortName}.save(\$scope.${domainClass.propertyName},function(response) {
+    			${domainClass.shortName}Service.save(\$scope.${domainClass.propertyName},function(response) {
 					
     				\$translate('pages.${domainClass.shortName}.messages.create').then(function (msg) {
 				    	inform.add(msg, {'type': 'success'});

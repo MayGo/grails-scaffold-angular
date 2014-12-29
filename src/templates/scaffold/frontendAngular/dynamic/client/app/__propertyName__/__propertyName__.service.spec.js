@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ${domainClass.shortName}', function () {
+describe('Service: ${domainClass.shortName}Service', function () {
 
   // load the service's module
   beforeEach(module('angularDemoApp'));
@@ -9,8 +9,8 @@ describe('Service: ${domainClass.shortName}', function () {
   var service;
   var httpBackend;
   var config;
-  beforeEach(inject(function (_${domainClass.shortName}_, \$httpBackend, appConfig) {
-    service = _${domainClass.shortName}_;
+  beforeEach(inject(function (_${domainClass.shortName}Service_, \$httpBackend, appConfig) {
+    service = _${domainClass.shortName}Service_;
     httpBackend = \$httpBackend;
     config = appConfig;
   }));
