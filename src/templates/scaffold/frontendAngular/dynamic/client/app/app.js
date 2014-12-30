@@ -20,7 +20,8 @@ angular.module('angularDemoApp', [
   'FBAngular',
   'ngTagsInput',
   'satellizer',
-  'mgcrea.ngStrap'
+  'mgcrea.ngStrap',
+  'ngToggle'
 ])
 	.constant('appConfig', (function() {
 		
@@ -144,6 +145,13 @@ angular.module('angularDemoApp', [
     \$authProvider.tokenName =  'access_token';
     \$authProvider.authHeader =  'Authorization';
     
+  })
+  .value('uiJqConfig', {
+    iCheck: {
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%' // optional
+    }
   })
   .run(function(\$filter, validator) { 
   		validator.setValidElementStyling(false);

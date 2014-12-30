@@ -89,9 +89,16 @@ private String renderString(owningClass, p, cp) {
 
 
 private String renderBoolean(owningClass, p, cp) {
-      return """<div class="input-group input-group-sm">
-      				<input name="${p.name}" type="checkbox" ng-model="${owningClass.propertyName}.${p.name}" >
-      			</div>"""
+	//if boolean is not required then show tri state toggle
+	String triToggleStr = isRequired(cp)?"":"tri-toggle"
+    String str = """
+		<div class="input-group input-group-sm">
+		  <ng-toggle $triToggleStr 
+		  disabled="disabled"
+		  ng-true-val="true" 
+		  ng-false-val="false" 
+		  ng-model="${owningClass.propertyName}.${p.name}"></ng-toggle> 
+		</div>"""
 }
 
 private String renderByteArray(owningClass, p, cp) {
@@ -250,16 +257,15 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
         """
 }
 
-
 private boolean isRequired(cp) {
-    !isOptional(cp)
+    return !isOptional(cp)
 }
 
 private boolean isOptional(cp) {
     if (!cp) {
         return false
     } else {
-        cp.nullable || (cp.propertyType == String && cp.blank) || cp.propertyType in [boolean, Boolean]
+        return (cp.nullable || (cp.propertyType == String && cp.blank))
     }
 }
 %>

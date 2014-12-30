@@ -13,8 +13,7 @@ angular.module('angularDemoApp').directive('customStSearch', function() {
 			scope.$watch(function() {
 				return ngModel.$modelValue;
 			}, function(value) {
-				
-				if (value) {
+				if (value !== undefined) {
 					//setting initial value did one extra query to backend
 					if (initializing){
 						initializing = false;
@@ -23,13 +22,13 @@ angular.module('angularDemoApp').directive('customStSearch', function() {
 					//reset
 					tableState.search.predicateObject = {};
 					var searchVal;
+
 					if(_.isArray(value)){
 						value = _.filter(value, function(item) { return !angular.isDefined(item.$resolved) || item.$resolved; });
 						searchVal = _.pluck(value, 'id') ;
 					}else{
-						searchVal =  value;
+						searchVal = value;
 					}
-					
 					ctrl.search(searchVal, searchProperty);
 				}
 			}, true);

@@ -2,7 +2,7 @@
 
 
 angular.module('angularDemoApp')
-  .directive('mxShowLoading', function($parse, $compile){
+  .directive('mxShowLoading', function(){
     return {
 		priority:-1000,
 		restrict: 'A',

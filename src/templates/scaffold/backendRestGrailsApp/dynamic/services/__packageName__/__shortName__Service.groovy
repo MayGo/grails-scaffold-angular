@@ -35,14 +35,14 @@ class ${className}Service{
 
 			//Filters
 			if(param.filter)param.filter = JSON.parse(param.filter)
+
 			param.filter.each{k,v->
 				def property = persistentPropertiesMap[k]
 				def value = v
-
 				
 				if(k.endsWith('.id')) {//Search for relation
 					eq(k, value.toLong())
-				}else if(property && value) {
+				}else if(property && value != null && value != "") {
 					log.info "Searching \$property => \$value"
 					if (property.type == String) {
 						ilike ("\$property.name",  value+'%')
@@ -54,7 +54,9 @@ class ${className}Service{
 						eq("\$property.name", value.toDouble())
 					} else if( property.type == Float){
 						eq("\$property.name", value.toFloat())
-					}  else if( property.manyToOne || property.oneToOne){
+					} else if( property.type == Boolean || property.type == boolean){
+						eq("\$property.name", value.toBoolean())
+					} else if( property.manyToOne || property.oneToOne){
 						if(value instanceof String[]){//eg: user
 							'in'("\${property.name}.id", value.collect{it.toLong()})
 						}else if(value instanceof List){//eg: user
@@ -63,7 +65,6 @@ class ${className}Service{
 							eq("\${property.name}.id", value.toString().toLong())
 						}
 					} else if( property.oneToMany || property.manyToMany){// eg: roles
-			
 						"\${property.name}"{
 							if(value instanceof String[]) {
 								'in'("id", value.collect{it.toLong()})
