@@ -89,3 +89,10 @@
   background-image: url(../assets/img/spinner-small.gif);
 }
 
+/**
+* ng-toggle directive overrides
+*/
+.ng-toggle-wrap {
+	margin: 0 !important;
+}
+

@@ -21,11 +21,48 @@
 		}
 		
 		String pluginLine5 = 'compile ":build-test-data:2.2.2"'
-		if(!destFile.text.contains('runtime ":build-test-data')) {
+		if(!destFile.text.contains('build-test-data')) {
 			linesToAdd += "\t\t" + pluginLine5 + "\n"
 		}
+		
+		String pluginLine6 = 'test ":geb:0.9.2"'
+		if(!destFile.text.contains(':geb:')) {
+			linesToAdd += "\t\t" + pluginLine6 + "\n"
+		}
+		
+		String pluginLine7 = 'compile ":rest-client-builder:2.0.3"'
+		if(!destFile.text.contains('rest-client-builder')) {
+			linesToAdd += "\t\t" + pluginLine7 + "\n"
+		}
+		
+		String pluginLine8 = 'test ":spring-security-mock:1.0.1"'
+		if(!destFile.text.contains('spring-security-mock')) {
+			linesToAdd += "\t\t" + pluginLine8 + "\n"
+		}
+		
+		String pluginLine9 = """
+			compile ":spring-security-core:2.0-RC3"
+			compile ":spring-security-rest:1.4.1.RC2", {
+				excludes: 'spring-security-core'
+			}
+		"""
+		if(!destFile.text.contains('spring-security-rest')) {
+			linesToAdd += "\t\t" + pluginLine9 + "\n"
+		}
+		
+		
 
 		
+		
+		return linesToAdd
+	},
+	/(.*dependencies\s*\{)/: {destFile->
+		String linesToAdd = ""
+		
+		String pluginLine1 = 'test "org.gebish:geb-spock:0.9.2"'
+		if(!destFile.text.contains('org.gebish:geb-spock:')) {
+			linesToAdd += "\t\t" + pluginLine1 + "\n"
+		}
 		
 		return linesToAdd
 	},

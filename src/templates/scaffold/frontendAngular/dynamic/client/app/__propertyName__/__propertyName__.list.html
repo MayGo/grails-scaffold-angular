@@ -51,7 +51,7 @@ private String renderFieldSearch(p, owningClass){
         }
     }
 
-    String str = """<div class="col-lg-2 form-group">"""
+    String str = """<div class="col-lg-2 form-inline">"""
     if (p.type == Boolean || p.type == boolean)
         str += renderBoolean(owningClass, p, cp)
     else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean))
@@ -103,13 +103,15 @@ private String renderString(owningClass, p, cp) {
 
 private String renderBoolean(owningClass, p, cp) {
       return """
-      <div class="input-group input-group-sm">
+	
+	  <label for="${p.name}" class="input-group"> {{'pages.${domainClass.shortName}.edit.form.field.${p.name}' | translate}}</label>
+	  <div class="input-group input-group-sm">
 		<ng-toggle tri-toggle name="${p.name}"  ng-model="search.${p.name}"
 		ng-true-val="'true'" 
 		ng-false-val="'false'" 
 		custom-st-search="${p.name}" ></ng-toggle> 
- 		<label for="${p.name}"> {{'pages.${domainClass.shortName}.edit.form.field.${p.name}' | translate}}</label>
 	  </div>
+	 
      """
 
 }
