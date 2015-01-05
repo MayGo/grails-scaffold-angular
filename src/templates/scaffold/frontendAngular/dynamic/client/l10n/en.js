@@ -50,6 +50,7 @@
 				"delete": " Delete",
 				"table":{
 					"title":"${d.naturalName} Table",	
+					"search":"Search in ${d.naturalName} Table",
 					"header":{
 						"id": "Id",\
 						<%for (p in d.persistentProperties) {%>
@@ -71,6 +72,7 @@
 				"new": " New ${d.naturalName}",
 				"edit": " Edit",
 				"delete": " Delete",
+				"back": " Back",
 				"lists": "{{isval}} in {{inval}}",
 				"field":{
 					"id": "Id",\

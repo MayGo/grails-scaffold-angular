@@ -89,9 +89,16 @@ private String renderString(owningClass, p, cp) {
 
 
 private String renderBoolean(owningClass, p, cp) {
-      return """<div class="input-group input-group-sm">
-      				<input name="${p.name}" type="checkbox" ng-model="${owningClass.propertyName}.${p.name}" >
-      			</div>"""
+	//if boolean is not required then show tri state toggle
+	String triToggleStr = isRequired(cp)?"":"tri-toggle"
+    String str = """
+		<div class="input-group input-group-sm">
+		  <ng-toggle $triToggleStr 
+		  disabled="disabled"
+		  ng-true-val="true" 
+		  ng-false-val="false" 
+		  ng-model="${owningClass.propertyName}.${p.name}"></ng-toggle> 
+		</div>"""
 }
 
 private String renderByteArray(owningClass, p, cp) {
@@ -250,16 +257,15 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
         """
 }
 
-
 private boolean isRequired(cp) {
-    !isOptional(cp)
+    return !isOptional(cp)
 }
 
 private boolean isOptional(cp) {
     if (!cp) {
         return false
     } else {
-        cp.nullable || (cp.propertyType == String && cp.blank) || cp.propertyType in [boolean, Boolean]
+        return (cp.nullable || (cp.propertyType == String && cp.blank))
     }
 }
 %>
@@ -281,9 +287,7 @@ private renderFieldRow(p, owningClass) {
     <div class="row">
         <div class="col-sm-6">
             <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal"  
-            	novalidate 
-            	ng-submit="submit(${domainClass.propertyName}Form)"
-            	 >
+            	novalidate>
                 <div class="panel panel-default">
                 	<div class="panel-heading">
                       <span class="h4" translate="pages.${domainClass.shortName}.edit.form.title"></span>
@@ -294,8 +298,8 @@ private renderFieldRow(p, owningClass) {
                 <%}%>
                 	</div>
                     <footer class="panel-footer text-right bg-light lter">
-                      	<button class="btn btn-success" type='submit' ng-disabled="${domainClass.propertyName}Form.\$invalid" translate="pages.${domainClass.shortName}.edit.form.submit"></button> 
-                		<a class="btn btn-default" ng-click="back()" translate="pages.${domainClass.shortName}.edit.form.cancel"></a> 
+                      	<button class="btn btn-success" type='submit' ng-disabled="${domainClass.propertyName}Form.\$invalid" translate="pages.${domainClass.shortName}.edit.form.submit" mx-show-loading ng-click="submit(${domainClass.propertyName}Form)"></button> 
+                		<a class="btn btn-default" ng-click="back()" translate="pages.${domainClass.shortName}.edit.form.cancel" mx-show-loading></a> 
                     </footer>
                 </div>
             </form>

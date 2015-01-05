@@ -77,3 +77,22 @@
 	margin: 0 !important;	
 }
 
+
+/**
+* Show loading directive
+*/
+
+.loading-spinner {
+  width: 16px;
+  height: 11px;
+  display: inline-block;
+  background-image: url(../assets/img/spinner-small.gif);
+}
+
+/**
+* ng-toggle directive overrides
+*/
+.ng-toggle-wrap {
+	margin: 0 !important;
+}
+

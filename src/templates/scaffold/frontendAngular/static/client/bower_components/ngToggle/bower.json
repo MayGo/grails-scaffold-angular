@@ -1,0 +1,27 @@
+{
+    "name": "ng-toggle",
+    "main": "ng-toggle.js",
+    "version": "1.2.0",
+    "homepage": "https://github.com/tannerlinsley/ng-toggle",
+    "authors": [
+        "tannerlinsley"
+    ],
+    "description": "Double and Triple-State Toggle AngularJS Directives",
+    "keywords": [
+        "toggle",
+        "angularJS",
+        "indeterminate",
+        "checkbox",
+        "double",
+        "triple",
+        "state"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
+}

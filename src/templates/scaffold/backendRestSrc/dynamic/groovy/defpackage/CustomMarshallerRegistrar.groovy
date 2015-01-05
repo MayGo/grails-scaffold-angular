@@ -52,7 +52,7 @@ class CustomMarshallerRegistrar {
 				}else{
 					res << ["\${key}":filter(value, excludes["\${key}"])]
 				}
-			}else if(value){
+			}else if(value != null && value != ""){
 				if(value.class.isEnum()){
 					res << ["\${key}": value.name()]
 				}else{

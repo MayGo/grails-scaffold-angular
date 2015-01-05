@@ -43,7 +43,7 @@ if(domainClasses.size() < 8){
 	for(d in domainClasses){
 		i++%>
 		<li ui-sref-active="active">
-			<a ui-sref="app.${d.propertyName}">
+			<a ui-sref="app.${d.propertyName}.list">
 				<i class="glyphicon ${glyhs[i]} icon text-success"></i>
 				<span class="font-bold" translate="menu.domain.${d.shortName}"></span>
 			</a>

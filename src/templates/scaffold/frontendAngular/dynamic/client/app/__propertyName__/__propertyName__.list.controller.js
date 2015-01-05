@@ -1,20 +1,19 @@
 'use strict';
 
 angular.module('angularDemoApp')
-	.controller('${domainClass.shortName}ListController', function (\$scope, ${domainClass.shortName}, \$translate, inform) {
+	.controller('${domainClass.shortName}ListController', function (\$scope, \$q, ${domainClass.shortName}Service, \$translate, inform) {
 		
-	\$scope.delete${domainClass.shortName} = function(${domainClass.shortName}) { 
-		${domainClass.shortName}.\$delete(function() {
-			\$translate('pages.${domainClass.shortName}.messages.delete').then(function (msg) {
-		    	inform.add(msg, {'type': 'warning'});
-			});
-				
-			var index = \$scope.rowCollection.indexOf(${domainClass.shortName});
-	        if (index !== -1) {
-	            \$scope.rowCollection.splice(index, 1);
-	        }
+	\$scope.delete${domainClass.shortName} = function(instance){
+		return ${domainClass.shortName}Service.deleteInstance(instance).then(function(instance){
+			var index = \$scope.rowCollection.indexOf(instance);
+			if (index !== -1) {
+				\$scope.rowCollection.splice(index, 1);
+			}
+			return instance;
 		});
 	};
+	
+	
 	\$scope.isLoading = false;
 	\$scope.rowCollection = [];
 	
@@ -37,7 +36,7 @@ angular.module('angularDemoApp')
 		}
 		
 		if(!\$scope.skipFirstQueryInEmbeddedView ){
-			${domainClass.shortName}.query(query, function(response, responseHeaders){
+			${domainClass.shortName}Service.query(query, function(response, responseHeaders){
 				\$scope.isLoading = false;
 				\$scope.rowCollection = response;
 				tableState.pagination.numberOfPages = Math.ceil(responseHeaders().total / tableState.pagination.number);
