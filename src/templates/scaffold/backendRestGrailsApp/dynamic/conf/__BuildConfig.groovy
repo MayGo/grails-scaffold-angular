@@ -36,11 +36,6 @@
 			linesToAdd += "\t\t" + pluginLine7 + "\n"
 		}
 		
-		String pluginLine8 = 'test ":spring-security-mock:1.0.1"'
-		if(!destFile.text.contains('spring-security-mock')) {
-			linesToAdd += "\t\t" + pluginLine8 + "\n"
-		}
-		
 		String pluginLine9 = """
 			compile ":spring-security-core:2.0-RC3"
 			compile ":spring-security-rest:1.4.1.RC2", {
@@ -49,6 +44,11 @@
 		"""
 		if(!destFile.text.contains('spring-security-rest')) {
 			linesToAdd += "\t\t" + pluginLine9 + "\n"
+		}
+		
+		String pluginLine10 = "compile ':cache:1.1.1'"
+		if(!destFile.text.contains(':cache:')) {
+			linesToAdd += "\t\t" + pluginLine10 + "\n"
 		}
 		
 		
