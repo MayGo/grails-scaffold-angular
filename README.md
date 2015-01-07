@@ -1,15 +1,37 @@
 grails-scaffold-angular
 =======================
 
+Using this plugin
+-----------------
+
+Create app with "grails create-app myApp" (don't use ver 2.4.4, bug with excludes, includes)
+Create domain model or copy somewhere.
+Add to BuildConfig.groovy:compile ":scaffold-angular:0.3.20"
+grails compile (for resolving plugin dependencies)
+grails createDemo
+grails run-app
+
+Everything should work now, including tests.
+If tests fail, then you have to add BuildTestData Config to generate correct data(e.g. unique constraints can fail).
+Functional test creates 2 domain instances (with the help of build-test-data build() method) and deletes them at the end.
+Note: build-test-data plugins findRequiredPropertyNames method is overriden, so all properties are initiated with values, not only non-nullable.
+
+When frontend displays only ids where some readable name should be then edit displayNames config.
+
+Frontend serving
+--------------
+Frontend is included in grails by default (files are statically served). This is for quick demoing purpuses only. 
+Should move "angular" folder to separate project and build from there.
+From grails:
+* dirserve plugin should be removed
+* urlmappings "/ng/\$asset**" and redirect should be removed.
+
 Using generator-angular-fullstack frontend as basis (https://www.npmjs.org/package/generator-angular-fullstack)
 Run 
 grunt for building, 
 grunt serve for preview, and 
 grunt serve:dist for a preview of the built app.
 
-Override
-=====
-Override build-test-data plugins findRequiredPropertyNames method, so all properties are initiated with values, not only non nullable
 
 Testing
 -------------
@@ -88,36 +110,12 @@ static mapping = {
 security
 ===
 
-When using /spa/** as frontend and enableing security, then in Congi.groovy add:
+Plugins adds spring-security-rest and all necessary security config in config.groovy.
+Security is disabled for development environment. 
+For Test environment there is InMemoryUserDetailsManager used to create test users for functional tests.
+If you add spring-security-ldap or add real users some other way and want to use them in functional tests. 
+Then set grails.util.Holders.config.functionalTest.userName and grails.util.Holders.config.functionalTest.password
 
-grails.plugin.springsecurity.filterChain.chainMap = [
-	'/spa/**': 'nonAuthFilter',
-	'/index.gsp': 'nonAuthFilter',
-	'/index': 'nonAuthFilter',
-	'/': 'nonAuthFilter',
-	'/**/**': 'JOINED_FILTERS'
-]
-
-Also add nonAuthFilter in  resources.groovy:
-nonAuthFilter(ee.smit.security.NonAuthenticationFilter)
-
-
-Class file:
-		package ee.smit.security
-		
-		import javax.servlet.FilterChain
-		import javax.servlet.ServletException
-		import javax.servlet.ServletRequest
-		import javax.servlet.ServletResponse
-		import org.springframework.web.filter.GenericFilterBean
-		
-		class NonAuthenticationFilter  extends GenericFilterBean {
-		
-		    void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		        chain.doFilter(request, response);
-		    }
-		}
-		
 		
 TODO
 =====

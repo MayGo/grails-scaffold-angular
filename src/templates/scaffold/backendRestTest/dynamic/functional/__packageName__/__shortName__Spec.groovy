@@ -2,8 +2,11 @@
 
 import grails.plugins.rest.client.*
 import spock.lang.Specification
+import spock.lang.Shared
+import spock.lang.Ignore
 import static org.springframework.http.HttpStatus.*
 import defpackage.AbstractRestSpec
+import defpackage.RestQueries
 <%
 import grails.plugin.scaffold.core.ScaffoldingHelper
 import java.text.SimpleDateFormat
@@ -71,8 +74,8 @@ private renderAll(boolean isResp = false, int groupId){
 		String str = (isResp)?"\t\t\tresponse.json.":"\t\t\t\t"
 		String asign = (isResp)?"==":"="
 		def val = inst."${p.name}"
-		if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean)){
-			if(p.type == boolean) val = true
+		if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)){
+			if(p.type == boolean || p.type == Boolean) val = true
 			str +="${p.name} $asign $val\n"
 		}else if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
 			def inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
@@ -113,78 +116,203 @@ private renderAll(boolean isResp = false, int groupId){
 
 
 
-class ${className}Spec extends AbstractRestSpec {
-
-	void "Test ${className} crud"() {
-
-		given:
-		def authResponse = sendCorrectCredentials()
-		def ${propertyName}Id
-
+class ${className}Spec extends AbstractRestSpec implements RestQueries{
+	
+	String REST_URL = "\${baseUrl}/${shortNameLower}"
+	
+	@Shared
+	Long domainId
+	@Shared
+	Long otherDomainId
+	
+	@Shared
+	def authResponse
+	
+	@Shared
+	def response
+	
+	def setupSpec() {
+		authResponse = sendCorrectCredentials()
+	}
+	
+	void "Test creating another ${className} instance."() {//This is for creating some data to test list sorting
 		when: "Create ${propertyName}"
-		def response = restBuilder.post("\${baseUrl}/${shortNameLower}") {
-			header 'Authorization', 'Bearer '+authResponse.json.access_token
-			accept "application/json"
-			json {
-<%renderAll(false, 1)%>
+			response = sendCreateWithData(){
+<%renderAll(false, 1)%>\
 			}
-		}
-		${propertyName}Id = response.json.id
+			otherDomainId = response.json.id
+			
 		then: "Should create and return created values"
 		
-<%renderAll(true, 1)%>
-		response.status == CREATED.value()
+<%renderAll(true, 1)%>\
+			response.status == CREATED.value()
+	}
 
+	void "Test creating ${className} instance."() {
+		when: "Create ${propertyName}"
+			response = sendCreateWithData(){
+<%renderAll(false, 1)%>\
+			}
+			domainId = response.json.id
+			
+		then: "Should create and return created values"
+<%renderAll(true, 1)%>\
+			response.status == CREATED.value()
+	}
+	
+	
+			
+		
 <% if(!isComposite){%>
+	void "Test reading ${className} instance."() {
 		when: "Read ${propertyName}"
-		response = restBuilder.get("\${baseUrl}/${shortNameLower}/\${${propertyName}Id}") {
-			header 'Authorization', 'Bearer '+authResponse.json.access_token
-			accept "application/json"
-		}
+			response = readDomainItemWithParams(domainId.toString(), "")
 		then: "Should return correct values"
-<%renderAll(true, 1)%>
-		response.status == OK.value()
+<%renderAll(true, 1)%>\
+			response.status == OK.value()
+	}
+	
+	
+	void "Test excluding fields from reading ${className} instance."() {
+		when: "Read ${propertyName} id excluded"
+			response = readDomainItemWithParams(domainId.toString(), "excludes=id")
+		then: "Should not return id"
+			response.json.id == null
+			response.status == OK.value()
+	}
+	
+	
+	void "Test including fields from reading ${className} instance."() {
+		when: "Read ${propertyName} id excluded and then included"
+			response = readDomainItemWithParams(domainId.toString(), "excludes=id&includes=id")
+		then: "Should return id"
+			response.json.id != null
+			response.status == OK.value()
+	}
+	
+	
+	void "Test reading unexisting ${className} instance."() {
+		when:"Find unexisting ${propertyName}"
+			response = readDomainItemWithParams("9999999999", "")
+		then:"Should not find"
+			response.status == NOT_FOUND.value()
+		when:"Find unexisting ${propertyName} id not a number"
+			response = readDomainItemWithParams("nonexistent", "")
+		then:"Should not find"
+			response.status == NOT_FOUND.value()
+	}
 
+	
+	void "Test updating ${className} instance."() {
 		when: "Update ${propertyName}"
-		response = restBuilder.put("\${baseUrl}/${shortNameLower}/\${${propertyName}Id}") {
-			header 'Authorization', 'Bearer '+authResponse.json.access_token
-			accept "application/json"
-			json {
+			response = sendUpdateWithData(domainId.toString()){
 <%renderAll(false, 2)%>
 			}
-		}
 		then: "Should return updated values"
 <%renderAll(true, 2)%>
-		response.status == OK.value()
+			response.status == OK.value()
+	}
 
-
-		when:"Get ${propertyName} sorted list"
-		response = restBuilder.get("\${baseUrl}/${shortNameLower}.json?order=desc&sort=id") {
-			header 'Authorization', 'Bearer '+authResponse.json.access_token
-			accept "application/json"
-		}
+	void "Test updating unexisting ${className} instance."() {
+		when: "Update unexisting ${propertyName}"
+			response = sendUpdateWithData("9999999999"){
+	<%renderAll(false, 2)%>
+			}
+		then:"Should not find"
+			response.status == NOT_FOUND.value()
+			
+		when: "Update unexisting ${propertyName} id not a number"
+			response = sendUpdateWithData("nonexistent"){
+	<%renderAll(false, 2)%>
+			}
+		then:"Should not find"
+			response.status == NOT_FOUND.value()
+	}
+	
+	void "Test ${className} list sorting."() {
+		when:"Get ${propertyName} sorted list DESC"
+			response = queryListWithParams("order=desc&sort=id")
 
 		then:"First item should be just inserted object"
-		response.json[0].id == ${propertyName}Id
-		response.status == OK.value()
-
+			response.json[0].id == domainId
+			response.status == OK.value()
 		
-		when:"Find unexisting ${propertyName}"
-		response = restBuilder.get("\${baseUrl}/${shortNameLower}/nonexistent") {
-			header 'Authorization', 'Bearer '+authResponse.json.access_token
-			accept "application/json"
-		}
-		then:"Should not find"
-		response.status == NOT_FOUND.value()
+		when:"Get ${propertyName} sorted list ASC"
+			response = queryListWithParams("order=asc&sort=id")
 
-		
-		when: "Delete ${propertyName}"
-		response = restBuilder.delete("\${baseUrl}/${shortNameLower}/\${${propertyName}Id}") {
-			header 'Authorization', 'Bearer '+authResponse.json.access_token
-			accept "application/json"
-		}
-		then:
-		response.status == NO_CONTENT.value()
-<% }%>
+		then:"First item should not be just inserted object"
+			response.json[0].id != domainId
+			response.status == OK.value()
 	}
+	
+	
+	void "Test ${className} list max property."() {
+		when:"Get ${propertyName} list with max 2 items"
+			response = queryListWithParams("max=2")
+
+		then:"Should be only 2 items"
+			response.json.size() == 2
+	}
+	
+	@Ignore // have to have more then maxLimit items
+	void "Test ${className} list max property."() {
+		given:
+			int maxLimit = 100// Set real max items limit
+			
+		when:"Get ${propertyName} list with maximum items"
+			response = queryListWithParams("max=\$maxLimit")
+
+		then:"Should contains maximum items"
+			response.json.size() == maxLimit
+			
+		when:"Get ${propertyName} list with maximum + 1 items"
+			response = queryListWithParams("max=\${maxLimit+1}")
+
+		then:"Should contains maximum items"
+			response.json.size() == maxLimit
+	}
+	
+	
+	void "Test excluding fields in ${className} list."() {
+		when:"Get ${propertyName} sorted list"
+			response = queryListWithParams("excludes=id")
+
+		then:"First item should be just inserted object"
+			response.json[0].id == null
+	}
+	
+	
+	void "Test including fields in ${className} list."() {
+		when:"Get ${propertyName} sorted list"
+			response = queryListWithParams("excludes=id&includes=id")
+
+		then:"First item should be just inserted object"
+			response.json[0].id != null
+	}
+	
+	void "Test filtering in ${className} list."() {
+		when:"Get ${propertyName} sorted list"
+			response = queryListWithParams("order=desc&sort=id")
+
+		then:"First item should be just inserted object"
+			response.json[0].id == domainId
+			response.status == OK.value()
+	}
+	
+	
+	void "Test deleting other ${className} instance."() {//This is for creating some data to test list sorting
+		when: "Delete ${propertyName}"
+			response = deleteDomainItem(otherDomainId.toString())
+		then:
+			response.status == NO_CONTENT.value()
+	}
+	
+	
+	void "Test deleting ${className} instance."() {
+		when: "Delete ${propertyName}"
+			response = deleteDomainItem(domainId.toString())
+		then:
+			response.status == NO_CONTENT.value()
+	}
+<% }%>
 }
