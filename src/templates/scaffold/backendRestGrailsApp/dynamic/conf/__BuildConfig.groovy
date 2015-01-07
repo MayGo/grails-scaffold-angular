@@ -46,7 +46,7 @@
 			linesToAdd += "\t\t" + pluginLine9 + "\n"
 		}
 		
-		String pluginLine10 = "compile ':cache:1.1.1'"
+		String pluginLine10 = "compile ':cache:1.1.8'"
 		if(!destFile.text.contains(':cache:')) {
 			linesToAdd += "\t\t" + pluginLine10 + "\n"
 		}
