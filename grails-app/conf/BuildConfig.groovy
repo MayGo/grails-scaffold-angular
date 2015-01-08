@@ -43,7 +43,7 @@ grails.project.dependency.resolution = {
         build(":release:3.0.1") {
             export = false
         }
-		compile ':scaffold-core:0.3.2'
+		compile ':scaffold-core:latest.integration'
 		compile ":build-test-data:2.2.2"
     }
 }
