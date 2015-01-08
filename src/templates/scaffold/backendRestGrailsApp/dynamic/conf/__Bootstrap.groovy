@@ -19,8 +19,10 @@
 		}
 		
 		String line4 = "testDataGeneratorService.generate()"
-		if(!destFile.text.contains(line4) && grailsApplication.domainClasses.first().getClazz().count()== 0) {
-			linesToAdd += "\t\t" + line4 + "\n"
+		grailsApplication.domainClasses.first().getClazz().withTransaction{
+			if(!destFile.text.contains(line4) && grailsApplication.domainClasses.first().getClazz().count()== 0) {
+				linesToAdd += "\t\t" + line4 + "\n"
+			}
 		}
 		
 		
@@ -35,8 +37,10 @@
 		}
 		
 		String line2 = "def testDataGeneratorService"
-		if(!destFile.text.contains(line2) && grailsApplication.domainClasses.first().getClazz().count()== 0) {
-			linesToAdd += "\t" + line2 + "\n"
+		grailsApplication.domainClasses.first().getClazz().withTransaction{
+			if(!destFile.text.contains(line2) && grailsApplication.domainClasses.first().getClazz().count()== 0) {
+				linesToAdd += "\t" + line2 + "\n"
+			}
 		}
 		
 		return linesToAdd

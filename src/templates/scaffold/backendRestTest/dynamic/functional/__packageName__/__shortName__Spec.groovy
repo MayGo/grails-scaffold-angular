@@ -312,7 +312,9 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 	}
 	
 	
-	<%if(domainClasses.first().getClazz().count()<= 100){%>@Ignore<%}%> // have to have more then maxLimit items
+	<%
+	domainClasses.first().getClazz().withTransaction{
+	if(domainClasses.first().getClazz().count()<= 100){%>@Ignore<%}}%> // have to have more then maxLimit items
 	void "Test ${className} list max property."() {
 		given:
 			int maxLimit = 100// Set real max items limit
