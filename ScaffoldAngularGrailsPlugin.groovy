@@ -39,7 +39,7 @@ Grails plugin for generating working demo with Angular frontend and REST backend
 			
 			def allPropertyNames = constrainedProperties.keySet()
 			return allPropertyNames.findAll { propName ->
-	            propNames.contains(propName)
+	            propNames.contains(propName) ||  !constrainedProperties."$propName".isNullable()
 	        }
 		}
 	}

@@ -18,6 +18,12 @@
 			linesToAdd += "\t\t" + line3 + "\n"
 		}
 		
+		String line4 = "testDataGeneratorService.generate()"
+		if(!destFile.text.contains(line4) && grailsApplication.domainClasses.first().getClazz().count()== 0) {
+			linesToAdd += "\t\t" + line4 + "\n"
+		}
+		
+		
 		return linesToAdd
 	},
 	/(.*class\s*BootStrap\s*\{)/: {destFile->//select entire line
@@ -27,6 +33,12 @@
 		if(!destFile.text.contains(line)) {
 			linesToAdd += "\t" + line + "\n"
 		}
+		
+		String line2 = "def testDataGeneratorService"
+		if(!destFile.text.contains(line2) && grailsApplication.domainClasses.first().getClazz().count()== 0) {
+			linesToAdd += "\t" + line2 + "\n"
+		}
+		
 		return linesToAdd
 	}
 ]

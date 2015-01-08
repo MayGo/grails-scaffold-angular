@@ -14,6 +14,9 @@ import grails.buildtestdata.handler.NullableConstraintHandler
 import grails.buildtestdata.CircularCheckList
 import org.codehaus.groovy.grails.orm.hibernate.cfg.CompositeIdentity;
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsDomainBinder;
+import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
+import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
+
 String propertyName = domainClass.propertyName;
 String shortNameLower = propertyName.toLowerCase()+"s";
 
@@ -21,16 +24,23 @@ String shortNameLower = propertyName.toLowerCase()+"s";
 ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
 allProps = sh.getProps()
 props = allProps.findAll{p->!p.isAssociation()}
-assocProps = allProps.findAll{p->p.manyToOne || p.oneToOne}
+
+
 //cache instances for later use
 cachedInstances = [:]
 
 // get grails domain class mapping to check if id is composite. When composite then don't render alla tests
-domainMapping = new GrailsDomainBinder().getMapping(domainClass.clazz)
-isComposite = false
-if (domainMapping != null && domainMapping.getIdentity() instanceof CompositeIdentity){
-	isComposite = true
+private isComposite(domainClazz){
+	domainMapping = new GrailsDomainBinder().getMapping(domainClazz)
+	isComposite = false
+	if (domainMapping != null && domainMapping.getIdentity() instanceof CompositeIdentity){
+		isComposite = true
+	}
+	return isComposite
 }
+isComposite = isComposite(domainClass)
+
+
 
 // This is included in plugins doWithSpring
 //private addAllPropertiesBuilding(){
@@ -54,63 +64,103 @@ if (domainMapping != null && domainMapping.getIdentity() instanceof CompositeIde
 
 
 
-private renderAll(boolean isResp = false, int groupId){
+
+private renderAll(def dClass, boolean isResp = false, int groupId){
 	
 	String resp = ""
 	
-	
-	//Get instance from cache or create if does not exists
-	def inst
-	if(cachedInstances.containsKey(groupId)){
-		inst = cachedInstances[groupId]
-	}else{
-		domainClass.clazz.withNewTransaction{
-			inst = domainClass.clazz.buildWithoutSave()
-		}
-		cachedInstances[groupId] = inst
-	}
-	
-	props.each{p->
-		String str = (isResp)?"\t\t\tresponse.json.":"\t\t\t\t"
-		String asign = (isResp)?"==":"="
-		def val = inst."${p.name}"
-		if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)){
-			if(p.type == boolean || p.type == Boolean) val = true
-			str +="${p.name} $asign $val\n"
-		}else if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
-			def inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
-			def outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-			outputFormat.timeZone = java.util.TimeZone.getTimeZone( 'GMT' )
-			
-			String dateStr = (val)?inputFormat.format(val):''
-			
-			if(isResp){//format input differently then comparison
-				dateStr = (val)? outputFormat.format(val):''
-			}
-			str +="${p.name} $asign '$dateStr'\n"
-		}else{
-			str +="${p.name} $asign '$val'\n"
-		}
-		resp += str
-	}
-	
-	assocProps.each{p->
-		def refClass = p.getReferencedPropertyType()
-		String str = (isResp)?"\t\t\tresponse.json.":"\t\t\t\t"
-		String asign = (isResp)?"==":"="
-		def val = refClass.first(sort: 'id')?.id
-		//check if composite id
-		
-		if(isResp){
-			str +="${p.name}?.id $asign $val\n"
-		}else{
-			str +="${p.name} $asign $val\n"
-		}
-		
-		resp += str
-	}
-	
+	resp += createDomainInstanceJson(dClass, isResp, createOrGetInst(dClass, groupId))
+
 	println resp
+}
+
+private createOrGetInst(def dClass, int groupId){
+	//Get instance from cache or create if does not exists
+
+	def inst
+	def domainClazz = dClass.getClazz()
+	String groupKey = "${dClass.name}_$groupId"
+	if(cachedInstances.containsKey(groupKey)){
+		inst = cachedInstances[groupKey]
+	}else{
+		domainClazz.withNewTransaction{status ->
+			inst = domainClazz.buildWithoutSave()
+			try {
+				/* Rolling back data if any exception happens */
+				status.setRollbackOnly();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		cachedInstances[groupKey] = inst
+	}
+	
+}
+
+
+private String createDomainInstanceJson(def dClass, boolean isResp, def inst, List alreadyCreatedClasses = []){
+	alreadyCreatedClasses << dClass.name
+	
+	String respStr = ""
+	ScaffoldingHelper helper = new ScaffoldingHelper(dClass, pluginManager, comparator, getClass().classLoader)
+	def properties = helper.getProps().findAll{p->!p.isManyToMany() && !p.isOneToMany()}
+	
+	
+	properties.each{p->
+		String str = (isResp)?"\t\t\tresponse.json.":"\t\t\t\t"
+		String asign = (isResp)?"==":"="
+		
+		if(DomainClassArtefactHandler.isDomainClass(p.type) ){
+			def refClass = new DefaultGrailsDomainClass(p.type)
+			/*if(!alreadyCreatedClasses.contains(refClass.name)){
+				alreadyCreatedClasses << refClass.name
+				//def refClass = (p.referencedDomainClass)?p.referencedDomainClass:p.getReferencedPropertyType()
+				
+				//check if composite id
+				
+				if(isResp){
+					//str +="${p.name}?.id $asign $val\n"
+				}else{
+					str +="${p.name}{\n\t"
+					str += createDomainInstanceJson(refClass, isResp, createOrGetInst(refClass, 10), alreadyCreatedClasses)
+					str +="\t\t\t\t}\n"
+					respStr += str
+				}
+			}*/
+			def val = refClass.getClazz().first(sort: 'id')?.id
+			
+			if(isResp){
+				str +="${p.name}?.id $asign $val\n"
+			}else{
+				str +="${p.name} $asign $val\n"
+			}
+			respStr += str
+			
+		} else {
+
+			def val = inst."${p.name}"
+			if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)){
+				if(p.type == boolean || p.type == Boolean) val = true
+				str +="${p.name} $asign $val\n"
+			}else if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
+				def inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
+				def outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+				outputFormat.timeZone = java.util.TimeZone.getTimeZone( 'GMT' )
+				
+				String dateStr = (val)?inputFormat.format(val):''
+				
+				if(isResp){//format input differently then comparison
+					dateStr = (val)? outputFormat.format(val):''
+				}
+				str +="${p.name} $asign '$dateStr'\n"
+			}else{
+				str +="${p.name} $asign '$val'\n"
+			}
+			respStr += str
+		}
+		
+	}
+	return respStr
 }
 %>
 
@@ -138,25 +188,29 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 	void "Test creating another ${className} instance."() {//This is for creating some data to test list sorting
 		when: "Create ${propertyName}"
 			response = sendCreateWithData(){
-<%renderAll(false, 1)%>\
+<%renderAll(domainClass, false, 3)%>\
 			}
+			<%if(!isComposite){%>
 			otherDomainId = response.json.id
+			<%}%>
 			
 		then: "Should create and return created values"
-		
-<%renderAll(true, 1)%>\
+<%renderAll(domainClass, true, 3)%>\
 			response.status == CREATED.value()
 	}
 
 	void "Test creating ${className} instance."() {
 		when: "Create ${propertyName}"
 			response = sendCreateWithData(){
-<%renderAll(false, 1)%>\
+<%renderAll(domainClass, false, 1)%>\
 			}
+			<%if(!isComposite){%>
 			domainId = response.json.id
+			<%}%>
 			
 		then: "Should create and return created values"
-<%renderAll(true, 1)%>\
+			
+<%renderAll(domainClass, true, 1)%>\
 			response.status == CREATED.value()
 	}
 	
@@ -168,7 +222,8 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 		when: "Read ${propertyName}"
 			response = readDomainItemWithParams(domainId.toString(), "")
 		then: "Should return correct values"
-<%renderAll(true, 1)%>\
+			
+<%renderAll(domainClass, true, 1)%>\
 			response.status == OK.value()
 	}
 	
@@ -206,24 +261,24 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 	void "Test updating ${className} instance."() {
 		when: "Update ${propertyName}"
 			response = sendUpdateWithData(domainId.toString()){
-<%renderAll(false, 2)%>
+<%renderAll(domainClass, false, 2)%>
 			}
 		then: "Should return updated values"
-<%renderAll(true, 2)%>
+<%renderAll(domainClass, true, 2)%>
 			response.status == OK.value()
 	}
 
 	void "Test updating unexisting ${className} instance."() {
 		when: "Update unexisting ${propertyName}"
 			response = sendUpdateWithData("9999999999"){
-	<%renderAll(false, 2)%>
+	<%renderAll(domainClass, false, 2)%>
 			}
 		then:"Should not find"
 			response.status == NOT_FOUND.value()
 			
 		when: "Update unexisting ${propertyName} id not a number"
 			response = sendUpdateWithData("nonexistent"){
-	<%renderAll(false, 2)%>
+	<%renderAll(domainClass, false, 2)%>
 			}
 		then:"Should not find"
 			response.status == NOT_FOUND.value()
