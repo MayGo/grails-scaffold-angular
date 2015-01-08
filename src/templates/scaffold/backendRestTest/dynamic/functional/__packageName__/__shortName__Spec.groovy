@@ -23,7 +23,7 @@ String shortNameLower = propertyName.toLowerCase()+"s";
 
 ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
 allProps = sh.getProps()
-props = allProps.findAll{p->!p.isAssociation()}
+simpleProps = allProps.findAll{p->!p.isAssociation()}
 
 
 //cache instances for later use
@@ -309,10 +309,16 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 			response.json.size() == 2
 	}
 	
-	@Ignore // have to have more then maxLimit items
+	<%if(domainClasses.first().getClazz().count()<= 100){%>@Ignore<%}%> // have to have more then maxLimit items
 	void "Test ${className} list max property."() {
 		given:
 			int maxLimit = 100// Set real max items limit
+			
+		when:"Get ${propertyName} list without max param"
+			response = queryListWithParams("")
+
+		then:"Should return default maximum items"
+			response.json.size() == 10
 			
 		when:"Get ${propertyName} list with maximum items"
 			response = queryListWithParams("max=\$maxLimit")
@@ -345,14 +351,31 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 			response.json[0].id != null
 	}
 	
-	void "Test filtering in ${className} list."() {
-		when:"Get ${propertyName} sorted list"
-			response = queryListWithParams("order=desc&sort=id")
+	void "Test filtering in ${className} list by id."() {
+		when:"Get ${propertyName} list filtered by id"
+		println "filter=%7Bid:\${domainId}%7D"
+			response = queryListWithParams("filter=[id:\${domainId}]")
 
-		then:"First item should be just inserted object"
+		then:"Should contains one item, just inserted item."
 			response.json[0].id == domainId
+			response.json.size() == 1
 			response.status == OK.value()
 	}
+	
+	void "Test filtering in ${className} list by all properties."() {
+		given:
+			response = queryListWithParams("filter=[id:\${domainId}]")
+		
+		expect:
+			response.json.size() == respSize
+		where:
+			value                   || respSize
+	<%simpleProps.each{p->%>
+			"${p.name}"             || 10
+	<%}%>
+	}
+	
+	
 	
 	
 	void "Test deleting other ${className} instance."() {//This is for creating some data to test list sorting

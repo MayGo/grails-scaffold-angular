@@ -40,7 +40,7 @@ class ${className}Service{
 				def property = persistentPropertiesMap[k]
 				def value = v
 				
-				if(k.endsWith('.id')) {//Search for relation
+				if(k.endsWith('.id') || k == 'id') {//Search for relation
 					eq(k, value.toLong())
 				}else if(property && value != null && value != "") {
 					log.info "Searching \$property => \$value"
