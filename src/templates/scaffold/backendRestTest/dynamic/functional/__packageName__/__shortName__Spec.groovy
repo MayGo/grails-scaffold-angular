@@ -16,6 +16,8 @@ import org.codehaus.groovy.grails.orm.hibernate.cfg.CompositeIdentity;
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsDomainBinder;
 import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
 import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
+import grails.converters.JSON
+
 
 String propertyName = domainClass.propertyName;
 String shortNameLower = propertyName.toLowerCase()+"s";
@@ -301,13 +303,14 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 	}
 	
 	
-	void "Test ${className} list max property."() {
+	void "Test ${className} list max property query 2 items."() {
 		when:"Get ${propertyName} list with max 2 items"
 			response = queryListWithParams("max=2")
 
 		then:"Should be only 2 items"
 			response.json.size() == 2
 	}
+	
 	
 	<%if(domainClasses.first().getClazz().count()<= 100){%>@Ignore<%}%> // have to have more then maxLimit items
 	void "Test ${className} list max property."() {
@@ -353,8 +356,8 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 	
 	void "Test filtering in ${className} list by id."() {
 		when:"Get ${propertyName} list filtered by id"
-		println "filter=%7Bid:\${domainId}%7D"
-			response = queryListWithParams("filter=[id:\${domainId}]")
+
+			response = queryListWithUrlVariables("filter={filter}", [filter:"{id:\${domainId}}"])
 
 		then:"Should contains one item, just inserted item."
 			response.json[0].id == domainId
@@ -364,14 +367,38 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 	
 	void "Test filtering in ${className} list by all properties."() {
 		given:
-			response = queryListWithParams("filter=[id:\${domainId}]")
-		
+			response = queryListWithUrlVariables("filter={filter}", [filter:"\${jsonVal}"])
+			<%
+			def instBefore = createOrGetInst(domainClass, 1)//comparing instBefore and inst variables decides if test results 1 or 10 items in output
+			def inst = createOrGetInst(domainClass, 2)
+			%>
+			
 		expect:
 			response.json.size() == respSize
 		where:
-			value                   || respSize
-	<%simpleProps.each{p->%>
-			"${p.name}"             || 10
+			jsonVal 	        || respSize
+			"{}"                || 10
+	<%simpleProps.each{p->
+		def hasChanged = !(instBefore."${p.name}" == inst."${p.name}")
+		def val = inst."${p.name}" 
+		def realVal
+		if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)){
+			if(p.type == boolean || p.type == Boolean) realVal = true
+			realVal = val
+		}else if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
+			def inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
+			hasChanged = false
+			String dateStr = (val)?inputFormat.format(val):''
+
+			realVal = "$dateStr"
+		}else{
+			realVal = "$val"
+		}
+		
+		def jsonVal = (["${p.name}":realVal] as JSON).toString()
+		
+		%>
+		<% if(hasChanged && jsonVal.matches(".*\\s+.*")){print "//Can't predict 'size'"} %>	"""${jsonVal}"""     		|| <% if(hasChanged){println 1}else{println 10} %>
 	<%}%>
 	}
 	

@@ -61,12 +61,9 @@ class TestDataGeneratorService {
 			return
 		}
 
-		(1..100).each{index->
+		(1..150).each{index->
 			${firstDomainClass}.withNewTransaction{
-<%  domainClasses.each{dClass->
-		
-		
-	%>
+<% domainClasses.each{dClass->%>
 				${dClass.getName()}.build(${findNotNullableRelationsAsString(dClass)})\
 <%}%>
 
