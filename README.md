@@ -15,8 +15,13 @@ Everything should work now, including tests.
 If tests fail, then you have to add BuildTestData Config to generate correct data(e.g. unique constraints can fail).
 Functional test creates 2 domain instances (with the help of build-test-data build() method) and deletes them at the end.
 Note: build-test-data plugins findRequiredPropertyNames method is overriden, so all properties are initiated with values, not only non-nullable.
+Note: hibernate4 and createDemo can give errors. Switch temporaraly back to hibernate3 and generate scaffolding then.
+Note: When you still have errors, try running without scaffolding tests: folders = ['backendRestSrc':'src/', 'backendRestTest':null, 'backendRestGrailsApp':'grails-app/', 'frontendAngular':'angular/', 'frontendAngulr':'angular/']
+Note: If domain model is no buildable with build-test-data, then you have to add correct mappings to TestDataConfig.groovy. e.g. if you have nonnullable custom validator, then you have to add to mapping validatable value
+or without backend altogether: folders = ['backendRestSrc':null, 'backendRestTest':null, 'backendRestGrailsApp':null, 'frontendAngular':'angular/']
+				
 
-When frontend displays only ids where some readable name should be then edit displayNames config.
+Frontend displays only ids, except 'name', 'username', 'authority' propertynames. When some readable name should be insetead, then edit displayNames config.
 
 Frontend serving
 --------------
@@ -120,6 +125,9 @@ Then set grails.util.Holders.config.functionalTest.userName and grails.util.Hold
 TODO
 =====
 
+* Add to functional test. Add failing create/update (domain has to have some constraints, can check with build-test-data build method and roll back if succeeds).
+* Create TestDataConfigInitial.groovy, with all domains, def i, and unique constraint. 
+* Add version prop to edit view
 * remove Inform "Updated" "Created" (add delete/save functions to service)
 * list view "action" column with fixed with or fixed height if it helps
 * view should show mantToOne items, as readonly tags or  in view should be associations
