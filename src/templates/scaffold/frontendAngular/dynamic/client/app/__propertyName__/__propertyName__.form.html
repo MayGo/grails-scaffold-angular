@@ -47,14 +47,15 @@ private String renderEditField(p, owningClass){
 	    return renderByteArray(domainClass, p, cp)
 	else if (p.manyToOne || p.oneToOne)
 	    return renderManyToOne(domainClass, p, cp) 
-	else if (joinProperty){
-		return renderJoinProperty(domainClass, p, cp, joinProperty)
-	}
+	
 	else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
 	    return renderManyToMany(domainClass, p, cp)
 	}
 	else if (p.oneToMany)
 	    return renderOneToMany(domainClass, p, cp)
+    else if (joinProperty){
+		return renderJoinProperty(domainClass, p, cp, joinProperty)
+	}
 	else
 		return "<!-- No type for ${p.name} -->"
 		
@@ -253,9 +254,11 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
     //${grails.util.GrailsNameUtils.getShortName(p.getReferencedPropertyType()).toLowerCase()}
                 //${grails.util.GrailsNameUtils.getShortName(joinProperty.getReferencedPropertyType()).toLowerCase()}
                 //referencedPropertyName:'${p.getReferencedPropertyName()}.id'
+                //referencedPropertyName:'${joinProperty.getReferencedPropertyName()}.id'
                 //${p.naturalName}
         """
 }
+
 
 private boolean isRequired(cp) {
     return !isOptional(cp)
@@ -298,7 +301,12 @@ private renderFieldRow(p, owningClass) {
                 <%}%>
                 	</div>
                     <footer class="panel-footer text-right bg-light lter">
-                      	<button class="btn btn-success" type='submit' ng-disabled="${domainClass.propertyName}Form.\$invalid" translate="pages.${domainClass.shortName}.edit.form.submit" mx-show-loading ng-click="submit(${domainClass.propertyName}Form)"></button> 
+                      	<button id="${domainClass.propertyName}SubmitBtn"
+                      		class="btn btn-success" 
+	                      	type='submit' 
+	                      	ng-disabled="${domainClass.propertyName}Form.\$invalid" 
+	                      	translate="pages.${domainClass.shortName}.edit.form.submit" 
+	                      	mx-show-loading ng-click="submit(${domainClass.propertyName}Form)"></button> 
                 		<a class="btn btn-default" ng-click="back()" translate="pages.${domainClass.shortName}.edit.form.cancel" mx-show-loading></a> 
                     </footer>
                 </div>

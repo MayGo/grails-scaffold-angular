@@ -1,7 +1,8 @@
 <% 
     import grails.plugin.scaffold.core.ScaffoldingHelper
     ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
-    props = sh.getProps()
+    allProps = sh.getProps()
+    props = allProps.findAll{p->!p.embedded} 
    
 %>
 
@@ -60,6 +61,7 @@ private String renderFieldRow(p, owningClass){
 
  
 }
+
 
 private String renderString(owningClass, p, cp) {
     return """
@@ -184,14 +186,14 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 					</div>
 			    </div>
 			    <footer class="panel-footer text-right bg-light lter">
-			      	<a class="btn btn-default" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
+			      	<a id="editBtn" class="btn btn-default" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
 				    	<i class="fa fa-edit" translate="pages.${domainClass.shortName}.view.edit"></i>
 			       	</a>
-					<a class="btn btn-danger" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
+					<a id="deleteBtn" class="btn btn-danger" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
 						<i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.view.delete"></i>
 			        </a>
 					
-					<a class="btn btn-default" ng-click="back()">
+					<a id="backBtn" class="btn btn-default" ng-click="back()">
 						<i class="fa fa-chevron-left" translate="pages.${domainClass.shortName}.view.back"></i>
 					</a>
 					

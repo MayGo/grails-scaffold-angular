@@ -93,7 +93,13 @@ private String renderFieldSearch(p, owningClass){
 private String renderString(owningClass, p, cp) {
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input name="${p.name}" class="form-control" type="text" st-search="'${p.name}'" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" """
+                    <input 
+                    	name="${p.name}" 
+                   		ng-model="search.${p.name}" 
+                   		st-search="'${p.name}'" 
+                   		class="form-control" 
+                   		type="text" 
+                   		placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" """
     
     if (cp.matches) str += """ ng-pattern="/${cp.matches}/" """
     str += " ></div> "
@@ -106,10 +112,14 @@ private String renderBoolean(owningClass, p, cp) {
 	
 	  <label for="${p.name}" class="input-group"> {{'pages.${domainClass.shortName}.edit.form.field.${p.name}' | translate}}</label>
 	  <div class="input-group input-group-sm">
-		<ng-toggle tri-toggle name="${p.name}"  ng-model="search.${p.name}"
-		ng-true-val="'true'" 
-		ng-false-val="'false'" 
-		custom-st-search="${p.name}" ></ng-toggle> 
+		<ng-toggle 
+			tri-toggle 
+			name="${p.name}"  
+			ng-model="search.${p.name}"
+			custom-st-search="${p.name}" 
+			ng-true-val="'true'" 
+			ng-false-val="'false'" 
+			></ng-toggle> 
 	  </div>
 	 
      """
@@ -119,7 +129,11 @@ private String renderBoolean(owningClass, p, cp) {
 private String renderByteArray(owningClass, p, cp) {
       return """<div class="input-group input-group-sm">
                     <span class="input-group-addon">file</span> 
-                    <input name="${p.name}" class="form-control" type="file"  st-search="'${p.name}'" >
+                    <input 
+                    	name="${p.name}"
+                    	ng-model="search.${p.name}"
+                    	st-search="'${p.name}'" 
+                    	class="form-control" type="file"   >
                 </div>"""
 }
 
@@ -128,10 +142,15 @@ private String renderByteArray(owningClass, p, cp) {
 private String renderDate(owningClass, p, cp) {
      String str =  """
      <div class="input-group input-group-sm">
-     <input name="${p.name}" ng-model="search.${p.name}" type="text" class="form-control"  placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"
-         datepicker-popup
-         is-open="${owningClass.propertyName}.${p.name}Open" 
-         ng-click="${owningClass.propertyName}.${p.name}Open = true"
+     <input 
+     	name="${p.name}" 
+     	ng-model="search.${p.name}" 
+     	type="text" 
+     	class="form-control" 
+     	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"
+        datepicker-popup
+        is-open="${owningClass.propertyName}.${p.name}Open" 
+        ng-click="${owningClass.propertyName}.${p.name}Open = true"
       """
       
       str += """
@@ -149,7 +168,13 @@ private String renderDate(owningClass, p, cp) {
 private String renderNumber(owningClass, p, cp) {
     String str = """<div class="input-group input-group-sm">
                         <span class="input-group-addon">nr</span>
-                        <input name="${p.name}" ng-model="search.${p.name}" class="form-control" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" st-search="'${p.name}'" """
+                        <input 
+                        	name="${p.name}" 
+                        	ng-model="search.${p.name}" 
+                        	st-search="'${p.name}'"
+                        	class="form-control" 
+                        	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" 
+                        	 """
                         
     String rangeExtraInputStr = ""
     if (cp.range) {
@@ -175,8 +200,13 @@ private String renderNumber(owningClass, p, cp) {
 private String renderUrl(owningClass, p, cp) {
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon">url</span>
-                    <input name="${p.name}" class="form-control" type="url" st-search="'${p.name}'" 
-                    placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"  """
+                    <input 
+                    	name="${p.name}" 
+                    	ng-model="search.${p.name}" 
+                    	st-search="'${p.name}'" 
+                    	class="form-control" 
+                    	type="url" 
+                    	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"  """
     
     if (isRequired(cp)) str += " required"
     str += " ></div> "
@@ -185,8 +215,13 @@ private String renderUrl(owningClass, p, cp) {
 private renderSelectType(owningClass, p, cp, type) {
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon">$type</span>
-                    <input name="${p.name}" class="form-control" type="text" st-search="'${p.name}'" 
-                    placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"  """
+                    <input 
+                    	name="${p.name}" 
+                    	ng-model="search.${p.name}" 
+                    	st-search="'${p.name}'" 
+                    	class="form-control" 
+                    	type="text" 
+                    	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"  """
     
     if (cp.matches) str += """ ng-pattern="${cp.matches}" """
     str += " ></div> "
@@ -197,11 +232,15 @@ private String renderEnum(owningClass, p, cp) {
      String str =  """
      <div class="input-group input-group-sm">
           <span class="input-group-addon">enum</span>   
-          <input name="${p.name}" type="text" class="form-control" st-search="'${p.name}'" 
-            ng-model="search.${p.name}"
+          <input 
+          	name="${p.name}" 
+          	ng-model="search.${p.name}"
+          	st-search="'${p.name}'" 
+          	type="text" 
+          	class="form-control" 
             placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" 
-            typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List | filter:\$viewValue"  """
-     str += """></div> """
+            typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List | filter:\$viewValue" ></div> 
+           """
      return str;
 }
 
@@ -211,8 +250,10 @@ private String renderManyToOne(owningClass, p, cp) {
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
      String str =  """<!--ManyToOne-->
      <div class="input-group input-group-sm" style="width:100%">
-           <tags-input custom-st-search="${p.name}" 
-              ng-model="search.${p.name}" placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}">
+     	<tags-input 
+            ng-model="search.${p.name}" 
+            custom-st-search="${p.name}" 
+            placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}">
               <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
      str += """</tags-input></div>"""

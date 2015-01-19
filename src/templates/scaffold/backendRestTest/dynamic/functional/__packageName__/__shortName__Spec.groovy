@@ -9,11 +9,11 @@ import defpackage.AbstractRestSpec
 import defpackage.RestQueries
 <%
 import grails.plugin.scaffold.core.ScaffoldingHelper
+import grails.plugin.scaffold.angular.DomainHelper
 import java.text.SimpleDateFormat
 import grails.buildtestdata.handler.NullableConstraintHandler
 import grails.buildtestdata.CircularCheckList
-import org.codehaus.groovy.grails.orm.hibernate.cfg.CompositeIdentity;
-import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsDomainBinder;
+
 import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
 import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
 import grails.converters.JSON
@@ -28,19 +28,11 @@ allProps = sh.getProps()
 simpleProps = allProps.findAll{p->!p.isAssociation()}
 
 
-//cache instances for later use
-cachedInstances = [:]
 
 // get grails domain class mapping to check if id is composite. When composite then don't render alla tests
-private isComposite(domainClazz){
-	domainMapping = new GrailsDomainBinder().getMapping(domainClazz)
-	isComposite = false
-	if (domainMapping != null && domainMapping.getIdentity() instanceof CompositeIdentity){
-		isComposite = true
-	}
-	return isComposite
-}
-isComposite = isComposite(domainClass)
+
+isComposite = DomainHelper.isComposite(domainClass)
+
 
 
 
@@ -71,33 +63,11 @@ private renderAll(def dClass, boolean isResp = false, int groupId){
 	
 	String resp = ""
 	
-	resp += createDomainInstanceJson(dClass, isResp, createOrGetInst(dClass, groupId))
+	resp += createDomainInstanceJson(dClass, isResp, DomainHelper.createOrGetInst(dClass, groupId))
 
 	println resp
 }
 
-private createOrGetInst(def dClass, int groupId){
-	//Get instance from cache or create if does not exists
-
-	def inst
-	def domainClazz = dClass.getClazz()
-	String groupKey = "${dClass.name}_$groupId"
-	if(cachedInstances.containsKey(groupKey)){
-		inst = cachedInstances[groupKey]
-	}else{
-		domainClazz.withNewTransaction{status ->
-			inst = domainClazz.buildWithoutSave()
-			try {
-				/* Rolling back data if any exception happens */
-				status.setRollbackOnly();
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-		cachedInstances[groupKey] = inst
-	}
-	
-}
 
 
 private String createDomainInstanceJson(def dClass, boolean isResp, def inst, List alreadyCreatedClasses = []){
@@ -124,7 +94,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 					//str +="${p.name}?.id $asign $val\n"
 				}else{
 					str +="${p.name}{\n\t"
-					str += createDomainInstanceJson(refClass, isResp, createOrGetInst(refClass, 10), alreadyCreatedClasses)
+					str += createDomainInstanceJson(refClass, isResp, DomainHelper.createOrGetInst(refClass, 10), alreadyCreatedClasses)
 					str +="\t\t\t\t}\n"
 					respStr += str
 				}
@@ -371,8 +341,8 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 		given:
 			response = queryListWithUrlVariables("filter={filter}", [filter:"\${jsonVal}"])
 			<%
-			def instBefore = createOrGetInst(domainClass, 1)//comparing instBefore and inst variables decides if test results 1 or 10 items in output
-			def inst = createOrGetInst(domainClass, 2)
+			def instBefore = DomainHelper.createOrGetInst(domainClass, 1)//comparing instBefore and inst variables decides if test results 1 or 10 items in output
+			def inst = DomainHelper.createOrGetInst(domainClass, 2)
 			%>
 			
 		expect:
@@ -382,21 +352,12 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 			"{}"                || 10
 	<%simpleProps.each{p->
 		def hasChanged = !(instBefore."${p.name}" == inst."${p.name}")
-		def val = inst."${p.name}" 
-		def realVal
-		if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)){
-			if(p.type == boolean || p.type == Boolean) realVal = true
-			realVal = val
-		}else if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
-			def inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
+		if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
 			hasChanged = false
-			String dateStr = (val)?inputFormat.format(val):''
-
-			realVal = "$dateStr"
-		}else{
-			realVal = "$val"
 		}
+		def val = inst."${p.name}" 
 		
+		def realVal = DomainHelper.getRealValue(p, val)
 		def jsonVal = (["${p.name}":realVal] as JSON).toString()
 		
 		%>

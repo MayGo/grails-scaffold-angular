@@ -52,18 +52,18 @@
 					"title":"${d.naturalName} Table",	
 					"search":"Search in ${d.naturalName} Table",
 					"header":{
-						"id": "Id",\
 						<%for (p in d.persistentProperties) {%>
-				   		"${p.name}":"${p.naturalName}"${(p == d.persistentProperties.last()?'':',')}\
+				   		"${p.name}":"${p.naturalName}",\
 					    <%}%>
+					    "id": "Id"
 					}
 				},
 				"search":{
 					"placeholder":{
-						"id": "Id",\
 						<%for (p in d.persistentProperties) {%>
-				   		"${p.name}":"${p.naturalName}"${(p == d.persistentProperties.last()?'':',')}\
+				   		"${p.name}":"${p.naturalName}",\
 					    <%}%>
+					    "id": "Id"
 					}
 				}
 			},
@@ -75,10 +75,10 @@
 				"back": " Back",
 				"lists": "{{isval}} in {{inval}}",
 				"field":{
-					"id": "Id",\
 					<%for (p in d.persistentProperties) {%>
-			   		"${p.name}":"${p.naturalName}"${(p == d.persistentProperties.last()?'':',')}\
+			   		"${p.name}":"${p.naturalName}",\
 				    <%}%>
+				    "id": "Id"
 				}
 			},
 			"edit":{
@@ -88,10 +88,10 @@
 					"submit":"Submit",
 					"cancel":"Cancel",
 					"field":{
-						"id": "Id",\
 						<%for (p in d.persistentProperties) {%>
-				   		"${p.name}":"${p.naturalName}"${(p == d.persistentProperties.last()?'':',')}\
+				   		"${p.name}":"${p.naturalName}",\
 					    <%}%>
+					    "id": "Id"
 					}
 				}
 			},

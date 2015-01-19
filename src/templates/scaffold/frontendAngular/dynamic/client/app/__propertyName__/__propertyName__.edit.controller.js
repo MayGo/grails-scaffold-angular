@@ -55,9 +55,10 @@ private String renderOneToMany(owningClass, p, cp) {
 	if(!useDisplaynamesStr) useDisplaynamesStr = "item.id"
 	ScaffoldingHelper sh2 = new ScaffoldingHelper(p.referencedDomainClass, pluginManager, comparator, getClass().classLoader)
 	excludes = sh2.getProps().findAll{it.isAssociation()}
+	
     String str =  """
 	     if(\$scope.isEditForm){
-			${p.referencedDomainClass.shortName}Service.query({filter:{${p.referencedPropertyName}:\$stateParams.id}, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
+			${p.referencedDomainClass.shortName}Service.query({filter:{${(p.referencedPropertyName)?:p.otherSide?.name}:\$stateParams.id}, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
 		        function( response ){
 			       	\$scope.${domainClass.propertyName} = angular.extend({}, \$scope.${domainClass.propertyName});
 	     			\$scope.${domainClass.propertyName}.${p.name} = response.map(function(item){

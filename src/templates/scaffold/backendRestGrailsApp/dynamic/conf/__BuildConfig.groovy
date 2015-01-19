@@ -2,10 +2,6 @@
 	/(.*plugins\s*\{)/: {destFile->
 		String linesToAdd = ""
 		
-		String pluginLine1 = 'runtime ":cors:1.1.6"'
-		if(!destFile.text.contains('runtime ":cors:')) {
-			linesToAdd += "\t\t" + pluginLine1 + "\n"
-		}
 		String pluginLine2 = 'compile ":dirserve:0.4"'
 		if(!destFile.text.contains('compile ":dirserve:')) {
 			linesToAdd += "\t\t" + pluginLine2 + "\n"

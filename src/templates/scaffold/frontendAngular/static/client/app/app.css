@@ -96,3 +96,9 @@
 	margin: 0 !important;
 }
 
+/**
+* Main template overrides
+*/
+.panel {
+	overflow-x: auto;
+}
