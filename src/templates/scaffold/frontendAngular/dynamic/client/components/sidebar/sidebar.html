@@ -25,7 +25,7 @@
 	<ul class="sidebar-menu"  ng-menu>
 		<li ui-sref-active="active">
 			<a ui-sref="app.dashboard">
-				<i class="fa fa-dashboard"></i> <span>Dashboard</span>
+				<i class="fa fa-dashboard"></i> <span translate="menu.static.DASHBOARD"></span>
 			</a>
 		</li>	
 <%
@@ -52,7 +52,8 @@ if(domainClasses.size() < 8){
 <%}else{//Group menu items based on package name
 	Map groupedDomainClasses = domainClasses.groupBy([{it.packageName}])
 	groupedDomainClasses.each{packageName, domainClasses->
-%>
+		String groupName = packageName.tokenize('.').last()
+		i++%>
 		<li>
 			<a href class="auto">
 				<span class="pull-right text-muted">
@@ -60,11 +61,11 @@ if(domainClasses.size() < 8){
 			        <i class="fa fa-fw fa-angle-down text-active"></i>
 			    </span>
 			    <i class="glyphicon ${glyhs[i]} icon text-success"></i>
-				<span class="font-bold">${packageName.tokenize('.').last()}</span>
+				<span class="font-bold" translate="menu.package.${groupName}"></span>
 			</a>
 			<ul>
 			<% domainClasses.each{d->
-				i++%>
+				%>
 				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}.list" translate="menu.domain.${d.shortName}"><i class="fa fa-angle-double-right"></i></a></li>
 			<%}%>
 			</ul>
