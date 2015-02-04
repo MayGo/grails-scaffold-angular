@@ -11,11 +11,11 @@ angular.module('angularDemoApp', [
   'ui.bootstrap',
   'pascalprecht.translate',
   'jcs-autoValidate',
-  'angular-loading-bar', 
+  'angular-loading-bar',
   'smart-table',
   'ui.bootstrap.typeahead',
-  'inform', 
-  'inform-exception', 
+  'inform',
+  'inform-exception',
   'inform-http-exception',
   'FBAngular',
   'ngTagsInput',
@@ -24,32 +24,32 @@ angular.module('angularDemoApp', [
   'ngToggle'
 ])
 	.constant('appConfig', (function() {
-		
+
 		var removeSlash = function(str){
  			if(str.substr(0, 1) === '/' ){
  				 str = str.substr(1);
  			}
  			return str;
  		};
- 	
+
  		var appendSlash = function(str){
  			if(str.substr(-1) !== '/' ){
  				str += '/';
  			}
  			return str;
  		};
- 		
+
  		//Set defaults
 		var defaultConfig = {
  				restUrl : '${appUrl}',
- 	 			loginUrl : '${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"api/login"}',
- 	 			logoutUrl : '${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"api/logout"}',
- 	 			validationUrl: '${(config.grails.plugin.springsecurity.rest.token.validation.endpointUrl)?:"api/validate"}',
- 	 			securityEnabled: ${(config.grails.plugin.springsecurity.active)?:false},
+ 	 			loginUrl : '${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"/api/login"}',
+ 	 			logoutUrl : '${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"/api/logout"}',
+ 	 			validationUrl: '${(config.grails.plugin.springsecurity.rest.token.validation.endpointUrl)?:"/api/validate"}',
+ 	 			securityEnabled: ${(config.grails.plugin.springsecurity.active)?:false}
 		};
  		var loadSuccess = function( data ) {
 			 if(data){
-			 	  angular.extend(defaultConfig, data);   
+			 	  angular.extend(defaultConfig, data);
 			 }
 		};
 		// Load external config
@@ -61,21 +61,19 @@ angular.module('angularDemoApp', [
 		    error: function(){console.log('Error loading config.json');},
 		    async: false
 		});
-		
+
 		// Return correct config
 		var restUrl = appendSlash(defaultConfig.restUrl);
 		var config = {
 			restUrl : restUrl,
- 			loginUrl : restUrl + removeSlash(defaultConfig.loginUrl),
- 			logoutUrl : restUrl + removeSlash(defaultConfig.logoutUrl),
- 			validationUrl: restUrl + removeSlash(defaultConfig.validationUrl),
- 			securityEnabled : defaultConfig.securityEnabled,
+			loginUrl: defaultConfig.loginUrl,
+			logoutUrl: defaultConfig.logoutUrl,
+			securityEnabled: defaultConfig.securityEnabled
 		};
-		
-		
+
  	    return config;
    })())
-     
+
   .config(function (\$stateProvider, \$urlRouterProvider, \$locationProvider, cfpLoadingBarProvider, datepickerConfig, datepickerPopupConfig) {
   	// Override default config from custom config  file
   	\$stateProvider
@@ -85,28 +83,28 @@ angular.module('angularDemoApp', [
 			templateUrl: 'app/app.html',
 			controller: 'AppController',
 			resolve: {
-	          authenticated: function(\$location, \$auth, appConfig) {
-	            if (appConfig.securityEnabled && !\$auth.isAuthenticated()) {
-	              return \$location.path('/login');
-	            }
-	          }
-	        }
+				authenticated: function (\$location, appConfig, SessionService) {
+					if (appConfig.securityEnabled && !SessionService.isAuthenticated()) {
+						return \$location.path('/login');
+					}
+				}
+			}
 		});
-	\$urlRouterProvider
-      .otherwise('/app/dashboard');
-  	
+
+	\$urlRouterProvider.otherwise('/app/dashboard');
+
     cfpLoadingBarProvider.includeSpinner = true;
     cfpLoadingBarProvider.includeBar = true;
     cfpLoadingBarProvider.latencyThreshold = 150;
-    
-	
+
+
 	datepickerConfig.showWeeks = false;
 	datepickerConfig.startingDay = 1;
     datepickerPopupConfig.datepickerPopup= 'dd.MM.yyyy';
     datepickerPopupConfig.showButtonBar = false;
-    
-		
-    
+
+
+
    // \$locationProvider.html5Mode(true);
   }).config(function(\$translateProvider){
     // Register a loader for the static files
@@ -134,17 +132,7 @@ angular.module('angularDemoApp', [
         loadOnEmpty: true,
         loadOnFocus: true,
       });
-    
-  })
-  .config(function(\$authProvider, appConfig) {
-	\$authProvider.loginOnSignup = true;
-    \$authProvider.logoutRedirect = '/';
-    \$authProvider.loginUrl =  appConfig.loginUrl;
-    \$authProvider.unlinkUrl = appConfig.logoutUrl;
-    \$authProvider.loginRoute = '/login';
-    \$authProvider.tokenName =  'access_token';
-    \$authProvider.authHeader =  'Authorization';
-    
+
   })
   .value('uiJqConfig', {
     iCheck: {
@@ -153,7 +141,7 @@ angular.module('angularDemoApp', [
         increaseArea: '20%' // optional
     }
   })
-  .run(function(\$filter, validator) { 
+  .run(function(\$filter, validator) {
   		validator.setValidElementStyling(false);
 
 		Date.prototype.toJSON = function() {

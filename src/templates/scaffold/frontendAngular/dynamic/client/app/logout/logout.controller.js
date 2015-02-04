@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .controller('LogoutController', function(\$auth) {
-    if (!\$auth.isAuthenticated()) {
+  .controller('LogoutController', function(SessionService) {
+	if (!SessionService.isAuthenticated()) {
         return;
     }
-    \$auth.logout()
-      .then(function() {
-        console.log('Logged out');
-      });
+	SessionService.logout().then(function() {
+		console.log('Logged out');
+	}).catch(function (response) {
+		console.error(response);
+	});
   });

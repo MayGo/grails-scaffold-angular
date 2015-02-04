@@ -77,29 +77,3 @@ angular.module('angularDemoApp')
     };
     return service;
   });
-  
-  
-angular.module('angularDemoApp').factory('SessionService', function (\$localStorage) {
-	var service = {};
-	var _currentUser = {};
-	
-	service.afterLogin = function(userData){
-    	_currentUser = userData;
-    	// save settings to local storage
-    	\$localStorage.userData = userData;
-    };
-    
-    service.getCurrentUser = function(){
-    	if(!_.isEmpty(_currentUser)){
-    		return _currentUser;
-    	}
-    	
-    	//get from local storage
-    	if ( angular.isDefined(\$localStorage.userData) ) {
-			_currentUser = \$localStorage.userData;
-		}
-		return	_currentUser;
-    };
-    
-    return service;
-});

@@ -12,6 +12,14 @@ class InternalFrontendHelper {
 		Map config = [:]
 		String appName = Holders.grailsApplication.metadata['app.name']
 		config.restUrl = (Holders.config.grails.serverURL) ?: "http://localhost:8080/\${appName}"
+		if(Holders.config.security.casURL){
+			config.loginUrl = Holders.config.security.casURL
+		}else{
+			config.loginUrl = (Holders.config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"/api/login"
+		}
+
+		String endpointUrl = (Holders.config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"/api/logout"
+		config.logoutUrl = "\${config.restUrl}\$endpointUrl"
 
 		config.securityEnabled = (Holders.config.grails.plugin.springsecurity.active) ?: false
 		log.info "Writing json to file: \$config"

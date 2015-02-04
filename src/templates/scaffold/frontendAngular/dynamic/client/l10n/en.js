@@ -13,8 +13,9 @@
     	"settings":"Settings",
     	"docs":"Help"
     },
-    "NOTIFICATIONS" : "Notifications"
-  }
+    "NOTIFICATIONS" : "Notifications",
+	"login":"Login"
+	}
 },
 "pages":{
 	"Dashboard":{

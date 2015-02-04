@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .controller('SettingsController', function (\$scope, \$http, \$state, appConfig, \$auth, SessionService) {
+  .controller('SettingsController', function (\$scope, SessionService) {
   	\$scope.user = SessionService.getCurrentUser();
-  
   });

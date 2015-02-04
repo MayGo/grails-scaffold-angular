@@ -6,3 +6,6 @@ target/
 .settings/
 foo/
 foo2/
+.idea/
+grails-scaffold-angular-grailsPlugins.iml
+*.iml

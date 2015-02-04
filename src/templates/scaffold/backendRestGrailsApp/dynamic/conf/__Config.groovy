@@ -43,6 +43,7 @@
 			    '/index.gsp': 'nonAuthFilter',
 			    '/index': 'nonAuthFilter',
 			    '/': 'nonAuthFilter',
+		        '/userInfo/**': 'nonAuthFilter',
 			    '/restApiDoc/**': 'nonAuthFilter', //disable in production
 			    '/**/**': 'JOINED_FILTERS'
 			]
