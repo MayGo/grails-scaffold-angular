@@ -4,10 +4,8 @@ import grails.plugins.rest.client.RestBuilder
 import spock.lang.Shared
 import spock.lang.Specification
 import grails.util.Holders
-import static org.springframework.http.HttpStatus.*
 
 abstract class AbstractRestSpec extends Specification {
-
 
     @Shared
     ConfigObject config = new ConfigSlurper().parse(new File('grails-app/conf/Config.groovy').toURL())
@@ -31,8 +29,8 @@ abstract class AbstractRestSpec extends Specification {
     def sendCorrectCredentials() {
             restBuilder.post("\${baseUrl}/api/login") {
                 json {
-					username = (Holders.config.functionalTest.userName)?:"john"
-					password = (Holders.config.functionalTest.password)?:"john"
+					username = (Holders.config.functionalTest.userName)?:'john'
+					password = (Holders.config.functionalTest.password)?:'john'
 				}
             }
     }

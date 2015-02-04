@@ -1,11 +1,8 @@
 package defpackage
 
-import grails.plugins.rest.client.RestResponse
-import spock.lang.Specification
-
 class LoginSpec extends AbstractRestSpec {
 
-    void "calling /api/validate with a valid token returns a JSON representation"() {
+    void 'calling /api/validate with a valid token returns a JSON representation'() {
 
         given:
         def authResponse = sendCorrectCredentials()
@@ -21,7 +18,7 @@ class LoginSpec extends AbstractRestSpec {
         //response.json.permissions.size() > 0
     }
 
-    void "calling /api/validate with an invalid token returns 401"() {
+    void 'calling /api/validate with an invalid token returns 401'() {
         when:
         def response = restBuilder.get("\${baseUrl}/api/validate") {
             header 'Authorization', 'Bearer '+'something-else'

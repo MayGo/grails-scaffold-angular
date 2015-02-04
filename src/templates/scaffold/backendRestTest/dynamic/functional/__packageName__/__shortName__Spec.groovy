@@ -1,40 +1,29 @@
-<%=packageName ? "package ${packageName}\n" : ''%>
+<%=packageName ? "package ${packageName}" : ''%>
 
-import grails.plugins.rest.client.*
-import spock.lang.Specification
 import spock.lang.Shared
 import spock.lang.Ignore
-import static org.springframework.http.HttpStatus.*
+import org.springframework.http.HttpStatus
 import defpackage.AbstractRestSpec
 import defpackage.RestQueries
 <%
 import grails.plugin.scaffold.core.ScaffoldingHelper
 import grails.plugin.scaffold.angular.DomainHelper
 import java.text.SimpleDateFormat
-import grails.buildtestdata.handler.NullableConstraintHandler
-import grails.buildtestdata.CircularCheckList
 
 import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
 import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
 import grails.converters.JSON
 
-
 String propertyName = domainClass.propertyName;
 String shortNameLower = propertyName.toLowerCase()+"s";
-
 
 ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
 allProps = sh.getProps()
 simpleProps = allProps.findAll{p->!p.isAssociation()}
 
-
-
 // get grails domain class mapping to check if id is composite. When composite then don't render alla tests
 
 isComposite = DomainHelper.isComposite(domainClass)
-
-
-
 
 // This is included in plugins doWithSpring
 //private addAllPropertiesBuilding(){
@@ -56,9 +45,6 @@ isComposite = DomainHelper.isComposite(domainClass)
 
 //buildTestDataService = grails.util.Holders.getApplicationContext().getBean('buildTestDataService')
 
-
-
-
 private renderAll(def dClass, boolean isResp = false, int groupId){
 	
 	String resp = ""
@@ -67,8 +53,6 @@ private renderAll(def dClass, boolean isResp = false, int groupId){
 
 	println resp
 }
-
-
 
 private String createDomainInstanceJson(def dClass, boolean isResp, def inst, List alreadyCreatedClasses = []){
 	alreadyCreatedClasses << dClass.name
@@ -135,9 +119,6 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 	return respStr
 }
 %>
-
-
-
 class ${className}Spec extends AbstractRestSpec implements RestQueries{
 	
 	String REST_URL = "\${baseUrl}/${shortNameLower}"
@@ -156,9 +137,9 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 	def setupSpec() {
 		authResponse = sendCorrectCredentials()
 	}
-	
-	void "Test creating another ${className} instance."() {//This is for creating some data to test list sorting
-		when: "Create ${propertyName}"
+<% if(!isComposite){%>
+	void 'Test creating another ${className} instance.'() {//This is for creating some data to test list sorting
+		when: 'Create ${propertyName}'
 			response = sendCreateWithData(){
 <%renderAll(domainClass, false, 3)%>\
 			}
@@ -166,13 +147,13 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 			otherDomainId = response.json.id
 			<%}%>
 			
-		then: "Should create and return created values"
+		then: 'Should create and return created values'
 <%renderAll(domainClass, true, 3)%>\
-			response.status == CREATED.value()
+			response.status == HttpStatus.CREATED.value()
 	}
 
-	void "Test creating ${className} instance."() {
-		when: "Create ${propertyName}"
+	void 'Test creating ${className} instance.'() {
+		when: 'Create ${propertyName}'
 			response = sendCreateWithData(){
 <%renderAll(domainClass, false, 1)%>\
 			}
@@ -180,104 +161,104 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 			domainId = response.json.id
 			<%}%>
 			
-		then: "Should create and return created values"
+		then: 'Should create and return created values'
 			
 <%renderAll(domainClass, true, 1)%>\
-			response.status == CREATED.value()
+			response.status == HttpStatus.CREATED.value()
 	}
 	
 	
 			
 		
-<% if(!isComposite){%>
-	void "Test reading ${className} instance."() {
-		when: "Read ${propertyName}"
+
+	void 'Test reading ${className} instance.'() {
+		when: 'Read ${propertyName}'
 			response = readDomainItemWithParams(domainId.toString(), "")
-		then: "Should return correct values"
+		then: 'Should return correct values'
 			
 <%renderAll(domainClass, true, 1)%>\
-			response.status == OK.value()
+			response.status == HttpStatus.OK.value()
 	}
 	
 	
-	void "Test excluding fields from reading ${className} instance."() {
-		when: "Read ${propertyName} id excluded"
-			response = readDomainItemWithParams(domainId.toString(), "excludes=id")
-		then: "Should not return id"
+	void 'Test excluding fields from reading ${className} instance.'() {
+		when: 'Read ${propertyName} id excluded'
+			response = readDomainItemWithParams(domainId.toString(), 'excludes=id')
+		then: 'Should not return id'
 			response.json.id == null
-			response.status == OK.value()
+			response.status == HttpStatus.OK.value()
 	}
 	
 	
-	void "Test including fields from reading ${className} instance."() {
-		when: "Read ${propertyName} id excluded and then included"
-			response = readDomainItemWithParams(domainId.toString(), "excludes=id&includes=id")
-		then: "Should return id"
+	void 'Test including fields from reading ${className} instance.'() {
+		when: 'Read ${propertyName} id excluded and then included'
+			response = readDomainItemWithParams(domainId.toString(), 'excludes=id&includes=id')
+		then: 'Should return id'
 			response.json.id != null
-			response.status == OK.value()
+			response.status == HttpStatus.OK.value()
 	}
 	
 	
-	void "Test reading unexisting ${className} instance."() {
-		when:"Find unexisting ${propertyName}"
-			response = readDomainItemWithParams("9999999999", "")
-		then:"Should not find"
-			response.status == NOT_FOUND.value()
-		when:"Find unexisting ${propertyName} id not a number"
-			response = readDomainItemWithParams("nonexistent", "")
-		then:"Should not find"
-			response.status == NOT_FOUND.value()
+	void 'Test reading unexisting ${className} instance.'() {
+		when: 'Find unexisting ${propertyName}'
+			response = readDomainItemWithParams('9999999999', '')
+		then: 'Should not find'
+			response.status == HttpStatus.NOT_FOUND.value()
+		when: 'Find unexisting ${propertyName} id not a number'
+			response = readDomainItemWithParams('nonexistent', '')
+		then: 'Should not find'
+			response.status == HttpStatus.NOT_FOUND.value()
 	}
 
 	
-	void "Test updating ${className} instance."() {
-		when: "Update ${propertyName}"
+	void 'Test updating ${className} instance.'() {
+		when: 'Update ${propertyName}'
 			response = sendUpdateWithData(domainId.toString()){
 <%renderAll(domainClass, false, 2)%>
 			}
-		then: "Should return updated values"
+		then: 'Should return updated values'
 <%renderAll(domainClass, true, 2)%>
-			response.status == OK.value()
+			response.status == HttpStatus.OK.value()
 	}
 
-	void "Test updating unexisting ${className} instance."() {
-		when: "Update unexisting ${propertyName}"
-			response = sendUpdateWithData("9999999999"){
+	void 'Test updating unexisting ${className} instance.'() {
+		when: 'Update unexisting ${propertyName}'
+			response = sendUpdateWithData('9999999999'){
 	<%renderAll(domainClass, false, 2)%>
 			}
-		then:"Should not find"
-			response.status == NOT_FOUND.value()
+		then: 'Should not find'
+			response.status == HttpStatus.NOT_FOUND.value()
 			
-		when: "Update unexisting ${propertyName} id not a number"
-			response = sendUpdateWithData("nonexistent"){
+		when: 'Update unexisting ${propertyName} id not a number'
+			response = sendUpdateWithData('nonexistent'){
 	<%renderAll(domainClass, false, 2)%>
 			}
-		then:"Should not find"
-			response.status == NOT_FOUND.value()
+		then: 'Should not find'
+			response.status == HttpStatus.NOT_FOUND.value()
 	}
 	
-	void "Test ${className} list sorting."() {
-		when:"Get ${propertyName} sorted list DESC"
-			response = queryListWithParams("order=desc&sort=id")
+	void 'Test ${className} list sorting.'() {
+		when: 'Get ${propertyName} sorted list DESC'
+			response = queryListWithParams('order=desc&sort=id')
 
-		then:"First item should be just inserted object"
+		then: 'First item should be just inserted object'
 			response.json[0].id == domainId
-			response.status == OK.value()
+			response.status == HttpStatus.OK.value()
 		
-		when:"Get ${propertyName} sorted list ASC"
-			response = queryListWithParams("order=asc&sort=id")
+		when: 'Get ${propertyName} sorted list ASC'
+			response = queryListWithParams('order=asc&sort=id')
 
-		then:"First item should not be just inserted object"
+		then: 'First item should not be just inserted object'
 			response.json[0].id != domainId
-			response.status == OK.value()
+			response.status == HttpStatus.OK.value()
 	}
 	
 	
-	void "Test ${className} list max property query 2 items."() {
-		when:"Get ${propertyName} list with max 2 items"
-			response = queryListWithParams("max=2")
+	void 'Test ${className} list max property query 2 items.'() {
+		when: 'Get ${propertyName} list with max 2 items'
+			response = queryListWithParams('max=2')
 
-		then:"Should be only 2 items"
+		then: 'Should be only 2 items'
 			response.json.size() == 2
 	}
 	
@@ -285,61 +266,61 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 	<%
 	domainClasses.first().getClazz().withTransaction{
 	if(domainClasses.first().getClazz().count()<= 100){%>@Ignore<%}}%> // have to have more then maxLimit items
-	void "Test ${className} list max property."() {
+	void 'Test ${className} list max property.'() {
 		given:
 			int maxLimit = 100// Set real max items limit
 			
-		when:"Get ${propertyName} list without max param"
-			response = queryListWithParams("")
+		when: 'Get ${propertyName} list without max param'
+			response = queryListWithParams('')
 
-		then:"Should return default maximum items"
+		then: 'Should return default maximum items'
 			response.json.size() == 10
 			
-		when:"Get ${propertyName} list with maximum items"
+		when: 'Get ${propertyName} list with maximum items'
 			response = queryListWithParams("max=\$maxLimit")
 
-		then:"Should contains maximum items"
+		then: 'Should contains maximum items'
 			response.json.size() == maxLimit
 			
-		when:"Get ${propertyName} list with maximum + 1 items"
+		when: 'Get ${propertyName} list with maximum + 1 items'
 			response = queryListWithParams("max=\${maxLimit+1}")
 
-		then:"Should contains maximum items"
+		then: 'Should contains maximum items'
 			response.json.size() == maxLimit
 	}
 	
 	
-	void "Test excluding fields in ${className} list."() {
-		when:"Get ${propertyName} sorted list"
-			response = queryListWithParams("excludes=id")
+	void 'Test excluding fields in ${className} list.'() {
+		when: 'Get ${propertyName} sorted list'
+			response = queryListWithParams('excludes=id')
 
-		then:"First item should be just inserted object"
+		then: 'First item should be just inserted object'
 			response.json[0].id == null
 	}
 	
 	
-	void "Test including fields in ${className} list."() {
-		when:"Get ${propertyName} sorted list"
-			response = queryListWithParams("excludes=id&includes=id")
+	void 'Test including fields in ${className} list.'() {
+		when: 'Get ${propertyName} sorted list'
+			response = queryListWithParams('excludes=id&includes=id')
 
-		then:"First item should be just inserted object"
+		then: 'First item should be just inserted object'
 			response.json[0].id != null
 	}
 	
-	void "Test filtering in ${className} list by id."() {
-		when:"Get ${propertyName} list filtered by id"
+	void 'Test filtering in ${className} list by id.'() {
+		when: 'Get ${propertyName} list filtered by id'
 
-			response = queryListWithUrlVariables("filter={filter}", [filter:"{id:\${domainId}}"])
+			response = queryListWithUrlVariables('filter={filter}', [filter:"{id:\${domainId}}"])
 
-		then:"Should contains one item, just inserted item."
+		then: 'Should contains one item, just inserted item.'
 			response.json[0].id == domainId
 			response.json.size() == 1
-			response.status == OK.value()
+			response.status == HttpStatus.OK.value()
 	}
 	
-	void "Test filtering in ${className} list by all properties."() {
+	void 'Test filtering in ${className} list by all properties.'() {
 		given:
-			response = queryListWithUrlVariables("filter={filter}", [filter:"\${jsonVal}"])
+			response = queryListWithUrlVariables('filter={filter}', [filter:"\${jsonVal}"])
 			<%
 			def instBefore = DomainHelper.createOrGetInst(domainClass, 1)//comparing instBefore and inst variables decides if test results 1 or 10 items in output
 			def inst = DomainHelper.createOrGetInst(domainClass, 2)
@@ -349,7 +330,7 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 			response.json.size() == respSize
 		where:
 			jsonVal 	        || respSize
-			"{}"                || 10
+			'{}'                || 10
 	<%simpleProps.each{p->
 		def hasChanged = !(instBefore."${p.name}" == inst."${p.name}")
 		if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
@@ -372,7 +353,7 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 		when: "Delete ${propertyName}"
 			response = deleteDomainItem(otherDomainId.toString())
 		then:
-			response.status == NO_CONTENT.value()
+			response.status == HttpStatus.NO_CONTENT.value()
 	}
 	
 	
@@ -380,7 +361,7 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 		when: "Delete ${propertyName}"
 			response = deleteDomainItem(domainId.toString())
 		then:
-			response.status == NO_CONTENT.value()
+			response.status == HttpStatus.NO_CONTENT.value()
 	}
 <% }%>
 }
