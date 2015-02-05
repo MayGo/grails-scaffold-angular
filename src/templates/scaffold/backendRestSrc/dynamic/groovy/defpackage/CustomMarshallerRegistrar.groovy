@@ -86,7 +86,8 @@ class CustomMarshallerRegistrar {
 
 	@javax.annotation.PostConstruct
     static void registerMarshallers() {
-<%
+		int priority = 10
+		<%
 	import grails.plugin.scaffold.core.ScaffoldingHelper
 	for(d in domainClasses){
 		excludeProps = d.properties.findAll{p->p.oneToMany || p.manyToMany}*.getName()
@@ -97,7 +98,7 @@ class CustomMarshallerRegistrar {
 			}.join(", ")
 		}
 		%>
-		JSON.registerObjectMarshaller ${d.name}, { ${d.name} instance, JSON json ->
+		JSON.registerObjectMarshaller ${d.name}, priority, { ${d.name} instance, JSON json ->
 <%
 		List defaultExcludes = []
 		for(domainProperty in d.persistentProperties){

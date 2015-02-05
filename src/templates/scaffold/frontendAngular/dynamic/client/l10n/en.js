@@ -14,7 +14,9 @@
     	"docs":"Help"
     },
     "NOTIFICATIONS" : "Notifications",
-	"login":"Login"
+	"login":"Login",
+	"login-again":"Login again",
+	"logout-cas":"Logout from CAS"
 	}
 },
 "pages":{

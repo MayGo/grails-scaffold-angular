@@ -3,11 +3,13 @@
 import spock.lang.Shared
 import spock.lang.Ignore
 import org.springframework.http.HttpStatus
-import defpackage.AbstractRestSpec
 import defpackage.RestQueries
+import spock.lang.Specification
 <%
 import grails.plugin.scaffold.core.ScaffoldingHelper
 import grails.plugin.scaffold.angular.DomainHelper
+
+
 import java.text.SimpleDateFormat
 
 import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
@@ -119,9 +121,10 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 	return respStr
 }
 %>
-class ${className}Spec extends AbstractRestSpec implements RestQueries{
+class ${className}Spec extends Specification implements RestQueries{
+
 	
-	String REST_URL = "\${baseUrl}/${shortNameLower}"
+	String REST_URL = "\${APP_URL}/${shortNameLower}"
 	
 	@Shared
 	Long domainId
@@ -135,7 +138,7 @@ class ${className}Spec extends AbstractRestSpec implements RestQueries{
 	def response
 	
 	def setupSpec() {
-		authResponse = sendCorrectCredentials()
+		authResponse = sendCorrectCredentials(APP_URL)
 	}
 <% if(!isComposite){%>
 	void 'Test creating another ${className} instance.'() {//This is for creating some data to test list sorting
