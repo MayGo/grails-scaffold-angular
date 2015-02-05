@@ -20,7 +20,7 @@ angular.module('angularDemoApp', [
   'FBAngular',
   'ngTagsInput',
   'satellizer',
-  'mgcrea.ngStrap',
+  //'mgcrea.ngStrap',
   'ngToggle'
 ])
 	.constant('appConfig', (function() {
@@ -130,11 +130,34 @@ angular.module('angularDemoApp', [
         highlightMatchedText: true,
         loadOnDownArrow: true,
         loadOnEmpty: true,
-        loadOnFocus: true,
+        loadOnFocus: true
       });
-
   })
-  .value('uiJqConfig', {
+	.factory('AuthHttpInterceptor', function (\$q, \$injector, \$rootScope) {
+
+		function interceptor(rejection) {
+			try {
+				if(rejection.status === 401){
+					\$rootScope.\$emit('show-relogin-modal');
+				}
+			} catch(ex) {
+				console.log('\$httpProvider', ex);
+			}
+
+			return rejection;
+		}
+
+		return {
+			requestError: interceptor,
+			responseError: interceptor
+		};
+
+	})
+	.config(function (\$httpProvider) {
+		\$httpProvider.interceptors.push('AuthHttpInterceptor');
+	})
+
+	.value('uiJqConfig', {
     iCheck: {
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',

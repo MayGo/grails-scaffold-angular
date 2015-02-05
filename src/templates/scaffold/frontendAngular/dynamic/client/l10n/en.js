@@ -14,10 +14,8 @@
     	"docs":"Help"
     },
     "NOTIFICATIONS" : "Notifications",
-	"login":"Login",
-	"login-again":"Login again",
-	"logout-cas":"Logout from CAS"
-	}
+	"logout":"Logout"
+  }
 },
 "pages":{
 	"Dashboard":{
@@ -33,6 +31,17 @@
 			}
 		}
 	},
+	"session":{
+		"logout":{
+			"login-again":"Login again",
+			"logout-cas":"Logout from CAS",
+			"relogin":"Not authorized to view page",
+			"logging-out": "Logging out ...",
+			"logged-out": "Logged out",
+			"already-logged-out": "Already logged out"
+		}
+	},
+
 	"settings":{
 		"view":{
 			"title":"Settings",

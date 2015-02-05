@@ -10,16 +10,38 @@ angular.module('angularDemoApp').provider('SessionService', function (\$authProv
     \$authProvider.tokenName =  'access_token';
     \$authProvider.authHeader =  'Authorization';
 
-	this.\$get = function (\$localStorage, \$auth, \$q, appConfig, \$http) {
+	this.\$get = function (\$localStorage, \$auth, \$q, appConfig, \$http, \$rootScope, \$modal) {
 		var service = {};
 		var _currentUser = {};
+
+		var _loginModal = null;
+
+		\$rootScope.\$on('show-relogin-modal', function (event) {
+			if(!_loginModal){
+				showTheModal();
+			}
+		});
+
+		function showTheModal() {
+			_loginModal = \$modal.open({
+				templateUrl: 'app/login/login.html',
+				controller: 'LoginController'
+			})
+			_loginModal.result.finally(function() {
+				_loginModal = null;
+			});
+		}
 
 		service.login = function (username, password) {
 		  var deferred = \$q.defer();
 
 		  \$auth.login({ username: username, password: password }).then(function (response) {
 			console.log("Logged in.");
-			service.afterLogin(response.data);
+			// save settings to local storage
+			\$localStorage.userData = _currentUser = response.data;
+			if(_loginModal){
+				_loginModal.close();
+			}
 			deferred.resolve(response.data);
 		  }).catch(function (response) {
 			console.log("Error when login.");
@@ -27,12 +49,6 @@ angular.module('angularDemoApp').provider('SessionService', function (\$authProv
 		  });
 
 		  return deferred.promise;
-		};
-
-		service.afterLogin = function (userData) {
-		  _currentUser = userData;
-		  // save settings to local storage
-			\$localStorage.userData = userData;
 		};
 
 		service.logout = function () {
