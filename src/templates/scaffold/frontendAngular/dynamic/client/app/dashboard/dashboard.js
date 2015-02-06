@@ -7,11 +7,11 @@ angular.module('angularDemoApp')
         url: '/dashboard',
         templateUrl: 'app/dashboard/dashboard.html',
         controller: 'DashboardController',
-		/*data: {
+		data: {
 			permissions: {
-				only: ['ROLE_VAATLEJA']
+				only: ['ROLE_ADMIN']
 			}
-		},*/
+		},
 		resolve:{
 			lastInsertedList: function(\$http, appConfig){
 				return \$http.get(appConfig.restUrl + 'statistics/lastInserted').then(function(response) {

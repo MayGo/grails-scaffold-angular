@@ -16,7 +16,6 @@ angular.module('angularDemoApp', [
   'ui.bootstrap.typeahead',
   'inform',
   'inform-exception',
-  'inform-http-exception',
   'FBAngular',
   'ngTagsInput',
   'satellizer',
@@ -138,20 +137,22 @@ angular.module('angularDemoApp', [
 
 		function interceptor(rejection) {
 			try {
-				console.log(rejection.status)
 				if(rejection.status === 401){
 					\$rootScope.\$emit('show-relogin-modal');
 				}else if(rejection.status === 403){
 					\$translate('pages.session.messages.forbidden').then(function (msg) {
-						inform.add(msg, {'type': 'danger', ttl: 0});
+						inform.add(msg  , {'type': 'danger', ttl: 0});
 					});
+				}else{
+					var msg = 'Network error (' + rejection.status + '): ' + rejection.statusText;
+					inform.add(msg, { type: 'danger', ttl: 0});
 				}
 
 			} catch(ex) {
 				console.log('\$httpProvider', ex);
 			}
 
-			return rejection;
+			return \$q.reject( rejection );
 		}
 
 		return {
@@ -179,13 +180,11 @@ angular.module('angularDemoApp', [
 	    	return \$filter('date')(this, grailsAcceptableFormat);
 	    };
   }).run(function (\$rootScope, \$state) {
-		\$rootScope.\$on('\$stateChangeError', function (e, to, toParams, from, fromParams, error) {
-		console.log("State Change Error")
-
-		//event.preventDefault();
-		//\$state.get('error').error = { code: 123, description: 'Exception stack trace' }
-		return \$state.go('app.error');
-
+		\$rootScope.\$on('\$stateChangeError', function (e, toPage, toParams, from, fromParams, error) {
+			console.log("State Change Error");
+			stateParams.messageCode = 'pages.session.messages.state-change-error';
+			stateParams.url = toPage.url;
+			\$state.go('app.error', stateParams, {location: false});
 		});
 
 	\$rootScope.\$on('\$stateChangePermissionDenied', function (e, toPage) {
@@ -194,21 +193,15 @@ angular.module('angularDemoApp', [
 		var stateParams = { };
 		stateParams.messageCode = 'pages.session.messages.permission-denied';
 		stateParams.url = toPage.url;
-		\$state.go('app.error', stateParams);
+		\$state.go('app.error', stateParams, {location: false});
 	});
 
 	}).run(function (Permission, SessionService, \$q) {
 		Permission
-			// Define user role calling back-end
-			.defineRole('ROLE_VAATLEJA', function (stateParams) {
-				// This time we will return a promise
-				// If the promise *resolves* then the user has the role, if it *rejects* (you guessed it)
-
-				// Let's assume this returns a promise that resolves or rejects if session is active
-				return false;
+			.defineRole('ROLE_USER', function (stateParams) {
+				return SessionService.hasRole('ROLE_USER');
 			})
-			// A different example for admin
 			.defineRole('ROLE_ADMIN', function (stateParams) {
-				return true
+				return SessionService.hasRole('ROLE_ADMIN');
 			});
 	});

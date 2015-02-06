@@ -31,6 +31,9 @@
 			}
 		}
 	},
+	"error":{
+		"title": "Error Page"
+	},
 	"session":{
 		"messages":{
 			"default": "There was error loading page",
@@ -39,7 +42,8 @@
 			"forbidden":"Forbidden to view page",
 			"logging-out": "Logging out ...",
 			"logged-out": "Logged out",
-			"already-logged-out": "Already logged out"
+			"already-logged-out": "Already logged out",
+			"state-change-error": "State change error"
 		},
 		"logout":{
 			"login-again":"Login again",

@@ -70,6 +70,14 @@ angular.module('angularDemoApp').provider('SessionService', function (\$authProv
 		  return _currentUser;
 		};
 
+		service.hasRole = function (role) {
+			if (_.isEmpty(_currentUser) || _.isEmpty(_currentUser.permissions) ) {
+				return false;
+			}
+
+			return _.indexOf(_currentUser.permissions, role) !== -1;
+		};
+
 		service.isAuthenticated = function () {
 		  return !_.isEmpty(service.getCurrentUser())
 		};
