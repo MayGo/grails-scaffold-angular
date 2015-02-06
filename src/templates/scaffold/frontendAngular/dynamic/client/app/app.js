@@ -21,7 +21,8 @@ angular.module('angularDemoApp', [
   'ngTagsInput',
   'satellizer',
   //'mgcrea.ngStrap',
-  'ngToggle'
+  'ngToggle',
+  'permission'
 ])
 	.constant('appConfig', (function() {
 
@@ -133,13 +134,19 @@ angular.module('angularDemoApp', [
         loadOnFocus: true
       });
   })
-	.factory('AuthHttpInterceptor', function (\$q, \$injector, \$rootScope) {
+	.factory('AuthHttpInterceptor', function (\$q, \$injector, \$rootScope, \$translate, inform) {
 
 		function interceptor(rejection) {
 			try {
+				console.log(rejection.status)
 				if(rejection.status === 401){
 					\$rootScope.\$emit('show-relogin-modal');
+				}else if(rejection.status === 403){
+					\$translate('pages.session.messages.forbidden').then(function (msg) {
+						inform.add(msg, {'type': 'danger', ttl: 0});
+					});
 				}
+
 			} catch(ex) {
 				console.log('\$httpProvider', ex);
 			}
@@ -171,4 +178,37 @@ angular.module('angularDemoApp', [
 	    	var grailsAcceptableFormat = 'yyyy-MM-dd HH:mm:ss.sssZ';
 	    	return \$filter('date')(this, grailsAcceptableFormat);
 	    };
-  });
+  }).run(function (\$rootScope, \$state) {
+		\$rootScope.\$on('\$stateChangeError', function (e, to, toParams, from, fromParams, error) {
+		console.log("State Change Error")
+
+		//event.preventDefault();
+		//\$state.get('error').error = { code: 123, description: 'Exception stack trace' }
+		return \$state.go('app.error');
+
+		});
+
+	\$rootScope.\$on('\$stateChangePermissionDenied', function (e, toPage) {
+		console.log("State Change Permission Denied");
+
+		var stateParams = { };
+		stateParams.messageCode = 'pages.session.messages.permission-denied';
+		stateParams.url = toPage.url;
+		\$state.go('app.error', stateParams);
+	});
+
+	}).run(function (Permission, SessionService, \$q) {
+		Permission
+			// Define user role calling back-end
+			.defineRole('ROLE_VAATLEJA', function (stateParams) {
+				// This time we will return a promise
+				// If the promise *resolves* then the user has the role, if it *rejects* (you guessed it)
+
+				// Let's assume this returns a promise that resolves or rejects if session is active
+				return false;
+			})
+			// A different example for admin
+			.defineRole('ROLE_ADMIN', function (stateParams) {
+				return true
+			});
+	});

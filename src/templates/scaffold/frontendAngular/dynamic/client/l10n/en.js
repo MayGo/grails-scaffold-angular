@@ -32,13 +32,18 @@
 		}
 	},
 	"session":{
-		"logout":{
-			"login-again":"Login again",
-			"logout-cas":"Logout from CAS",
+		"messages":{
+			"default": "There was error loading page",
+			"permission-denied": "You don't have permissions to view page: ",
 			"relogin":"Not authorized to view page",
+			"forbidden":"Forbidden to view page",
 			"logging-out": "Logging out ...",
 			"logged-out": "Logged out",
 			"already-logged-out": "Already logged out"
+		},
+		"logout":{
+			"login-again":"Login again",
+			"logout-cas":"Logout from CAS"
 		}
 	},
 
