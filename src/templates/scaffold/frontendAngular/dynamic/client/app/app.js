@@ -91,7 +91,7 @@ angular.module('angularDemoApp', [
 			}
 		});
 
-	\$urlRouterProvider.otherwise('/app/dashboard');
+	\$urlRouterProvider.otherwise('/app/settings');
 
     cfpLoadingBarProvider.includeSpinner = true;
     cfpLoadingBarProvider.includeBar = true;

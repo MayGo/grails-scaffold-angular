@@ -1,2 +1,4 @@
 #!/bin/bash
-grailsw create-app foo22
+
+./grailsw create-app fooapp
+cp grails-scaffold-angular/config fooapp/config
