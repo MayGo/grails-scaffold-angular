@@ -63,7 +63,7 @@ angular.module('angularDemoApp', [
 		});
 
 		// Return correct config
-		var restUrl = appendSlash(defaultConfig.restUrl);
+		var restUrl = removeSlash(defaultConfig.restUrl);
 		var config = {
 			restUrl : restUrl,
 			loginUrl: defaultConfig.loginUrl,
