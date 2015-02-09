@@ -74,7 +74,7 @@
 }
 
 .pagination{
-	margin: 0 !important;	
+	margin: 0 !important;
 }
 
 
@@ -99,7 +99,8 @@
 /**
 * Main template overrides
 */
-.panel-body {
+
+.panel-body-with-table {
 	overflow-x: auto;
 }
 
