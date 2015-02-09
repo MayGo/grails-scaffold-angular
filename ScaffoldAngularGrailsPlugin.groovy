@@ -33,14 +33,6 @@ Grails plugin for generating working demo with Angular frontend and REST backend
 		ConfigUtility.mergeDefaultConfig(application, 'ScaffoldAngularDefaultConfig')
 		angularTemplatesLocator(grails.plugin.scaffold.core.DefaultTemplatesLocator, "scaffold-angular")
 		
-		DomainInstanceBuilder.metaClass.findRequiredPropertyNames = {domainArtefact->
-			def constrainedProperties = domainArtefact.constrainedProperties
-			def propNames = domainArtefact.persistentProperties.findAll{p->!p.isAssociation()}*.name
-			
-			def allPropertyNames = constrainedProperties.keySet()
-			return allPropertyNames.findAll { propName ->
-	            propNames.contains(propName) ||  !constrainedProperties."$propName".isNullable()
-	        }
-		}
+
 	}
 }
