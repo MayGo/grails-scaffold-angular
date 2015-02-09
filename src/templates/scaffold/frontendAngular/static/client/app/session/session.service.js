@@ -1,29 +1,29 @@
 'use strict';
 
-angular.module('angularDemoApp').provider('SessionService', function (\$authProvider, appConfig) {
+angular.module('angularDemoApp').provider('SessionService', function ($authProvider, appConfig) {
 
-	\$authProvider.loginOnSignup = true;
-    \$authProvider.logoutRedirect = '/';
-    \$authProvider.loginUrl =  appConfig.loginUrl;
-    \$authProvider.unlinkUrl = appConfig.logoutUrl;
-    \$authProvider.loginRoute = '/login';
-    \$authProvider.tokenName =  'access_token';
-    \$authProvider.authHeader =  'Authorization';
+	$authProvider.loginOnSignup = true;
+    $authProvider.logoutRedirect = '/';
+    $authProvider.loginUrl =  appConfig.loginUrl;
+    $authProvider.unlinkUrl = appConfig.logoutUrl;
+    $authProvider.loginRoute = '/login';
+    $authProvider.tokenName =  'access_token';
+    $authProvider.authHeader =  'Authorization';
 
-	this.\$get = function (\$localStorage, \$auth, \$q, appConfig, \$http, \$rootScope, \$modal) {
+	this.$get = function ($localStorage, $auth, $q, appConfig, $http, $rootScope, $modal) {
 		var service = {};
 		var _currentUser = {};
 
 		var _loginModal = null;
 
-		\$rootScope.\$on('show-relogin-modal', function (event) {
+		$rootScope.$on('show-relogin-modal', function (event) {
 			if(!_loginModal){
 				showTheModal();
 			}
 		});
 
 		function showTheModal() {
-			_loginModal = \$modal.open({
+			_loginModal = $modal.open({
 				templateUrl: 'app/login/login.html',
 				controller: 'LoginController'
 			})
@@ -33,12 +33,12 @@ angular.module('angularDemoApp').provider('SessionService', function (\$authProv
 		}
 
 		service.login = function (username, password) {
-		  var deferred = \$q.defer();
+		  var deferred = $q.defer();
 
-		  \$auth.login({ username: username, password: password }).then(function (response) {
+		  $auth.login({ username: username, password: password }).then(function (response) {
 			console.log("Logged in.");
 			// save settings to local storage
-			\$localStorage.userData = _currentUser = response.data;
+			$localStorage.userData = _currentUser = response.data;
 			if(_loginModal){
 				_loginModal.close();
 			}
@@ -52,9 +52,9 @@ angular.module('angularDemoApp').provider('SessionService', function (\$authProv
 		};
 
 		service.logout = function () {
-		  delete \$localStorage.userData;
+		  delete $localStorage.userData;
 		  _currentUser = {};
-		  return \$auth.logout();
+		  return $auth.logout();
 		};
 
 		service.getCurrentUser = function () {
@@ -63,8 +63,8 @@ angular.module('angularDemoApp').provider('SessionService', function (\$authProv
 		  }
 
 		  //get from local storage
-		  if (angular.isDefined(\$localStorage.userData)) {
-			_currentUser = \$localStorage.userData;
+		  if (angular.isDefined($localStorage.userData)) {
+			_currentUser = $localStorage.userData;
 		  }
 
 		  return _currentUser;
