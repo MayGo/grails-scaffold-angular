@@ -45,7 +45,7 @@ trait RestQueries {
 		String ticketValue = loginToCas(serviceUrl, username, password)
 		LinkedMultiValueMap<String, String> form = new LinkedMultiValueMap<String, String>()
 		form.add("ticket", ticketValue)
-		return restBuilder.post("\${APP_URL}/userInfo") {
+		return restBuilder.post("\${APP_URL}/login") {
 			json {
 				ticket = ticketValue
 			}
