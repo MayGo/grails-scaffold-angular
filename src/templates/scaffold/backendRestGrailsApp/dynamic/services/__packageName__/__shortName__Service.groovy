@@ -1,126 +1,155 @@
 <%= packageName ? "package ${packageName}" : '' %>
+<%
+import grails.plugin.scaffold.core.ScaffoldingHelper
+ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
+allProps = sh.getProps()
+props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}
 
-import grails.transaction.Transactional
-import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
+
+private void printSearchCriteria(){
+	Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(domainClass, config)
+	if(!useDisplaynames) useDisplaynames = ["id":null]
+	println "\t\t\tif (searchString){"
+	useDisplaynames.each{key, value->
+		def property = allProps.find{it.name == key}
+		String str = ""
+		if(property) {
+			if (property.type == String) {
+				str += "ilike('$property.name', searchString + '%')"
+			} else if (property.type == Integer) {
+				str += "eq('$property.name', searchString.toInteger())"
+			} else if (property.type == Long) {
+				str += "eq('$property.name', searchString.toLong())"
+			} else if (property.type == Double) {
+				str += "eq('$property.name', searchString.toDouble())"
+			}else if (property.type == Float) {
+				str += "eq('$property.name', searchString.toFloat())"
+			} else if (property.manyToOne || property.oneToOne) {
+				str += "eq('${property.name}.id', searchString.toFloat())"
+			} else {
+				str += "// no type defined for $key "
+			}
+
+		} else if(key == "id"){
+			str += "eq('id', searchString.toLong())"
+		}else{
+			str += "// no property $key found"
+		}
+		println "\t\t\t\t" + str
+	}
+	println "\t\t\t}"
+}
+%>
+import grails.compiler.GrailsCompileStatic
 import grails.converters.JSON
+import grails.orm.HibernateCriteriaBuilder
+import grails.orm.PagedResultList
+import grails.transaction.Transactional
+import org.codehaus.groovy.grails.web.json.JSONElement
+import org.codehaus.groovy.grails.web.json.JSONObject
 
+@GrailsCompileStatic
 @Transactional
 class ${className}Service {
 
-	List parseParamsAndRetrieveListAndCount(Map param) {
+	PagedResultList search(Map params){
 
-		//Search relation queries e.g: user.id=1
-		Map relations = param.findAll { k, v ->
-			k.endsWith('.id')
-		}
-
-		def searchString = param.query
-
-		def persistentProperties = new DefaultGrailsDomainClass(${className}).persistentProperties
-
-		def persistentPropertiesMap = [:] as HashMap
-		persistentProperties.each {
-			persistentPropertiesMap.put(it.name, it)
-		}
-		def results = ${className}.createCriteria().list(
-				offset: param.offset,
-				max: param.max,
-				order: param.order,
-				sort: param.sort) {
-
-			//make relation query
-			relations.each { k, v ->
-				eq(k, v.toLong())
-			}
-
-			//Filters
-			if (param.filter) {
-				param.filter = JSON.parse(param.filter)
-			}
-
-			param.filter.each { k, v ->
-				def property = persistentPropertiesMap[k]
-				def value = v
-
-				//Search for relation
-				if (k.endsWith('.id') || k == 'id') {
-					eq(k, value.toLong())
-				} else if (property && value != null && value != '') {
-					log.info "Searching \$property => \$value"
-					if (property.type == String) {
-						ilike("\$property.name", value + '%')
-					} else if (property.type == Integer) {
-						eq("\$property.name", value.toInteger())
-					} else if (property.type == Long) {
-						eq("\$property.name", value.toLong())
-					} else if (property.type == Double) {
-						eq("\$property.name", value.toDouble())
-					} else if (property.type == Float) {
-						eq("\$property.name", value.toFloat())
-					} else if (property.type == Boolean || property.type == boolean) {
-						eq("\$property.name", value.toBoolean())
-					} else if (property.manyToOne || property.oneToOne) {
-						if (value instanceof String[]) {
-							//eg: user
-							'in'("\${property.name}.id", value*.toLong())
-						} else if (value instanceof List) {
-							//eg: user
-							'in'("\${property.name}.id", value*.toLong())
-						} else if (value.toString().isNumber()) {
-							eq("\${property.name}.id", value.toString().toLong())
-						}
-					} else if (property.oneToMany || property.manyToMany) {
-						// eg: roles
-						"\${property.name}" {
-							if (value instanceof String[]) {
-								'in'('id', value*.toLong())
-							} else if (value instanceof List) {
-								'in'('id', value*.toLong())
-							} else if (value.toString().isNumber()) {
-								eq('id', value.toString().toLong())
-							}
-						}
-					}
-				}
-			}
-
-			//Search from all String and Numeric fields
-			if (searchString) {
-				List intNumbers = searchString.findAll(/\\d+/)
-				List floatNumbers = searchString.findAll(/-?\\d+\\.\\d*|-?\\d*\\.\\d+|-?\\d+/)
-				or {
-					persistentProperties.each { property ->
-						if (property.type == String) {
-							ilike("\$property.name", searchString + '%')
-						} else if (property.type == Integer) {
-							intNumbers*.toInteger().each {
-								eq("\$property.name", it)
-							}
-						} else if (property.type == Long) {
-							intNumbers*.toLong().each {
-								eq("\$property.name", it)
-							}
-
-						} else if (property.type == Double) {
-							floatNumbers*.toDouble().each {
-								eq("\$property.name", it)
-							}
-
-						} else if (property.type == Float) {
-							floatNumbers*.toFloat().each {
-								eq("\$property.name", it)
-							}
-
-						} else if (property.manyToOne || property.oneToOne) {
-							intNumbers*.toLong().each {
-								eq("\${property.name}.id", it)
-							}
-						}
-						intNumbers*.toLong().each { eq('id', it) }
-					}
-				}
-			}
+		HibernateCriteriaBuilder criteriaBuilder = (HibernateCriteriaBuilder)${domainClass.name}.createCriteria()
+		PagedResultList results = (PagedResultList)criteriaBuilder.list(
+				offset: params.offset,
+				max: params.max,
+				order: params.order,
+				sort: params.sort
+		){
+			searchCriteria criteriaBuilder, params
 		}
 		return results
+	}
+
+	private void searchCriteria(HibernateCriteriaBuilder builder, Map params){
+		String searchString = params.searchString
+		JSONElement filter = params.filter ? JSON.parse(params.filter.toString()) :new JSONObject()
+
+		builder.with {
+		<%
+			println "\tif (filter['id']) eq('id', filter['id'].toString().toLong())"
+			//lets find property to be used in searchString
+			printSearchCriteria()
+
+			props.each { p ->
+			boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
+			boolean required = false
+			if (hasHibernate) {
+				cp = domainClass.constrainedProperties[p.name] ?: [:]
+				required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
+				display = (cp ? cp.display : true)
+			}
+			// Find if property is actually joinTable property. e.g. UserRole
+			def joinProperty
+			if(p.referencedDomainClass)  {
+				def persistentProperties = p.referencedDomainClass.persistentProperties
+				joinProperty = persistentProperties.find{
+					it != p &&
+							persistentProperties.size() == 2 && it.referencedDomainClass
+				}
+			}
+
+			if (display) {
+				//System.out.println (p.type)
+				String str = ""
+				if (p.type == Boolean || p.type == boolean)
+					str += """eq('${p.name}', filter['${p.name}'].toString().toBoolean())"""
+				else if (cp && cp.inList)
+					str += "//inList"
+				else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean)) {
+					if (p.type == Integer.class) {
+						str += """eq('${p.name}', filter['${p.name}'].toString().toInteger())"""
+					} else if (p.type == Long.class) {
+						str += """eq('${p.name}', filter['${p.name}'].toString().toLong())"""
+					} else if (p.type == Double.class || p.type == double) {
+						str += """eq('${p.name}', filter['${p.name}'].toString().toDouble())"""
+					} else {
+						str += """eq('${p.name}', filter['${p.name}']})"""
+					}
+				}else if (p.type == String)
+					str += """ilike('${p.name}', "\${filter['${p.name}']}%")"""
+				else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar)
+					str += """between('${p.name}', filter['${p.name}'], filter['${p.name}'])"""
+				else if (p.type == URL)
+					str += "//url"
+				else if (p.type && p.isEnum())
+					str += "//enum"
+				else if (p.type == TimeZone)
+					str += "//TimeZone"
+				else if (p.type == Locale)
+					str += "//Locale"
+				else if (p.type == Currency)
+					str += "//Currency"
+				else if (p.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
+					str += "//byte"
+				else if (p.manyToOne || p.oneToOne) {
+					str += """
+				if (filter['${p.name}'] instanceof String[] || filter['${p.name}'] instanceof List){
+					//'in'('${p.name}.id', filter['${p.name}']*.toString().toLong())
+				//}else(filter['${p.name}'].toString().isNumber()){
+					eq('${p.name}.id', filter['${p.name}'].toString().toLong())//manyToOne
+				}
+"""
+
+				} else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
+					str += "//manyToMany"
+				}
+				else if (p.oneToMany)
+					str += "//oneToMany"
+				else if (joinProperty){
+					str += "//joinProperty"
+				}
+				else
+					str += "//No type for ${p.name}"
+
+				if (str) println "\t\t\t" + "if (filter['${p.name}']){\n\t\t\t\t " + str + "\n\t\t\t}"
+			}
+		}%>
+		}
 	}
 }

@@ -32,15 +32,13 @@ class ${className}Controller extends CustomRestfulController<${className}> {
 	])
 	def index(final Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		// Parses params.query for dynamic search and uses params.offset/params.max for paging.
-		// Returns results for paging grid.
-		// This is here so running demo works right away. Should be replaced with own service,
-		// eg: ${domainClass.propertyName}Service.list(params)
-		List results = ${domainClass.propertyName}Service.parseParamsAndRetrieveListAndCount(params)
-		header 'Access-Control-Expose-Headers', 'total'
-		header 'total', results.totalCount
 
-		respond results, [includes: includes, excludes: excludes]
+		def result = ${domainClass.propertyName}Service.search(params)
+
+		header 'Access-Control-Expose-Headers', 'total'
+		header 'total', result.totalCount
+
+		respond result, [includes: includes, excludes: excludes]
 	}
 
 	@RestApiMethod(description='Get a ${className}')

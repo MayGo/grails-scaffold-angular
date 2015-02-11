@@ -23,6 +23,16 @@ ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, compara
 allProps = sh.getProps()
 simpleProps = allProps.findAll{p->!p.isAssociation()}
 
+private String getSearchString(){
+	Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(domainClass, config)
+	if(!useDisplaynames) useDisplaynames = ["id":null]
+
+	String searchField = useDisplaynames.find{true}.key
+	def inst = DomainHelper.createOrGetInst(domainClass, 2)
+
+	return inst[searchField]
+}
+
 // get grails domain class mapping to check if id is composite. When composite then don't render alla tests
 
 isComposite = DomainHelper.isComposite(domainClass)
@@ -308,6 +318,26 @@ class ${className}Spec extends Specification implements RestQueries{
 
 		then: 'First item should be just inserted object'
 			response.json[0].id != null
+	}
+
+	void 'Test querying in ${className} list by dummy searchString.'() {
+		when: 'Get ${propertyName} list by searchString'
+			response = queryListWithUrlVariables('searchString={searchString}', [searchString: "999999999999999"])
+
+		then: 'Should be with size 0'
+			response.json.size() == 0
+			response.status == HttpStatus.OK.value()
+	}
+
+	void 'Test querying in ${className} list by real searchString.'() {
+		when: 'Get ${propertyName} list by searchString'
+			response = queryListWithUrlVariables('order=desc&sort=id&searchString={searchString}',
+					[searchString: "${getSearchString()}"])
+
+		then: 'Should at least last inserted item'
+			response.json[0].id == domainId
+			response.json.size() > 0
+			response.status == HttpStatus.OK.value()
 	}
 	
 	void 'Test filtering in ${className} list by id.'() {

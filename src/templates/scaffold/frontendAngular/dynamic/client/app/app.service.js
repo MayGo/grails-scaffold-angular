@@ -32,7 +32,7 @@ angular.module('angularDemoApp')
   	
   	var resourceQuery = function(val, urlPart, labelProperties, excludes, tagsOutput){
   		var param = {limit: 15};
-		param.query = val;
+		param.searchString = val;
 		param.excludes = excludes;
 		var resource = \$resource(appConfig.restUrl + "/" +urlPart);
 		return resource.query(param).\$promise.then(

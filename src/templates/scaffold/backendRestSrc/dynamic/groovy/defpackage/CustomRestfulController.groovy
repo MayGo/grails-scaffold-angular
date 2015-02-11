@@ -84,7 +84,7 @@ class CustomRestfulController<T> {
 	])
 	def index(Integer max) {
 		params.max = Math.min(max ?: 10, 100)
-		respond listAllResources(params), model: [("\${resourceName}Count"): countResources()]
+		respond listAllResources(params), model: [("\${resourceName}Count".toString()): countResources()]
 	}
 
 	/**
@@ -201,7 +201,7 @@ class CustomRestfulController<T> {
 			return
 		}
 
-		instance.properties = getObjectToBind()
+		instance.properties = objectToBind
 
 		if (instance.hasErrors()) {
 			transactionStatus.setRollbackOnly()
@@ -338,7 +338,7 @@ class CustomRestfulController<T> {
 	 */
 	protected T createResource() {
 		T instance = resource.newInstance()
-		bindData instance, getObjectToBind()
+		bindData instance, objectToBind
 		instance
 	}
 
