@@ -53,6 +53,9 @@ class CustomMarshallerRegistrar {
 		if (!excludes.containsKey('id')) {
 			res << [id: domain.id]
 		}
+		if (!excludes.containsKey('version')) {
+			res << [version: domain.version]
+		}
 		for (String key in getDomainProperties(domain.class)) {
 			def value = domain[key]
 			if (excludes.containsKey(key) && !excludes[key]) {

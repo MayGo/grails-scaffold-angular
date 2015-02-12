@@ -296,7 +296,8 @@ private renderFieldRow(p, owningClass) {
                       <span class="h4" translate="pages.${domainClass.shortName}.edit.form.title"></span>
                     </div>
                     <div class="panel-body">
-                <%for (p in props) {%>
+                        <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
+                        <%for (p in props) {%>
                 ${renderFieldRow(p, domainClass)}\
                 <%}%>
                 	</div>

@@ -62,6 +62,7 @@ class ${className}SearchService {
 				sort: params.sort
 		) {
 			searchCriteria criteriaBuilder, params
+			readOnly true
 		}
 		return results
 	}
@@ -71,7 +72,6 @@ class ${className}SearchService {
 		JSONElement filter = params.filter ? JSON.parse(params.filter.toString()) : new JSONObject()
 
 		builder.with {
-			readOnly true
 <%
 			println """
 			if (filter['id']) {
@@ -113,8 +113,10 @@ class ${className}SearchService {
 						str += """eq('${p.name}', filter['${p.name}'].toString().toLong())"""
 					} else if (p.type == Double.class || p.type == double) {
 						str += """eq('${p.name}', filter['${p.name}'].toString().toDouble())"""
+					} else if (p.type == Float.class || p.type == float) {
+						str += """eq('${p.name}', filter['${p.name}'].toString().toFloat())"""
 					} else {
-						str += """eq('${p.name}', filter['${p.name}']})"""
+						str += """eq('${p.name}', filter['${p.name}'])"""
 					}
 				}else if (p.type == String)
 					str += """ilike('${p.name}', "\${filter['${p.name}']}%")"""
