@@ -28,6 +28,14 @@
 		}
 		
 		return linesToAdd
+	},
+	/(.*mappings.*)/: {destFile->
+
+		def fileText = destFile.text
+		fileText = fileText.replace("\"/\"(view:\"/index\")", "")
+		fileText = fileText.replace("\"500\"(view:'/error')", "")
+		destFile.write(fileText);
+		return ""
 	}
 	
 ]
