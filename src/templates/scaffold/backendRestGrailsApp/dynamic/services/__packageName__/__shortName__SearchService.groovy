@@ -9,13 +9,13 @@ props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}
 private void printSearchCriteria(){
 	Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(domainClass, config)
 	if(!useDisplaynames) useDisplaynames = ["id":null]
-	println "\t\t\tif (searchString){"
+	println "\t\t\tif (searchString) {"
 	useDisplaynames.each{key, value->
 		def property = allProps.find{it.name == key}
 		String str = ""
 		if(property) {
 			if (property.type == String) {
-				str += "ilike('$property.name', searchString + '%')"
+				str += "like('$property.name', searchString + '%')"
 			} else if (property.type == Integer) {
 				str += "eq('$property.name', searchString.toInteger())"
 			} else if (property.type == Long) {
@@ -49,30 +49,35 @@ import org.codehaus.groovy.grails.web.json.JSONElement
 import org.codehaus.groovy.grails.web.json.JSONObject
 
 @GrailsCompileStatic
-@Transactional
-class ${className}Service {
+@Transactional(readOnly = true)
+class ${className}SearchService {
 
-	PagedResultList search(Map params){
+	PagedResultList search(Map params) {
 
-		HibernateCriteriaBuilder criteriaBuilder = (HibernateCriteriaBuilder)${domainClass.name}.createCriteria()
-		PagedResultList results = (PagedResultList)criteriaBuilder.list(
+		HibernateCriteriaBuilder criteriaBuilder = (HibernateCriteriaBuilder) ${domainClass.name}.createCriteria()
+		PagedResultList results = (PagedResultList) criteriaBuilder.list(
 				offset: params.offset,
 				max: params.max,
 				order: params.order,
 				sort: params.sort
-		){
+		) {
 			searchCriteria criteriaBuilder, params
 		}
 		return results
 	}
 
-	private void searchCriteria(HibernateCriteriaBuilder builder, Map params){
+	private void searchCriteria(HibernateCriteriaBuilder builder, Map params) {
 		String searchString = params.searchString
-		JSONElement filter = params.filter ? JSON.parse(params.filter.toString()) :new JSONObject()
+		JSONElement filter = params.filter ? JSON.parse(params.filter.toString()) : new JSONObject()
 
 		builder.with {
-		<%
-			println "\tif (filter['id']) eq('id', filter['id'].toString().toLong())"
+			readOnly true
+<%
+			println """
+			if (filter['id']) {
+				eq('id', filter['id'].toString().toLong())
+			}
+"""
 			//lets find property to be used in searchString
 			printSearchCriteria()
 
@@ -128,14 +133,14 @@ class ${className}Service {
 				else if (p.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
 					str += "//byte"
 				else if (p.manyToOne || p.oneToOne) {
-					str += """
-				if (filter['${p.name}'] instanceof String[] || filter['${p.name}'] instanceof List){
-					//'in'('${p.name}.id', filter['${p.name}']*.toString().toLong())
-				//}else(filter['${p.name}'].toString().isNumber()){
-					eq('${p.name}.id', filter['${p.name}'].toString().toLong())//manyToOne
-				}
+					println """
+			if (filter['${p.name}s']) {
+				'in'('${p.name}.id', filter['${p.name}s'].collect { (long) it })
+			}
+			if (filter['${p.name}']) {
+				eq('${p.name}.id', (long) filter['${p.name}'])
+			}\
 """
-
 				} else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
 					str += "//manyToMany"
 				}
@@ -147,9 +152,9 @@ class ${className}Service {
 				else
 					str += "//No type for ${p.name}"
 
-				if (str) println "\t\t\t" + "if (filter['${p.name}']){\n\t\t\t\t " + str + "\n\t\t\t}"
+				if (str) println "\t\t\t" + "if (filter['${p.name}']) {\n\t\t\t\t" + str + "\n\t\t\t}"
 			}
-		}%>
+}%>\
 		}
 	}
 }

@@ -13,7 +13,7 @@ class ${className}Controller extends CustomRestfulController<${className}> {
 
 	static responseFormats = ['json']
 
-	${className}Service ${domainClass.propertyName}Service
+	${className}SearchService ${domainClass.propertyName}SearchService
 
 	${className}Controller() {
 		super(${className}, false /* read-only */)
@@ -33,7 +33,7 @@ class ${className}Controller extends CustomRestfulController<${className}> {
 	def index(final Integer max) {
 		params.max = Math.min(max ?: 10, 100)
 
-		def result = ${domainClass.propertyName}Service.search(params)
+		def result = ${domainClass.propertyName}SearchService.search(params)
 
 		header 'Access-Control-Expose-Headers', 'total'
 		header 'total', result.totalCount

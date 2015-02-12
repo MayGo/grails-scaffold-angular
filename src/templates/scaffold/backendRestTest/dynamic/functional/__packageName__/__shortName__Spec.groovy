@@ -21,7 +21,7 @@ String shortNameLower = propertyName.toLowerCase()+"s";
 
 ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
 allProps = sh.getProps()
-simpleProps = allProps.findAll{p->!p.isAssociation()}
+simpleProps = allProps.findAll{ p -> !p.embedded && !p.oneToMany && !p.manyToMany}
 
 private String getSearchString(){
 	Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(domainClass, config)
@@ -339,7 +339,8 @@ class ${className}Spec extends Specification implements RestQueries{
 			response.json.size() > 0
 			response.status == HttpStatus.OK.value()
 	}
-	
+	//@TODO Test relations filtering. eg: {filter:author:[1]}
+
 	void 'Test filtering in ${className} list by id.'() {
 		when: 'Get ${propertyName} list filtered by id'
 
@@ -364,19 +365,32 @@ class ${className}Spec extends Specification implements RestQueries{
 		where:
 			jsonVal 	        || respSize
 			'{}'                || 10
-	<%simpleProps.each{p->
+<%simpleProps.each{p->
 		def hasChanged = !(instBefore."${p.name}" == inst."${p.name}")
 		if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
 			hasChanged = false
 		}
-		def val = inst."${p.name}" 
-		
+		def val = inst."${p.name}"
 		def realVal = DomainHelper.getRealValue(p, val)
-		def jsonVal = (["${p.name}":realVal] as JSON).toString()
-		
-		%>
-		<% if(hasChanged && jsonVal.matches(".*\\s+.*")){print "//Can't predict 'size'"} %>	"""${jsonVal}"""     		|| <% if(hasChanged){println 1}else{println 10} %>
-	<%}%>
+		def jsonVal
+		if(p.referencedDomainClass?.hasProperty('id')){
+			def refClass = new DefaultGrailsDomainClass(p.type)
+			realVal = refClass.getClazz().first(sort: 'id')?.id
+
+			jsonVal = (["${p.name}":realVal] as JSON).toString()
+			println "\t\t\t'$jsonVal' || 3 "
+
+			jsonVal = (["${p.name}s":[realVal]] as JSON).toString()
+			println "\t\t\t'$jsonVal' || 3 "
+		}else{
+			jsonVal = (["${p.name}":realVal] as JSON).toString()
+			if(hasChanged && jsonVal.matches(".*\\s+.*")){
+				print "//Can't predict 'size'"
+			}
+			def nr = hasChanged? 1: 10
+			println "\t\t\t'$jsonVal' || $nr "
+		}
+}%>
 	}
 	
 	

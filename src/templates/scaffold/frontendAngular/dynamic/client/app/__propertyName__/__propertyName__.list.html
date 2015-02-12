@@ -250,9 +250,9 @@ private String renderManyToOne(owningClass, p, cp) {
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
      String str =  """<!--ManyToOne-->
      <div class="input-group input-group-sm" style="width:100%">
-     	<tags-input 
-            ng-model="search.${p.name}" 
-            custom-st-search="${p.name}" 
+     	<tags-input
+            ng-model="search.${p.name}s"
+            custom-st-search="${p.name}s"
             placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}">
               <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
