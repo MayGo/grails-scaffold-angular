@@ -62,7 +62,6 @@ class ${className}SearchService {
 				sort: params.sort
 		) {
 			searchCriteria criteriaBuilder, params
-			readOnly true
 		}
 		return results
 	}
@@ -72,6 +71,7 @@ class ${className}SearchService {
 		JSONElement filter = params.filter ? JSON.parse(params.filter.toString()) : new JSONObject()
 
 		builder.with {
+			//readOnly true
 <%
 			println """
 			if (filter['id']) {
