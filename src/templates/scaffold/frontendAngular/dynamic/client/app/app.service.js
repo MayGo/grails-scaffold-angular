@@ -50,12 +50,13 @@ angular.module('angularDemoApp')
 	<%
 	List allEnums = []
 	for(d in domainClasses){
-  		//Lets find field to display in autocomplete 
+  		//Lets find field to display in autocomplete
+
 		String useDisplaynamesStr = scaffoldingHelper.getDomainClassDisplayNames(d).collect{key, value->"item." + key + ""}.join("+ ' ' +")
 		if(!useDisplaynamesStr) useDisplaynamesStr = "item.id"
 
 		excludes = scaffoldingHelper.getProps(d).findAll{it.isAssociation()}
-		enums = sh.getProps().findAll{it.type && it.isEnum()}
+		enums = scaffoldingHelper.getProps(d).findAll{it.type && it.isEnum()}
 		allEnums +=enums
 	
   		%>

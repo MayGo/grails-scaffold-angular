@@ -1,9 +1,8 @@
 <%
-    allProps = ScaffoldingHelper.getProps(domainClass)
+    allProps = scaffoldingHelper.getProps(domainClass)
     props = allProps.findAll{p->!p.embedded} 
    
 %>
-
 <%
 private String renderFieldRow(p, owningClass){
     boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
@@ -199,8 +198,8 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 			 </div>
 		</div>
         <div>
-		      <%
-            relationsProps = sh.findRelationsProps(domainClasses as List)
+            <%
+            relationsProps = scaffoldingHelper.findRelationsProps(domainClass, domainClasses as List)
             relationsProps.each{property, domainCl->
                 Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainCl, property)
                 if(!useDisplaynames) useDisplaynames = ['id': null]

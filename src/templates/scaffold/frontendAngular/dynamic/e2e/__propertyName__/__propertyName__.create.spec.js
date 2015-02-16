@@ -6,7 +6,6 @@ allProps = scaffoldingHelper.getProps(domainClass)
 props = allProps.findAll{p->!p.embedded} 
 simpleProps = allProps.findAll{p->!p.isAssociation()}
 
-
 %>
 
 describe('${domainClass.propertyName} create page', function() {
