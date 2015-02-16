@@ -109,7 +109,6 @@ grails{
 				overwrite = true // false = Ask before replacing file
 				ignoreStatic = true // Don't generate static files again
 				ignoreFileNames = ['TestDataGeneratorService.groovy', 'TestDataConfig.groovy']
-				defaultDisplayNames = ['name', 'username', 'authority'] // Domain property names that are included as displayname
 				// Map of domain class names. contains list of maps
 				//displayNames = ['Division2':['persons':['name':null]]]//e.g 'User':['group':['name']]
 '''

@@ -66,7 +66,6 @@ grails{
 		scaffold{
 			core{
 				overwrite = true // false = Ask before replacing file
-				defaultDisplayNames = ['name', 'username', 'authority'] // Domain property names that are included as displaynames
 				// Map of domain class names. contains list of maps
 				displayNames = ['Division':['name':null], 'User':['group':['name']]]
 				//Problems when reloading folder structure "file:./grails-app/services/**/*Service.groovy"
