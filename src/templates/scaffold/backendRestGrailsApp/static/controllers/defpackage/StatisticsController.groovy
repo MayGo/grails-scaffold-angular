@@ -28,7 +28,7 @@ class StatisticsController {
 				[
 						'id'         : it.id,
 						'name'       : domainClass.propertyName,
-						'displayName': "\${domainClass.naturalName}",
+						'displayName': "${domainClass.naturalName}",
 						'description': it.hasProperty('name') ?
 								it.name : it[domainClass.persistentProperties.first().name].toString()
 				]
@@ -41,7 +41,7 @@ class StatisticsController {
 		List insertedDomainClasses = []
 		for (domainClass in grailsApplication.domainClasses) {
 			insertedDomainClasses << ['name'       : domainClass.propertyName,
-									  'displayName': "\${domainClass.naturalName}",
+									  'displayName': "${domainClass.naturalName}",
 									  'count'      : domainClass.clazz.count()]
 		}
 		render insertedDomainClasses as JSON

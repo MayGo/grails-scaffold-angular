@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .controller('NavbarController', function (\$scope, \$location) {
-    \$scope.menu = [{
+  .controller('NavbarController', function ($scope, $location) {
+    $scope.menu = [{
       'title': 'User list',
       'link': 'user'
     },
@@ -19,9 +19,9 @@ angular.module('angularDemoApp')
       'link': 'user.create'
     }];
 
-    \$scope.isCollapsed = true;
+    $scope.isCollapsed = true;
 
-    \$scope.isActive = function(route) {
-      return route === \$location.path();
+    $scope.isActive = function(route) {
+      return route === $location.path();
     };
   });

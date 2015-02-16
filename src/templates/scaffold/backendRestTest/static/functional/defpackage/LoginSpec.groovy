@@ -12,7 +12,7 @@ class LoginSpec extends Specification implements RestQueries {
         def authResponse = sendCorrectCredentials(APP_URL)
 
 		when:
-        def response = restBuilder.get("\${APP_URL}/api/validate") {
+        def response = restBuilder.get("${APP_URL}/api/validate") {
             header 'Authorization', 'Bearer '+authResponse.json.access_token
         }
 
@@ -24,7 +24,7 @@ class LoginSpec extends Specification implements RestQueries {
 
     void 'calling /api/validate with an invalid token returns 401'() {
         when:
-        def response = restBuilder.get("\${APP_URL}/api/validate") {
+        def response = restBuilder.get("${APP_URL}/api/validate") {
             header 'Authorization', 'Bearer '+'something-else'
         }
 
@@ -35,7 +35,7 @@ class LoginSpec extends Specification implements RestQueries {
 		currently not working
 		void "calling /api/validate without token returns 401"() {
         when:
-        def response = restBuilder.get("\${APP_URL}/api/validate")
+        def response = restBuilder.get("${APP_URL}/api/validate")
 
         then:
         response.status == 401

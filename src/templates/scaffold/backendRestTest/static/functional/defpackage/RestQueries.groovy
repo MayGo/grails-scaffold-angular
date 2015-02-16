@@ -45,7 +45,7 @@ trait RestQueries {
 		String ticketValue = loginToCas(serviceUrl, username, password)
 		LinkedMultiValueMap<String, String> form = new LinkedMultiValueMap<String, String>()
 		form.add("ticket", ticketValue)
-		return restBuilder.post("\${APP_URL}/login") {
+		return restBuilder.post("${APP_URL}/login") {
 			json {
 				ticket = ticketValue
 			}
@@ -53,7 +53,7 @@ trait RestQueries {
 	}
 	
 	String loginToCasWithCorrectCredentials(String serviceUrlToBeSentToCas) {
-		return loginToCas(serviceUrlToBeSentToCas, "\${USERNAME}", "\${PASSWORD}")
+		return loginToCas(serviceUrlToBeSentToCas, "${USERNAME}", "${PASSWORD}")
 	}
 
 	RestResponse sendWrongCredentials() {
@@ -62,11 +62,11 @@ trait RestQueries {
 	}
 	
 	RestResponse sendCorrectCredentials(String serviceUrlToBeSentToCas) {
-		return loginToApp(serviceUrlToBeSentToCas, "\${USERNAME}", "\${PASSWORD}")
+		return loginToApp(serviceUrlToBeSentToCas, "${USERNAME}", "${PASSWORD}")
 	}
 
 	RestResponse queryListWithParams(String paramsStr){
-		return restBuilder.get("\${REST_URL}.json?\$paramsStr") {
+		return restBuilder.get("${REST_URL}.json?$paramsStr") {
 			header 'Authorization', 'Bearer '+authResponse.json.access_token
 			accept 'application/json'
 		}
@@ -74,7 +74,7 @@ trait RestQueries {
 	
 	RestResponse queryListWithUrlVariables(String paramsStr, Map urlVariables){
 		//Using urlvariables because in url cannot be filter={id:1}
-		return restBuilder.get("\${REST_URL}.json?\$paramsStr", urlVariables) {
+		return restBuilder.get("${REST_URL}.json?$paramsStr", urlVariables) {
 			header 'Authorization', 'Bearer '+authResponse.json.access_token
 			accept 'application/json'
 		}
@@ -82,13 +82,13 @@ trait RestQueries {
 
 
 	RestResponse readDomainItemWithParams(String itemId, String paramsStr){
-		return response = restBuilder.get("\${REST_URL}/\${itemId}?\$paramsStr") {
+		return response = restBuilder.get("${REST_URL}/${itemId}?$paramsStr") {
 			header 'Authorization', 'Bearer '+authResponse.json.access_token
 			accept 'application/json'
 		}
 	}
 	RestResponse deleteDomainItem(String itemId){
-		return response = restBuilder.delete("\${REST_URL}/\${itemId}") {
+		return response = restBuilder.delete("${REST_URL}/${itemId}") {
 			header 'Authorization', 'Bearer '+authResponse.json.access_token
 			accept 'application/json'
 		}
@@ -96,14 +96,14 @@ trait RestQueries {
 
 
 	RestResponse sendCreateWithData(Closure data){
-		return restBuilder.post("\${REST_URL}") {
+		return restBuilder.post("${REST_URL}") {
 			header 'Authorization', 'Bearer '+authResponse.json.access_token
 			accept 'application/json'
 			"json" data
 		}
 	}
 	RestResponse sendUpdateWithData(String itemId,Closure data){
-		return restBuilder.put("\${REST_URL}/\${itemId}") {
+		return restBuilder.put("${REST_URL}/${itemId}") {
 			header 'Authorization', 'Bearer '+authResponse.json.access_token
 			accept 'application/json'
 			"json" data
