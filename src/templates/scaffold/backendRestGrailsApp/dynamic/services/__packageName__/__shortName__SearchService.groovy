@@ -1,13 +1,11 @@
 <%= packageName ? "package ${packageName}" : '' %>
 <%
-import grails.plugin.scaffold.core.ScaffoldingHelper
-ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
-allProps = sh.getProps()
+allProps = scaffoldingHelper.getProps(domainClass)
 props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}
 
 
 private void printSearchCriteria(){
-	Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(domainClass, config)
+	Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainClass)
 	if(!useDisplaynames) useDisplaynames = ["id":null]
 	println "\t\t\tif (searchString) {"
 	useDisplaynames.each{key, value->

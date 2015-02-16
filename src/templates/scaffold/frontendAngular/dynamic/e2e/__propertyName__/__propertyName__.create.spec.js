@@ -1,10 +1,8 @@
 'use strict';
-<% 
-import grails.plugin.scaffold.core.ScaffoldingHelper
+<%
 import grails.plugin.scaffold.angular.DomainHelper
 
-ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
-allProps = sh.getProps()
+allProps = scaffoldingHelper.getProps(domainClass)
 props = allProps.findAll{p->!p.embedded} 
 simpleProps = allProps.findAll{p->!p.isAssociation()}
 
@@ -46,7 +44,7 @@ props.each{p->
 	def realVal = ""
 	
 	if(p.isAssociation()){
-		Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(domainClass, config, p)
+		Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainClass,  p)
 		if(!useDisplaynames) useDisplaynames = ['id': null]
 		useDisplaynames.each{key, value->
 			def val = inst."${p.name}"?."${key}"

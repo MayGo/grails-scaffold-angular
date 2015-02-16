@@ -1,10 +1,8 @@
 testDataConfig {
 	sampleData {
 <%
-import grails.plugin.scaffold.core.ScaffoldingHelper
 domainClasses.each{dClass->
-	ScaffoldingHelper sh = new ScaffoldingHelper(dClass, pluginManager, comparator, getClass().classLoader)
-	allProps = sh.getProps()
+	allProps = scaffoldingHelper.getProps(dClass)
 	uniqueProps = []
 	boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
 	if (hasHibernate) {

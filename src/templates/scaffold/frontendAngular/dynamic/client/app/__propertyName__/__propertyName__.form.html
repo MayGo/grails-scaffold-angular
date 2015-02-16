@@ -1,7 +1,5 @@
-<% 
-    import grails.plugin.scaffold.core.ScaffoldingHelper
-    ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
-    allProps = sh.getProps()
+<%
+    allProps = ScaffoldingHelper.getProps(domainClass)
     props = allProps.findAll{p->!p.embedded} 
 
 %>
@@ -191,7 +189,7 @@ private String renderEnum(owningClass, p, cp) {
 }
 
 private String renderManyToOne(owningClass, p, cp) {
-    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config, p)
+    Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
     
@@ -222,7 +220,7 @@ private String renderManyToOne(owningClass, p, cp) {
 
 
 private String renderOneToMany(owningClass, p, cp) {
-    Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config, p)
+    Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
     
@@ -236,7 +234,7 @@ private String renderOneToMany(owningClass, p, cp) {
 }
 
 private String renderManyToMany(owningClass, p, cp) {
-      Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config, p)
+      Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
     

@@ -96,10 +96,44 @@ grails.plugin.springsecurity.rest.token.validation.endpointUrl = "/api/validate"
 		if(!destFile.text.contains('grails.plugin.springsecurity.filterChain.chainMap')) {
 			linesToAdd += line3
 		}
-		
-		
-		
-		
+
+
+		String line4 = '''
+/**
+ * Scaffold Angular plugin Config
+ */
+
+grails{
+	plugin{
+		scaffold{
+			core{
+				overwrite = true // false = Ask before replacing file
+				ignoreStatic = true // Don't generate static files again
+				ignoreFileNames = ['TestDataGeneratorService.groovy', 'TestDataConfig.groovy']
+				defaultDisplayNames = ['name', 'username', 'authority'] // Domain property names that are included as displaynames
+				// Map of domain class names. contains list of maps
+				//displayNames = ['Division2':['persons':['name':null]]]//e.g 'User':['group':['name']]
+				displayNames = [:]
+'''
+		Map displayNames = [:]
+		grailsApplication.domainClasses.each { domainClass ->
+
+			allProps = this.scaffoldingHelper.getProps(domainClass)
+			props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}
+			displayNames["${domainClass.propertyName}"] = props[0..3].collect{'${it.name}'}
+		}
+
+		line4 += "displayNames = $displayNames"
+		line4 += '''
+			}
+		}
+	}
+}
+'''
+		if(!destFile.text.contains('ignoreFileNames')) {
+			linesToAdd += line4
+		}
+
 		return linesToAdd
 	}
 	

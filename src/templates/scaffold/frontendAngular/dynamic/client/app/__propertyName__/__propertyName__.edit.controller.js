@@ -1,8 +1,6 @@
 'use strict';
-<% 
-    import grails.plugin.scaffold.core.ScaffoldingHelper
-    ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
-    allProps = sh.getProps()
+<%
+    allProps = scaffoldingHelper.getProps(domainClass)
     props = allProps.findAll{p->!p.embedded} 
     
     includeAngularServices = allProps.findAll{p->p.oneToMany || p.manyToMany}*.getReferencedPropertyType()
@@ -51,10 +49,9 @@ private String renderManyToMany(owningClass, p, cp) {
 
 private String renderOneToMany(owningClass, p, cp) {
     //Lets find field to display in autocomplete 
-	String useDisplaynamesStr = ScaffoldingHelper.getDomainClassDisplayNames(owningClass, config, p).collect{key, value->"item." + key + ""}.join("+ ', ' +")
+	String useDisplaynamesStr = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p).collect{key, value->"item." + key + ""}.join("+ ', ' +")
 	if(!useDisplaynamesStr) useDisplaynamesStr = "item.id"
-	ScaffoldingHelper sh2 = new ScaffoldingHelper(p.referencedDomainClass, pluginManager, comparator, getClass().classLoader)
-	excludes = sh2.getProps().findAll{it.isAssociation()}
+	excludes = scaffoldingHelper.getProps(p.referencedDomainClass).findAll{it.isAssociation()}
 	
     String str =  """
 	     if(\$scope.isEditForm){

@@ -1,8 +1,4 @@
 'use strict';
-<% 
-    import grails.plugin.scaffold.core.ScaffoldingHelper
-
-%>
 angular.module('angularDemoApp')
   .factory('AutocompleteService', function(\$resource, appConfig){
   	var toLabel = function(model, labelProperties){
@@ -55,10 +51,10 @@ angular.module('angularDemoApp')
 	List allEnums = []
 	for(d in domainClasses){
   		//Lets find field to display in autocomplete 
-		String useDisplaynamesStr = ScaffoldingHelper.getDomainClassDisplayNames(d, config).collect{key, value->"item." + key + ""}.join("+ ' ' +")
+		String useDisplaynamesStr = scaffoldingHelper.getDomainClassDisplayNames(d).collect{key, value->"item." + key + ""}.join("+ ' ' +")
 		if(!useDisplaynamesStr) useDisplaynamesStr = "item.id"
-		ScaffoldingHelper sh = new ScaffoldingHelper(d, pluginManager, comparator, getClass().classLoader)
-		excludes = sh.getProps().findAll{it.isAssociation()}
+
+		excludes = scaffoldingHelper.getProps(d).findAll{it.isAssociation()}
 		enums = sh.getProps().findAll{it.type && it.isEnum()}
 		allEnums +=enums
 	

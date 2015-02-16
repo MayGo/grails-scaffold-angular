@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus
 import defpackage.RestQueries
 import spock.lang.Specification
 <%
-import grails.plugin.scaffold.core.ScaffoldingHelper
 import grails.plugin.scaffold.angular.DomainHelper
 
 
@@ -19,12 +18,11 @@ import grails.converters.JSON
 String propertyName = domainClass.propertyName;
 String shortNameLower = propertyName.toLowerCase()+"s";
 
-ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
-allProps = sh.getProps()
+allProps = scaffoldingHelper.getProps(domainClass)
 simpleProps = allProps.findAll{ p -> !p.embedded && !p.oneToMany && !p.manyToMany}
 
 private String getSearchString(){
-	Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(domainClass, config)
+	Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainClass)
 	if(!useDisplaynames) useDisplaynames = ["id":null]
 
 	String searchField = useDisplaynames.find{true}.key
@@ -70,8 +68,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 	alreadyCreatedClasses << dClass.name
 	
 	String respStr = ""
-	ScaffoldingHelper helper = new ScaffoldingHelper(dClass, pluginManager, comparator, getClass().classLoader)
-	def properties = helper.getProps().findAll{p->!p.isManyToMany() && !p.isOneToMany()}
+	def properties = scaffoldingHelper.getProps(dClass).findAll{p->!p.isManyToMany() && !p.isOneToMany()}
 	
 	
 	properties.each{p->

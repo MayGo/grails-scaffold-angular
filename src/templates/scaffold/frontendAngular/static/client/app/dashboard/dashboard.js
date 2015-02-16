@@ -14,12 +14,12 @@ angular.module('angularDemoApp')
 		},
 		resolve:{
 			lastInsertedList: function($http, appConfig){
-				return $http.get(appConfig.restUrl + 'statistics/lastInserted').then(function(response) {
+				return $http.get(appConfig.restUrl + '/statistics/lastInserted').then(function(response) {
 					return response.data;
 				});
 			},
 			totalInsertedList: function($http, appConfig){
-				 return $http.get(appConfig.restUrl + 'statistics/totalInserted').then(function(response) {
+				 return $http.get(appConfig.restUrl + '/statistics/totalInserted').then(function(response) {
 					return  response.data;
 				});
 			}

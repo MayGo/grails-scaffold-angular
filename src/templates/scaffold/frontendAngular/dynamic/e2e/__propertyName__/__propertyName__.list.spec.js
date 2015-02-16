@@ -1,8 +1,6 @@
 'use strict';
-<% 
-import grails.plugin.scaffold.core.ScaffoldingHelper
-ScaffoldingHelper sh = new ScaffoldingHelper(domainClass, pluginManager, comparator, getClass().classLoader)
-allProps = sh.getProps()
+<%
+allProps = scaffoldingHelper.getProps(domainClass)
 props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany} 
 
 %>

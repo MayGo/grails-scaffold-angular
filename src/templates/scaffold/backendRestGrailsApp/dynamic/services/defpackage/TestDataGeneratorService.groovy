@@ -3,8 +3,6 @@ package defpackage
 <%
 import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
 import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
-import grails.plugin.scaffold.core.ScaffoldingHelper
-
 
 	domainClasses.each{
 		println "import ${it.fullName}"
@@ -12,9 +10,7 @@ import grails.plugin.scaffold.core.ScaffoldingHelper
 	firstDomainClass = domainClasses.first().getName()
 
 	private List findNotNullable(def dClass){
-		
-		ScaffoldingHelper sh = new ScaffoldingHelper(dClass, pluginManager, comparator, getClass().classLoader)
-		def props = sh.getProps()
+		def props = scaffoldingHelper.getProps(dClass)
 		List notNullable = []
 		props.each{ p->
 			boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')

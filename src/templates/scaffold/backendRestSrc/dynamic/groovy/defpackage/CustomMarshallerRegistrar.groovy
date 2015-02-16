@@ -91,7 +91,7 @@ class CustomMarshallerRegistrar {
     static void registerMarshallers() {
 		int priority = 10
 		<%
-	import grails.plugin.scaffold.core.ScaffoldingHelper
+
 	for(d in domainClasses){
 		excludeProps = d.properties.findAll{p->p.oneToMany || p.manyToMany}*.getName()
 		excludePropsStr = ""
@@ -108,7 +108,7 @@ class CustomMarshallerRegistrar {
 			//if(domainProperty.oneToMany || domainProperty.manyToMany) defaultExcludes << "'${domainProperty.name}'"
 
 			if(domainProperty.isAssociation()){
-				Map useDisplaynames = ScaffoldingHelper.getDomainClassDisplayNames(d, config, domainProperty)
+				Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(d, domainProperty)
 
 				if(domainProperty.manyToOne || domainProperty.oneToOne){
 					defaultExcludes << "\n'${domainProperty.name}Id'"
