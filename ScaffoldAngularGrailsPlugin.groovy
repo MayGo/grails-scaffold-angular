@@ -2,7 +2,7 @@ import grails.plugin.scaffold.core.ConfigUtility
 import grails.buildtestdata.DomainInstanceBuilder
 
 class ScaffoldAngularGrailsPlugin {
-    def version = "0.4.19"
+    def version = "0.4.20"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "2.4 > *"
 
