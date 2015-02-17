@@ -4,7 +4,7 @@ angular.module('angularDemoApp').provider('SessionService', function ($authProvi
 
 	$authProvider.loginOnSignup = true;
     $authProvider.logoutRedirect = '/';
-    $authProvider.loginUrl =  restUrl + "/"+appConfig.loginUrl;
+    $authProvider.loginUrl = appConfig.loginUrl;
     $authProvider.unlinkUrl = appConfig.logoutUrl;
     $authProvider.loginRoute = '/login';
     $authProvider.tokenName =  'access_token';
