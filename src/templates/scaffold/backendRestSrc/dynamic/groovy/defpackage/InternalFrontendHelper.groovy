@@ -14,7 +14,7 @@ class InternalFrontendHelper {
 		config.restUrl = (Holders.config.grails.serverURL) ?: "http://localhost:8080/\${appName}"
 
 		String restLoginUrl = (Holders.config.grails.plugin.springsecurity.rest.login.endpointUrl) ?: '/api/login'
-		config.loginUrl = (Holders.config.security.casURL) ?: restLoginUrl
+		config.loginUrl = (Holders.config.security.casURL) ?:"\${config.restUrl}\$restLoginUrl"
 
 		String endpointUrl = (Holders.config.grails.plugin.springsecurity.rest.logout.endpointUrl) ?: '/api/logout'
 		config.logoutUrl = "\${config.restUrl}\$endpointUrl"
