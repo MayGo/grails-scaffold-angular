@@ -39,7 +39,7 @@ describe('${domainClass.propertyName} create page', function() {
 	//Fill the form
 <%
 def inst = DomainHelper.createOrGetInst(domainClass, 1)
-props.each{p->
+if(inst) props.each{p->
 	def realVal = ""
 	
 	if(p.isAssociation()){

@@ -24,13 +24,10 @@ simpleProps = allProps.findAll{ p -> !p.embedded && !p.oneToMany && !p.manyToMan
 private String getSearchString(){
 	Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainClass)
 
-
-	String searchField = useDisplaynames.grep{it.key != "id"}.find{true}.key
-	println searchField
+	String searchField = useDisplaynames.grep{it.key != "id"}.find{true}?.key
 	def inst = DomainHelper.createOrGetInst(domainClass, 2)
 
-println inst.dump()
-	return (inst[searchField]!=null) ? inst[searchField] : "INSERT SOMETHING SEARCHABLE"
+	return (inst && searchField && inst[searchField]!=null) ? inst[searchField] : "INSERT SOMETHING SEARCHABLE"
 }
 
 // get grails domain class mapping to check if id is composite. When composite then don't render alla tests
@@ -60,8 +57,8 @@ isComposite = DomainHelper.isComposite(domainClass)
 private renderAll(def dClass, boolean isResp = false, int groupId){
 	
 	String resp = ""
-	
-	resp += createDomainInstanceJson(dClass, isResp, DomainHelper.createOrGetInst(dClass, groupId))
+	def inst = DomainHelper.createOrGetInst(dClass, groupId)
+	if(inst) resp += createDomainInstanceJson(dClass, isResp, inst)
 
 	println resp
 }
@@ -363,7 +360,7 @@ class ${className}Spec extends Specification implements RestQueries{
 		where:
 			jsonVal 	        || respSize
 			'{}'                || 10
-<%simpleProps.each{p->
+<% if(instBefore && inst)simpleProps.each{p->
 		def hasChanged = !(instBefore."${p.name}" == inst."${p.name}")
 		if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
 			hasChanged = false

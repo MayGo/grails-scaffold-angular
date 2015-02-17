@@ -3,7 +3,7 @@ package grails.plugin.scaffold.angular
 import java.text.SimpleDateFormat
 import org.codehaus.groovy.grails.orm.hibernate.cfg.CompositeIdentity;
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsDomainBinder;
-
+import grails.buildtestdata.handler.ConstraintHandlerException
 
 
 class DomainHelper {
@@ -22,8 +22,12 @@ class DomainHelper {
 			inst = cachedInstances[groupKey]
 		}else{
 			domainClazz.withNewTransaction{status ->
-				inst = domainClazz.buildWithoutSave()
-				inst.discard()
+				try {
+					inst = domainClazz.buildWithoutSave()
+					inst.discard()
+				} catch (ConstraintHandlerException ex) {
+					println ex.message;
+				}
 			}
 			cachedInstances[groupKey] = inst
 		}
