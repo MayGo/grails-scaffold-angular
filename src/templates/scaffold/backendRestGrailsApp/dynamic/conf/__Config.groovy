@@ -1,6 +1,25 @@
 [
 		/(.*\s*$)/: {destFile->
 			String linesToAdd = ""
+			String appName = grailsApplication.metadata['app.name']
+			String line0 = """
+environments {
+	development {
+		grails.serverURL = "http://localhost:8080/${appName}"
+	}
+	test {
+		grails.serverURL = "http://localhost:3333/${appName}"
+	}
+	production {
+		grails.serverURL = "http://www.changeme.com"
+	}
+}
+"""
+			if(!destFile.text.contains('http://localhost:3333')) {
+				linesToAdd += line0
+			}
+
+
 
 			String line1 = 'grails.resources.resourceLocatorEnabled = true'
 			if(!destFile.text.contains('grails.resources.resourceLocatorEnabled')) {

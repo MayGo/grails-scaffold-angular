@@ -7,14 +7,14 @@ import grails.buildtestdata.handler.ConstraintHandlerException
 
 
 class DomainHelper {
-	
+
 	//cache instances for later use
 	static Map cachedInstances = [:]
-	
+
 
 	static def createOrGetInst(def dClass, int groupId){
 		//Get instance from cache or create if does not exists
-	
+
 		def inst
 		def domainClazz = dClass.getClazz()
 		String groupKey = "${dClass.name}_$groupId"
@@ -25,16 +25,21 @@ class DomainHelper {
 				try {
 					inst = domainClazz.buildWithoutSave()
 					inst.discard()
+
+					status.setRollbackOnly();
+
 				} catch (ConstraintHandlerException ex) {
 					println ex.message;
+				}catch (Exception ex) {
+					ex.printStackTrace();
 				}
 			}
 			cachedInstances[groupKey] = inst
 		}
 		return inst
-		
+
 	}
-	
+
 	static def getRealValue(def p, def val){
 		def realVal
 		if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)){
@@ -50,7 +55,7 @@ class DomainHelper {
 		}
 		return realVal
 	}
-	
+
 	static def getRealValueForInput(def p, def val){
 		def realVal
 		if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)){
@@ -66,7 +71,7 @@ class DomainHelper {
 		}
 		return realVal
 	}
-	
+
 	static boolean isComposite(domainClazz){
 		def domainMapping = new GrailsDomainBinder().getMapping(domainClazz)
 		boolean isComposite = false
@@ -75,5 +80,5 @@ class DomainHelper {
 		}
 		return isComposite
 	}
-	
+
 }
