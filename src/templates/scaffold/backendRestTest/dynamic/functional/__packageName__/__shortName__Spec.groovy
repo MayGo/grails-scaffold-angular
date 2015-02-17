@@ -23,12 +23,14 @@ simpleProps = allProps.findAll{ p -> !p.embedded && !p.oneToMany && !p.manyToMan
 
 private String getSearchString(){
 	Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainClass)
-	if(!useDisplaynames) useDisplaynames = ["id":null]
 
-	String searchField = useDisplaynames.find{true}.key
+
+	String searchField = useDisplaynames.grep{it.key != "id"}.find{true}.key
+	println searchField
 	def inst = DomainHelper.createOrGetInst(domainClass, 2)
 
-	return inst[searchField]
+println inst.dump()
+	return (inst[searchField]!=null) ? inst[searchField] : "INSERT SOMETHING SEARCHABLE"
 }
 
 // get grails domain class mapping to check if id is composite. When composite then don't render alla tests
@@ -336,7 +338,6 @@ class ${className}Spec extends Specification implements RestQueries{
 			response.json.size() > 0
 			response.status == HttpStatus.OK.value()
 	}
-	//@TODO Test relations filtering. eg: {filter:author:[1]}
 
 	void 'Test filtering in ${className} list by id.'() {
 		when: 'Get ${propertyName} list filtered by id'

@@ -23,12 +23,7 @@ class DomainHelper {
 		}else{
 			domainClazz.withNewTransaction{status ->
 				inst = domainClazz.buildWithoutSave()
-				try {
-					/* Rolling back data if any exception happens */
-					status.setRollbackOnly();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
+				inst.discard()
 			}
 			cachedInstances[groupKey] = inst
 		}

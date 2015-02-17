@@ -7,35 +7,58 @@ props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}
 private void printSearchCriteria(){
 	Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainClass)
 	if(!useDisplaynames) useDisplaynames = ["id":null]
-	println "\t\t\tif (searchString) {"
+	println "\t\t\tif (searchString) {\n\t\t\t\tor {"
+
 	useDisplaynames.each{key, value->
 		def property = allProps.find{it.name == key}
-		String str = ""
+		String str = "\t\t\t\t\t"
 		if(property) {
 			if (property.type == String) {
 				str += "like('$property.name', searchString + '%')"
 			} else if (property.type == Integer) {
-				str += "eq('$property.name', searchString.toInteger())"
+				str = """
+					if(searchString.isInteger()){
+						eq('$property.name', searchString.toInteger())
+					}"""
 			} else if (property.type == Long) {
-				str += "eq('$property.name', searchString.toLong())"
+				str = """
+					if(searchString.isLong()){
+						eq('$property.name', searchString.toLong())
+					}"""
 			} else if (property.type == Double) {
-				str += "eq('$property.name', searchString.toDouble())"
-			}else if (property.type == Float) {
-				str += "eq('$property.name', searchString.toFloat())"
+				str = """
+					if(searchString.isDouble()){
+						eq('$property.name', searchString.toDouble())
+					}"""
+			} else if (property.type == Float) {
+				str = """
+					if(searchString.isFloat()){
+						eq('$property.name', searchString.toFloat())
+					}"""
 			} else if (property.manyToOne || property.oneToOne) {
-				str += "eq('${property.name}.id', searchString.toFloat())"
-			} else {
+				str = """
+					if(searchString.isFloat()){
+						eq('${property.name}.id', searchString.toFloat())
+					}"""
+			} else if (property.type == Boolean || property.type == boolean){
+				str = """
+					eq('${property.name}', searchString.toBoolean())
+					"""
+			}else{
 				str += "// no type defined for $key "
 			}
 
 		} else if(key == "id"){
-			str += "eq('id', searchString.toLong())"
+			str = """
+					if(searchString.isLong()){
+						eq('id', searchString.toLong())
+					}"""
 		}else{
 			str += "// no property $key found"
 		}
-		println "\t\t\t\t" + str
+		println str
 	}
-	println "\t\t\t}"
+	println "\t\t\t\t}\n\t\t\t}"
 }
 %>
 import grails.compiler.GrailsCompileStatic
