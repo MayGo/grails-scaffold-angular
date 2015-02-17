@@ -1,4 +1,4 @@
-<plugin name='scaffold-angular' version='0.4.24' grailsVersion='2.4 &gt; *'>
+<plugin name='scaffold-angular' version='0.4.25' grailsVersion='2.4 &gt; *'>
   <author>Maigo Erit</author>
   <authorEmail>maigo.erit@gmail.com</authorEmail>
   <title>Scaffold Angular Plugin</title>
