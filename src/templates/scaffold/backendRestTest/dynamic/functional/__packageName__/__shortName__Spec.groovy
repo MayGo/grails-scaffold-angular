@@ -91,7 +91,16 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 					respStr += str
 				}
 			}*/
-			def val = refClass.getClazz().first(sort: 'id')?.id
+			def val
+			refClass.getClazz().withNewTransaction{status ->
+				try {
+					val = refClass.getClazz().first(sort: 'id')?.id
+
+				} catch (Exception ex) {
+					println ex.message
+				}
+			}
+
 			
 			if(isResp){
 				str +="${p.name}?.id $asign $val\n"
@@ -370,7 +379,14 @@ class ${className}Spec extends Specification implements RestQueries{
 		def jsonVal
 		if(p.referencedDomainClass?.hasProperty('id')){
 			def refClass = new DefaultGrailsDomainClass(p.type)
-			realVal = refClass.getClazz().first(sort: 'id')?.id
+
+			refClass.getClazz().withNewTransaction{status ->
+				try {
+					realVal = refClass.getClazz().first(sort: 'id')?.id
+				} catch (Exception ex) {
+					println ex.message;
+				}
+			}
 
 			jsonVal = (["${p.name}":realVal] as JSON).toString()
 			println "\t\t\t'$jsonVal' || 3 "
