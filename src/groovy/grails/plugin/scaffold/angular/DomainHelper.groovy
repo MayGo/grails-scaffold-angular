@@ -47,7 +47,6 @@ class DomainHelper {
 			realVal = val
 		}else if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
 			def inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
-			val?.clearTime()
 			String dateStr = (val)?inputFormat.format(val):''
 
 			realVal = "$dateStr"
@@ -64,7 +63,6 @@ class DomainHelper {
 			realVal = val
 		}else if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
 			def inputFormat = new SimpleDateFormat("dd.MM.yyyy")
-			val?.clearTime()
 			String dateStr = (val)?inputFormat.format(val):''
 
 			realVal = "$dateStr"

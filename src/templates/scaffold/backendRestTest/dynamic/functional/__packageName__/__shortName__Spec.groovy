@@ -119,7 +119,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 				def inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
 				def outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
 				outputFormat.timeZone = java.util.TimeZone.getTimeZone( 'GMT' )
-				val?.clearTime()
+
 				String dateStr = (val)?inputFormat.format(val):''
 				
 				if(isResp){//format input differently then comparison
