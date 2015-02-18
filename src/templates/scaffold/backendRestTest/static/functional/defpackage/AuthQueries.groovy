@@ -13,11 +13,11 @@ trait AuthQueries {
 	static final String USERNAME = (Holders.config.functionalTest.userName)?:'john'
 	static final String PASSWORD = (Holders.config.functionalTest.password)?:'john'
 	
-	RestResponse loginToApp(String serviceUrl, String username, String password) {
+	RestResponse loginToApp(String serviceUrl, String passwordStr, String usernameStr) {
 		restBuilder.post("${serviceUrl}/api/login") {
 			json {
-				username = username
-				password = password
+				username = usernameStr
+				password = passwordStr
 			}
 		}
 	}

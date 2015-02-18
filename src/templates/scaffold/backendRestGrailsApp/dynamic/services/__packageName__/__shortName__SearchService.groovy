@@ -7,7 +7,11 @@ props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}
 private void printSearchCriteria(){
 	Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainClass)
 	if(!useDisplaynames) useDisplaynames = ["id":null]
-	println "\t\t\tif (searchString) {\n\t\t\t\tor {"
+	println """
+			if (searchString) {
+				or {
+					eq('id', -1L)
+"""
 
 	useDisplaynames.each{key, value->
 		def property = allProps.find{it.name == key}
@@ -17,32 +21,34 @@ private void printSearchCriteria(){
 				str += "like('$property.name', searchString + '%')"
 			} else if (property.type == Integer) {
 				str = """
-					if(searchString.isInteger()){
+					if(searchString.isInteger()) {
 						eq('$property.name', searchString.toInteger())
 					}"""
 			} else if (property.type == Long) {
 				str = """
-					if(searchString.isLong()){
+					if(searchString.isLong()) {
 						eq('$property.name', searchString.toLong())
 					}"""
 			} else if (property.type == Double) {
 				str = """
-					if(searchString.isDouble()){
+					if(searchString.isDouble()) {
 						eq('$property.name', searchString.toDouble())
 					}"""
 			} else if (property.type == Float) {
 				str = """
-					if(searchString.isFloat()){
+					if(searchString.isFloat()) {
 						eq('$property.name', searchString.toFloat())
 					}"""
 			} else if (property.manyToOne || property.oneToOne) {
 				str = """
-					if(searchString.isFloat()){
+					if(searchString.isFloat()) {
 						eq('${property.name}.id', searchString.toFloat())
 					}"""
 			} else if (property.type == Boolean || property.type == boolean){
 				str = """
-					eq('${property.name}', searchString.toBoolean())
+					if(searchString.equalsIgnoreCase("false") || searchString.equalsIgnoreCase("true")) {
+						eq('${property.name}', searchString.toBoolean())
+					}
 					"""
 			}else{
 				str += "// no type defined for $key "
