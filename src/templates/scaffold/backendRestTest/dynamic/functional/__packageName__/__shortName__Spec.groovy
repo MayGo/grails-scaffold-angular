@@ -4,6 +4,7 @@ import spock.lang.Shared
 import spock.lang.Ignore
 import org.springframework.http.HttpStatus
 import defpackage.RestQueries
+import defpackage.AuthQueries
 import spock.lang.Specification
 <%
 import grails.plugin.scaffold.angular.DomainHelper
@@ -31,7 +32,6 @@ private String getSearchString(){
 }
 
 // get grails domain class mapping to check if id is composite. When composite then don't render alla tests
-
 isComposite = DomainHelper.isComposite(domainClass)
 
 // This is included in plugins doWithSpring
@@ -136,9 +136,8 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 	return respStr
 }
 %>
-class ${className}Spec extends Specification implements RestQueries{
+class ${className}Spec extends Specification implements RestQueries, AuthQueries{
 
-	
 	String REST_URL = "\${APP_URL}/${shortNameLower}"
 	
 	@Shared

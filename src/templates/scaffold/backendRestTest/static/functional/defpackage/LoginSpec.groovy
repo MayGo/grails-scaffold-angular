@@ -1,10 +1,8 @@
 package defpackage
 
-import grails.plugins.rest.client.RestBuilder
-import spock.lang.Shared
 import spock.lang.Specification
 
-class LoginSpec extends Specification implements RestQueries {
+class LoginSpec extends Specification implements RestQueries, AuthQueries {
 
     void 'calling /api/validate with a valid token returns a JSON representation'() {
 
