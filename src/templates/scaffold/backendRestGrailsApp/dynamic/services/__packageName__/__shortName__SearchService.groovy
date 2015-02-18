@@ -75,7 +75,7 @@ import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.json.JSONElement
 import org.codehaus.groovy.grails.web.json.JSONObject
 
-@GrailsCompileStatic
+//@GrailsCompileStatic
 @Transactional(readOnly = true)
 class ${className}SearchService {
 
@@ -147,9 +147,14 @@ class ${className}SearchService {
 					}
 				}else if (p.type == String)
 					str += """ilike('${p.name}', "\${filter['${p.name}']}%")"""
-				else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar)
-					str += """between('${p.name}', filter['${p.name}'], filter['${p.name}'])"""
-				else if (p.type == URL)
+				else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar) {
+					println """
+			if (filter['${p.name}']) {
+				String inputFormat = "yyyy-MM-dd HH:mm:ss.SSSZ"
+				Date d = Date.parse(inputFormat, filter['${p.name}'].toString())
+				between('${p.name}', d, d)
+			}"""
+				}else if (p.type == URL)
 					str += "//url"
 				else if (p.type && p.isEnum())
 					str += "//enum"

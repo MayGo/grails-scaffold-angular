@@ -119,7 +119,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 				def inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
 				def outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
 				outputFormat.timeZone = java.util.TimeZone.getTimeZone( 'GMT' )
-				
+				val?.clearTime()
 				String dateStr = (val)?inputFormat.format(val):''
 				
 				if(isResp){//format input differently then comparison
@@ -388,10 +388,10 @@ class ${className}Spec extends Specification implements RestQueries, AuthQueries
 			}
 
 			jsonVal = (["${p.name}":realVal] as JSON).toString()
-			println "\t\t\t'$jsonVal' || 3 "
+			println "\t\t\t'$jsonVal' || 2 "
 
 			jsonVal = (["${p.name}s":[realVal]] as JSON).toString()
-			println "\t\t\t'$jsonVal' || 3 "
+			println "\t\t\t'$jsonVal' || 2 "
 		}else{
 			jsonVal = (["${p.name}":realVal] as JSON).toString()
 			if(hasChanged && jsonVal.matches(".*\\s+.*")){
