@@ -8,9 +8,9 @@ module.exports = function(grunt) {
             unit: {
                 options: {
                     files: [
-                        'components/angular/angular.js',
-                        'components/angular-mocks/angular-mocks.js',
-                        'components/chai/chai.js',
+                        'shared/angular/angular.js',
+                        'shared/angular-mocks/angular-mocks.js',
+                        'shared/chai/chai.js',
                         'ngStorage.js',
                         'test/spec.js'
                     ]

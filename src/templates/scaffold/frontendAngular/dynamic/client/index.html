@@ -36,7 +36,7 @@
 			<link href="assets/css/AdminLTE.css" rel="stylesheet" type="text/css" />
 			<!-- injector:css -->
 			<link rel="stylesheet" href="app/app.css">
-			<link rel="stylesheet" href="components/modal/modal.css">
+			<link rel="stylesheet" href="shared/modal/modal.css">
 			<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" type="text/css" />
 			<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css" type="text/css" />
 			<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css"	/>
@@ -105,18 +105,19 @@
             <script src="app/session/session.service.js"></script>
             <script src="app/settings/settings.controller.js"></script>
 			<script src="app/settings/settings.js"></script>
-    		<script src="components/directives/menu.directive.js"></script>
-    		<script src="components/directives/smarttable.customstsearch.directive.js"></script>
-			<script src="components/directives/show-loading.directive.js"></script>
+    		<script src="shared/directives/menu.directive.js"></script>
+    		<script src="shared/directives/smarttable.customstsearch.directive.js"></script>
+			<script src="shared/directives/show-loading.directive.js"></script>
+            <script src="shared/modal/modal.service.js"></script>
+            <script src="shared/navbar/navbar.controller.js"></script>
 <%for(d in domainClasses){%>
-			<script src="app/${d.propertyName}/${d.propertyName}.js"></script>
+			<script src="app/${d.propertyName}/${d.propertyName}.routes.js"></script>
 			<script src="app/${d.propertyName}/${d.propertyName}.edit.controller.js"></script>
 			<script src="app/${d.propertyName}/${d.propertyName}.list.controller.js"></script>
 			<script src="app/${d.propertyName}/${d.propertyName}.view.controller.js"></script>
 			<script src="app/${d.propertyName}/${d.propertyName}.service.js"></script>
 <%}%>
-        	<script src="components/modal/modal.service.js"></script>
-        	<script src="components/navbar/navbar.controller.js"></script>
+
 			<!-- endinjector -->
 		<!-- endbuild -->
 </body>

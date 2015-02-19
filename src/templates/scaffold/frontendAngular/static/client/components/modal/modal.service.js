@@ -16,7 +16,7 @@ angular.module('angularDemoApp')
       angular.extend(modalScope, scope);
 
       return $modal.open({
-        templateUrl: 'components/modal/modal.html',
+        templateUrl: 'shared/modal/modal.html',
         windowClass: modalClass,
         scope: modalScope
       });
