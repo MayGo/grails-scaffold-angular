@@ -31,7 +31,9 @@ domainClasses.each{dClass->
 	simpleProps.each { p ->
 		if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
 			println "\t\t\t${p.name} = {-> new Date().clearTime()}"
-		}else{
+		}else if (p.type == Boolean || p.type == boolean){
+			println "\t\t\t${p.name} = {-> true}"
+		}else {
 			println "\t\t\t//${p.name} = {-> }"
 		}
 
