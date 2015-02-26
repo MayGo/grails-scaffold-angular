@@ -14,8 +14,8 @@ class ${className}ConstraintsSpec extends Specification {
 		mockForConstraintsTests( ${className}, [ new ${className}() ] )
 	}
 
-	@Unroll("${className} constraint on field '#field' with value '#val' gets error '#error'")
-	def "All ${className} constraints fails"() {
+	@Unroll("${className} constraint on field '#field' with value '#val' gets '#error'")
+	def "All ${className} constraints"() {
 		when:
 			def obj = new ${className}("\$field": val)
 
@@ -24,6 +24,7 @@ class ${className}ConstraintsSpec extends Specification {
 
 		where:
 			error                  | field        | val
+			'valid' | 'id' | 1 // Keep always one here or remove test
 <%
 import org.codehaus.groovy.grails.validation.ConstrainedProperty
 allProps = scaffoldingHelper.getProps(domainClass)
@@ -52,59 +53,98 @@ if (hasHibernate) {
 						println "\t\t\t'nullable' | '$fieldName' | $val"
 					}
 					break
-				case ConstrainedProperty.RANGE_CONSTRAINT:
-					//val="ConstraintHelper.getEmail(false)"
-					println "\t\t\t'$errorName' | '$fieldName' | $val"
-					break
+
 				case ConstrainedProperty.IN_LIST_CONSTRAINT:
-					//val="ConstraintHelper.getEmail(false)"
-					println "\t\t\t'$errorName' | '$fieldName' | $val"
+					val = cp.inList.first()
+					println "\t\t\t'$errorName' | '$fieldName' | '${val+111111}'"
+					println "\t\t\t'valid' | '$fieldName' | '$val'"
 					break
 				case ConstrainedProperty.URL_CONSTRAINT:
 					val = "ConstraintHelper.getUrl(false)"
 					println "\t\t\t'$errorName' | '$fieldName' | $val"
 					break
 				case ConstrainedProperty.MATCHES_CONSTRAINT:
-					//val="ConstraintHelper.getEmail(false)"
-					println "\t\t\t'$errorName' | '$fieldName' | $val"
+					val = "DOES_NOT_MATCH"
+					println "\t\t\t'$errorName' | '$fieldName' | '$val'"
+					break
+				case ConstrainedProperty.RANGE_CONSTRAINT:
+					if (cp.min){
+						val = cp.min
+						println "\t\t\t'valid' | '$fieldName' | $val"
+						if(cp.min > 1) {
+							val = cp.min - 1
+							println "\t\t\t'$errorName' | '$fieldName' | $val"
+						}
+					}
+
+					if (cp.max){
+						val = cp.max
+						println "\t\t\t'valid' | '$fieldName' | $val"
+						val = cp.max +1
+						println "\t\t\t'$errorName' | '$fieldName' | $val"
+					}
+				case ConstrainedProperty.MAX_SIZE_CONSTRAINT:
+					if (cp.maxSize){
+						val = "ConstraintHelper.getLongString(${cp.maxSize})"
+						println "\t\t\t'valid' | '$fieldName' | $val"
+						val = "ConstraintHelper.getLongString(${cp.maxSize +1 })"
+						println "\t\t\t'$errorName' | '$fieldName' | $val"
+					}
+					break
+				case ConstrainedProperty.MIN_SIZE_CONSTRAINT:
+					if (cp.minSize){
+						val = "ConstraintHelper.getLongString(${cp.minSize})"
+						println "\t\t\t'valid' | '$fieldName' | $val"
+						if(cp.minSize > 1) {
+							val = "ConstraintHelper.getLongString(${cp.minSize - 1})"
+							println "\t\t\t'$errorName' | '$fieldName' | $val"
+						}
+					}
+
 					break
 				case ConstrainedProperty.SIZE_CONSTRAINT:
 
-					if (cp.minSize && cp.minSize > 1){
-						val = "ConstraintHelper.getLongString(${cp.minSize - 1})"
-						println "\t\t\t'size' | '$fieldName' | $val"
+					if (cp.minSize){
+						val = "ConstraintHelper.getLongString(${cp.minSize})"
+						println "\t\t\t'valid' | '$fieldName' | $val"
+						if(cp.minSize > 1) {
+							val = "ConstraintHelper.getLongString(${cp.minSize - 1})"
+							println "\t\t\t'$errorName' | '$fieldName' | $val"
+						}
 					}
 
 					if (cp.maxSize){
+						val = "ConstraintHelper.getLongString(${cp.maxSize})"
+						println "\t\t\t'valid' | '$fieldName' | $val"
 						val = "ConstraintHelper.getLongString(${cp.maxSize +1 })"
-						println "\t\t\t'size' | '$fieldName' | $val"
+						println "\t\t\t'$errorName' | '$fieldName' | $val"
 					}
-
-
 					break
 				case ConstrainedProperty.MIN_CONSTRAINT:
-					//val="ConstraintHelper.getEmail(false)"
+					val = cp.min
+					println "\t\t\t'valid' | '$fieldName' | $val"
+					val =  cp.min - 1
 					println "\t\t\t'$errorName' | '$fieldName' | $val"
 					break
 				case ConstrainedProperty.MAX_CONSTRAINT:
-					//val="ConstraintHelper.getEmail(false)"
+					val = cp.max
+					println "\t\t\t'valid' | '$fieldName' | $val"
+					val =  cp.max +1
 					println "\t\t\t'$errorName' | '$fieldName' | $val"
 					break
-				case ConstrainedProperty.MAX_SIZE_CONSTRAINT:
-					//val="ConstraintHelper.getEmail(false)"
-					println "\t\t\t'$errorName' | '$fieldName' | $val"
-					break
-				case ConstrainedProperty.MIN_SIZE_CONSTRAINT:
-					//val="ConstraintHelper.getEmail(false)"
-					println "\t\t\t'$errorName' | '$fieldName' | $val"
-					break
+
 				case ConstrainedProperty.SCALE_CONSTRAINT:
-					//val="ConstraintHelper.getEmail(false)"
-					println "\t\t\t'$errorName' | '$fieldName' | $val"
+					val = "ConstraintHelper.getScale(${cp.scale-1})"
+					println "\t\t\t'valid' | '$fieldName' | $val "
+					val = "ConstraintHelper.getScale(${cp.scale})"
+					println "\t\t\t'valid' | '$fieldName' | $val "
+					val = "ConstraintHelper.getScale(${cp.scale+1})"
+					println "\t\t\t'valid' | '$fieldName' | $val "
 					break
 				case ConstrainedProperty.NOT_EQUAL_CONSTRAINT:
-					//val="ConstraintHelper.getEmail(false)"
-					println "\t\t\t'$errorName' | '$fieldName' | $val"
+					val = cp.notEqual
+					println "\t\t\t'$errorName' | '$fieldName' | '$val'"
+					println "\t\t\t'valid' | '$fieldName' | '${val+11111}'"
 					break
 				case ConstrainedProperty.NULLABLE_CONSTRAINT:
 					if(!cp.nullable && p.type != Boolean && p.type != boolean) {
@@ -113,8 +153,8 @@ if (hasHibernate) {
 					}
 					break
 				case ConstrainedProperty.VALIDATOR_CONSTRAINT:
-					//val="ConstraintHelper.getEmail(false)"
-					println "\t\t\t'$errorName' | '$fieldName' | $val"
+					val = "CUSTOM_VALIDATOR"
+					println "\t\t\t//'$errorName' | '$fieldName' | '$val'"
 					break
 			}
 
