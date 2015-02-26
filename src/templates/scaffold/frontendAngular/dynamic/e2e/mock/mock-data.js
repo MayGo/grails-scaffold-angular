@@ -3,7 +3,7 @@ module.exports = function(){
     	.run(function(\$httpBackend, appConfig) {
 
 <%for(d in domainClasses){%>
-	     	var ${d.propertyName}Url = appConfig.restUrl + '/${d.propertyName.toLowerCase()}s';
+	     	var ${d.propertyName}Url = appConfig.restUrl + '/${d.propertyName.toLowerCase()}s/v1';
 	        \$httpBackend.whenPOST(${d.propertyName}Url).respond(function(method, url){return [200, {'id' : 1}];});
 	        \$httpBackend.whenPOST(${d.propertyName}Url + "/1").respond(function(method, url){return [200, {'id' : 1}];});
 	        \$httpBackend.whenGET(${d.propertyName}Url + "/1").respond(function(method, url){return [200, {'id' : 1}];});

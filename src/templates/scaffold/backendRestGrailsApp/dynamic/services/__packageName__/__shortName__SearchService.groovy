@@ -10,8 +10,7 @@ private void printSearchCriteria(){
 	println """
 			if (searchString) {
 				or {
-					eq('id', -1L)
-"""
+					eq('id', -1L)"""
 
 	useDisplaynames.each{key, value->
 		def property = allProps.find{it.name == key}
@@ -21,42 +20,41 @@ private void printSearchCriteria(){
 				str += "like('$property.name', searchString + '%')"
 			} else if (property.type == Integer) {
 				str = """
-					if(searchString.isInteger()) {
+					if (searchString.isInteger()) {
 						eq('$property.name', searchString.toInteger())
 					}"""
 			} else if (property.type == Long) {
 				str = """
-					if(searchString.isLong()) {
+					if (searchString.isLong()) {
 						eq('$property.name', searchString.toLong())
 					}"""
 			} else if (property.type == Double) {
 				str = """
-					if(searchString.isDouble()) {
+					if (searchString.isDouble()) {
 						eq('$property.name', searchString.toDouble())
 					}"""
 			} else if (property.type == Float) {
 				str = """
-					if(searchString.isFloat()) {
+					if (searchString.isFloat()) {
 						eq('$property.name', searchString.toFloat())
 					}"""
 			} else if (property.manyToOne || property.oneToOne) {
 				str = """
-					if(searchString.isFloat()) {
+					if (searchString.isFloat()) {
 						eq('${property.name}.id', searchString.toFloat())
 					}"""
 			} else if (property.type == Boolean || property.type == boolean){
 				str = """
-					if(searchString.equalsIgnoreCase("false") || searchString.equalsIgnoreCase("true")) {
+					if (searchString.equalsIgnoreCase('false') || searchString.equalsIgnoreCase('true')) {
 						eq('${property.name}', searchString.toBoolean())
-					}
-					"""
+					}"""
 			}else{
 				str += "// no type defined for $key "
 			}
 
 		} else if(key == "id"){
 			str = """
-					if(searchString.isLong()){
+					if (searchString.isLong()) {
 						eq('id', searchString.toLong())
 					}"""
 		}else{
@@ -68,12 +66,13 @@ private void printSearchCriteria(){
 }
 %>
 import grails.compiler.GrailsCompileStatic
+import grails.gorm.PagedResultList
 import grails.converters.JSON
-import grails.orm.HibernateCriteriaBuilder
-import grails.orm.PagedResultList
 import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.json.JSONElement
 import org.codehaus.groovy.grails.web.json.JSONObject
+import org.grails.datastore.mapping.query.api.BuildableCriteria
+
 
 //@GrailsCompileStatic
 @Transactional(readOnly = true)
@@ -81,7 +80,7 @@ class ${className}SearchService {
 
 	PagedResultList search(Map params) {
 
-		HibernateCriteriaBuilder criteriaBuilder = (HibernateCriteriaBuilder) ${domainClass.name}.createCriteria()
+		BuildableCriteria criteriaBuilder = (BuildableCriteria) ${domainClass.name}.createCriteria()
 		PagedResultList results = (PagedResultList) criteriaBuilder.list(
 				offset: params.offset,
 				max: params.max,
@@ -93,7 +92,7 @@ class ${className}SearchService {
 		return results
 	}
 
-	private void searchCriteria(HibernateCriteriaBuilder builder, Map params) {
+	private void searchCriteria(BuildableCriteria builder, Map params) {
 		String searchString = params.searchString
 		JSONElement filter = params.filter ? JSON.parse(params.filter.toString()) : new JSONObject()
 
@@ -103,8 +102,7 @@ class ${className}SearchService {
 			println """
 			if (filter['id']) {
 				eq('id', filter['id'].toString().toLong())
-			}
-"""
+			}"""
 			//lets find property to be used in searchString
 			printSearchCriteria()
 

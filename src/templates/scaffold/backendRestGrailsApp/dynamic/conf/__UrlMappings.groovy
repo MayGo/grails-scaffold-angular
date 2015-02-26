@@ -4,7 +4,7 @@
 		grailsApplication.domainClasses.each{domainClass->
 				String shortName = domainClass.getShortName();
 				String shortNameLower = shortName.toLowerCase();
-				String line = "'/${shortNameLower}s'(resources:'$shortName')"
+				String line = "'/${shortNameLower}s/v1'(resources: '$shortName', namespace: 'v1')"
 
 				if(!destFile.text.contains(line)) {
 					linesToAdd += "\t\t" + line + "\n"

@@ -4,7 +4,7 @@ angular.module('angularDemoApp')
   .service('${domainClass.shortName}Service', function(\$resource, \$translate, appConfig, inform){
   		var service = {};
   		
-  		var resource = \$resource(appConfig.restUrl + '/${domainClass.propertyName.toLowerCase()}s/:id', { id: '@id' }, {
+  		var resource = \$resource(appConfig.restUrl + '/${domainClass.propertyName.toLowerCase()}s/v1/:id', { id: '@id' }, {
             //query: {method:'GET',  params:{}, isArray:true},
             update: {
                 method: 'PUT' // this method issues a PUT request

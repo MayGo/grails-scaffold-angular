@@ -61,7 +61,7 @@ angular.module('angularDemoApp')
 	
   		%>
   		${d.propertyName}Query : function(val, labelProperties, tagsOutput){
-  			return resourceQuery(val, '${d.propertyName.toLowerCase()}s', labelProperties, '${excludes*.name.join(",")}', tagsOutput);
+  			return resourceQuery(val, '${d.propertyName.toLowerCase()}s/v1', labelProperties, '${excludes*.name.join(",")}', tagsOutput);
 	    },
 	    ${d.propertyName}FormatLabel : function(model, labelProperties) {
 		    return toLabel(model, labelProperties);

@@ -17,7 +17,7 @@ import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
 import grails.converters.JSON
 
 String propertyName = domainClass.propertyName;
-String shortNameLower = propertyName.toLowerCase()+"s";
+String shortNameLower = propertyName.toLowerCase()+"s/v1";
 
 allProps = scaffoldingHelper.getProps(domainClass)
 simpleProps = allProps.findAll{ p -> !p.embedded && !p.oneToMany && !p.manyToMany}
@@ -60,7 +60,7 @@ private renderAll(def dClass, boolean isResp = false, int groupId){
 	def inst = DomainHelper.createOrGetInst(dClass, groupId)
 	if(inst) resp += createDomainInstanceJson(dClass, isResp, inst)
 
-	println resp
+	print resp
 }
 
 private String createDomainInstanceJson(def dClass, boolean isResp, def inst, List alreadyCreatedClasses = []){
@@ -251,7 +251,7 @@ class ${className}Spec extends Specification implements RestQueries, AuthQueries
 	<%renderAll(domainClass, false, 2)%>
 			}
 		then: 'Should not find'
-			response.status == HttpStatus.NOT_FOUND.value()
+			response.status == HttpStatus.UNPROCESSABLE_ENTITY.value()
 	}
 	
 	void 'Test ${className} list sorting.'() {

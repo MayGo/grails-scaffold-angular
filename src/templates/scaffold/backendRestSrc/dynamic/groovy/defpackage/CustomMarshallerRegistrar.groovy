@@ -90,7 +90,7 @@ class CustomMarshallerRegistrar {
 	@javax.annotation.PostConstruct
     static void registerMarshallers() {
 		int priority = 10
-		<%
+<%
 
 	for(d in domainClasses){
 		excludeProps = d.properties.findAll{p->p.oneToMany || p.manyToMany}*.getName()
