@@ -1,20 +1,24 @@
 <%=packageName ? "package ${packageName}" : ''%>
+<%
+import grails.converters.JSON
+import grails.plugin.scaffold.angular.DomainHelper
+%>
+
 
 import org.springframework.http.HttpStatus
 import grails.converters.JSON
 import grails.test.mixin.TestFor
 import grails.test.mixin.Mock
 import spock.lang.Specification
+import ${packageName}.v1.${className}Controller
+import ${packageName}.${className}ModifyService
+import ${packageName}.${className}SearchService
 
 @TestFor(${className}Controller)
-@Mock(${className})
+@Mock([${className}, ${className}ModifyService, ${className}SearchService])
 class ${className}ControllerSpec extends Specification {
 
-    def populateValidParams(params) {
-        assert params != null
-        // TODO: Populate valid properties like...
-        //params['name'] = 'someValidName'
-    }
+
 
     void 'Test the index action returns the correct model'() {
 
@@ -26,75 +30,95 @@ class ${className}ControllerSpec extends Specification {
             response.text == ([] as JSON).toString()
     }
 
-    void 'Test the save action correctly persists an instance'() {
+    void 'Creating instance with invalid data returns validation errors'() {
 
-        when: 'The save action is executed with an invalid instance'
-            // Make sure the domain class has at least one non-null property
-            // or this test will fail.
-            def ${propertyName} = new ${className}()
-            controller.save(${propertyName})
+        when:
+            request.JSON = invalidData() as JSON
+            controller.save()
 
-        then: 'The response status is NOT_ACCEPTABLE'
-            response.status == HttpStatus.NOT_ACCEPTABLE.value
+        then:
+            response.status == HttpStatus.UNPROCESSABLE_ENTITY.value
 
-        when: 'The save action is executed with a valid instance'
-            response.reset()
-            populateValidParams(params)
-            ${propertyName} = new ${className}(params)
-
-            controller.save(${propertyName})
-
-        then: 'The response status is CREATED and the instance is returned'
-            response.status == HttpStatus.CREATED.value
-            response.text == (${propertyName} as JSON).toString()
     }
 
-    void 'Test the update action performs an update on a valid domain instance'() {
-        when:'Update is called for a domain instance that does not exist'
-            controller.update(null)
+	void 'Creating instance with valid data returns created instance'() {
 
-        then: 'The response status is NOT_FOUND'
-            response.status == HttpStatus.NOT_FOUND.value
+		when:
+			request.JSON =  validData() as JSON
+			controller.save()
 
-        when: 'An invalid domain instance is passed to the update action'
-            response.reset()
-            def ${propertyName} = new ${className}()
-            controller.update(${propertyName})
+		then:
+			response.status == HttpStatus.CREATED.value
 
-        then: 'The response status is NOT_ACCEPTABLE'
-            response.status == HttpStatus.NOT_ACCEPTABLE.value
+	}
 
-        when: 'A valid domain instance is passed to the update action'
-            response.reset()
-            populateValidParams(params)
-            ${propertyName} = new ${className}(params).save(flush: true)
-            controller.update(${propertyName})
+	void 'Updating instance with invalid data returns validation errors'() {
 
-        then: 'The response status is OK and the updated instance is returned'
-            response.status == OK.value
-            response.text == (${propertyName} as JSON).toString()
-    }
+		when:
+			request.JSON = invalidData() as JSON
+			controller.save()
 
-    void 'Test that the delete action deletes an instance if it exists'() {
-        when: 'The delete action is called for a null instance'
-            controller.delete(null)
+		then:
+			response.status == HttpStatus.UNPROCESSABLE_ENTITY.value
 
-        then: 'A NOT_FOUND is returned'
-            response.status == HttpStatus.NOT_FOUND.value
+	}
 
-        when: 'A domain instance is created'
-            response.reset()
-            populateValidParams(params)
-            def ${propertyName} = new ${className}(params).save(flush: true)
+	void 'Updating instance with valid data returns created instance'() {
 
-        then: 'It exists'
-            ${className}.count() == 1
+		when:
+			request.JSON =  validData() as JSON
+			controller.save()
 
-        when: 'The domain instance is passed to the delete action'
-            controller.delete(${propertyName})
+		then:
+			response.status == HttpStatus.CREATED.value
 
-        then: 'The instance is deleted'
-            ${className}.count() == 0
-            response.status == HttpStatus.NO_CONTENT.value
-    }
+	}
+
+	void 'Deleting instance with finctional id is not possible'() {
+
+		when:
+			request.JSON = [id: 99999999L] as JSON
+			controller.delete()
+
+		then:
+			response.status == HttpStatus.NOT_FOUND.value
+
+	}
+
+	void 'Deleting instance with correct id is possible'() {
+		when:
+			Map data = [:]
+			data.id = createValidBook().id
+			request.JSON = data as JSON
+			controller.delete()
+
+		then:
+			${className}.count() == 0
+			response.status == HttpStatus.NOT_FOUND.value
+
+	}
+
+	Map invalidData() {
+		return ["foo": "bar"]//Sadisfy 'empty data' exception
+	}
+
+	Map validData() {
+		<%
+		String jsonData = ""
+		def inst = DomainHelper.createOrGetInst(domainClass, 1)
+		if(inst){
+			jsonData = (inst as JSON).toString()
+			jsonData = jsonData.replaceAll(/\{/,'[')
+			jsonData = jsonData.replaceAll(/\}/,']')
+		}
+		%>
+		Map data = <% println jsonData %>
+		return data
+	}
+
+	${className} createValid${className}(){
+		${className} ${domainClass.propertyName} = new ${className}(validData())
+		${domainClass.propertyName}.save flush:true, failOnError: true
+		return ${domainClass.propertyName}
+	}
 }
