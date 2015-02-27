@@ -86,7 +86,7 @@ class ${className}SearchService {
 		if (!${domainClass.propertyName}) {
 			throw new ResourceNotFound("No ${className} found with Id :[\$${domainClass.propertyName}Id]")
 		}
-		return ${domainClass.name}
+		return ${domainClass.propertyName}
 	}
 
 	PagedResultList search(Map params) {

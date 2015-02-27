@@ -224,7 +224,7 @@ class ${className}Spec extends Specification implements RestQueries, AuthQueries
 		when: 'Find unexisting ${propertyName} id not a number'
 			response = readDomainItemWithParams('nonexistent', '')
 		then: 'Should not find'
-			response.status == HttpStatus.NOT_FOUND.value()
+			response.status == HttpStatus.UNPROCESSABLE_ENTITY.value()
 	}
 
 	
