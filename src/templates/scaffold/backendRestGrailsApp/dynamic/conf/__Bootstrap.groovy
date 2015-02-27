@@ -6,9 +6,10 @@
 		if(!destFile.text.contains(line)) {
 			linesToAdd += "\t\t" + line + "\n"
 		}
-		
+
+		boolean serveFrontendFromGrails = (grailsApplication.config.grails.plugin.scaffold.angular.serveFrontendFromGrails)
 		String line2 = "defpackage.InternalFrontendHelper.writeConfig('angular/client/')"
-		if(!destFile.text.contains(line2)) {
+		if(serveFrontendFromGrails && !destFile.text.contains(line2)) {
 			linesToAdd += "\t\t" + line2 + "\n"
 		}
 	
