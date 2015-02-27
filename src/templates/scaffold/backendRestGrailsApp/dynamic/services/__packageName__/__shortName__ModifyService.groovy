@@ -10,37 +10,47 @@ import defpackage.exceptions.ResourceNotFound
 class ${className}ModifyService {
 	def grailsWebDataBinder
 
-	${className} create${className}(Map data){
+	${className} create${className}(Map data) {
 		${className} ${domainClass.propertyName} = ${className}.newInstance()
 		return createOrUpdate(${domainClass.propertyName}, data)
 	}
 
-	${className} update${className}(Map data){
-		if(!data.id || data.id < 0){
-			throw new IllegalArgumentException("There is no valid 'id'")
+	${className} update${className}(Map data) {
+		if (!data.id || data.id < 0) {
+			throw new IllegalArgumentException('no.valid.id')
 		}
-		${className} ${domainClass.propertyName} = queryFor${className}(data.id)
+		${className} ${domainClass.propertyName} = ${className}.where { id == data.id }.find()
 
-		if(!${domainClass.propertyName}){
+		if (!${domainClass.propertyName}) {
 			throw new ResourceNotFound("No ${className} found with Id :[\${data.id}]")
 		}
 
 		return createOrUpdate(${domainClass.propertyName}, data)
 	}
 
-	${className} createOrUpdate(${className} ${domainClass.propertyName}, Map data){
-		if(!data){
-			throw new IllegalArgumentException("Data map is empty.")
+	${className} createOrUpdate(${className} ${domainClass.propertyName}, Map data) {
+		if (!data) {
+			throw new IllegalArgumentException('no.data')
 		}
 
 		grailsWebDataBinder.bind ${domainClass.propertyName}, data as SimpleMapDataBindingSource
 
-		${domainClass.propertyName}.save flush: true, failOnError: true
+		${domainClass.propertyName}.save failOnError: true
 
 		return ${domainClass.propertyName}
 	}
 
-	${className} queryFor${className}(long id){
-		return ${className}.get(id)
+	void delete${className}(Long ${domainClass.propertyName}Id) {
+		if (!${domainClass.propertyName}Id || ${domainClass.propertyName}Id < 0) {
+			throw new IllegalArgumentException('no.valid.id')
+		}
+		${className} ${domainClass.propertyName} = ${className}.where { id == ${domainClass.propertyName}Id }.find()
+
+		if (!${domainClass.propertyName}) {
+			throw new ResourceNotFound("No ${className} found with Id:\$${domainClass.propertyName}Id")
+		}
+
+		${domainClass.propertyName}.delete()
 	}
 }
+

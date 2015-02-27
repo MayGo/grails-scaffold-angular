@@ -5,7 +5,6 @@ import spock.lang.Unroll
 import spock.lang.Specification
 import defpackage.ConstraintHelper
 
-
 @TestFor(${className})
 class ${className}ConstraintsSpec extends Specification {
 
@@ -17,7 +16,8 @@ class ${className}ConstraintsSpec extends Specification {
 	@Unroll("${className} constraint on field '#field' with value '#val' gets '#error'")
 	def "All ${className} constraints"() {
 		when:
-			def obj = new ${className}("\$field": val)
+			${className} obj = new ${className}()
+			obj."\$field" = val
 
 		then:
 			ConstraintHelper.validateConstraints(obj, field, error)
@@ -50,7 +50,7 @@ if (hasHibernate) {
 				case ConstrainedProperty.BLANK_CONSTRAINT:
 					if(!cp.blank){
 						val = "''"
-						println "\t\t\t'nullable' | '$fieldName' | $val"
+						println "\t\t\t'blank' | '$fieldName' | $val"
 					}
 					break
 

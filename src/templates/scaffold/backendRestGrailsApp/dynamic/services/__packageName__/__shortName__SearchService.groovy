@@ -72,11 +72,22 @@ import grails.transaction.Transactional
 import org.codehaus.groovy.grails.web.json.JSONElement
 import org.codehaus.groovy.grails.web.json.JSONObject
 import org.grails.datastore.mapping.query.api.BuildableCriteria
-
+import defpackage.exceptions.ResourceNotFound
 
 //@GrailsCompileStatic
 @Transactional(readOnly = true)
 class ${className}SearchService {
+
+	${className} queryFor${className}(Long ${domainClass.propertyName}Id) {
+		if (!${domainClass.propertyName}Id || ${domainClass.propertyName}Id < 0) {
+			throw new IllegalArgumentException('no.valid.id')
+		}
+		${className} ${domainClass.propertyName} = ${className}.where { id == ${domainClass.propertyName}Id }.find()
+		if (!${domainClass.propertyName}) {
+			throw new ResourceNotFound("No ${className} found with Id :[\$${domainClass.propertyName}Id]")
+		}
+		return ${domainClass.name}
+	}
 
 	PagedResultList search(Map params) {
 

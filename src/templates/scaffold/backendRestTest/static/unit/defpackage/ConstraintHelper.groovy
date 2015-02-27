@@ -1,6 +1,5 @@
 package defpackage
 
-
 class ConstraintHelper {
 
 	static String getLongString(Integer length) {
@@ -8,15 +7,15 @@ class ConstraintHelper {
 	}
 
 	static String getEmail(Boolean valid) {
-		valid ? "foo@bar.gov" : "foo@m"
+		valid ? 'foo@bar.gov' : 'foo@m'
 	}
 
 	static String getUrl(Boolean valid) {
-		valid ? "http://www.google.com" : "http:/ww.helloworld.com"
+		valid ? 'http://www.google.com' : 'http:/ww.helloworld.com'
 	}
 
 	static String getCreditCard(Boolean valid) {
-		valid ? "4111111111111111" : "41014"
+		valid ? '4111111111111111' : '41014'
 	}
 	static BigDecimal getScale(int scale) {
 		new BigDecimal( 120, scale )
