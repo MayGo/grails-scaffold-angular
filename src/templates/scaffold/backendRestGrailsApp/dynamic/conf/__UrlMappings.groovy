@@ -10,9 +10,10 @@
 					linesToAdd += "\t\t" + line + "\n"
 				}
 		}
+		boolean serveFrontendFromGrails = (grailsApplication.config.grails.plugin.scaffold.angular.serveFrontendFromGrails)
 			
 		String redirectLine = "'/'(redirect:'/ng/index.html')"
-		if(!destFile.text.contains(redirectLine)) {
+		if(serveFrontendFromGrails && !destFile.text.contains(redirectLine)) {
 			linesToAdd += "\t\t" + redirectLine + "\n"
 		}
 		
@@ -23,7 +24,8 @@
 			dirserveBase = 'angular/client'
 		}
 		"""
-		if(!destFile.text.contains("/ng/\$asset**")) {
+
+		if(serveFrontendFromGrails && !destFile.text.contains("/ng/\$asset**")) {
 			linesToAdd += "\t\t" + spaLine + "\n"
 		}
 		

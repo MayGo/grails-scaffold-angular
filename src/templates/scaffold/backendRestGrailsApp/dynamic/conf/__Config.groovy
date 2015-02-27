@@ -57,9 +57,10 @@ environments {
         grails.plugin.springsecurity.active = false
     }
 }
-			
-
-
+	"""
+			boolean serveFrontendFromGrails = (grailsApplication.config.grails.plugin.scaffold.angular.serveFrontendFromGrails)
+			if (serveFrontendFromGrails) {
+				line3 += """
 grails.plugin.springsecurity.filterChain.chainMap = [
     '/ng/**': 'nonAuthFilter',
     '/static/**': 'nonAuthFilter',
@@ -72,7 +73,19 @@ grails.plugin.springsecurity.filterChain.chainMap = [
     '/restApiDoc/**': 'nonAuthFilter', //disable in production
     '/**/**': 'JOINED_FILTERS'
 ]
+"""
+			} else {
+				line3 += """
+grails.plugin.springsecurity.filterChain.chainMap = [
+    '/': 'nonAuthFilter',
+    '/login/**': 'nonAuthFilter',
+    '/restApiDoc/**': 'nonAuthFilter', //disable in production
+    '/**/**': 'JOINED_FILTERS'
+]
+"""
+			}
 
+			line3 += """
 grails.plugin.springsecurity.securityConfigType = 'InterceptUrlMap'
 grails.plugin.springsecurity.interceptUrlMap = [
       '/**':                  ['isFullyAuthenticated()']

@@ -1,9 +1,9 @@
 [
 	/(.*plugins\s*\{)/: {destFile->
 		String linesToAdd = ""
-		
+		boolean serveFrontendFromGrails = (grailsApplication.config.grails.plugin.scaffold.angular.serveFrontendFromGrails)
 		String pluginLine2 = 'compile ":dirserve:0.4"'
-		if(!destFile.text.contains('compile ":dirserve:')) {
+		if(serveFrontendFromGrails && !destFile.text.contains('compile ":dirserve:')) {
 			linesToAdd += "\t\t" + pluginLine2 + "\n"
 		}
 		
@@ -74,7 +74,9 @@
 			}
 		}
 		"""
-		if(!destFile.text.contains("grails.war.copyToWebApp")) {
+
+		boolean serveFrontendFromGrails = (grailsApplication.config.grails.plugin.scaffold.angular.serveFrontendFromGrails)
+		if(serveFrontendFromGrails && !destFile.text.contains("grails.war.copyToWebApp")) {
 			linesToAdd += line1
 		}
 		return linesToAdd
