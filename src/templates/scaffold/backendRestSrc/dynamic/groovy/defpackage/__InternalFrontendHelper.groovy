@@ -1,5 +1,5 @@
 [
-	/(.*app.*)/: {destFile->
+	/(.*InternalFrontendHelper.*)/: {destFile->
 
 		// Not replacing anything
 		List filePaths = []
