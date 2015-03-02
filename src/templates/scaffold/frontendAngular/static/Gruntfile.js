@@ -27,16 +27,15 @@ module.exports = function (grunt) {
     // Project settings
     pkg: grunt.file.readJSON('package.json'),
     yeoman: appConfig,
-   // The actual grunt server settings
+    // The actual grunt server settings
     connect: {
       options: {
-        port: 9000,
+        port: 9006,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost'
       },
-      livereload: {
+      dev: {
         options: {
-    	  livereload: 35729,
           open: true,
           middleware: function (connect) {
             return [
@@ -51,20 +50,20 @@ module.exports = function (grunt) {
         }
       },
       e2e: {
-          options: {
-            open: true,
-            middleware: function (connect) {
-              return [
-                connect.static('.tmp'),
-                connect().use(
-                  '/bower_components',
-                  connect.static('./bower_components')
-                ),
-                connect.static(appConfig.client)
-              ];
-            }
+        options: {
+          open: true,
+          middleware: function (connect) {
+            return [
+              connect.static('.tmp'),
+              connect().use(
+                '/bower_components',
+                connect.static('./bower_components')
+              ),
+              connect.static(appConfig.client)
+            ];
           }
-        },
+        }
+      },
       test: {
         options: {
           port: 9001,
@@ -119,7 +118,7 @@ module.exports = function (grunt) {
       gruntfile: {
         files: ['Gruntfile.js']
       },
-      livereload: {
+      dev: {
         files: [
           '{.tmp,<%= yeoman.client %>}/{app,shared,assets}/**/*.css',
           '{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.html',
@@ -127,10 +126,7 @@ module.exports = function (grunt) {
           '!{.tmp,<%= yeoman.client %>}{app,shared}/**/*.spec.js',
           '!{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.mock.js',
           '<%= yeoman.client %>/assets/img/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
-        ],
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        }
+        ]
       }
 
     },
@@ -140,21 +136,6 @@ module.exports = function (grunt) {
       options: {
         jshintrc: '<%= yeoman.client %>/.jshintrc',
         reporter: require('jshint-stylish')
-      },
-      server: {
-        options: {
-          jshintrc: 'server/.jshintrc'
-        },
-        src: [
-          'server/**/*.js',
-          '!server/**/*.spec.js'
-        ]
-      },
-      serverTest: {
-        options: {
-          jshintrc: 'server/.jshintrc-spec'
-        },
-        src: ['server/**/*.spec.js']
       },
       all: [
         '<%= yeoman.client %>/{app,shared}/**/*.js',
@@ -182,8 +163,7 @@ module.exports = function (grunt) {
             '!<%= yeoman.dist %>/Procfile'
           ]
         }]
-      },
-      server: '.tmp'
+      }
     },
 
     // Add vendor prefixed styles
@@ -210,30 +190,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Use nodemon to run server in debug mode with an initial breakpoint
-    nodemon: {
-      debug: {
-        script: 'server/app.js',
-        options: {
-          nodeArgs: ['--debug-brk'],
-          env: {
-            PORT: process.env.PORT || 9000
-          },
-          callback: function (nodemon) {
-            nodemon.on('log', function (event) {
-              console.log(event.colour);
-            });
-
-            // opens browser on initial server start
-            nodemon.on('config:update', function () {
-              setTimeout(function () {
-                require('open')('http://localhost:8080/debug?port=5858');
-              }, 500);
-            });
-          }
-        }
-      }
-    },
 
     // Automatically inject Bower components into the app
     wiredep: {
@@ -252,7 +208,7 @@ module.exports = function (grunt) {
             '<%= yeoman.dist %>/public/{,*/}*.js',
             '<%= yeoman.dist %>/public/{,*/}*.css',
             '<%= yeoman.dist %>/public/assets/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-           // '<%= yeoman.dist %>/public/assets/fonts/*'
+            // '<%= yeoman.dist %>/public/assets/fonts/*'
           ]
         }
       }
@@ -385,8 +341,7 @@ module.exports = function (grunt) {
           expand: true,
           dest: '<%= yeoman.dist %>',
           src: [
-            'package.json',
-            'server/**/*'
+            'package.json'
           ]
         }]
       },
@@ -422,19 +377,7 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
-      server: [
-      ],
-      test: [
-      ],
-      debug: {
-        tasks: [
-          'nodemon',
-          'node-inspector'
-        ],
-        options: {
-          logConcurrentOutput: true
-        }
-      },
+      test: [],
       dist: [
         'imagemin',
         'svgmin'
@@ -447,13 +390,6 @@ module.exports = function (grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
-    },
-
-    mochaTest: {
-      options: {
-        reporter: 'spec'
-      },
-      src: ['server/**/*.spec.js']
     },
 
     protractor: {
@@ -470,13 +406,11 @@ module.exports = function (grunt) {
     },
 
     injector: {
-      options: {
-
-      },
+      options: {},
       // Inject application script files into index.html (doesn't include bower)
       scripts: {
         options: {
-          transform: function(filePath) {
+          transform: function (filePath) {
             filePath = filePath.replace('/client/', '');
             filePath = filePath.replace('/.tmp/', '');
             return '<script src="' + filePath + '"></script>';
@@ -486,18 +420,18 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= yeoman.client %>/index.html': [
-              ['{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.js',
-               '!{.tmp,<%= yeoman.client %>}/app/app.js',
-               '!{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.spec.js',
-               '!{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.mock.js']
-            ]
+            ['{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.js',
+              '!{.tmp,<%= yeoman.client %>}/app/app.js',
+              '!{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.spec.js',
+              '!{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.mock.js']
+          ]
         }
       },
 
       // Inject component css into index.html
       css: {
         options: {
-          transform: function(filePath) {
+          transform: function (filePath) {
             filePath = filePath.replace('/client/', '');
             filePath = filePath.replace('/.tmp/', '');
             return '<link rel="stylesheet" href="' + filePath + '">';
@@ -511,19 +445,7 @@ module.exports = function (grunt) {
           ]
         }
       }
-    },
-  });
-
-  // Used for delaying livereload until after server has restarted
-  grunt.registerTask('wait', function () {
-    grunt.log.ok('Waiting for server reload...');
-
-    var done = this.async();
-
-    setTimeout(function () {
-      grunt.log.writeln('Done waiting!');
-      done();
-    }, 1500);
+    }
   });
 
   grunt.registerTask('serve', function (target) {
@@ -531,49 +453,26 @@ module.exports = function (grunt) {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
 
-    if (target === 'debug') {
-      return grunt.task.run([
-        'clean:server',
-        'concurrent:server',
-        'injector',
-        'wiredep',
-        'autoprefixer',
-        'concurrent:debug'
-      ]);
-    }
-
     grunt.task.run([
-      'clean:server',
-      'concurrent:server',
       'injector',
       'wiredep',
       'autoprefixer',
-      'connect:livereload',
+      'connect:dev',
       'watch'
     ]);
   });
 
-  grunt.registerTask('server', function () {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run(['serve']);
-  });
+  grunt.registerTask('test', function (target) {
 
-  grunt.registerTask('test', function(target) {
-
-
-   if (target === 'client') {
+    if (target === 'client') {
       return grunt.task.run([
-        'clean:server',
         'concurrent:test',
         'injector',
         'autoprefixer',
         'karma'
       ]);
-    }
-
-    else if (target === 'e2e') {
+    }else if (target === 'e2e') {
       return grunt.task.run([
-        'clean:server',
         'concurrent:test',
         'injector',
         'wiredep',
@@ -581,12 +480,9 @@ module.exports = function (grunt) {
         'connect:e2e',
         'protractor'
       ]);
-    }
-
-    else grunt.task.run([
-      'test:server',
-      'test:client'
-    ]);
+    }else grunt.task.run([
+        'test:client'
+      ]);
   });
 
   grunt.registerTask('build', [
@@ -601,9 +497,9 @@ module.exports = function (grunt) {
     'ngAnnotate',
     'copy:dist',
     'cdnify',
-   // 'cssmin',
+    // 'cssmin',
     'uglify',
-   // 'rev',
+    // 'rev',
     'usemin'
   ]);
 
