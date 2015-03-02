@@ -21,8 +21,8 @@ angular.module('angularDemoApp')
 					return instance;//returning chained promise
 				},
 				function (httpError) {
-					console.error("Could not delete instance.");
-					console.error( httpError.status + " : " +  httpError.data );
+					console.error('Could not delete instance.');
+					console.error( httpError.status + ' : ' +  httpError.data );
 					return httpError;
 				}
 			);

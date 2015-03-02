@@ -30,7 +30,7 @@ angular.module('angularDemoApp')
   		var param = {limit: 15};
 		param.searchString = val;
 		param.excludes = excludes;
-		var resource = \$resource(appConfig.restUrl + "/" +urlPart);
+		var resource = \$resource(appConfig.restUrl + '/' + urlPart);
 		return resource.query(param).\$promise.then(
 	        function( response ){
 		       	return response.map(function(item){
@@ -41,7 +41,7 @@ angular.module('angularDemoApp')
   	};
   	var service = {
   		promiseToLabel:function(model, labelProperties){
-			model.\$promise.then(function(user) {
+			model.\$promise.then(function() {
 				model.name = toLabel(model, labelProperties);
 			});
 			return model;

@@ -32,13 +32,6 @@ angular.module('angularDemoApp', [
  			return str;
  		};
 
- 		var appendSlash = function(str){
- 			if(str.substr(-1) !== '/' ){
- 				str += '/';
- 			}
- 			return str;
- 		};
-
  		//Set defaults
 		var defaultConfig = {
  				restUrl : '${appUrl}',
@@ -180,15 +173,16 @@ angular.module('angularDemoApp', [
 	    	return \$filter('date')(this, grailsAcceptableFormat);
 	    };
   }).run(function (\$rootScope, \$state) {
-		\$rootScope.\$on('\$stateChangeError', function (e, toPage, toParams, from, fromParams, error) {
-			console.log("State Change Error");
+		\$rootScope.\$on('\$stateChangeError', function (e, toPage) {
+			console.log('State Change Error');
+			var stateParams = { };
 			stateParams.messageCode = 'pages.session.messages.state-change-error';
 			stateParams.url = toPage.url;
 			\$state.go('app.error', stateParams, {location: false});
 		});
 
 	\$rootScope.\$on('\$stateChangePermissionDenied', function (e, toPage) {
-		console.log("State Change Permission Denied");
+		console.log('State Change Permission Denied');
 
 		var stateParams = { };
 		stateParams.messageCode = 'pages.session.messages.permission-denied';
@@ -196,12 +190,12 @@ angular.module('angularDemoApp', [
 		\$state.go('app.error', stateParams, {location: false});
 	});
 
-	}).run(function (Permission, SessionService, \$q) {
+	}).run(function (Permission, SessionService) {
 		Permission
-			.defineRole('ROLE_USER', function (stateParams) {
+			.defineRole('ROLE_USER', function () {
 				return SessionService.hasRole('ROLE_USER');
 			})
-			.defineRole('ROLE_ADMIN', function (stateParams) {
+			.defineRole('ROLE_ADMIN', function () {
 				return SessionService.hasRole('ROLE_ADMIN');
 			});
 	});

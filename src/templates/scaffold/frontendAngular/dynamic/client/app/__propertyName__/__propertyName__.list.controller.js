@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-	.controller('${domainClass.shortName}ListController', function (\$scope, \$q, ${domainClass.shortName}Service, \$translate, inform) {
+	.controller('${domainClass.shortName}ListController', function (\$scope, \$q, ${domainClass.shortName}Service) {
 		
 	\$scope.delete${domainClass.shortName} = function(instance){
 		return ${domainClass.shortName}Service.deleteInstance(instance).then(function(instance){

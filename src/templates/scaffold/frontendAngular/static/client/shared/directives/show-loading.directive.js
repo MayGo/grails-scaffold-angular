@@ -10,18 +10,18 @@ angular.module('angularDemoApp')
 			$scope.isBusy = false;
 			var defaultText;
 			//with click events, handle "busy" status
-			var functionName = "showLoading" + Math.floor(Math.random() * 10001);
+			var functionName = 'showLoading' + Math.floor(Math.random() * 10001);
             var onClick = attrs.ngClick;
 			var loadingText = attrs.mxShowLoading;
-			var hasLoadingText = (!angular.isUndefined(loadingText) && angular.isString(loadingText) && loadingText != "");
-		 
+			var hasLoadingText = (!angular.isUndefined(loadingText) && angular.isString(loadingText) && loadingText !== '');
+
 			var loadingEl;
 			if (hasLoadingText){
 				loadingEl = loadingText;
 			}else{
 				loadingEl = angular.element('<span class="loading-spinner"/>');
 			}
-			
+
 			//wrap onClick so we can enable "busy" status
 			$scope[functionName] = function () {
 				//if it's already busy, don't accept a new click
@@ -50,8 +50,8 @@ angular.module('angularDemoApp')
 				//by using ngClick instead of .bind(), we're leaving garbage collection up to Angular
 				attrs.$set('ngClick', functionName + '()');
 			}
-			
-			
+
+
 		}
 	};
 });
