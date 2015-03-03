@@ -6,7 +6,7 @@
     "grunt-autoprefixer": "~0.7.2",
     "grunt-wiredep": "~1.8.0",
     "grunt-concurrent": "~0.5.0",
-	"grunt-contrib-connect": "^0.7.1",
+    "grunt-contrib-connect": "^0.7.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-concat": "~0.4.0",
     "grunt-contrib-copy": "~0.5.0",
@@ -25,7 +25,8 @@
     "grunt-env": "~0.4.1",
     "grunt-angular-templates": "^0.5.4",
     "grunt-dom-munger": "^3.4.0",
-    "grunt-protractor-runner": "^1.1.0",
+    "protractor": "^1.8.0",
+    "grunt-protractor-runner": "^1.2.1",
     "grunt-asset-injector": "^0.1.0",
     "grunt-karma": "~0.8.2",
     "jit-grunt": "^0.5.0",
@@ -45,6 +46,9 @@
     "karma-requirejs": "~0.2.1",
     "karma-coffee-preprocessor": "~0.2.1",
     "karma-jade-preprocessor": "0.0.11",
+    "karma-html-reporter": "~0.2.6",
+    "karma-growl-reporter": "~0.1.1",
+    "phantomjs": "^1.9.15",
     "karma-phantomjs-launcher": "~0.1.4",
     "karma": "~0.12.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
@@ -53,7 +57,6 @@
     "jasmine-reporters": "~1.0.1",
     "protractor-html-screenshot-reporter": "0.0.19"
   },
-
   "engines": {
     "node": ">=0.10.0"
   },

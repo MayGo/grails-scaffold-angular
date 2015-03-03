@@ -6,37 +6,35 @@ allProps = scaffoldingHelper.getProps(domainClass)
 props = allProps.findAll{p->!p.embedded} 
 simpleProps = allProps.findAll{p->!p.isAssociation()}
 
+private renderFieldRowBind(p, owningClass) {
+	return "expect(page.${p.name}ViewEl).toBeDefined()"
+}
+
 %>
-
+var helper = require('../utils/helper.js');
 describe('${domainClass.propertyName} create page', function() {
-  var page;
-  var mockModule = require('./${domainClass.propertyName}.mocks');
-  
+	var page;
+	var mockModule = require('./${domainClass.propertyName}.mocks');
 
-  beforeEach(function() {
-	  browser.addMockModule('httpBackendMock', mockModule ); 
-    browser.get('/#/app/${domainClass.propertyName}/create');
-    page = require('./${domainClass.propertyName}.create.po');
-  });
+	beforeEach(function() {
+		browser.addMockModule('httpBackendMock', mockModule );
+		browser.get('/#/app/${domainClass.propertyName}/create');
+		page = require('./${domainClass.propertyName}.create.po');
+	});
   
-  afterEach(function() {
-    browser.manage().logs().get('browser').then(function(browserLog) {
-      expect(browserLog.length).toEqual(0);
-      // Uncomment to actually see the log.
-      //console.log('log: ' + require('util').inspect(browserLog));
-    });
-  });
+	afterEach(function() {
 
-  
-/*  it('should contain all fields.', function() {
+	});
+/*
+	it('should contain all fields.', function() {
 	<%for (p in props) {%>
-    println "expect(page.${p.name}El).not.toBeNull()"
-    <%}%>
-  });
-  */
-  it('after filling all the fields, should be ', function() {
-	expect(page.submitButton.isEnabled()).toBe(false);
-	//Fill the form
+		expect(page.${p.name}El).not.toBeNull()
+	<%}%>
+	});
+*/
+	it('after filling all the fields, should be ', function() {
+		expect(page.submitButton.isEnabled()).toBe(false);
+		//Fill the form
 <%
 def inst = DomainHelper.createOrGetInst(domainClass, 1)
 if(inst) props.each{p->
@@ -47,30 +45,38 @@ if(inst) props.each{p->
 		if(!useDisplaynames) useDisplaynames = ['id': null]
 		useDisplaynames.each{key, value->
 			def val = inst."${p.name}"?."${key}"
-			if(val) realVal += val
+			if(val) realVal = val; // Using only one value, because backend does not accept multistring for autocomplete
 		}
-		if(realVal)realVal+="\\uE015\\n"
 	}else{
 		def val = inst."${p.name}" 
 		realVal = (val)?DomainHelper.getRealValueForInput(p, val):null
 		
 	}
 		
-	if(realVal)println "\t\tpage.${p.name}El.sendKeys('$realVal')"
+	if(realVal){
+		if(p.type == boolean || p.type == Boolean){
+			println "\t\tpage.${p.name}El.click();"
+		}else if(p.isAssociation()){
+			println "\t\tpage.${p.name}El.sendKeys('$realVal').sendKeys(protractor.Key.ENTER);"
+		}else{
+			println "\t\tpage.${p.name}El.sendKeys('$realVal');"
+		}
+	}
 }
 %>
 
-	expect(page.submitButton.isEnabled()).toBe(true);
-	page.submitButton.isEnabled().then(function(enabled){
-		if(enabled){
-			page.submitButton.click();
-			expect(browser.getCurrentUrl()).toContain("/#/app/${domainClass.propertyName}/view/1");
-		}else{
-			console.log("(${domainClass.propertyName}).Submit button not enabled. Not testing submiting.")
-		}
-	});
+		expect(page.submitButton.isEnabled()).toBe(true);
+		page.submitButton.isEnabled().then(function(enabled){
+			if(enabled){
+				page.submitButton.click();
+				helper.currentUrlContains('/#/app/${domainClass.propertyName}/view/1');
+				<%for (p in props) {%>
+				${renderFieldRowBind(p, domainClass)}\
+				<%}%>
+			}else{
+				console.log("(${domainClass.propertyName}).Submit button not enabled. Not testing submiting.")
+			}
+		});
 
-  });
-  
-  
+  	});
 });

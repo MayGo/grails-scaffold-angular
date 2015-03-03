@@ -30,7 +30,7 @@ module.exports = function (grunt) {
     // The actual grunt server settings
     connect: {
       options: {
-        port: 9006,
+        port: 9005,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: 'localhost'
       },
@@ -51,6 +51,7 @@ module.exports = function (grunt) {
       },
       e2e: {
         options: {
+          port: 9006,
           open: true,
           middleware: function (connect) {
             return [
@@ -107,7 +108,6 @@ module.exports = function (grunt) {
         ],
         tasks: ['injector:css']
       },
-
       jsTest: {
         files: [
           '<%= yeoman.client %>/{app,shared}/**/*.spec.js',
@@ -115,6 +115,7 @@ module.exports = function (grunt) {
         ],
         tasks: ['newer:jshint:all', 'karma']
       },
+
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -127,8 +128,11 @@ module.exports = function (grunt) {
           '!{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.mock.js',
           '<%= yeoman.client %>/assets/img/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      },
+      karma: {
+        files: ['app/**/*.js'],
+        tasks: ['karma:unit:run'] //NOTE the :run flag
       }
-
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -180,16 +184,6 @@ module.exports = function (grunt) {
         }]
       }
     },
-
-    // Debugging with node inspector
-    'node-inspector': {
-      custom: {
-        options: {
-          'web-host': 'localhost'
-        }
-      }
-    },
-
 
     // Automatically inject Bower components into the app
     wiredep: {
@@ -388,7 +382,14 @@ module.exports = function (grunt) {
     karma: {
       unit: {
         configFile: 'karma.conf.js',
-        singleRun: true
+        background: true,
+        singleRun: false
+      },
+      //continuous integration mode: run tests once in PhantomJS browser.
+      continuous: {
+        configFile: 'config/karma.conf.js',
+        singleRun: true,
+        browsers: ['PhantomJS']
       }
     },
 
@@ -448,6 +449,7 @@ module.exports = function (grunt) {
     }
   });
 
+
   grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -469,9 +471,10 @@ module.exports = function (grunt) {
         'concurrent:test',
         'injector',
         'autoprefixer',
+        'connect:test',
         'karma'
       ]);
-    }else if (target === 'e2e') {
+    } else if (target === 'e2e') {
       return grunt.task.run([
         'concurrent:test',
         'injector',
@@ -480,10 +483,27 @@ module.exports = function (grunt) {
         'connect:e2e',
         'protractor'
       ]);
-    }else grunt.task.run([
-        'test:client'
-      ]);
+    } else grunt.task.run([
+      'test:client'
+    ]);
   });
+
+  grunt.registerTask('test-unit', [
+    'concurrent:test',
+    'injector',
+    'autoprefixer',
+    'connect:test',
+    'karma'
+  ]);
+
+  grunt.registerTask('test-e2e', [
+    'concurrent:test',
+    'injector',
+    'wiredep',
+    'autoprefixer',
+    'connect:e2e',
+    'protractor'
+  ]);
 
   grunt.registerTask('build', [
     'clean:dist',

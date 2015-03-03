@@ -35,9 +35,9 @@ angular.module('angularDemoApp', [
  		//Set defaults
 		var defaultConfig = {
  				restUrl : '${appUrl}',
- 	 			loginUrl : '${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"/api/login"}',
- 	 			logoutUrl : '${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"/api/logout"}',
- 	 			validationUrl: '${(config.grails.plugin.springsecurity.rest.token.validation.endpointUrl)?:"/api/validate"}',
+ 	 			loginUrl : '${appUrl}${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"/api/login"}',
+ 	 			logoutUrl : '${appUrl}${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"/api/logout"}',
+ 	 			validationUrl: '${appUrl}${(config.grails.plugin.springsecurity.rest.token.validation.endpointUrl)?:"/api/validate"}',
  	 			securityEnabled: ${(config.grails.plugin.springsecurity.active)?:false}
 		};
  		var loadSuccess = function( data ) {

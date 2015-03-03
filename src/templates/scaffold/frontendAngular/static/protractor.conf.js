@@ -13,14 +13,14 @@ exports.config = {
 
   // A base URL for your application under test. Calls to protractor.get()
   // with relative paths will be prepended with this.
-  baseUrl: 'http://localhost:' + (process.env.PORT || '9000'),
+  baseUrl: 'http://localhost:' + (process.env.PORT || '9006'),
 
   directConnect: true,
 
 
   // list of files / patterns to load in the browser
   specs: [
-    'e2e/**/pet.create.spec.js'
+    'e2e/**/*.create.spec.js'
   ],
 
   // Patterns to exclude.
@@ -58,16 +58,16 @@ exports.config = {
 	  browser.manage().window().setSize(1600, 1000);
 	  //var mockModule = require('./e2e/mock/mock-data');
 	  //browser.addMockModule('httpBackendMock', mockModule );
-	  
+
 	  var path = require('path');
 	  jasmine.getEnv().addReporter(new HtmlReporter({
 	         baseDirectory: 'test/e2e/test-results/screenshots/',
 	         pathBuilder: function pathBuilder(spec, descriptions, results, capabilities) {
-	          
+
 	            var currentDate = new Date(),
 	                currentHoursIn24Hour = currentDate.getHours(),
 	                currentTimeInHours = currentHoursIn24Hour>12? currentHoursIn24Hour-12: currentHoursIn24Hour,
-	                totalDateString = currentDate.getDate()+ '-' + currentDate.getMonth() + '-'+(currentDate.getYear()+1900) + 
+	                totalDateString = currentDate.getDate()+ '-' + currentDate.getMonth() + '-'+(currentDate.getYear()+1900) +
 	                                      '-'+ currentDate.getHours()+'h-' + Math.round(currentDate.getMinutes()*0.2)+'m';
 
 	            return path.join(totalDateString,capabilities.caps_.browserName, descriptions.join('-'));
