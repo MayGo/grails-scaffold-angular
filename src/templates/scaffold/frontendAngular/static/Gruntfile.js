@@ -387,7 +387,7 @@ module.exports = function (grunt) {
       },
       //continuous integration mode: run tests once in PhantomJS browser.
       continuous: {
-        configFile: 'config/karma.conf.js',
+        configFile: 'karma.conf.js',
         singleRun: true,
         browsers: ['PhantomJS']
       }

@@ -3,7 +3,15 @@
 
 module.exports = function(config) {
   config.set({
-    reporters: ['dots', 'progress', 'html', 'growl'],
+    reporters: ['html', 'dots', 'progress', 'growl'],
+
+    htmlReporter: {
+      outputDir: 'test-results/unit', // where to put the reports
+      focusOnFailures: true, // reports show failures on start
+      namedFiles: false, // name files instead of creating sub-directories
+      urlFriendlyName: false // simply replaces spaces with _ for files/dirs
+
+    },
     // base path, that will be used to resolve files and exclude
     basePath: '',
     colors: true,

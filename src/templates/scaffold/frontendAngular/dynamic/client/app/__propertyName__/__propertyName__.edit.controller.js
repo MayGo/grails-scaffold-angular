@@ -117,7 +117,7 @@ angular.module('angularDemoApp')
     				\$translate('pages.${domainClass.shortName}.messages.create').then(function (msg) {
 				    	inform.add(msg, {'type': 'success'});
 					});
-					\$state.go('^.view', { id: response.id });
+					\$state.go('^.view', { id: response.id }, {location: 'replace'});
 					deferred.resolve(response);
 		        },errorCallback);
 	    	}

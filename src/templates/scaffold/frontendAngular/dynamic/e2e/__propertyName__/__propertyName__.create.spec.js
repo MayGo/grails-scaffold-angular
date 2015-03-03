@@ -66,17 +66,10 @@ if(inst) props.each{p->
 %>
 
 		expect(page.submitButton.isEnabled()).toBe(true);
-		page.submitButton.isEnabled().then(function(enabled){
-			if(enabled){
-				page.submitButton.click();
-				helper.currentUrlContains('/#/app/${domainClass.propertyName}/view/1');
-				<%for (p in props) {%>
-				${renderFieldRowBind(p, domainClass)}\
-				<%}%>
-			}else{
-				console.log("(${domainClass.propertyName}).Submit button not enabled. Not testing submiting.")
-			}
-		});
-
-  	});
+		page.submitButton.click();
+		helper.currentUrlContains('/#/app/${domainClass.propertyName}/view/1');
+		<%for (p in props) {%>
+		${renderFieldRowBind(p, domainClass)}\
+		<%}%>
+	});
 });

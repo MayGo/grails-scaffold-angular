@@ -7,6 +7,7 @@ module.exports = function(){
 	        \$httpBackend.whenGET(url).respond(function(method, url){return [200, [{'id' : 1}]];});//list
 	        \$httpBackend.whenPOST(url + "/1").respond(function(method, url){return [200, {'id' : 1}];});//edit
 	        \$httpBackend.whenGET(url + "/1").respond(function(method, url){return [200, {'id' : 1}];});//view
+			\$httpBackend.whenDELETE(url + "/1").respond(function(method, url){return [204];});//delete
 	        
 
 			//For everything else, don't mock

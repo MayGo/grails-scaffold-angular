@@ -11,6 +11,10 @@ props = allProps.findAll{p->!p.embedded}
 %>
 <%
 private renderFieldRow(p, owningClass) {
+	if (p.manyToOne || p.oneToOne){
+		//tags are searched with IN clouse in backend, thats why 's' in var name
+		return "this.${p.name}El = element(by.model('search.${p.name}s'));"
+	}
 	return "this.${p.name}El = element(by.model('search.${p.name}'));"
 }%>
 

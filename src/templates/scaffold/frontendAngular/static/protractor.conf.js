@@ -20,7 +20,7 @@ exports.config = {
 
   // list of files / patterns to load in the browser
   specs: [
-    'e2e/**/*.create.spec.js'
+    'e2e/**/*.spec.js'
   ],
 
   // Patterns to exclude.
@@ -38,7 +38,7 @@ exports.config = {
 //    maxInstances: 3
 //  },
   capabilities: {
-	    'browserName': 'chrome'
+    'browserName': 'chrome'
   },
 
   // ----- The test framework -----
@@ -52,31 +52,37 @@ exports.config = {
   //
   // See the full list at https://github.com/juliemr/minijasminenode
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 5000
+    // If true, display suite and spec names.
+    isVerbose: false,
+    // If true, print colors to the terminal.
+    showColors: true,
+    // If true, include stack traces in failures.
+    includeStackTrace: true,
+    // Time to wait in milliseconds before a test automatically fails
+    defaultTimeoutInterval: 50000
   },
-  onPrepare: function() {
-	  browser.manage().window().setSize(1600, 1000);
-	  //var mockModule = require('./e2e/mock/mock-data');
-	  //browser.addMockModule('httpBackendMock', mockModule );
+  onPrepare: function () {
+    browser.manage().window().setSize(1600, 1000);
+    //var mockModule = require('./e2e/mock/mock-data');
+    //browser.addMockModule('httpBackendMock', mockModule );
 
-	  var path = require('path');
-	  jasmine.getEnv().addReporter(new HtmlReporter({
-	         baseDirectory: 'test/e2e/test-results/screenshots/',
-	         pathBuilder: function pathBuilder(spec, descriptions, results, capabilities) {
-
-	            var currentDate = new Date(),
-	                currentHoursIn24Hour = currentDate.getHours(),
-	                currentTimeInHours = currentHoursIn24Hour>12? currentHoursIn24Hour-12: currentHoursIn24Hour,
-	                totalDateString = currentDate.getDate()+ '-' + currentDate.getMonth() + '-'+(currentDate.getYear()+1900) +
-	                                      '-'+ currentDate.getHours()+'h-' + Math.round(currentDate.getMinutes()*0.2)+'m';
-
-	            return path.join(totalDateString,capabilities.caps_.browserName, descriptions.join('-'));
-	         }
-      }));
+    var path = require('path');
+    jasmine.getEnv().addReporter(new HtmlReporter({
+      docName: 'index.html',
+      baseDirectory: 'test-results/e2e/',
+      preserveDirectory: true,
+      pathBuilder: function pathBuilder(spec, descriptions, results, capabilities) {
+        // Return '<browser>/<specname>' as path for screenshots:
+        // Example: 'firefox/list-should work'.
+        var p = descriptions.join('-');
+        p = p.replace("/", "-")
+        return path.join(capabilities.caps_.browserName, p);
+      }
+    }));
 
     require('jasmine-reporters');
     jasmine.getEnv().addReporter(
-        new jasmine.JUnitXmlReporter('test/e2e/test-results/JUnitXML/', true, true)
+      new jasmine.JUnitXmlReporter('test/e2e/test-results/JUnitXML/', true, true)
     );
 
   }
