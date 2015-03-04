@@ -52,7 +52,7 @@ module.exports = function (grunt) {
       e2e: {
         options: {
           port: 9006,
-          open: true,
+          open: false,
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
@@ -400,7 +400,24 @@ module.exports = function (grunt) {
       chrome: {
         options: {
           args: {
-            browser: 'chrome'
+            directConnect: true,
+            browser: 'chrome',
+            capabilities: {
+              'chromeOptions': {
+                'args': ['no-sandbox','no-default-browser-check','no-first-run','disable-default-apps']
+              }
+            }
+          }
+        }
+      },
+      continuous: {
+        options: {
+          args: {
+            capabilities: {
+              'browserName': 'phantomjs',
+              'phantomjs.binary.path': require('phantomjs').path,
+              'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false']
+            }
           }
         }
       }
@@ -481,7 +498,7 @@ module.exports = function (grunt) {
         'wiredep',
         'autoprefixer',
         'connect:e2e',
-        'protractor'
+        'protractor:chrome'
       ]);
     } else grunt.task.run([
       'test:client'
@@ -493,7 +510,7 @@ module.exports = function (grunt) {
     'injector',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma:continuous'
   ]);
 
   grunt.registerTask('test-e2e', [
@@ -502,7 +519,7 @@ module.exports = function (grunt) {
     'wiredep',
     'autoprefixer',
     'connect:e2e',
-    'protractor'
+    'protractor:continuous'
   ]);
 
   grunt.registerTask('build', [

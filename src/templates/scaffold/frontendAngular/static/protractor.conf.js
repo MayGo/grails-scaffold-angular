@@ -14,10 +14,6 @@ exports.config = {
   // A base URL for your application under test. Calls to protractor.get()
   // with relative paths will be prepended with this.
   baseUrl: 'http://localhost:' + (process.env.PORT || '9006'),
-
-  directConnect: true,
-
-
   // list of files / patterns to load in the browser
   specs: [
     'e2e/**/*.spec.js'
@@ -37,9 +33,9 @@ exports.config = {
 //    shardTestFiles: true,
 //    maxInstances: 3
 //  },
-  capabilities: {
-    'browserName': 'chrome'
-  },
+  /* capabilities: {
+   'browserName': 'chrome'
+   },*/
 
   // ----- The test framework -----
   //
