@@ -32,7 +32,7 @@ describe('${domainClass.propertyName} create page', function() {
 	<%}%>
 	});
 */
-	it('after filling all the fields, should be ', function() {
+	it('after filling all the fields, should submit and change route to view', function() {
 		expect(page.submitButton.isEnabled()).toBe(false);
 		//Fill the form
 <%
