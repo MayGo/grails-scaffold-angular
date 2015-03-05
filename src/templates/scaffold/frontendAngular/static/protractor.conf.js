@@ -59,8 +59,6 @@ exports.config = {
   },
   onPrepare: function () {
     browser.manage().window().setSize(1600, 1000);
-    //var mockModule = require('./e2e/mock/mock-data');
-    //browser.addMockModule('httpBackendMock', mockModule );
 
     var path = require('path');
     jasmine.getEnv().addReporter(new HtmlReporter({
