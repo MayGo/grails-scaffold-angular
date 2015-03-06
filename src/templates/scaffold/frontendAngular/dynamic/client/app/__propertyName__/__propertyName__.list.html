@@ -1,6 +1,7 @@
 <%
     allProps = scaffoldingHelper.getProps(domainClass)
     props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}.grep{it.cp?.display != false}
+    embeddedProps = allProps.findAll{p->p.embedded}.grep{it.cp?.display != false}
 %>
 <%
 private renderFieldRow(p, owningClass) {
@@ -32,54 +33,39 @@ private renderFieldHeader(p, owningClass) {
 
 
 
-private String renderFieldSearch(p, owningClass){
-    boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
-    boolean required = false
-    if (hasHibernate) {
-        cp = owningClass.constrainedProperties[p.name]?:[:]
-        required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
-    }
-    // Find if property is actually joinTable property. e.g. UserRole
-    def joinProperty 
-    if(p.referencedDomainClass)  {
-        def persistentProperties = p.referencedDomainClass.persistentProperties
-        joinProperty = persistentProperties.find{ 
-            it != p && 
-            persistentProperties.size() == 2 && it.referencedDomainClass 
-        }
-    }
+private String renderFieldSearch(p, owningClass, parentProperty = null){
 
-    String str = """<div class="col-lg-2 form-inline">"""
+    String str = """<div class="col-lg-2 form-group">"""
     if (p.type == Boolean || p.type == boolean)
-        str += renderBoolean(owningClass, p, cp)
+        str += renderBoolean(owningClass, p, parentProperty)
     else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean))
-        str += renderNumber(owningClass, p, cp)
+        str += renderNumber(owningClass, p, parentProperty)
     else if (p.type == String)
-        str += renderString(owningClass, p, cp)
+        str += renderString(owningClass, p, parentProperty)
     else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar)
-        str += renderDate(owningClass, p, cp)
+        str += renderDate(owningClass, p, parentProperty)
     else if (p.type == URL)
-        str += renderUrl(domainClass, p, cp)
+        str += renderUrl(domainClass, p, parentProperty)
     else if (p.type && p.isEnum())
-        str += renderEnum(domainClass, p, cp)
+        str += renderEnum(domainClass, p, parentProperty)
     else if (p.type == TimeZone)
-        str += renderSelectType(domainClass, p, cp, "timeZone")
+        str += renderSelectType(domainClass, p, parentProperty, "timeZone")
     else if (p.type == Locale)
-        str += renderSelectType(domainClass, p, cp, "locale")
+        str += renderSelectType(domainClass, p, parentProperty, "locale")
     else if (p.type == Currency)
-        str += renderSelectType(domainClass, p, cp, "currency")
+        str += renderSelectType(domainClass, p, parentProperty, "currency")
     else if (p.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
-        str += renderByteArray(domainClass, p, cp)
+        str += renderByteArray(domainClass, p, parentProperty)
     else if (p.manyToOne || p.oneToOne)
-        str += renderManyToOne(domainClass, p, cp) 
-    else if (joinProperty){
-        str += renderJoinProperty(domainClass, p, cp, joinProperty)
+        str += renderManyToOne(domainClass, p, parentProperty)
+    else if (p.joinProperty){
+        str += renderJoinProperty(domainClass, p, parentProperty, p.joinProperty)
     }
     else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
-        str += renderManyToMany(domainClass, p, cp)
+        str += renderManyToMany(domainClass, p, parentProperty)
     }
     else if (p.oneToMany)
-        str += renderOneToMany(domainClass, p, cp)
+        str += renderOneToMany(domainClass, p, parentProperty)
     else
         return "<!-- No type for ${p.name} -->"
         
@@ -88,67 +74,73 @@ private String renderFieldSearch(p, owningClass){
  
 }
 
-private String renderString(owningClass, p, cp) {
+private String renderString(owningClass, p, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                     <input 
-                    	name="${p.name}" 
-                   		ng-model="search.${p.name}" 
-                   		st-search="'${p.name}'" 
+                    	name="${parentPropName}${p.name}"
+                   		ng-model="search.${parentPropName}${p.name}"
+                   		st-search="'${parentPropName}${p.name}'"
                    		class="form-control" 
                    		type="text" 
-                   		placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" """
+                   		placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}" """
     
-    if (cp.matches) str += """ ng-pattern="/${cp.matches}/" """
+    if (p.cp.matches) str += """ ng-pattern="/${p.cp.matches}/" """
     str += " ></div> "
     return str
 }
 
 
-private String renderBoolean(owningClass, p, cp) {
+private String renderBoolean(owningClass, p, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
       return """
-	
-	  <label for="${p.name}" class="input-group"> {{'pages.${domainClass.shortName}.edit.form.field.${p.name}' | translate}}</label>
+    <div class="form-group">
+	  <label for="${parentPropName}${p.name}" class="control-label">
+          {{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}</label>
 	  <div class="input-group input-group-sm">
 		<ng-toggle 
 			tri-toggle 
-			name="${p.name}"  
-			ng-model="search.${p.name}"
-			custom-st-search="${p.name}" 
+			name="${parentPropName}${p.name}"
+			ng-model="search.${parentPropName}${p.name}"
+			custom-st-search="${parentPropName}${p.name}"
 			ng-true-val="'true'" 
 			ng-false-val="'false'" 
 			></ng-toggle> 
 	  </div>
-	 
+	 </div>
      """
 
 }
 
-private String renderByteArray(owningClass, p, cp) {
+private String renderByteArray(owningClass, p, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
       return """<div class="input-group input-group-sm">
                     <span class="input-group-addon">file</span> 
                     <input 
-                    	name="${p.name}"
-                    	ng-model="search.${p.name}"
-                    	st-search="'${p.name}'" 
+                    	name="${parentPropName}${p.name}"
+                    	ng-model="search.${parentPropName}${p.name}"
+                    	st-search="'${parentPropName}${p.name}'"
                     	class="form-control" type="file"   >
                 </div>"""
 }
 
 
 
-private String renderDate(owningClass, p, cp) {
+private String renderDate(owningClass, p, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropNameFunc = (parentProperty?.component) ? parentProperty?.component.propertyName : ''
      String str =  """
      <div class="input-group input-group-sm">
      <input 
-     	name="${p.name}" 
-     	ng-model="search.${p.name}" 
+     	name="${parentPropName}${p.name}"
+     	ng-model="search.${parentPropName}${p.name}"
      	type="text" 
      	class="form-control" 
-     	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"
+     	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
         datepicker-popup
-        is-open="${owningClass.propertyName}.${p.name}Open" 
-        ng-click="${owningClass.propertyName}.${p.name}Open = true"
+        is-open="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open"
+        ng-click="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open = true"
       """
       
       str += """
@@ -163,23 +155,24 @@ private String renderDate(owningClass, p, cp) {
 
 
 
-private String renderNumber(owningClass, p, cp) {
+private String renderNumber(owningClass, p, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     String str = """<div class="input-group input-group-sm">
                         <span class="input-group-addon">nr</span>
                         <input 
-                        	name="${p.name}" 
-                        	ng-model="search.${p.name}" 
-                        	st-search="'${p.name}'"
+                        	name="${parentPropName}${p.name}"
+                        	ng-model="search.${parentPropName}${p.name}"
+                        	st-search="'${parentPropName}${p.name}'"
                         	class="form-control" 
-                        	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" 
+                        	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
                         	 """
                         
     String rangeExtraInputStr = ""
-    if (cp.range) {
+    if (p.cp.range) {
         rangeExtraInputStr = """<span class="input-group-addon">{{${p.name}}}</span>"""
         str += """ type="range" """
-        str += """ min="${cp.range.from}" """
-        str += """ max="${cp.range.to}" """
+        str += """ min="${p.cp.range.from}" """
+        str += """ max="${p.cp.range.to}" """
     } else {
         if (p.type in [float, double, Float, Double, BigDecimal]){
             str += """ type="number" """
@@ -187,71 +180,74 @@ private String renderNumber(owningClass, p, cp) {
             str += """ type="number" """
         }
 
-        if (cp.min != null) str += """ min="${cp.min}" """
-        if (cp.max != null) str += """ max="${cp.max}" """
+        if (p.cp.min != null) str += """ min="${p.cp.min}" """
+        if (p.cp.max != null) str += """ max="${p.cp.max}" """
     }
     str += " >$rangeExtraInputStr</div> "
     return str;
 }
 
 
-private String renderUrl(owningClass, p, cp) {
+private String renderUrl(owningClass, p, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon">url</span>
                     <input 
-                    	name="${p.name}" 
-                    	ng-model="search.${p.name}" 
-                    	st-search="'${p.name}'" 
+                    	name="${parentPropName}${p.name}"
+                    	ng-model="search.${parentPropName}${p.name}"
+                    	st-search="'${parentPropName}${p.name}'"
                     	class="form-control" 
                     	type="url" 
-                    	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"  """
-    
-    if (isRequired(cp)) str += " required"
+                    	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"  """
+
     str += " ></div> "
     return str
 }
-private renderSelectType(owningClass, p, cp, type) {
+private renderSelectType(owningClass, p, parentProperty, type) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon">$type</span>
                     <input 
-                    	name="${p.name}" 
-                    	ng-model="search.${p.name}" 
-                    	st-search="'${p.name}'" 
+                    	name="${parentPropName}${p.name}"
+                    	ng-model="search.${parentPropName}${p.name}"
+                    	st-search="'${parentPropName}${p.name}'"
                     	class="form-control" 
                     	type="text" 
-                    	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}"  """
+                    	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"  """
     
-    if (cp.matches) str += """ ng-pattern="${cp.matches}" """
+    if (p.cp.matches) str += """ ng-pattern="${p.cp.matches}" """
     str += " ></div> "
     return str
 }
 
-private String renderEnum(owningClass, p, cp) {
+private String renderEnum(owningClass, p, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
      String str =  """
      <div class="input-group input-group-sm">
           <span class="input-group-addon">enum</span>   
           <input 
-          	name="${p.name}" 
-          	ng-model="search.${p.name}"
-          	st-search="'${p.name}'" 
+          	name="${parentPropName}${p.name}"
+          	ng-model="search.${parentPropName}${p.name}"
+          	st-search="'${parentPropName}${p.name}'"
           	type="text" 
           	class="form-control" 
-            placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}" 
+            placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
             typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List | filter:\$viewValue" ></div> 
            """
      return str;
 }
 
-private String renderManyToOne(owningClass, p, cp) {
+private String renderManyToOne(owningClass, p, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
      String str =  """<!--ManyToOne-->
      <div class="input-group input-group-sm" style="width:100%">
      	<tags-input
-            ng-model="search.${p.name}s"
-            custom-st-search="${p.name}s"
-            placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${p.name}' | translate}}">
+            ng-model="search.${parentPropName}${p.name}s"
+            custom-st-search="${parentPropName}${p.name}s"
+            placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}">
               <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
      str += """</tags-input></div>"""
@@ -259,20 +255,20 @@ private String renderManyToOne(owningClass, p, cp) {
      return str;
 }
 
-private String renderManyToMany(owningClass, p, cp) {
+private String renderManyToMany(owningClass, p, parentProperty) {
      String str =  """<!--ManyToMany-->
       """
      return str;
 }
 
-private String renderOneToMany(owningClass, p, cp) {
+private String renderOneToMany(owningClass, p, parentProperty) {
      String str =  """<!--OneToMany-->
          
             """
      return str;
 }
 
-private renderJoinProperty(owningClass, p, cp, joinProperty) {
+private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
     return  """//JoinProperty
     //${grails.util.GrailsNameUtils.getShortName(p.getReferencedPropertyType()).toLowerCase()}
                 //${grails.util.GrailsNameUtils.getShortName(joinProperty.getReferencedPropertyType()).toLowerCase()}
@@ -284,19 +280,26 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 //####################### SEARCH ###################################
 %>
 
-
-
-
 <div ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'" data-ng-include=" 'shared/blocks/page_heading.html' " ng-hide="isEmbeddedView" ></div>
 
-<div class="wrapper-md ng-scope"  st-table="rowCollection" st-pipe="callServer" >
+<div class="list-search wrapper-md ng-scope"  st-table="rowCollection" st-pipe="callServer" >
 <accordion close-others="false">
     <accordion-group  heading="{{'pages.${domainClass.shortName}.list.table.search' | translate}}"  is-open="isSearchOpen">
-      <div class="row">
-		 <%for (p in props) {%>
-	   		${renderFieldSearch(p, domainClass)}\
-		 <%}%>
-		</div>
+        <div class="row form-inline">
+            <%for (p in props) {%>
+                  ${renderFieldSearch(p, domainClass)}
+            <%}%>
+        </div>
+    <%for (p in embeddedProps) {
+    def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
+        %>
+        <div class="row form-inline">
+            <hr>
+            <% embeddedProps.each{ep->%>
+            ${renderFieldSearch(ep, domainClass, p)}
+            <%}%>
+        </div>
+    <%}%>
     </accordion-group>
 </accordion>
   <div class="panel panel-default">

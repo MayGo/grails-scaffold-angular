@@ -317,8 +317,7 @@ private renderFieldRow(p, owningClass, parentProperty = null) {
                         <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
 <%for (p in props) {
     if(p.embedded){
-        def embeddedDomainClass = p.component
-        def embeddedProps = scaffoldingHelper.getProps(embeddedDomainClass).grep{it.cp?.display != false &&it.cp?.editable != false && it.name!= 'id'}
+        def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false &&it.cp?.editable != false && it.name!= 'id'}
         if(embeddedProps){
       %>
                         <accordion close-others="false">
