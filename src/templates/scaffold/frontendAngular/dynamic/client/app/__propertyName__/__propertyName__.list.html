@@ -293,8 +293,10 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
     <%for (p in embeddedProps) {
     def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
         %>
+        <div class="embedded-search-heading"><span class="label label-default"
+                                                   translate="pages.${domainClass.shortName}.list.table.embeddedSearch.${p.name}.title"></span></div>
         <div class="row form-inline">
-            <hr>
+
             <% embeddedProps.each{ep->%>
             ${renderFieldSearch(ep, domainClass, p)}
             <%}%>

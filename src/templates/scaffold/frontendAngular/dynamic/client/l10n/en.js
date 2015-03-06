@@ -72,6 +72,14 @@
 				"table":{
 					"title":"${d.naturalName} Table",	
 					"search":"Search in ${d.naturalName} Table",
+					"embeddedSearch":{
+					<%for (p in d.persistentProperties) {
+							if(p.embedded){%>
+								"${p.name}.title":"${p.component.naturalName}",\
+							<%}
+						}%>
+						"all":"All"
+					},
 					"header":{
 						<%for (p in d.persistentProperties) {%>
 				   		"${p.name}":"${p.naturalName}",\
