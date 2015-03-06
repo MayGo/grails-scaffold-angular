@@ -109,9 +109,18 @@
 					"submit":"Submit",
 					"cancel":"Cancel",
 					"field":{
-						<%for (p in d.persistentProperties) {%>
+						<%for (p in d.persistentProperties) {
+							if(p.embedded){%>
+								"${p.name}.title":"${p.component.naturalName}",\
+								<%p.component.persistentProperties.each{ep->%>
+								"${p.name}.${ep.name}":"${ep.naturalName}",\
+							<%
+								}
+							}else{
+						%>
 				   		"${p.name}":"${p.naturalName}",\
-					    <%}%>
+					    <%	}
+							}%>
 					    "id": "Id"
 					}
 				}

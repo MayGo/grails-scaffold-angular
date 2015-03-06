@@ -93,13 +93,7 @@ class CustomMarshallerRegistrar {
 <%
 
 	for(d in domainClasses){
-		excludeProps = d.properties.findAll{p->p.oneToMany || p.manyToMany}*.getName()
-		excludePropsStr = ""
-		if(excludeProps) {
-			excludePropsStr = excludeProps.collect {
-				"'" + grails.util.GrailsNameUtils.getShortName(it) + "'"
-			}.join(", ")
-		}
+
 		%>
 		JSON.registerObjectMarshaller ${d.name}, priority, { ${d.name} instance, JSON json ->
 <%
@@ -107,7 +101,7 @@ class CustomMarshallerRegistrar {
 		for(domainProperty in d.persistentProperties){
 			//if(domainProperty.oneToMany || domainProperty.manyToMany) defaultExcludes << "'${domainProperty.name}'"
 
-			if(domainProperty.isAssociation()){
+			if(domainProperty.isAssociation() && !domainProperty.embedded){
 				Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(d, domainProperty)
 
 				if(domainProperty.manyToOne || domainProperty.oneToOne){

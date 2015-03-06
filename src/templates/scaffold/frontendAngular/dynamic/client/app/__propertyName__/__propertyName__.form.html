@@ -1,10 +1,10 @@
 <%
     allProps = scaffoldingHelper.getProps(domainClass)
-    props = allProps.findAll{p->!p.embedded} 
+    props = allProps//.findAll{p->!p.embedded}
 
 %>
 <%
-private String renderEditField(p, owningClass){
+private String renderEditField(p, owningClass, parentProperty = null){
 	boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
 	boolean required = false
 	if (hasHibernate) {
@@ -20,37 +20,39 @@ private String renderEditField(p, owningClass){
             persistentProperties.size() == 2 && it.referencedDomainClass 
         }
     }
+
+
 	
 	if (p.type == Boolean || p.type == boolean)
-	    return renderBoolean(owningClass, p, cp)
+	    return renderBoolean(owningClass, p, cp, parentProperty)
 	else if (cp && cp.inList) 
-		return renderInList(owningClass, p, cp)
+		return renderInList(owningClass, p, cp, parentProperty)
 	else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean))
-	    return renderNumber(owningClass, p, cp)
+	    return renderNumber(owningClass, p, cp, parentProperty)
 	else if (p.type == String)
-	    return renderString(owningClass, p, cp)
+	    return renderString(owningClass, p, cp, parentProperty)
 	else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar)
-	    return renderDate(owningClass, p, cp)
+	    return renderDate(owningClass, p, cp, parentProperty)
 	else if (p.type == URL)
-	    return renderUrl(domainClass, p, cp)
+	    return renderUrl(domainClass, p, cp, parentProperty)
 	else if (p.type && p.isEnum())
-	    return renderEnum(domainClass, p, cp)
+	    return renderEnum(domainClass, p, cp, parentProperty)
 	else if (p.type == TimeZone)
-	    return renderSelectType(domainClass, p, cp, "timeZone")
+	    return renderSelectType(domainClass, p, cp, "timeZone", parentProperty)
 	else if (p.type == Locale)
-	    return renderSelectType(domainClass, p, cp, "locale")
+	    return renderSelectType(domainClass, p, cp, "locale", parentProperty)
 	else if (p.type == Currency)
-	    return renderSelectType(domainClass, p, cp, "currency")
+	    return renderSelectType(domainClass, p, cp, "currency", parentProperty)
 	else if (p.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
-	    return renderByteArray(domainClass, p, cp)
+	    return renderByteArray(domainClass, p, cp, parentProperty)
 	else if (p.manyToOne || p.oneToOne)
-	    return renderManyToOne(domainClass, p, cp) 
+	    return renderManyToOne(domainClass, p, cp, parentProperty)
 	
 	else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
-	    return renderManyToMany(domainClass, p, cp)
+	    return renderManyToMany(domainClass, p, cp, parentProperty)
 	}
 	else if (p.oneToMany)
-	    return renderOneToMany(domainClass, p, cp)
+	    return renderOneToMany(domainClass, p, cp, parentProperty)
     else if (joinProperty){
 		return renderJoinProperty(domainClass, p, cp, joinProperty)
 	}
@@ -61,21 +63,25 @@ private String renderEditField(p, owningClass){
  
 }
 
-private String renderInList(owningClass, p, cp){
+private String renderInList(owningClass, p, cp, parentProperty){
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
 	return """
-	<select name="${p.name}" ng-model="${owningClass.propertyName}.${p.name}" ng-options="obj as obj for obj in ${(domainClass.constraints."${p.name}".inList).collect{"'$it'"}}">
+	<select name="${parentPropName}${p.name}" ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
+            ng-options="obj as obj for obj in ${(owningClass.constraints."${p.name}".inList).collect{"'$it'"}}">
       <option value=""></option>
     </select>
 	"""
 }
 
-private String renderString(owningClass, p, cp) {
+private String renderString(owningClass, p, cp, parentProperty) {
 
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     String type="text"
     if(cp.email) type="email"
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input name="${p.name}" class="form-control" type="$type" ng-model="${owningClass.propertyName}.${p.name}" """
+                    <input name="${parentPropName}${p.name}" class="form-control" type="$type"
+                           ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
     
     if (cp.matches) str += """ ng-pattern="/${cp.matches}/" """
     if (cp.minSize ) str += """ ng-minlength="${cp.minSize}" """
@@ -87,7 +93,8 @@ private String renderString(owningClass, p, cp) {
 }
 
 
-private String renderBoolean(owningClass, p, cp) {
+private String renderBoolean(owningClass, p, cp, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
 	//if boolean is not required then show tri state toggle
 	String triToggleStr = isRequired(cp)?"":"tri-toggle"
     String str = """
@@ -95,27 +102,35 @@ private String renderBoolean(owningClass, p, cp) {
 		  <ng-toggle $triToggleStr 
 		  disabled="disabled"
 		  ng-true-val="true" 
-		  ng-false-val="false" 
-		  ng-model="${owningClass.propertyName}.${p.name}"></ng-toggle> 
+		  ng-false-val="false"
+          name="${parentPropName}${p.name}"
+		  ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"></ng-toggle>
 		</div>"""
 }
 
-private String renderByteArray(owningClass, p, cp) {
+private String renderByteArray(owningClass, p, cp, parentProperty) {
+
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
       return """<div class="input-group input-group-sm">
                     <span class="input-group-addon">file</span> 
-                    <input name="${p.name}" class="form-control" type="file"  ng-model="${owningClass.propertyName}.${p.name}" >
+                    <input name="${parentPropName}${p.name}" class="form-control" type="file"
+                           ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" >
                 </div>"""
 }
 
 
 
-private String renderDate(owningClass, p, cp) {
+private String renderDate(owningClass, p, cp, parentProperty) {
+
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropNameFunc = (parentProperty?.component) ? parentProperty?.component.propertyName : ''
      String str =  """
      <div class="input-group input-group-sm">
-     <input name="${p.name}" type="text" class="form-control" ng-model="${owningClass.propertyName}.${p.name}" 
+     <input name="${parentPropName}${p.name}" type="text" class="form-control"
+            ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
 	     datepicker-popup
-	     is-open="${owningClass.propertyName}.${p.name}Open" 
-	     ng-click="${owningClass.propertyName}.${p.name}Open = true"
+	     is-open="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open"
+	     ng-click="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open = true"
       """
 
       if (isRequired(cp)) str += " required"
@@ -131,14 +146,17 @@ private String renderDate(owningClass, p, cp) {
 
 
 
-private String renderNumber(owningClass, p, cp) {
+private String renderNumber(owningClass, p, cp, parentProperty) {
+
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
 	String str = """<div class="input-group input-group-sm">
 	      				<span class="input-group-addon">nr</span>
-	      				<input name="${p.name}" class="form-control"  ng-model="${owningClass.propertyName}.${p.name}" """
+	      				<input name="${parentPropName}${p.name}" class="form-control"
+                               ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
 	      				
 	String rangeExtraInputStr = ""
 	if (cp.range) {
-		rangeExtraInputStr = """<span class="input-group-addon">{{${owningClass.propertyName}.${p.name}}}</span>"""
+		rangeExtraInputStr = """<span class="input-group-addon">{{${owningClass.propertyName}.${parentPropName}${p.name}}}</span>"""
         str += """ type="range" """
         str += """ min="${cp.range.from}" """
         str += """ max="${cp.range.to}" """
@@ -158,19 +176,25 @@ private String renderNumber(owningClass, p, cp) {
 }
 
 
-private String renderUrl(owningClass, p, cp) {
+private String renderUrl(owningClass, p, cp, parentProperty) {
+
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
 	String str = """<div class="input-group input-group-sm">
       				<span class="input-group-addon">url</span>
-      				<input name="${p.name}" class="form-control" type="url" ng-model="${owningClass.propertyName}.${p.name}" """
+      				<input name="${parentPropName}${p.name}" class="form-control" type="url"
+                           ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
 	
     if (isRequired(cp)) str += " required"
 	str += " ></div> "
 	return str
 }
-private renderSelectType(owningClass, p, cp, type) {
+private renderSelectType(owningClass, p, cp, type, parentProperty) {
+
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
 	String str = """<div class="input-group input-group-sm">
       				<span class="input-group-addon">$type</span>
-      				<input name="${p.name}" class="form-control" type="text" ng-model="${owningClass.propertyName}.${p.name}" """
+      				<input name="${parentPropName}${p.name}" class="form-control" type="text"
+                           ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
 	
     if (cp.matches) str += """ ng-pattern="${cp.matches}" """
     if (isRequired(cp)) str += " required"
@@ -178,17 +202,21 @@ private renderSelectType(owningClass, p, cp, type) {
 	return str
 }
 
-private String renderEnum(owningClass, p, cp) {
+private String renderEnum(owningClass, p, cp, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
      String str =  """
      <div class="input-group input-group-sm">
           <span class="input-group-addon">enum</span>   
-          <input name="${p.name}" type="text" class="form-control" ng-model="${owningClass.propertyName}.${p.name}"  typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List  | filter:\$viewValue"  """
+          <input name="${parentPropName}${p.name}" type="text" class="form-control"
+                 ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
+                 typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List  | filter:\$viewValue"  """
      if (isRequired(cp)) str += " required"
      str += """></div> """
      return str;
 }
 
-private String renderManyToOne(owningClass, p, cp) {
+private String renderManyToOne(owningClass, p, cp, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
@@ -202,8 +230,8 @@ private String renderManyToOne(owningClass, p, cp) {
      String str =  """<!--ManyToOne-->
      <div class="input-group input-group-sm">
           <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>  
-          <input name="${p.name}" type="text" class="form-control" 
-          ng-model="${owningClass.propertyName}.${p.name}"   
+          <input name="${parentPropName}${p.name}" type="text" class="form-control"
+          ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
           typeahead-template-url="${p.name}AutocompleteTemplate.html" 
           typeahead-editable="false" 
           typeahead="b for b in autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr])" 
@@ -219,13 +247,16 @@ private String renderManyToOne(owningClass, p, cp) {
 
 
 
-private String renderOneToMany(owningClass, p, cp) {
+private String renderOneToMany(owningClass, p, cp, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
     
      String str =  """<!--OneToMany-->
-          <tags-input ng-model="${owningClass.propertyName}.${p.name}">
+          <tags-input
+                  name="${parentPropName}${p.name}"
+                  ng-model="${domainClass.propertyName}.${parentPropName}${p.name}">
               <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr], true)" ></auto-complete>
             """
      if (isRequired(cp)) str += " minTags='1'"
@@ -233,13 +264,15 @@ private String renderOneToMany(owningClass, p, cp) {
      return str;
 }
 
-private String renderManyToMany(owningClass, p, cp) {
+private String renderManyToMany(owningClass, p, cp, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
       Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
     
      String str =  """<!--ManyToMany-->
-          <tags-input ng-model="${owningClass.propertyName}.${p.name}">
+          <tags-input   name="${parentPropName}${p.name}"
+                        ng-model="${domainClass.propertyName}.${parentPropName}${p.name}">
               <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr], true)" ></auto-complete>
             """
      if (isRequired(cp)) str += " minTags='1'"
@@ -271,12 +304,15 @@ private boolean isOptional(cp) {
 }
 %>
 <%
-private renderFieldRow(p, owningClass) {
+private renderFieldRow(p, owningClass, parentProperty = null) {
+    String parentPropName = (parentProperty) ? parentProperty?.name + '.' : ''
+
 	return """
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="${p.name}" translate="pages.${domainClass.shortName}.edit.form.field.${p.name}"></label>
+		<label class="col-sm-2 control-label" for="${parentPropName}${p.name}"
+               translate="pages.${domainClass.shortName}.edit.form.field.${parentPropName}${p.name}"></label>
 		<div class="col-sm-10">
-            ${renderEditField(p, owningClass)}                     
+            ${renderEditField(p, owningClass, parentProperty)}
         </div>
 	</div>
 	<div class="line line-dashed b-b line-lg pull-in"></div>
@@ -295,9 +331,30 @@ private renderFieldRow(p, owningClass) {
                     </div>
                     <div class="panel-body">
                         <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
-                        <%for (p in props) {%>
-                ${renderFieldRow(p, domainClass)}\
-                <%}%>
+
+<%for (p in props) {
+    if(p.embedded){
+        def embeddedDomainClass = p.component
+        def embeddedProps = scaffoldingHelper.getProps(embeddedDomainClass)
+      %>
+                        <accordion close-others="false">
+                            <accordion-group
+                                    heading="{{'pages.${domainClass.shortName}.edit.form.field.${p.name}.title' | translate}}"
+                                    is-open="isSearchOpen">
+                                <div class="row">
+                                    <%embeddedProps.each{ep->
+                                        if(ep.name != "id"){
+                                            println renderFieldRow(ep, domainClass, p)
+                                        }
+                                    }%>
+                                </div>
+                            </accordion-group>
+                        </accordion>
+    <%
+    }else{
+        println renderFieldRow(p, domainClass)
+    }
+}%>
                 	</div>
                     <footer class="panel-footer text-right bg-light lter">
                       	<button id="${domainClass.propertyName}SubmitBtn"
