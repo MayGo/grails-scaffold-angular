@@ -1,6 +1,6 @@
 <%
     allProps = scaffoldingHelper.getProps(domainClass)
-    props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany} 
+    props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}.grep{it.cp?.display != false}
 %>
 <%
 private renderFieldRow(p, owningClass) {

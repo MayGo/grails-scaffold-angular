@@ -1,127 +1,114 @@
 <%
     allProps = scaffoldingHelper.getProps(domainClass)
-    props = allProps.findAll{p->!p.embedded} 
+    props = allProps.grep{it.cp?.display != false}
    
 %>
 <%
-private String renderFieldRow(p, owningClass){
-    boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
-    boolean required = false
-    if (hasHibernate) {
-        cp = owningClass.constrainedProperties[p.name]?:[:]
-        required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
-    }
-    // Find if property is actually joinTable property. e.g. UserRole
-    def joinProperty 
-    if(p.referencedDomainClass)  {
-        def persistentProperties = p.referencedDomainClass.persistentProperties
-        joinProperty = persistentProperties.find{ 
-            it != p && 
-            persistentProperties.size() == 2 && it.referencedDomainClass 
-        }
-    }
+private String renderFieldRow(p, owningClass, parentProperty = null){
 
-   
     if (p.type == Boolean || p.type == boolean)
-        return renderBoolean(owningClass, p, cp)
+        return renderBoolean(owningClass, p, parentProperty)
     else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean))
-        return renderString(owningClass, p, cp)
+        return renderString(owningClass, p, parentProperty)
     else if (p.type == String)
-        return renderString(owningClass, p, cp)
+        return renderString(owningClass, p, parentProperty)
     else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar)
-        return renderString(owningClass, p, cp)
+        return renderString(owningClass, p, parentProperty)
     else if (p.type == URL)
-        return renderString(domainClass, p, cp)
+        return renderString(owningClass, p, parentProperty)
     else if (p.type && p.isEnum())
-        return renderEnum(domainClass, p, cp)
+        return renderEnum(owningClass, p, parentProperty)
     else if (p.type == TimeZone)
-        return renderSelectType(domainClass, p, cp, "timeZone")
+        return renderSelectType(owningClass, p, parentProperty, "timeZone")
     else if (p.type == Locale)
-        return renderSelectType(domainClass, p, cp, "locale")
+        return renderSelectType(owningClass, p, parentProperty, "locale")
     else if (p.type == Currency)
-        return renderSelectType(domainClass, p, cp, "currency")
+        return renderSelectType(owningClass, p, parentProperty, "currency")
     else if (p.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
-        return renderByteArray(domainClass, p, cp)
+        return renderByteArray(owningClass, p, parentProperty)
     else if (p.manyToOne || p.oneToOne)
-        return renderManyToOne(domainClass, p, cp) 
-    else if (joinProperty){
-        return renderJoinProperty(domainClass, p, cp, joinProperty)
-    }
-    else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
-        return renderManyToMany(domainClass, p, cp)
-    }
-    else if (p.oneToMany)
-        return renderOneToMany(domainClass, p, cp)
+        return renderManyToOne(owningClass, p, parentProperty)
+    else if (p.joinProperty){
+        return renderJoinProperty(domainClass, p, parentProperty, p.joinProperty)
+    }else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
+        return renderManyToMany(domainClass, p, parentProperty)
+    }else if (p.oneToMany)
+        return renderOneToMany(domainClass, p, parentProperty)
     else
         return "<!-- No type for ${p.name} -->"
-        
 
- 
 }
 
 
-private String renderString(owningClass, p, cp) {
+private String renderString(owningClass, p, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     return """
         <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${p.name}"></div>
+            <label class="col-sm-2 control-label"
+                   translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
+            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
 }
 
-private String renderBoolean(owningClass, p, cp) {
+private String renderBoolean(owningClass, p, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
    return """
         <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${p.name}"></div>
+            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
+            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
 }
 
-private String renderByteArray(owningClass, p, cp) {
+private String renderByteArray(owningClass, p, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
    return """
         <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${p.name}"></div>
+            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
+            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
 }
 
 
-private renderSelectType(owningClass, p, cp, type) {
+private renderSelectType(owningClass, p, parentProperty, type) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
      return """
         <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${p.name}"></div>
+            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
+            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
 }
 
-private String renderEnum(owningClass, p, cp) {
+private String renderEnum(owningClass, p, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
      return """
         <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${p.name}"></div>
+            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
+            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
 }
 
-private String renderManyToOne(owningClass, p, cp) {
+private String renderManyToOne(owningClass, p, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ["id":null]
     
     String str = """<!--ManyToOne-->
         <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${p.name}"></label>
+            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
             <div class="col-sm-10 form-control-static">
             """
     useDisplaynames.each{ key, value->
-        str += """<span ng-bind="${owningClass.propertyName}.${p.name}.${key}"></span> """
+        str += """<span ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}.${key}"></span> """
     }
     str += """</div></div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -130,27 +117,29 @@ private String renderManyToOne(owningClass, p, cp) {
     return str
 }
 
-private String renderManyToMany(owningClass, p, cp) {
+private String renderManyToMany(owningClass, p, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     return """<!--ManyToMany-->
         <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${p.name}"></div>
+            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
+            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
 }
 
-private String renderOneToMany(owningClass, p, cp) {
+private String renderOneToMany(owningClass, p, parentProperty) {
+String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
     return """<!--OneToMany-->
         <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${p.name}"></div>
+            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
+            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
 }
 
-private renderJoinProperty(owningClass, p, cp, joinProperty) {
+private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
     return  """//JoinProperty
     //${grails.util.GrailsNameUtils.getShortName(p.getReferencedPropertyType()).toLowerCase()}
                 //${grails.util.GrailsNameUtils.getShortName(joinProperty.getReferencedPropertyType()).toLowerCase()}
@@ -173,13 +162,32 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
 			      <span class="h4" translate="pages.${domainClass.shortName}.view.title"></span>
 			    </div>
 			    <div class="panel-body">
-			    	<div class=" form-horizontal">		
-				<%  
-				for (p in props) {
-					if (!p.embedded && !p.oneToMany && !p.manyToMany) {%>
-				${renderFieldRow(p, domainClass)}\
-					<%}%>
-				<%}%>
+			    	<div class="form-horizontal">
+<%for (p in props) {
+    if (!p.oneToMany && !p.manyToMany) {
+        if(p.embedded){
+            def embeddedDomainClass = p.component
+            def embeddedProps = scaffoldingHelper.getProps(embeddedDomainClass).grep{it.cp?.display != false && it.name!= 'id'}
+            if(embeddedProps){
+                    %>
+                    <accordion close-others="false">
+                        <accordion-group
+                                heading="{{'pages.${domainClass.shortName}.view.field.${p.name}.title' | translate}}"
+                                is-open="isSearchOpen">
+                            <div class="row">
+                                <%embeddedProps.each{ep->
+                                println renderFieldRow(ep, domainClass, p)
+                                }%>
+                            </div>
+                        </accordion-group>
+                    </accordion>
+                    <%
+            }
+        }else{
+            println renderFieldRow(p, domainClass)
+        }
+    }
+}%>
 					</div>
 			    </div>
 			    <footer class="panel-footer text-right bg-light lter">

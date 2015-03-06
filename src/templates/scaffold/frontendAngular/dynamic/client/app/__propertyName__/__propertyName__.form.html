@@ -1,28 +1,12 @@
 <%
     allProps = scaffoldingHelper.getProps(domainClass)
-    props = allProps//.findAll{p->!p.embedded}
+    props = allProps.grep{it.cp?.display != false && it.cp?.editable != false && it.name!= 'id'}
 
 %>
 <%
 private String renderEditField(p, owningClass, parentProperty = null){
-	boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
-	boolean required = false
-	if (hasHibernate) {
-		cp = owningClass.constrainedProperties[p.name]?:[:]
-		required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
-	}
-	// Find if property is actually joinTable property. e.g. UserRole
-    def joinProperty 
-    if(p.referencedDomainClass)  {
-        def persistentProperties = p.referencedDomainClass.persistentProperties
-        joinProperty = persistentProperties.find{ 
-            it != p && 
-            persistentProperties.size() == 2 && it.referencedDomainClass 
-        }
-    }
+	def cp = p.cp // TODO: refactor, add directly to subfunctions
 
-
-	
 	if (p.type == Boolean || p.type == boolean)
 	    return renderBoolean(owningClass, p, cp, parentProperty)
 	else if (cp && cp.inList) 
@@ -53,8 +37,8 @@ private String renderEditField(p, owningClass, parentProperty = null){
 	}
 	else if (p.oneToMany)
 	    return renderOneToMany(domainClass, p, cp, parentProperty)
-    else if (joinProperty){
-		return renderJoinProperty(domainClass, p, cp, joinProperty)
+    else if (p.joinProperty){
+		return renderJoinProperty(domainClass, p, cp, p.joinProperty)
 	}
 	else
 		return "<!-- No type for ${p.name} -->"
@@ -331,11 +315,11 @@ private renderFieldRow(p, owningClass, parentProperty = null) {
                     </div>
                     <div class="panel-body">
                         <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
-
 <%for (p in props) {
     if(p.embedded){
         def embeddedDomainClass = p.component
-        def embeddedProps = scaffoldingHelper.getProps(embeddedDomainClass)
+        def embeddedProps = scaffoldingHelper.getProps(embeddedDomainClass).grep{it.cp?.display != false &&it.cp?.editable != false && it.name!= 'id'}
+        if(embeddedProps){
       %>
                         <accordion close-others="false">
                             <accordion-group
@@ -343,14 +327,13 @@ private renderFieldRow(p, owningClass, parentProperty = null) {
                                     is-open="isSearchOpen">
                                 <div class="row">
                                     <%embeddedProps.each{ep->
-                                        if(ep.name != "id"){
-                                            println renderFieldRow(ep, domainClass, p)
-                                        }
+                                        println renderFieldRow(ep, domainClass, p)
                                     }%>
                                 </div>
                             </accordion-group>
                         </accordion>
     <%
+        }
     }else{
         println renderFieldRow(p, domainClass)
     }
