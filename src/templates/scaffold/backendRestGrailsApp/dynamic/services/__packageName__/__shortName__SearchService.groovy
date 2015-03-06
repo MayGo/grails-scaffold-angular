@@ -1,8 +1,74 @@
 <%= packageName ? "package ${packageName}" : '' %>
 <%
 allProps = scaffoldingHelper.getProps(domainClass)
-props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}
+props = allProps.findAll{p->!p.oneToMany && !p.manyToMany}
 
+
+private renderSearchRow(p, parentProperty = null){
+	String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+	if (p.cp.display != false) {
+		//System.out.println (p.type)
+		String str = ""
+		if (p.type == Boolean || p.type == boolean)
+			str += """eq('${parentPropName}${p.name}', filter['${parentPropName}${p.name}'].toString().toBoolean())"""
+		else if (p.cp && p.cp.inList)
+			str += "//inList"
+		else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean)) {
+			if (p.type == Integer.class) {
+				str += """eq('${parentPropName}${p.name}', filter['${parentPropName}${p.name}'].toString().toInteger())"""
+			} else if (p.type == Long.class) {
+				str += """eq('${parentPropName}${p.name}', filter['${parentPropName}${p.name}'].toString().toLong())"""
+			} else if (p.type == Double.class || p.type == double) {
+				str += """eq('${parentPropName}${p.name}', filter['${parentPropName}${p.name}'].toString().toDouble())"""
+			} else if (p.type == Float.class || p.type == float) {
+				str += """eq('${parentPropName}${p.name}', filter['${parentPropName}${p.name}'].toString().toFloat())"""
+			} else {
+				str += """eq('${parentPropName}${p.name}', filter['${parentPropName}${p.name}'])"""
+			}
+		}else if (p.type == String)
+			str += """ilike('${parentPropName}${p.name}', "\${filter['${parentPropName}${p.name}']}%")"""
+		else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar) {
+			println """
+			if (filter['${parentPropName}${p.name}']) {
+				String inputFormat = "yyyy-MM-dd HH:mm:ss.SSSZ"
+				Date d = Date.parse(inputFormat, filter['${parentPropName}${p.name}'].toString())
+				between('${parentPropName}${p.name}', d, d)
+			}"""
+		}else if (p.type == URL)
+			str += "//url"
+		else if (p.type && p.isEnum())
+			str += "//enum"
+		else if (p.type == TimeZone)
+			str += "//TimeZone"
+		else if (p.type == Locale)
+			str += "//Locale"
+		else if (p.type == Currency)
+			str += "//Currency"
+		else if (p.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
+			str += "//byte"
+		else if (p.manyToOne || p.oneToOne) {
+			println """
+			if (filter['${parentPropName}${p.name}s']) {
+				'in'('${parentPropName}${p.name}.id', filter['${parentPropName}${p.name}s'].collect { (long) it })
+			}
+			if (filter['${parentPropName}${p.name}']) {
+				eq('${parentPropName}${p.name}.id', (long) filter['${parentPropName}${p.name}'])
+			}\
+"""
+		} else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
+			str += "//manyToMany"
+		}
+		else if (p.oneToMany)
+			str += "//oneToMany"
+		else if (p.joinProperty){
+			str += "//joinProperty"
+		}
+		else
+			str += "//No type for ${p.name}"
+
+		if (str) println "\t\t\t" + "if (filter['${parentPropName}${p.name}']) {\n\t\t\t\t" + str + "\n\t\t\t}"
+	}
+}
 
 private void printSearchCriteria(){
 	Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainClass)
@@ -118,86 +184,17 @@ class ${className}SearchService {
 			printSearchCriteria()
 
 			props.each { p ->
-			boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
-			boolean required = false
-			if (hasHibernate) {
-				cp = domainClass.constrainedProperties[p.name] ?: [:]
-				required = (cp ? !(cp.propertyType in [boolean, Boolean]) && !cp.nullable : false)
-				display = (cp ? cp.display : true)
-			}
-			// Find if property is actually joinTable property. e.g. UserRole
-			def joinProperty
-			if(p.referencedDomainClass)  {
-				def persistentProperties = p.referencedDomainClass.persistentProperties
-				joinProperty = persistentProperties.find{
-					it != p &&
-							persistentProperties.size() == 2 && it.referencedDomainClass
-				}
-			}
-
-			if (display) {
-				//System.out.println (p.type)
-				String str = ""
-				if (p.type == Boolean || p.type == boolean)
-					str += """eq('${p.name}', filter['${p.name}'].toString().toBoolean())"""
-				else if (cp && cp.inList)
-					str += "//inList"
-				else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean)) {
-					if (p.type == Integer.class) {
-						str += """eq('${p.name}', filter['${p.name}'].toString().toInteger())"""
-					} else if (p.type == Long.class) {
-						str += """eq('${p.name}', filter['${p.name}'].toString().toLong())"""
-					} else if (p.type == Double.class || p.type == double) {
-						str += """eq('${p.name}', filter['${p.name}'].toString().toDouble())"""
-					} else if (p.type == Float.class || p.type == float) {
-						str += """eq('${p.name}', filter['${p.name}'].toString().toFloat())"""
-					} else {
-						str += """eq('${p.name}', filter['${p.name}'])"""
+				if(p.embedded){
+					def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.name!= 'id'}
+					embeddedProps.each{ep->
+						renderSearchRow(ep, p)
 					}
-				}else if (p.type == String)
-					str += """ilike('${p.name}', "\${filter['${p.name}']}%")"""
-				else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar) {
-					println """
-			if (filter['${p.name}']) {
-				String inputFormat = "yyyy-MM-dd HH:mm:ss.SSSZ"
-				Date d = Date.parse(inputFormat, filter['${p.name}'].toString())
-				between('${p.name}', d, d)
-			}"""
-				}else if (p.type == URL)
-					str += "//url"
-				else if (p.type && p.isEnum())
-					str += "//enum"
-				else if (p.type == TimeZone)
-					str += "//TimeZone"
-				else if (p.type == Locale)
-					str += "//Locale"
-				else if (p.type == Currency)
-					str += "//Currency"
-				else if (p.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
-					str += "//byte"
-				else if (p.manyToOne || p.oneToOne) {
-					println """
-			if (filter['${p.name}s']) {
-				'in'('${p.name}.id', filter['${p.name}s'].collect { (long) it })
-			}
-			if (filter['${p.name}']) {
-				eq('${p.name}.id', (long) filter['${p.name}'])
-			}\
-"""
-				} else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
-					str += "//manyToMany"
+				}else{
+					renderSearchRow(p)
 				}
-				else if (p.oneToMany)
-					str += "//oneToMany"
-				else if (joinProperty){
-					str += "//joinProperty"
-				}
-				else
-					str += "//No type for ${p.name}"
 
-				if (str) println "\t\t\t" + "if (filter['${p.name}']) {\n\t\t\t\t" + str + "\n\t\t\t}"
 			}
-}%>\
+			%>\
 		}
 	}
 }
