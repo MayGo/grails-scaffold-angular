@@ -34,6 +34,8 @@ private String renderFieldRow(p, owningClass, parentProperty = null){
         return renderManyToMany(domainClass, p, parentProperty)
     }else if (p.oneToMany)
         return renderOneToMany(domainClass, p, parentProperty)
+    else if (p.type == java.util.Map)
+        return renderMap(domainClass, p, parentProperty)
     else
         return "<!-- No type for ${p.name} -->"
 
@@ -148,7 +150,21 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
         """
 }
 
+private String renderMap(owningClass, p, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
 
+    String str = """<!--Map-->
+    <div class="form-group">
+        <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
+        <div class="jsonView jsonRead col-sm-10 form-control-static">
+            <json child="${domainClass.propertyName}.${parentPropName}${p.name}" default-collapsed="false" type="object"></json>
+        </div>
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in"></div>
+    """
+
+    return str
+}
 
 
 %>

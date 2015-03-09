@@ -14,7 +14,7 @@
     "alert",
     "alert-list"
   ],
-  "version": "0.0.16",
+  "version": "0.0.18",
   "authors": [
     "Null McNull <no@spam.org>"
   ],
@@ -61,13 +61,13 @@
     }
   },
   "homepage": "https://github.com/McNull/angular-inform",
-  "_release": "0.0.16",
+  "_release": "0.0.18",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.16",
-    "commit": "a27abf7415de82bb453ee4f17f0a6c78b08ed379"
+    "tag": "v0.0.18",
+    "commit": "68e839ad6f9eef3be438cc7b864f4e4346fb00a0"
   },
   "_source": "git://github.com/McNull/angular-inform.git",
-  "_target": "~0.0.16",
+  "_target": "~0.0.18",
   "_originalSource": "angular-inform"
 }

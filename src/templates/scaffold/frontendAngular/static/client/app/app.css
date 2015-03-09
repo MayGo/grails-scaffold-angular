@@ -93,6 +93,19 @@
   color: #8B8B8B;
   text-shadow: none;
 }
+/**
+* json-edit overrides
+*/
+.jsonView{
+  padding: 0 0 0 10px !important;
+  margin-top: 3px;
+}
+.jsonView.jsonRead .deleteKeyBtn{
+  display:none;
+}
+.jsonView.jsonRead .addObjectItemBtn{
+  display:none;
+}
 
 /**
 * Show loading directive

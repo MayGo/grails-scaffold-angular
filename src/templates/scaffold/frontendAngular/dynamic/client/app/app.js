@@ -21,7 +21,8 @@ angular.module('angularDemoApp', [
   'satellizer',
   //'mgcrea.ngStrap',
   'ngToggle',
-  'permission'
+  'permission',
+	'JSONedit'
 ])
 	.constant('appConfig', (function() {
 

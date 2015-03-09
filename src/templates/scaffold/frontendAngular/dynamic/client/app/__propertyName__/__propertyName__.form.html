@@ -31,15 +31,14 @@ private String renderEditField(p, owningClass, parentProperty = null){
 	    return renderByteArray(domainClass, p, cp, parentProperty)
 	else if (p.manyToOne || p.oneToOne)
 	    return renderManyToOne(domainClass, p, cp, parentProperty)
-	
-	else if ((p.oneToMany && !p.bidirectional) || p.manyToMany) {
+	else if ((p.oneToMany && !p.bidirectional) || p.manyToMany)
 	    return renderManyToMany(domainClass, p, cp, parentProperty)
-	}
 	else if (p.oneToMany)
 	    return renderOneToMany(domainClass, p, cp, parentProperty)
-    else if (p.joinProperty){
+    else if (p.joinProperty)
 		return renderJoinProperty(domainClass, p, cp, p.joinProperty)
-	}
+    else if (p.type == java.util.Map)
+        return renderMap(domainClass, p, cp, p.joinProperty)
 	else
 		return "<!-- No type for ${p.name} -->"
 		
@@ -273,6 +272,17 @@ private renderJoinProperty(owningClass, p, cp, joinProperty) {
                 //${p.naturalName}
         """
 }
+
+private String renderMap(owningClass, p, cp, parentProperty) {
+
+    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String str = """
+        <div class="jsonView">
+            <json child="${domainClass.propertyName}.${parentPropName}${p.name}" default-collapsed="false" type="object"></json>
+        </div> """
+    return str
+}
+
 
 
 private boolean isRequired(cp) {
