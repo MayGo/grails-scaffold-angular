@@ -39,6 +39,23 @@ angular.module('angularDemoApp')
 	       	}
      	);
   	};
+
+	var autocompleteObjToString = function(model){
+		var str = ""
+		var stringify = function(obj){
+			_.forIn(obj, function(value, key) {
+				if(_.isObject(value)){
+					stringify(value);
+				} else {
+					if(str != "") str += " "
+					str += value;
+				};
+			});
+		}
+		stringify(model);
+		return str;
+	}
+
   	var service = {
   		promiseToLabel:function(model, labelProperties){
 			model.\$promise.then(function() {
@@ -46,7 +63,58 @@ angular.module('angularDemoApp')
 			});
 			return model;
 		},
-	
+	<%
+	List allAutocompleteProps = []
+	for(d in domainClasses) {
+
+		scaffoldingHelper.getProps(d).each{
+			if(it.cp.widget == 'autocomplete'){
+				allAutocompleteProps << it
+			}
+
+			if(it.embedded){
+				scaffoldingHelper.getProps(it.component).each{
+					if(it.cp.widget == 'autocomplete'){
+						allAutocompleteProps << it
+					}
+				}
+			}
+		}
+	}
+
+
+	allAutocompleteProps.collectEntries {a->
+			String acFunctionName = (a.cp.format)?: a.cp.name
+			[(acFunctionName): a]
+	}.each{acFunctionName, a->
+		%>
+		${acFunctionName}Query : function(val){
+			var urlVar = "${acFunctionName}Url"
+			var url = appConfig[urlVar];
+			if(url === undefined){
+				console.error("Define " + urlVar + " in config.json.");
+			}
+			var param = {limit: 15};
+			param.searchString = val;
+			var resource = \$resource(url);
+			return resource.query(param).\$promise.then(
+				function( response ){
+					return response.map(function(item){
+						item.label = autocompleteObjToString(item);
+						// postgres json can only save objects at the moment
+						var obj = {item:item};
+						return obj;
+					});
+				}
+			);
+		},
+		${acFunctionName}FormatLabel : function(model) {
+			if(model === undefined) return "";
+			if(model.item !== undefined && model.item.label !== undefined) return model.item.label;
+			return autocompleteObjToString(model);
+		},
+	<%}%>
+
 	<%
 	List allEnums = []
 	for(d in domainClasses){
@@ -59,7 +127,7 @@ angular.module('angularDemoApp')
 		enums = scaffoldingHelper.getProps(d).findAll{it.type && it.isEnum()}
 		allEnums +=enums
 	
-  		%>
+	%>
   		${d.propertyName}Query : function(val, labelProperties, tagsOutput){
   			return resourceQuery(val, '${d.propertyName.toLowerCase()}s/v1', labelProperties, '${excludes*.name.join(",")}', tagsOutput);
 	    },

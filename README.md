@@ -76,6 +76,17 @@ grails{
 }
 ```
 
+Domain config
+=====
+
+To render autocomplete to edit field, add widget:'autocomplete'. In format you can define custom prop name that is
+used to generate functions name. And with that variable name application expects resource Url in config.json.
+eg:someVarNameUrl:'http://foobar.com/somerestservice'. When format is ommited, then property name is used. Eg:
+myPropUrl.
+static constraints = {
+	myProp widget:'autocomplete', format:'someVarName'
+}
+
 
 Using
 =====

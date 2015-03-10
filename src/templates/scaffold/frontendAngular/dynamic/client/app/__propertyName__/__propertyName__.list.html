@@ -1,7 +1,7 @@
 <%
     allProps = scaffoldingHelper.getProps(domainClass)
     props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}.grep{it.cp?.display != false}
-    embeddedProps = allProps.findAll{p->p.embedded}.grep{it.cp?.display != false}
+    allEmbeddedProps = allProps.findAll{p->p.embedded}.grep{it.cp?.display != false}
 %>
 <%
 private renderFieldRow(p, owningClass) {
@@ -290,8 +290,12 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
                   ${renderFieldSearch(p, domainClass)}
             <%}%>
         </div>
-    <%for (p in embeddedProps) {
-    def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
+    <%for (p in allEmbeddedProps) {
+        def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
+        if(embeddedProps){
+            if(embeddedProps.size()==-1){//-1 because not using it at this moment
+                println renderFieldSearch(embeddedProps.first(), domainClass, p)
+            }else{
         %>
         <div class="embedded-search-heading"><span class="label label-default"
                                                    translate="pages.${domainClass.shortName}.list.table.embeddedSearch.${p.name}.title"></span></div>
@@ -301,7 +305,10 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
             ${renderFieldSearch(ep, domainClass, p)}
             <%}%>
         </div>
-    <%}%>
+    <%      }
+        }
+    }
+        %>
     </accordion-group>
 </accordion>
   <div class="panel panel-default">

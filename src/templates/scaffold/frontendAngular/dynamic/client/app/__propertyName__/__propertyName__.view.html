@@ -37,13 +37,13 @@ private String renderFieldRow(p, owningClass, parentProperty = null){
     else if (p.type == java.util.Map)
         return renderMap(domainClass, p, parentProperty)
     else
-        return "<!-- No type for ${p.name} -->"
+        return "<!-- No type for ${p.name} type ${p.type}-->"
 
 }
 
 
 private String renderString(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     return """
         <div class="form-group">
             <label class="col-sm-2 control-label"
@@ -55,7 +55,7 @@ private String renderString(owningClass, p, parentProperty) {
 }
 
 private String renderBoolean(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
    return """
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
@@ -66,7 +66,7 @@ private String renderBoolean(owningClass, p, parentProperty) {
 }
 
 private String renderByteArray(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
    return """
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
@@ -78,7 +78,7 @@ private String renderByteArray(owningClass, p, parentProperty) {
 
 
 private renderSelectType(owningClass, p, parentProperty, type) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
      return """
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
@@ -89,7 +89,7 @@ private renderSelectType(owningClass, p, parentProperty, type) {
 }
 
 private String renderEnum(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
      return """
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
@@ -100,7 +100,7 @@ private String renderEnum(owningClass, p, parentProperty) {
 }
 
 private String renderManyToOne(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ["id":null]
     
@@ -120,7 +120,7 @@ private String renderManyToOne(owningClass, p, parentProperty) {
 }
 
 private String renderManyToMany(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     return """<!--ManyToMany-->
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
@@ -131,7 +131,7 @@ private String renderManyToMany(owningClass, p, parentProperty) {
 }
 
 private String renderOneToMany(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     return """<!--OneToMany-->
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
@@ -150,8 +150,9 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
         """
 }
 
+
 private String renderMap(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
 
     String str = """<!--Map-->
     <div class="form-group">
@@ -184,6 +185,9 @@ private String renderMap(owningClass, p, parentProperty) {
         if(p.embedded){
             def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
             if(embeddedProps){
+                if(embeddedProps.size()==1){
+                    println renderFieldRow(embeddedProps.first(), domainClass, p)
+                }else{
                     %>
                     <accordion close-others="false">
                         <accordion-group
@@ -197,6 +201,7 @@ private String renderMap(owningClass, p, parentProperty) {
                         </accordion-group>
                     </accordion>
                     <%
+                }
             }
         }else{
             println renderFieldRow(p, domainClass)

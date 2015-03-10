@@ -50,7 +50,6 @@
 			"logout-cas":"Logout from CAS"
 		}
 	},
-
 	"settings":{
 		"view":{
 			"title":"Settings",
@@ -75,7 +74,7 @@
 					"embeddedSearch":{
 					<%for (p in d.persistentProperties) {
 							if(p.embedded){%>
-								"${p.name}.title":"${p.component.naturalName}",\
+								"${p.name}.title":"${p.naturalName}",\
 							<%}
 						}%>
 						"all":"All"
@@ -91,7 +90,7 @@
 					"placeholder":{
 						<%for (p in d.persistentProperties) {
 							if(p.embedded){%>
-								"${p.name}.title":"${p.component.naturalName}",\
+								"${p.name}.title":"${p.naturalName}",\
 							<%p.component.persistentProperties.each{ep->%>
 								"${p.name}.${ep.name}":"${ep.naturalName}",\
 								<%
@@ -115,7 +114,7 @@
 				"field":{
 					<%for (p in d.persistentProperties) {
 						if(p.embedded){%>
-							"${p.name}.title":"${p.component.naturalName}",\
+							"${p.name}.title":"${p.naturalName}",\
 						<%p.component.persistentProperties.each{ep->%>
 							"${p.name}.${ep.name}":"${ep.naturalName}",\
 							<%
@@ -137,7 +136,7 @@
 					"field":{
 						<%for (p in d.persistentProperties) {
 							if(p.embedded){%>
-								"${p.name}.title":"${p.component.naturalName}",\
+								"${p.name}.title":"${p.naturalName}",\
 								<%p.component.persistentProperties.each{ep->%>
 								"${p.name}.${ep.name}":"${ep.naturalName}",\
 							<%
