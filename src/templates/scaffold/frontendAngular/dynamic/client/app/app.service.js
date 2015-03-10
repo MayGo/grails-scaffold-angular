@@ -84,11 +84,11 @@ angular.module('angularDemoApp')
 
 
 	allAutocompleteProps.collectEntries {a->
-			String acFunctionName = (a.cp.format)?: a.cp.name
+			String acFunctionName = (a.cp.format)?: a.name
 			[(acFunctionName): a]
 	}.each{acFunctionName, a->
 		%>
-		${acFunctionName}Query : function(val){
+		${acFunctionName}SimpleQuery : function(val){
 			var urlVar = "${acFunctionName}Url"
 			var url = appConfig[urlVar];
 			if(url === undefined){
@@ -108,7 +108,7 @@ angular.module('angularDemoApp')
 				}
 			);
 		},
-		${acFunctionName}FormatLabel : function(model) {
+		${acFunctionName}SimpleFormatLabel : function(model) {
 			if(model === undefined) return "";
 			if(model.item !== undefined && model.item.label !== undefined) return model.item.label;
 			return autocompleteObjToString(model);

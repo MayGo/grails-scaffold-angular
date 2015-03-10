@@ -285,15 +285,14 @@ private String renderAutocomplete(owningClass, p, cp, parentProperty) {
                    ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
                    typeahead-editable="false"
                    typeahead-template-url="${parentPropName}AutocompleteTemplate.html"
-                   typeahead="b for b in autocompleteService.${acFunctionName}Query(\$viewValue)"
-                   typeahead-input-formatter="autocompleteService.${acFunctionName}FormatLabel(\$model)"
+                   typeahead="b for b in autocompleteService.${acFunctionName}SimpleQuery(\$viewValue)"
+                   typeahead-input-formatter="autocompleteService.${acFunctionName}SimpleFormatLabel(\$model)"
         """
 
     if (isRequired(cp)) str += " required"
     str += """></div> """
 
     str +=templStr;
-
     return str;
 }
 

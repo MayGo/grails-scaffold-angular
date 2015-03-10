@@ -140,7 +140,7 @@ grails{
 			core{
 				overwrite = true // false = Ask before replacing file
 				ignoreStatic = true // Don't generate static files again
-				ignoreFileNames = ['TestDataGeneratorService.groovy', 'TestDataConfig.groovy']
+				ignoreFileNames = ['TestDataGeneratorService.groovy', 'TestDataConfig.groovy', 'config.json', '.gitignore']
 				// Map of domain class names. contains list of maps
 				//displayNames = ['Division2':['persons':['name':null]]]//e.g 'User':['group':['name']]
 '''
