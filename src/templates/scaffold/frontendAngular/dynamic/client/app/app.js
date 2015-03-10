@@ -34,13 +34,7 @@ angular.module('angularDemoApp', [
  		};
 
  		//Set defaults
-		var defaultConfig = {
- 				restUrl : '${appUrl}',
- 	 			loginUrl : '${appUrl}${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"/api/login"}',
- 	 			logoutUrl : '${appUrl}${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"/api/logout"}',
- 	 			validationUrl: '${appUrl}${(config.grails.plugin.springsecurity.rest.token.validation.endpointUrl)?:"/api/validate"}',
- 	 			securityEnabled: ${(config.grails.plugin.springsecurity.active)?:false}
-		};
+		var defaultConfig = {};
  		var loadSuccess = function( data ) {
 			 if(data){
 			 	  angular.extend(defaultConfig, data);
@@ -56,16 +50,25 @@ angular.module('angularDemoApp', [
 		    async: false
 		});
 
+		if(defaultConfig.restUrl === undefined){
+			console.error("Define restUrl in config.json.");
+		}
+		if(defaultConfig.loginUrl === undefined){
+			console.error("Define loginUrl in config.json.");
+		}
+		if(defaultConfig.logoutUrl === undefined){
+			console.error("Define logoutUrl in config.json.");
+		}
+		/*if(defaultConfig.validationUrl === undefined){
+			console.error("Define validationUrl in config.json.");
+		}*/
+		if(defaultConfig.securityEnabled === undefined){
+			console.error("Define securityEnabled in config.json.");
+		}
 		// Return correct config
-		var restUrl = removeSlash(defaultConfig.restUrl);
-		var config = {
-			restUrl : restUrl,
-			loginUrl: defaultConfig.loginUrl,
-			logoutUrl: defaultConfig.logoutUrl,
-			securityEnabled: defaultConfig.securityEnabled
-		};
+		defaultConfig.restUrl = removeSlash(defaultConfig.restUrl);
 
- 	    return config;
+ 	    return defaultConfig;
    })())
 
   .config(function (\$stateProvider, \$urlRouterProvider, \$locationProvider, cfpLoadingBarProvider, datepickerConfig, datepickerPopupConfig) {
