@@ -45,7 +45,7 @@ private String renderEditField(p, owningClass, parentProperty = null){
         return renderMap(domainClass, p, cp, parentProperty)
 	else
 		return "<!-- No type for ${p.name} -->"
-		
+
 
  
 }
@@ -53,7 +53,7 @@ private String renderEditField(p, owningClass, parentProperty = null){
 private String renderInList(owningClass, p, cp, parentProperty){
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
 	return """
-	<select name="${parentPropName}${p.name}" ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
+	<select id="${parentPropName}${p.name}" ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
             ng-options="obj as obj for obj in ${(owningClass.constraints."${p.name}".inList).collect{"'$it'"}}">
       <option value=""></option>
     </select>
@@ -67,7 +67,7 @@ private String renderString(owningClass, p, cp, parentProperty) {
     if(cp.email) type="email"
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input name="${parentPropName}${p.name}" class="form-control" type="$type"
+                    <input id="${parentPropName}${p.name}" class="form-control" type="$type"
                            ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
     
     if (cp.matches) str += """ ng-pattern="/${cp.matches}/" """
@@ -90,7 +90,7 @@ private String renderBoolean(owningClass, p, cp, parentProperty) {
 		  disabled="disabled"
 		  ng-true-val="true" 
 		  ng-false-val="false"
-          name="${parentPropName}${p.name}"
+          id="${parentPropName}${p.name}"
 		  ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"></ng-toggle>
 		</div>"""
 }
@@ -100,7 +100,7 @@ private String renderByteArray(owningClass, p, cp, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
       return """<div class="input-group input-group-sm">
                     <span class="input-group-addon">file</span> 
-                    <input name="${parentPropName}${p.name}" class="form-control" type="file"
+                    <input id="${parentPropName}${p.name}" class="form-control" type="file"
                            ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" >
                 </div>"""
 }
@@ -113,7 +113,7 @@ private String renderDate(owningClass, p, cp, parentProperty) {
     String parentPropNameFunc = (parentProperty?.component) ? parentProperty.name : ''
      String str =  """
      <div class="input-group input-group-sm">
-     <input name="${parentPropName}${p.name}" type="text" class="form-control"
+     <input id="${parentPropName}${p.name}" type="text" class="form-control"
             ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
 	     datepicker-popup
 	     is-open="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open"
@@ -138,7 +138,7 @@ private String renderNumber(owningClass, p, cp, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
 	String str = """<div class="input-group input-group-sm">
 	      				<span class="input-group-addon">nr</span>
-	      				<input name="${parentPropName}${p.name}" class="form-control"
+	      				<input id="${parentPropName}${p.name}" class="form-control"
                                ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
 	      				
 	String rangeExtraInputStr = ""
@@ -168,7 +168,7 @@ private String renderUrl(owningClass, p, cp, parentProperty) {
 String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
 	String str = """<div class="input-group input-group-sm">
       				<span class="input-group-addon">url</span>
-      				<input name="${parentPropName}${p.name}" class="form-control" type="url"
+      				<input id="${parentPropName}${p.name}" class="form-control" type="url"
                            ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
 	
     if (isRequired(cp)) str += " required"
@@ -180,7 +180,7 @@ private renderSelectType(owningClass, p, cp, type, parentProperty) {
 String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
 	String str = """<div class="input-group input-group-sm">
       				<span class="input-group-addon">$type</span>
-      				<input name="${parentPropName}${p.name}" class="form-control" type="text"
+      				<input id="${parentPropName}${p.name}" class="form-control" type="text"
                            ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
 	
     if (cp.matches) str += """ ng-pattern="${cp.matches}" """
@@ -194,7 +194,7 @@ String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' 
      String str =  """
      <div class="input-group input-group-sm">
           <span class="input-group-addon">enum</span>   
-          <input name="${parentPropName}${p.name}" type="text" class="form-control"
+          <input id="${parentPropName}${p.name}" type="text" class="form-control"
                  ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
                  typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List  | filter:\$viewValue"  """
      if (isRequired(cp)) str += " required"
@@ -217,7 +217,7 @@ private String renderManyToOne(owningClass, p, cp, parentProperty) {
      String str =  """<!--ManyToOne-->
      <div class="input-group input-group-sm">
           <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>  
-          <input name="${parentPropName}${p.name}" type="text" class="form-control"
+          <input id="${parentPropName}${p.name}" type="text" class="form-control"
           ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
           typeahead-template-url="${p.name}AutocompleteTemplate.html" 
           typeahead-editable="false" 
@@ -242,7 +242,7 @@ String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' 
     
      String str =  """<!--OneToMany-->
           <tags-input
-                  name="${parentPropName}${p.name}"
+                  id="${parentPropName}${p.name}"
                   ng-model="${domainClass.propertyName}.${parentPropName}${p.name}">
               <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr], true)" ></auto-complete>
             """
@@ -252,13 +252,13 @@ String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' 
 }
 
 private String renderManyToMany(owningClass, p, cp, parentProperty) {
-String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-      Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
+    Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
     
      String str =  """<!--ManyToMany-->
-          <tags-input   name="${parentPropName}${p.name}"
+          <tags-input   id="${parentPropName}${p.name}"
                         ng-model="${domainClass.propertyName}.${parentPropName}${p.name}">
               <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr], true)" ></auto-complete>
             """
@@ -275,22 +275,25 @@ private String renderAutocomplete(owningClass, p, cp, parentProperty) {
     }
 
     String templStr="""
-    <script type="text/ng-template" id="${parentPropName}AutocompleteTemplate.html"><a>
+    <script type="text/ng-template" id="${parentPropName}${p.name}AutocompleteTemplate.html"><a>
         <span bind-html-unsafe="match.model.item.label | typeaheadHighlight:query"></span>
     </a></script>"""
-    String str =  """<!--ManyToOne-->
+    String str =  """<!--Autocomplete-->
         <div class="input-group input-group-sm">
             <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>
-            <input name="${parentPropName}${p.name}" type="text" class="form-control"
+            <input id="${parentPropName}${p.name}" type="text" class="form-control"
                    ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
                    typeahead-editable="false"
-                   typeahead-template-url="${parentPropName}AutocompleteTemplate.html"
+                   typeahead-template-url="${parentPropName}${p.name}AutocompleteTemplate.html"
                    typeahead="b for b in autocompleteService.${acFunctionName}SimpleQuery(\$viewValue)"
                    typeahead-input-formatter="autocompleteService.${acFunctionName}SimpleFormatLabel(\$model)"
         """
-
-    if (isRequired(cp)) str += " required"
-    str += """></div> """
+    if(parentProperty){
+        if (isRequired(parentProperty.cp)) str += " required"
+    }else{
+        if (isRequired(p.cp)) str += " required"
+    }
+    str += """/></div> """
 
     str +=templStr;
     return str;

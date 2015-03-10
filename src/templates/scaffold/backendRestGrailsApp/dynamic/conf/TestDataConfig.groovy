@@ -34,7 +34,7 @@ domainClasses.each{dClass->
 		}else if (p.type == Boolean || p.type == boolean){
 			println "\t\t\t${p.name} = {-> true}"
 		}else if (p.type == java.util.Map){
-			println "\t\t\t${p.name} = {-> ['some', 'thing']}"
+			println "\t\t\t${p.name} = {-> ['someobj':['some':'thing']] }"
 		}else {
 			println "\t\t\t//${p.name} = {-> }"
 		}
