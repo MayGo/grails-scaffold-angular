@@ -9,7 +9,7 @@
 		}
 		
 		String line2 = """
-	for (domainClass in application.domainClasses) {
+	for (domainClass in excludedDomainClasses) {
 		"json\${domainClass.shortName}CollectionRenderer"(defpackage.CustomJsonCollectionRenderer, domainClass.clazz)
 	}
 		"""

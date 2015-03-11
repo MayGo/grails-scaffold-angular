@@ -141,6 +141,8 @@ grails{
 				overwrite = true // false = Ask before replacing file
 				ignoreStatic = true // Don't generate static files again
 				ignoreFileNames = ['TestDataGeneratorService.groovy', 'TestDataConfig.groovy', 'config.json', '.gitignore']
+				// don't generate files or menu for domains
+				ignoreDomainNames = []
 			}
 		}
 	}

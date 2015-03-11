@@ -4,7 +4,7 @@ package defpackage
 import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
 import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
 
-	domainClasses.each{
+	allDomainClasses.each{
 		println "import ${it.fullName}"
 	}
 	firstDomainClass = domainClasses.first().getName()
