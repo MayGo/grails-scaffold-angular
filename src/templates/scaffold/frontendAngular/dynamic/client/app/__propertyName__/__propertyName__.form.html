@@ -1,8 +1,8 @@
 <%
     allProps = scaffoldingHelper.getProps(domainClass)
     props = allProps.grep{it.cp?.display != false && it.cp?.editable != false && it.name!= 'id'}
-
 %>
+
 <%
 private String renderEditField(p, owningClass, parentProperty = null){
 	def cp = p.cp // TODO: refactor, add directly to subfunctions

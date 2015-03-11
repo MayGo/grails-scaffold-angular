@@ -3,7 +3,7 @@ package defpackage
 import grails.converters.JSON
 import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
 <%
-domainClasses.each{
+allDomainClasses.each{
 	println "import ${it.fullName}"
 }
 %>
@@ -92,7 +92,7 @@ class CustomMarshallerRegistrar {
 		int priority = 10
 <%
 
-	for(d in domainClasses){
+	for(d in allDomainClasses){
 
 		%>
 		JSON.registerObjectMarshaller ${d.name}, priority, { ${d.name} instance, JSON json ->

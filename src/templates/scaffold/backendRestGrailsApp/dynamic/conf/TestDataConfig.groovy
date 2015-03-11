@@ -1,7 +1,7 @@
 testDataConfig {
 	sampleData {
 <%
-domainClasses.each{dClass->
+allDomainClasses.each{dClass->
 	allProps = scaffoldingHelper.getProps(dClass)
 	uniqueProps = []
 	boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
