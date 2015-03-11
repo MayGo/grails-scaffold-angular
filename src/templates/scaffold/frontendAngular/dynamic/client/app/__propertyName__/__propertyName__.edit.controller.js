@@ -55,44 +55,41 @@ private String renderOneToMany(owningClass, p, cp) {
 	
     String str =  """
 	     if(\$scope.isEditForm){
-			${p.referencedDomainClass.shortName}Service.query({filter:{${(p.referencedPropertyName)?:p.otherSide?.name}:\$stateParams.id}, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
+			${p.referencedDomainClass.shortName}Service.query({max:50, filter:{${(p.referencedPropertyName)?:p.otherSide?.name}:\$stateParams.id}, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
 		        function( response ){
-			       	\$scope.${domainClass.propertyName} = angular.extend({}, \$scope.${domainClass.propertyName});
 	     			\$scope.${domainClass.propertyName}.${p.name} = response.map(function(item){
                         return {id:item.id, name:$useDisplaynamesStr};
 				    });
 		       	}
 	     	);
-	     	
 		 }
 		 //Watch for oneToMany property, to add custom object to each value. Without this, adding elements have no effect when POSTing.
      	 \$scope.\$watch('${domainClass.propertyName}.${p.name}', function(values) {
      	 	if(values && values.length>0){
-				_.forEach(values, function(value) { value.${p.getReferencedPropertyName()}={id:\$stateParams.id}; });
+				_.forEach(values, function(value) { value.${p.referencedPropertyName}={id:\$stateParams.id}; });
 		    }
 	     }, true);
-     """
-     return str;
+     """;
+	String uniDirectionalStr = """
+	\$scope.${domainClass.propertyName}.${p.name} = \$scope.${domainClass.propertyName}.${p.name}.map(function(item){
+		return {id:item.id, name:$useDisplaynamesStr};
+	});
+	""";
+	if(p.referencedPropertyName){
+		return str;
+	}else{
+		return uniDirectionalStr;
+	}
+
 }
 
 %>
 
 angular.module('angularDemoApp')
-    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$q, \$stateParams, ${domainClass.shortName}Service, \$translate, inform $includeAngularServicesStr) {
+    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$q, \$stateParams, ${domainClass.shortName}Service, ${domainClass.propertyName}Data, \$translate, inform $includeAngularServicesStr) {
     	\$scope.isEditForm = (\$stateParams.id)?true:false;
-    	
-    	if(\$scope.isEditForm){
-    		${domainClass.shortName}Service.get({id:\$stateParams.id}).\$promise.then(
-		        function( response ){
-			       	\$scope.${domainClass.propertyName} = angular.extend({}, \$scope.${domainClass.propertyName} , response);
-			       	\$scope.orig = angular.copy(\$scope.${domainClass.propertyName} );
-		       	}
-	     	);
-    	}else{
-    		\$scope.${domainClass.propertyName} = new ${domainClass.shortName}Service();
-    	}
-		
-	
+
+		\$scope.${domainClass.propertyName} = ${domainClass.propertyName}Data;
 	    \$scope.submit = function(frmController) {
 			var deferred = \$q.defer();
 	    	var errorCallback = function(response){

@@ -242,9 +242,9 @@ String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' 
     
      String str =  """<!--OneToMany-->
           <tags-input
-                  id="${parentPropName}${p.name}"
+                  name="${parentPropName}${p.name}"
                   ng-model="${domainClass.propertyName}.${parentPropName}${p.name}">
-              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr], true)" ></auto-complete>
+              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
      if (isRequired(cp)) str += " minTags='1'"
      str += """ </tags-input>"""
@@ -258,9 +258,9 @@ private String renderManyToMany(owningClass, p, cp, parentProperty) {
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
     
      String str =  """<!--ManyToMany-->
-          <tags-input   id="${parentPropName}${p.name}"
+          <tags-input  name="${parentPropName}${p.name}"
                         ng-model="${domainClass.propertyName}.${parentPropName}${p.name}">
-              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr], true)" ></auto-complete>
+              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
      if (isRequired(cp)) str += " minTags='1'"
      str += """ </tags-input>"""

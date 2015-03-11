@@ -106,7 +106,7 @@ class CustomMarshallerRegistrar {
 
 				if(domainProperty.manyToOne || domainProperty.oneToOne){
 					defaultExcludes << "\n'${domainProperty.name}Id'"
-				}else{
+				}else if(domainProperty.bidirectional){
 					defaultExcludes << "\n'${domainProperty.name}'"
 					continue
 				}

@@ -141,9 +141,17 @@ grails{
 				overwrite = true // false = Ask before replacing file
 				ignoreStatic = true // Don't generate static files again
 				ignoreFileNames = ['TestDataGeneratorService.groovy', 'TestDataConfig.groovy', 'config.json', '.gitignore']
-				// Map of domain class names. contains list of maps
-				//displayNames = ['Division2':['persons':['name':null]]]//e.g 'User':['group':['name']]
+			}
+		}
+	}
+}
 '''
+			if(!destFile.text.contains('ignoreFileNames')) {
+				linesToAdd += line4
+			}
+
+
+			String line5 = 'grails.plugin.scaffold.core.'
 			Map displayNames = [:]
 			grailsApplication.domainClasses.each { domainClass ->
 				allProps = scaffoldingHelper.getProps(domainClass)
@@ -157,15 +165,10 @@ grails{
 
 				displayNames["'${domainClass.shortName}'"] = ["'id'"] + props.take(3).collect{"'${it.name}'"}
 			}
-			line4 += "\t\t\t\tdisplayNames = $displayNames"
-			line4 += '''
-			}
-		}
-	}
-}
-'''
-			if(!destFile.text.contains('ignoreFileNames')) {
-				linesToAdd += line4
+			line5 += "displayNames = $displayNames"
+
+			if(!destFile.text.contains('displayNames')) {
+				linesToAdd += line5
 			}
 
 			return linesToAdd
