@@ -3,7 +3,7 @@
     allProps = scaffoldingHelper.getProps(domainClass)
     props = allProps.findAll{p->!p.embedded} 
     
-    includeAngularServices = allProps.findAll{p->p.oneToMany || p.manyToMany}*.getReferencedPropertyType()
+    includeAngularServices = allProps.findAll{p->(p.oneToMany || p.manyToMany) && p.referencedPropertyName}*.getReferencedPropertyType()
 
     includeAngularServices -= domainClass.clazz
    

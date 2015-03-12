@@ -28,7 +28,7 @@ angular.module('angularDemoApp')
 				${domainClass.propertyName}Data: function(\$stateParams, ${domainClass.shortName}Service){
 					return ${domainClass.shortName}Service.get({id:\$stateParams.id}).\$promise.then(
 						function( response ){
-							return response
+							return response;
 						}
 					);
 				}

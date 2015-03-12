@@ -51,19 +51,19 @@ angular.module('angularDemoApp', [
 		});
 
 		if(defaultConfig.restUrl === undefined){
-			console.error("Define restUrl in config.json.");
+			console.error('Define restUrl in config.json.');
 		}
 		if(defaultConfig.loginUrl === undefined){
-			console.error("Define loginUrl in config.json.");
+			console.error('Define loginUrl in config.json.');
 		}
 		if(defaultConfig.logoutUrl === undefined){
-			console.error("Define logoutUrl in config.json.");
+			console.error('Define logoutUrl in config.json.');
 		}
 		/*if(defaultConfig.validationUrl === undefined){
-			console.error("Define validationUrl in config.json.");
+			console.error('Define validationUrl in config.json.');
 		}*/
 		if(defaultConfig.securityEnabled === undefined){
-			console.error("Define securityEnabled in config.json.");
+			console.error('Define securityEnabled in config.json.');
 		}
 		// Return correct config
 		defaultConfig.restUrl = removeSlash(defaultConfig.restUrl);

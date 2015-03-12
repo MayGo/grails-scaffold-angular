@@ -41,20 +41,22 @@ angular.module('angularDemoApp')
   	};
 
 	var autocompleteObjToString = function(model){
-		var str = ""
+		var str = '';
 		var stringify = function(obj){
-			_.forIn(obj, function(value, key) {
+			_.forIn(obj, function(value) {
 				if(_.isObject(value)){
 					stringify(value);
 				} else {
-					if(str != "") str += " "
+					if(str !== ''){
+						str += ' ';
+					}
 					str += value;
-				};
+				}
 			});
-		}
+		};
 		stringify(model);
 		return str;
-	}
+	};
 
   	var service = {
   		promiseToLabel:function(model, labelProperties){
@@ -89,10 +91,10 @@ angular.module('angularDemoApp')
 	}.each{acFunctionName, a->
 		%>
 		${acFunctionName}SimpleQuery : function(val){
-			var urlVar = "${acFunctionName}Url"
+			var urlVar = '${acFunctionName}Url';
 			var url = appConfig[urlVar];
 			if(url === undefined){
-				console.error("Define " + urlVar + " in config.json.");
+				console.error('Define ' + urlVar + ' in config.json.');
 			}
 			var param = {limit: 15};
 			param.searchString = val;
@@ -102,15 +104,19 @@ angular.module('angularDemoApp')
 					return response.map(function(item){
 						item.label = autocompleteObjToString(item);
 						// postgres json can only save objects at the moment
-						var obj = {item:item};
+						var obj = {item: item};
 						return obj;
 					});
 				}
 			);
 		},
 		${acFunctionName}SimpleFormatLabel : function(model) {
-			if(model === undefined) return "";
-			if(model.item !== undefined && model.item.label !== undefined) return model.item.label;
+			if(model === undefined){
+				return '';
+			}
+			if(model.item !== undefined && model.item.label !== undefined){
+				return model.item.label;
+			}
 			return autocompleteObjToString(model);
 		},
 	<%}%>

@@ -70,6 +70,8 @@ grails{
 				displayNames = ['Division':['name':null], 'User':['group':['name']]]
 				//Problems when reloading folder structure "file:./grails-app/services/**/*Service.groovy"
 				folders = ['backendSrc':'src/', 'backendTests':'test/', 'backendGrailsApp':'grails-app/', 'frontend':'angular/']
+                // don't generate files or menu for domains
+                ignoreDomainNames = []
 			}
 		}
 	}
