@@ -33,10 +33,7 @@ allDomainClasses.each{dClass->
 
 	simpleProps.each { p ->
 		if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
-			def inputFormat = new SimpleDateFormat("yyyy-MM-dd")
-			Date now = new Date().clearTime()
-			String dateStr = inputFormat.format(now)
-			println "\t\t\t${p.name} = {->Date.parse(inputFormat, '$dateStr')}"
+			println "\t\t\t${p.name} = {->new Date().clearTime()}"
 		}else if (p.type == Boolean || p.type == boolean){
 			println "\t\t\t${p.name} = {-> true}"
 		}else if (p.type == java.util.Map){

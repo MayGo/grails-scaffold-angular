@@ -1,8 +1,10 @@
 package defpackage
 
+import grails.util.Holders
 <%
 import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
 import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
+
 
 	allDomainClasses.each{
 		println "import ${it.fullName}"
@@ -42,6 +44,8 @@ class TestDataGeneratorService {
 	def sessionFactory
 	def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
 
+	static int GENERATE_N_ITEMS = (Holders.config.generateTestDataAmount)?:150
+
 	void generate() {
 		log.info 'Generating test data.'
 		boolean generateTestData = true
@@ -54,7 +58,7 @@ class TestDataGeneratorService {
 			return
 		}
 
-		(1..150).each { index ->
+		(1..GENERATE_N_ITEMS).each { index ->
 			${firstDomainClass}.withNewTransaction {
 <% domainClasses.each { dClass ->%>
 				${dClass.getName()}.build(${findNotNullableRelationsAsString(dClass)})\

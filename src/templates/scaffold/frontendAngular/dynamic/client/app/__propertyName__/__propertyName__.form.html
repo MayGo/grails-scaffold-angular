@@ -400,7 +400,7 @@ private renderFieldRow(p, owningClass, parentProperty = null, displayParentPropN
                       	<button id="${domainClass.propertyName}SubmitBtn"
                       		class="btn btn-success" 
 	                      	type='submit' 
-
+	                      	ng-disabled="${domainClass.propertyName}Form.\$invalid"
 	                      	translate="pages.${domainClass.shortName}.edit.form.submit" 
 	                      	mx-show-loading ng-click="submit(${domainClass.propertyName}Form)"></button> 
                 		<a class="btn btn-default" ng-click="back()" translate="pages.${domainClass.shortName}.edit.form.cancel" mx-show-loading></a> 

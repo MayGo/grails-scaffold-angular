@@ -32,7 +32,7 @@ angular.module('angularDemoApp').directive('customStSearch', function() {
 						searchVal = value;
 					}
           if(searchVal && typeof searchVal.getMonth === 'function' ){
-            ctrl.search(searchVal.toISOString(), searchProperty);
+            ctrl.search(searchVal.toJSON(), searchProperty);
           }else{
             ctrl.search(searchVal, searchProperty);
           }

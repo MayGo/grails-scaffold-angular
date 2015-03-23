@@ -5,6 +5,7 @@ import spock.lang.Ignore
 import org.springframework.http.HttpStatus
 import defpackage.RestQueries
 import defpackage.AuthQueries
+import defpackage.TestUtils
 import spock.lang.Specification
 import spock.lang.Unroll
 <%
@@ -70,8 +71,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 	
 	String respStr = ""
 	def properties = scaffoldingHelper.getProps(dClass).findAll{p->!p.isManyToMany() && !p.isOneToMany()}
-	
-	
+
 	properties.each{p->
 		String str = (isResp)?"\t\t\tresponse.json.":"\t\t\t\t"
 		String asign = (isResp)?"==":"="
@@ -93,6 +93,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 					respStr += str
 				}
 			}*/
+
 			def val
 			refClass.getClazz().withNewTransaction{status ->
 				try {
@@ -134,12 +135,12 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 				def outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
 				outputFormat.timeZone = java.util.TimeZone.getTimeZone( 'GMT' )
 
-				String dateStr = (val)?inputFormat.format(val):''
+				String dateStr = (val)?'getTodayForInput()':''
 				
 				if(isResp){//format input differently then comparison
-					dateStr = (val)? outputFormat.format(val):''
+					dateStr = (val)? 'getTodayForOutput()':''
 				}
-				str +="${p.name} $asign '$dateStr'\n"
+				str +="${p.name} $asign $dateStr\n"
 			}else if(p.type == Map || "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
 				if(isResp) {
 
@@ -167,7 +168,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 	return respStr
 }
 %>
-class ${className}Spec extends Specification implements RestQueries, AuthQueries{
+class ${className}Spec extends Specification implements RestQueries, AuthQueries, TestUtils{
 
 	String REST_URL = "\${APP_URL}/${shortNameLower}"
 	
