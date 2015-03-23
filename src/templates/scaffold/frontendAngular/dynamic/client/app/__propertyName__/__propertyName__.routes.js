@@ -16,7 +16,7 @@ angular.module('angularDemoApp')
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.form.html',
 			controller: '${domainClass.shortName}EditController',
 			resolve:{
-				${domainClass.propertyName}: function(\$stateParams, ${domainClass.shortName}Service) {
+				${domainClass.propertyName}Data: function(\$stateParams, ${domainClass.shortName}Service) {
 					return new ${domainClass.shortName}Service();
 				}
 			}
@@ -36,6 +36,15 @@ angular.module('angularDemoApp')
 		}).state('app.${domainClass.propertyName}.view',{
 			url: '/view/:id',
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.view.html',
-			controller: '${domainClass.shortName}ViewController'
+			controller: '${domainClass.shortName}ViewController',
+				resolve:{
+				${domainClass.propertyName}Data: function(\$stateParams, ${domainClass.shortName}Service){
+					return ${domainClass.shortName}Service.get({id:\$stateParams.id}).\$promise.then(
+						function( response ){
+							return response;
+						}
+					);
+				}
+			}
 		});		
 });

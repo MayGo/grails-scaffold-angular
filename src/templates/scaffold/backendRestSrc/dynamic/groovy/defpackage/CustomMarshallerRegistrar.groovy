@@ -90,7 +90,12 @@ class CustomMarshallerRegistrar {
 	@javax.annotation.PostConstruct
     static void registerMarshallers() {
 		int priority = 10
+		JSON.registerObjectMarshaller(Date) {
+			return it?.time
+		}
 <%
+
+
 
 	for(d in allDomainClasses){
 

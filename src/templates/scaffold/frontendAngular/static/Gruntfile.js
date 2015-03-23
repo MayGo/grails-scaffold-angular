@@ -3,7 +3,6 @@
 
 module.exports = function (grunt) {
 
-
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
     express: 'grunt-express-server',
@@ -313,6 +312,8 @@ module.exports = function (grunt) {
             'assets/img/{,*/}*.{webp}',
             'assets/fonts/**/*',
             'assets/css/**/*',
+            'app/app.css',
+            'shared/modal/modal.css',
             'l10n/*',
             'index.html'
           ]
@@ -326,7 +327,10 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             'package.json',
-            'server/**/*'
+            'manifest.yml',
+            'favicon.ico',
+            'server/**/*',
+            'node_modules'
           ]
         }]
       },

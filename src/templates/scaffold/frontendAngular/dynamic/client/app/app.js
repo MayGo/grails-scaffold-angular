@@ -34,7 +34,13 @@ angular.module('angularDemoApp', [
  		};
 
  		//Set defaults
-		var defaultConfig = {};
+		var defaultConfig = {
+ 				restUrl : '${appUrl}',
+ 	 			loginUrl : '${appUrl}${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"/api/login"}',
+ 	 			logoutUrl : '${appUrl}${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"/api/logout"}',
+ 	 			validationUrl: '${appUrl}${(config.grails.plugin.springsecurity.rest.token.validation.endpointUrl)?:"/api/validate"}',
+ 	 			securityEnabled: ${(config.grails.plugin.springsecurity.active)?:false}
+		};
  		var loadSuccess = function( data ) {
 			 if(data){
 			 	  angular.extend(defaultConfig, data);
@@ -131,7 +137,6 @@ angular.module('angularDemoApp', [
       });
   })
 	.factory('AuthHttpInterceptor', function (\$q, \$injector, \$rootScope, \$translate, inform) {
-
 		function interceptor(rejection) {
 			try {
 				if(rejection.status === 401){
@@ -141,7 +146,7 @@ angular.module('angularDemoApp', [
 						inform.add(msg  , {'type': 'danger', ttl: 0});
 					});
 				}else{
-					var msg = 'Network error (' + rejection.status + '): ' + rejection.statusText;
+					var msg = 'Network error (' + rejection.status + '): ' + rejection.statusText + ' for url:' + rejection.config.url;
 					inform.add(msg, { type: 'danger', ttl: 0});
 				}
 
@@ -151,7 +156,6 @@ angular.module('angularDemoApp', [
 
 			return \$q.reject( rejection );
 		}
-
 		return {
 			requestError: interceptor,
 			responseError: interceptor
@@ -169,13 +173,16 @@ angular.module('angularDemoApp', [
         increaseArea: '20%' // optional
     }
   })
-  .run(function(\$filter, validator) {
-  		validator.setValidElementStyling(false);
+	.run(function(\$filter, validator) {
+		validator.setValidElementStyling(false);
 
+		//Set date to timestamp to ignore users locale
 		Date.prototype.toJSON = function() {
-	    	var grailsAcceptableFormat = 'yyyy-MM-dd HH:mm:ss.sssZ';
-	    	return \$filter('date')(this, grailsAcceptableFormat);
-	    };
+			var d = this
+			d.setHours(0, 0, 0);
+			var grailsAcceptableFormat = 'yyyy-MM-dd HH:mm:ss.sssZ';
+			return \$filter('date')(d, grailsAcceptableFormat);
+		};
   }).run(function (\$rootScope, \$state) {
 		\$rootScope.\$on('\$stateChangeError', function (e, toPage) {
 			console.log('State Change Error');

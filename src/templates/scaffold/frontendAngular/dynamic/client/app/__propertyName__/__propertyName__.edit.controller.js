@@ -71,9 +71,11 @@ private String renderOneToMany(owningClass, p, cp) {
 	     }, true);
      """;
 	String uniDirectionalStr = """
-	\$scope.${domainClass.propertyName}.${p.name} = \$scope.${domainClass.propertyName}.${p.name}.map(function(item){
-		return {id:item.id, name:$useDisplaynamesStr};
-	});
+	if(\$scope.${domainClass.propertyName}.${p.name}){
+		\$scope.${domainClass.propertyName}.${p.name} = \$scope.${domainClass.propertyName}.${p.name}.map(function(item){
+			return {id:item.id, name:$useDisplaynamesStr};
+		});
+	}
 	""";
 	if(p.referencedPropertyName){
 		return str;
@@ -95,12 +97,16 @@ angular.module('angularDemoApp')
 	    	var errorCallback = function(response){
 					if (response.data.errors) {
 		                angular.forEach(response.data.errors, function (error) {
-		                    frmController.setExternalValidation(error.field, undefined, error.message);
+							if(angular.element('#'+error.field).length) {
+								frmController.setExternalValidation(error.field, undefined, error.message);
+							} else {
+								inform.add(error.message, {ttl: -1,'type': 'warning'});
+							}
 		                });
 		            }
 					deferred.reject(response);
 		       };
-	       
+
 	    	if(\$scope.isEditForm){
 	    		${domainClass.shortName}Service.update(\$scope.${domainClass.propertyName}, function(response) {	
 	    			\$translate('pages.${domainClass.shortName}.messages.update').then(function (msg) {

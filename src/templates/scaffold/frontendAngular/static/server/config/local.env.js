@@ -6,6 +6,7 @@
 // You will need to set these on the server you deploy to.
 
 module.exports = {
+  NODE_ENV: 'development',
   DOMAIN: 'http://localhost:9005',
   SESSION_SECRET: "appangularfullstack-secret",
   // Control debug level for modules using visionmedia/debug

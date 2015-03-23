@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus
 import defpackage.RestQueries
 import defpackage.AuthQueries
 import spock.lang.Specification
+import spock.lang.Unroll
 <%
 import grails.plugin.scaffold.angular.DomainHelper
 
@@ -21,6 +22,7 @@ String shortNameLower = propertyName.toLowerCase()+"s/v1";
 
 allProps = scaffoldingHelper.getProps(domainClass)
 simpleProps = allProps.findAll{ p -> !p.embedded && !p.oneToMany && !p.manyToMany}
+
 
 private String getSearchString(){
 	Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainClass)
@@ -74,7 +76,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 		String str = (isResp)?"\t\t\tresponse.json.":"\t\t\t\t"
 		String asign = (isResp)?"==":"="
 		
-		if(DomainClassArtefactHandler.isDomainClass(p.type) ){
+		if(DomainClassArtefactHandler.isDomainClass(p.type) && !p.isEmbedded()){
 			def refClass = new DefaultGrailsDomainClass(p.type)
 			/*if(!alreadyCreatedClasses.contains(refClass.name)){
 				alreadyCreatedClasses << refClass.name
@@ -109,8 +111,20 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 			}
 			respStr += str
 			
-		} else {
+		} else if(p.isEmbedded()){
 
+			def refClass = p.component
+			if(refClass){
+				if(isResp) {
+					//TODO: test response
+				}else {
+					str += "${p.name}{\n\t"
+					str += createDomainInstanceJson(refClass, isResp, DomainHelper.createOrGetInst(refClass, 10), alreadyCreatedClasses)
+					str += "\t\t\t\t}\n"
+					respStr += str
+				}
+			}
+		} else {
 			def val = inst."${p.name}"
 			if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)){
 				if(p.type == boolean || p.type == Boolean) val = true
@@ -126,6 +140,23 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 					dateStr = (val)? outputFormat.format(val):''
 				}
 				str +="${p.name} $asign '$dateStr'\n"
+			}else if(p.type == Map || "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
+				if(isResp) {
+
+				}else{
+					val = (val) ?: []
+
+					def json = val as JSON
+					json.setPrettyPrint(true)
+					jsonData = json.toString()
+					jsonData = jsonData.replaceAll(/\{/, '[')
+					jsonData = jsonData.replaceAll(/\}/, ']')
+					jsonData = jsonData.replaceAll('"', "'")
+					jsonData = jsonData.replaceAll(':', ": ")
+					jsonData = jsonData.replaceAll(",'", ", '")
+
+					str += "${p.name} $asign $jsonData\n"
+				}
 			}else{
 				str +="${p.name} $asign '$val'\n"
 			}
@@ -354,8 +385,9 @@ class ${className}Spec extends Specification implements RestQueries, AuthQueries
 			response.json.size() == 1
 			response.status == HttpStatus.OK.value()
 	}
-	
-	void 'Test filtering in ${className} list by all properties.'() {
+
+	@Unroll("${className} list search with props '#jsonVal' returns '#respSize' items")
+	void 'Filtering in ${className} list by all properties.'() {
 		given:
 			response = queryListWithUrlVariables('filter={filter}', [filter:"\${jsonVal}"])
 			<%

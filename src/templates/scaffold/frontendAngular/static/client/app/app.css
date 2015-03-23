@@ -73,6 +73,9 @@
 	margin-bottom: 0;
 }
 
+/*
+* List page
+*/
 .pagination{
 	margin: 0 !important;
 }
@@ -80,6 +83,7 @@
 .list-search .form-group{
   padding-bottom: 5px;
   color: #8B8B8B;
+  font-size: 12px;
 }
 
 .list-search .embedded-search-heading{
@@ -93,6 +97,9 @@
   color: #8B8B8B;
   text-shadow: none;
 }
+
+.list-search tr { height:1em;  }
+.list-search td { max-width:200px; overflow:hidden; white-space:nowrap;  }
 /**
 * json-edit overrides
 */
@@ -127,6 +134,21 @@ form .ng-toggle-wrap {
 
 .list-search .ng-toggle-wrap{
   height: auto !important;
+}
+
+/**
+* ng-tags
+*/
+body tags-input .tags .input{
+  font:inherit;
+}
+body tags-input .tags {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: initial;
+  -moz-transition: initial;
+  transition: initial;
 }
 
 /**

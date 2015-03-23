@@ -5,7 +5,7 @@ props = allProps.findAll{p->!p.oneToMany && !p.manyToMany}
 
 
 private renderSearchRow(p, parentProperty = null){
-	String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+	String parentPropName = (parentProperty?.component) ? parentProperty?.name + '.' : ''
 	if (p.cp.display != false) {
 		//System.out.println (p.type)
 		String str = ""
@@ -16,7 +16,7 @@ private renderSearchRow(p, parentProperty = null){
 		else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean)) {
 			if (p.type == Integer.class) {
 				str += """eq('${parentPropName}${p.name}', filter['${parentPropName}${p.name}'].toString().toInteger())"""
-			} else if (p.type == Long.class) {
+			} else if (p.type == Long.class || p.type == long) {
 				str += """eq('${parentPropName}${p.name}', filter['${parentPropName}${p.name}'].toString().toLong())"""
 			} else if (p.type == Double.class || p.type == double) {
 				str += """eq('${parentPropName}${p.name}', filter['${parentPropName}${p.name}'].toString().toDouble())"""
@@ -30,9 +30,15 @@ private renderSearchRow(p, parentProperty = null){
 		else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar) {
 			println """
 			if (filter['${parentPropName}${p.name}']) {
-				String inputFormat = "yyyy-MM-dd HH:mm:ss.SSSZ"
-				Date d = Date.parse(inputFormat, filter['${parentPropName}${p.name}'].toString())
-				between('${parentPropName}${p.name}', d, d)
+				Date d
+				if(filter['${parentPropName}${p.name}'].toString().isNumber()){
+					d = new Date(filter['${parentPropName}${p.name}'].toString().toLong())
+				}else{
+					String inputFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+					d = Date.parse(inputFormat, filter['${parentPropName}${p.name}'].toString())
+				}
+
+				between('${parentPropName}${p.name}', d, d+1)
 			}"""
 		}else if (p.type == URL)
 			str += "//url"

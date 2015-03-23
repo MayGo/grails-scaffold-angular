@@ -8,9 +8,9 @@ angular.module('angularDemoApp')
         templateUrl: 'app/dashboard/dashboard.html',
         controller: 'DashboardController',
 		data: {
-			permissions: {
+			/*permissions: {
 				only: ['ROLE_ADMIN']
-			}
+			}*/
 		},
 		resolve:{
 			lastInsertedList: function($http, appConfig){

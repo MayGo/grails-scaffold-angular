@@ -7,6 +7,6 @@ angular.module('angularDemoApp')
         url: '/error',
         templateUrl: 'app/error/error.html',
         controller: 'ErrorController',
-		params: {messageCode: null, url: null}
+		    params: {messageCode: null, url: null}
       });
   });

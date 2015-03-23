@@ -21,7 +21,9 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'client/bower_components/jquery/dist/jquery.js',
+      'client/bower_components/jquery-ui/jquery-ui.min.js',
       'client/bower_components/angular/angular.js',
+      'client/bower_components/angular-ui-sortable/sortable.min.js',
       'client/bower_components/angular-resource/angular-resource.js',
       'client/bower_components/angular-cookies/angular-cookies.js',
       'client/bower_components/angular-sanitize/angular-sanitize.js',
@@ -47,6 +49,7 @@ module.exports = function(config) {
       'client/bower_components/ngToggle/ng-toggle.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       'client/bower_components/angular-permission/dist/angular-permission.js',
+      'client/bower_components/json-edit/js/directives.js',
 
 
       { pattern: 'client/config.json', included: false },
@@ -66,6 +69,7 @@ module.exports = function(config) {
     preprocessors: {
       '**/*.jade': 'ng-jade2js',
       '**/*.html': 'html2js',
+      '**/*.json': 'html2js',
       '**/*.coffee': 'coffee'
     },
 

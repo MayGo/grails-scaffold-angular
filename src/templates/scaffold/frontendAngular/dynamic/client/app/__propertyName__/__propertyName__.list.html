@@ -36,7 +36,10 @@ private renderFieldHeader(p, owningClass) {
 private String renderFieldSearch(p, owningClass, parentProperty = null){
 
     String str = """<div class="col-lg-2 form-group">"""
-    if (p.type == Boolean || p.type == boolean)
+
+    if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
+        str += renderAutocomplete(owningClass, p, parentProperty)
+    }else if (p.type == Boolean || p.type == boolean)
         str += renderBoolean(owningClass, p, parentProperty)
     else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean))
         str += renderNumber(owningClass, p, parentProperty)
@@ -75,7 +78,7 @@ private String renderFieldSearch(p, owningClass, parentProperty = null){
 }
 
 private String renderString(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty?.name + '.' : ''
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                     <input 
@@ -93,7 +96,7 @@ private String renderString(owningClass, p, parentProperty) {
 
 
 private String renderBoolean(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
       return """
     <div class="form-group">
 	  <label for="${parentPropName}${p.name}" class="control-label">
@@ -114,7 +117,7 @@ private String renderBoolean(owningClass, p, parentProperty) {
 }
 
 private String renderByteArray(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
       return """<div class="input-group input-group-sm">
                     <span class="input-group-addon">file</span> 
                     <input 
@@ -128,13 +131,14 @@ private String renderByteArray(owningClass, p, parentProperty) {
 
 
 private String renderDate(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
-    String parentPropNameFunc = (parentProperty?.component) ? parentProperty?.component.propertyName : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
+    String parentPropNameFunc = (parentProperty?.component) ? parentProperty.name : ''
      String str =  """
      <div class="input-group input-group-sm">
      <input 
      	name="${parentPropName}${p.name}"
      	ng-model="search.${parentPropName}${p.name}"
+        custom-st-search="${parentPropName}${p.name}"
      	type="text" 
      	class="form-control" 
      	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
@@ -156,7 +160,7 @@ private String renderDate(owningClass, p, parentProperty) {
 
 
 private String renderNumber(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     String str = """<div class="input-group input-group-sm">
                         <span class="input-group-addon">nr</span>
                         <input 
@@ -189,7 +193,7 @@ private String renderNumber(owningClass, p, parentProperty) {
 
 
 private String renderUrl(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon">url</span>
                     <input 
@@ -204,7 +208,7 @@ private String renderUrl(owningClass, p, parentProperty) {
     return str
 }
 private renderSelectType(owningClass, p, parentProperty, type) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     String str = """<div class="input-group input-group-sm">
                     <span class="input-group-addon">$type</span>
                     <input 
@@ -221,7 +225,7 @@ private renderSelectType(owningClass, p, parentProperty, type) {
 }
 
 private String renderEnum(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
      String str =  """
      <div class="input-group input-group-sm">
           <span class="input-group-addon">enum</span>   
@@ -238,7 +242,7 @@ private String renderEnum(owningClass, p, parentProperty) {
 }
 
 private String renderManyToOne(owningClass, p, parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty?.component.propertyName + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
@@ -253,6 +257,36 @@ private String renderManyToOne(owningClass, p, parentProperty) {
      str += """</tags-input></div>"""
 
      return str;
+}
+private String renderAutocomplete(owningClass, p, parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty?.name + '.' : ''
+
+    String acFunctionName = (p.cp.format)?:p.name
+
+    boolean displayParentPropName = false
+    if(parentProperty){
+        def embeddedProps = scaffoldingHelper.getProps(parentProperty.component).grep{it.cp?.display != false &&it.cp?.editable != false && it.name!= 'id'}
+        displayParentPropName =(embeddedProps.size()==1 || parentProperty.cp.widget == 'autocomplete')
+
+        acFunctionName = (parentProperty?.cp?.format)?:parentProperty.name
+    }
+    String translateStr = "pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}"
+    if(displayParentPropName)translateStr = "pages.${domainClass.shortName}.list.table.embeddedSearch.${parentProperty.name}.title"
+
+    Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
+    if(!useDisplaynames) useDisplaynames = ['id': null]
+    String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
+    String str =  """<!--ManyToOne-->
+    <div class="input-group input-group-sm" style="width:100%">
+        <tags-input
+                ng-model="search.${parentPropName}${p.name}s"
+                custom-st-search="${parentPropName}${p.name}s"
+                placeholder="{{'${translateStr}' | translate}}">
+            <auto-complete source="autocompleteService.${acFunctionName}SimpleQuery(\$query, true)" ></auto-complete>
+            """
+            str += """</tags-input></div>"""
+
+    return str;
 }
 
 private String renderManyToMany(owningClass, p, parentProperty) {
@@ -280,7 +314,8 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 //####################### SEARCH ###################################
 %>
 
-<div ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'" data-ng-include=" 'shared/blocks/page_heading.html' " ng-hide="isEmbeddedView" ></div>
+<div id="${domainClass.propertyName}_list" ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'"
+     data-ng-include=" 'shared/blocks/page_heading.html' " ng-hide="isEmbeddedView" ></div>
 
 <div class="list-search wrapper-md ng-scope"  st-table="rowCollection" st-pipe="callServer" >
 <accordion close-others="false">
@@ -290,13 +325,29 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
                   ${renderFieldSearch(p, domainClass)}
             <%}%>
         </div>
-    <%for (p in allEmbeddedProps) {
+    <%
+    def embeddedPropsWithOne = allEmbeddedProps.grep{p->
+        scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}.size()==1 || p.cp.widget == 'autocomplete'
+    }
+    def embeddedPropsWithMoreThanOne = allEmbeddedProps.grep{p->
+        scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}.size()>1 && p.cp.widget != 'autocomplete'
+    }
+    if(embeddedPropsWithOne){
+        println '<div class="embedded-search-heading"><span class="label label-default"></span></div>'
+        println '<div class="row form-inline">'
+        for (p in embeddedPropsWithOne) {
+            def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
+            if(embeddedProps){
+                println renderFieldSearch(embeddedProps.first(), domainClass, p)
+            }
+        }
+        println '</div>'
+    }
+    for (p in embeddedPropsWithMoreThanOne) {
         def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
         if(embeddedProps){
-            if(embeddedProps.size()==-1){//-1 because not using it at this moment
-                println renderFieldSearch(embeddedProps.first(), domainClass, p)
-            }else{
-        %>
+            if(embeddedProps.size()>1){
+            %>
         <div class="embedded-search-heading"><span class="label label-default"
                                                    translate="pages.${domainClass.shortName}.list.table.embeddedSearch.${p.name}.title"></span></div>
         <div class="row form-inline">

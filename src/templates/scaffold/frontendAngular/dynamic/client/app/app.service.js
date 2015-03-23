@@ -90,11 +90,12 @@ angular.module('angularDemoApp')
 			[(acFunctionName): a]
 	}.each{acFunctionName, a->
 		%>
-		${acFunctionName}SimpleQuery : function(val){
+		${acFunctionName}SimpleQuery : function(val, tagsOutput){
 			var urlVar = '${acFunctionName}Url';
 			var url = appConfig[urlVar];
 			if(url === undefined){
 				console.error('Define ' + urlVar + ' in config.json.');
+				url = 'http://localhost:8080/' + urlVar; // for karma tests
 			}
 			var param = {limit: 15};
 			param.searchString = val;
@@ -102,9 +103,15 @@ angular.module('angularDemoApp')
 			return resource.query(param).\$promise.then(
 				function( response ){
 					return response.map(function(item){
-						item.label = autocompleteObjToString(item);
+						if(tagsOutput){
+							var obj = {id: item.id, name: autocompleteObjToString(item)};
+						}else{
+							item.label = autocompleteObjToString(item);
+							var obj = {item: item};
+						}
+
 						// postgres json can only save objects at the moment
-						var obj = {item: item};
+
 						return obj;
 					});
 				}

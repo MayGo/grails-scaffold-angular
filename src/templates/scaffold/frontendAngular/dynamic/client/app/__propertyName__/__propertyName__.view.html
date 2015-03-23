@@ -6,7 +6,9 @@
 <%
 private String renderFieldRow(p, owningClass, parentProperty = null){
 
-    if (p.type == Boolean || p.type == boolean)
+    if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
+        return renderAutocomplete(domainClass, p, parentProperty)
+    }else if (p.type == Boolean || p.type == boolean)
         return renderBoolean(owningClass, p, parentProperty)
     else if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() && p.type != boolean))
         return renderString(owningClass, p, parentProperty)
@@ -121,13 +123,23 @@ private String renderManyToOne(owningClass, p, parentProperty) {
 
 private String renderManyToMany(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-    return """<!--ManyToMany-->
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
-        </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
+    Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
+    if(!useDisplaynames) useDisplaynames = ["id":null]
+
+    String str = """<!--ManyToMany-->
+    <div class="form-group">
+        <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
+        <div class="col-sm-10 form-control-static">
+            <div ng-repeat="item in ${owningClass.propertyName}.${parentPropName}${p.name}">
+"""
+    useDisplaynames.each{ key, value->
+    str += """<span ng-bind="item.${key}"></span> """
+    }
+    str += """</div></div></div>
+    <div class="line line-dashed b-b line-lg pull-in"></div>
     """
+
+    return str
 }
 
 private String renderOneToMany(owningClass, p, parentProperty) {
@@ -166,66 +178,85 @@ private String renderMap(owningClass, p, parentProperty) {
 
     return str
 }
+private String renderAutocomplete(owningClass, p,  parentProperty) {
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
+    String acFunctionName = (p.cp.format)?:p.name
 
+    boolean displayParentPropName = false
+    if(parentProperty){
+        def embeddedProps = scaffoldingHelper.getProps(parentProperty.component).grep{it.cp?.display != false &&it.cp?.editable != false && it.name!= 'id'}
+        displayParentPropName =(embeddedProps.size()==1)
 
+        acFunctionName = (parentProperty?.cp?.format)?:parentProperty.name
+    }
+
+    String translateStr = "pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"
+    if(displayParentPropName)translateStr = "pages.${domainClass.shortName}.view.field.${parentProperty.name}.title"
+
+    return """<!--Autocomplete-->
+    <div class="form-group">
+        <label class="col-sm-2 control-label" translate="${translateStr}"></label>
+        <div class="col-sm-10 form-control-static"
+             ng-bind="autocompleteService.${acFunctionName}SimpleFormatLabel(${owningClass.propertyName}.${parentPropName}${p.name})"></div>
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in"></div>
+"""
+}
 %>
-
-<div ng-init="pageTitle = 'pages.${domainClass.shortName}.view.title'" ng-include=" 'shared/blocks/page_heading.html' "></div>
+<div id="${domainClass.propertyName}_view" ng-init="pageTitle = 'pages.${domainClass.shortName}.view.title'"
+     ng-include=" 'shared/blocks/page_heading.html' "></div>
 <div class="wrapper-md ng-scope">
-    <div class="row">
-		<div class="col-sm-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-			      <span class="h4" translate="pages.${domainClass.shortName}.view.title"></span>
-			    </div>
-			    <div class="panel-body">
-			    	<div class="form-horizontal">
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="h4" translate="pages.${domainClass.shortName}.view.title"></span>
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
 <%for (p in props) {
-    if (!p.oneToMany && !p.manyToMany) {
         if(p.embedded){
             def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
             if(embeddedProps){
-                if(embeddedProps.size()==1){
+                if(embeddedProps.size()==1 || p.cp.widget == 'autocomplete'){
                     println renderFieldRow(embeddedProps.first(), domainClass, p)
                 }else{
                     %>
-                    <accordion close-others="false">
-                        <accordion-group
-                                heading="{{'pages.${domainClass.shortName}.view.field.${p.name}.title' | translate}}"
-                                is-open="isSearchOpen">
-                            <div class="row">
-                                <%embeddedProps.each{ep->
-                                println renderFieldRow(ep, domainClass, p)
-                                }%>
-                            </div>
-                        </accordion-group>
-                    </accordion>
+                <accordion close-others="false" id="${p.name}Accordion">
+                    <accordion-group
+                            heading="{{'pages.${domainClass.shortName}.view.field.${p.name}.title' | translate}}"
+                            is-open="isSearchOpen">
+                        <div class="row">
+                            <%embeddedProps.each{ep->
+                            println renderFieldRow(ep, domainClass, p)
+                            }%>
+                        </div>
+                    </accordion-group>
+                </accordion>
                     <%
                 }
             }
         }else{
             println renderFieldRow(p, domainClass)
         }
-    }
 }%>
-					</div>
-			    </div>
-			    <footer class="panel-footer text-right bg-light lter">
-			      	<a id="editBtn" class="btn btn-default" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
-				    	<i class="fa fa-edit" translate="pages.${domainClass.shortName}.view.edit"></i>
-			       	</a>
-					<a id="deleteBtn" class="btn btn-danger" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
-						<i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.view.delete"></i>
-			        </a>
-					
-					<a id="backBtn" class="btn btn-default" ng-click="back()">
-						<i class="fa fa-chevron-left" translate="pages.${domainClass.shortName}.view.back"></i>
-					</a>
-					
-			    </footer>
-			 </div>
-		</div>
-        <div>
+                </div>
+            </div>
+            <footer class="panel-footer text-right bg-light lter">
+                <a id="editBtn" class="btn btn-default" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
+                    <i class="fa fa-edit" translate="pages.${domainClass.shortName}.view.edit"></i>
+                </a>
+                <a id="deleteBtn" class="btn btn-danger" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
+                    <i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.view.delete"></i>
+                </a>
+
+                <a id="backBtn" class="btn btn-default" ng-click="back()">
+                    <i class="fa fa-chevron-left" translate="pages.${domainClass.shortName}.view.back"></i>
+                </a>
+
+            </footer>
+         </div>
+    </div>
+    <div class="container-fluid">
             <%
             relationsProps = scaffoldingHelper.findRelationsProps(domainClass, domainClasses as List)
             relationsProps.each{property, domainCl->
@@ -247,8 +278,5 @@ private String renderMap(owningClass, p, parentProperty) {
                 </div>
              </div>
         <%}%>
-        </div>       
-		
-		
-	</div>
+    </div>
 </div>			

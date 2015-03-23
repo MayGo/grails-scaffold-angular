@@ -158,11 +158,8 @@ grails{
 			grailsApplication.domainClasses.each { domainClass ->
 				allProps = scaffoldingHelper.getProps(domainClass)
 				props = allProps.findAll{p->!p.isAssociation()}
-
 				props = props.sort { a, b ->
-					if(a.type == b.type) return 0
-					if(a.type == String) return -1
-					return 1
+					return (a.type.class  <=> b.type.class)?(a.type == String)?1:0:-1
 				}
 
 				displayNames["'${domainClass.shortName}'"] = ["'id'"] + props.take(3).collect{"'${it.name}'"}

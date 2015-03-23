@@ -3,8 +3,8 @@
 
 'use strict';
 
-var HtmlReporter = require('protractor-html-screenshot-reporter');
 
+var HtmlReporter = require('protractor-html-screenshot-reporter');
 
 exports.config = {
   // The timeout for each script run on the browser. This should be longer
@@ -19,7 +19,7 @@ exports.config = {
     'e2e/**/*.spec.js'
   ],
 
-  // Patterns to exclude.
+  // Patterns to exclude.jun
   exclude: [],
 
   // ----- Capabilities to be passed to the webdriver instance ----
@@ -28,21 +28,17 @@ exports.config = {
   // https://code.google.com/p/selenium/wiki/DesiredCapabilities
   // and
   // https://code.google.com/p/selenium/source/browse/javascript/webdriver/capabilities.js
-//  capabilities: {
-//    'browserName': 'chrome',
-//    shardTestFiles: true,
-//    maxInstances: 3
-//  },
-  /* capabilities: {
-   'browserName': 'chrome'
-   },*/
+  //capabilities: {
+ //   shardTestFiles: true,
+  //  maxInstances: 3
+  //},
 
   // ----- The test framework -----
   //
   // Jasmine and Cucumber are fully supported as a test and assertion framework.
   // Mocha has limited beta support. You will need to include your own
   // assertion framework if working with mocha.
-  framework: 'jasmine',
+  framework: 'jasmine2',
 
   // ----- Options to be passed to minijasminenode -----
   //
@@ -53,9 +49,10 @@ exports.config = {
     // If true, print colors to the terminal.
     showColors: true,
     // If true, include stack traces in failures.
-    includeStackTrace: true,
+    includeStackTrace: false,
     // Time to wait in milliseconds before a test automatically fails
-    defaultTimeoutInterval: 50000
+    defaultTimeoutInterval: 50000,
+    realtimeFailure: true
   },
   onPrepare: function () {
     browser.manage().window().setSize(1600, 1000);
@@ -64,7 +61,7 @@ exports.config = {
     jasmine.getEnv().addReporter(new HtmlReporter({
       docName: 'index.html',
       baseDirectory: 'test-results/e2e/',
-      preserveDirectory: true,
+      preserveDirectory: false,
       pathBuilder: function pathBuilder(spec, descriptions, results, capabilities) {
         // Return '<browser>/<specname>' as path for screenshots:
         // Example: 'firefox/list-should work'.
@@ -76,8 +73,11 @@ exports.config = {
 
     require('jasmine-reporters');
     jasmine.getEnv().addReporter(
-      new jasmine.JUnitXmlReporter('test/e2e/test-results/JUnitXML/', true, true)
+      new jasmine.JUnitXmlReporter('test-results/e2e/JUnitXML/', true, true)
     );
+    var SpecReporter = require('jasmine-spec-reporter');
+    // add jasmine spec reporter
+    jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: false}));
 
   }
 };
