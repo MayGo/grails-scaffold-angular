@@ -3,6 +3,7 @@ package grails.plugin.scaffold.angular
 import grails.buildtestdata.BuildTestDataService
 import grails.buildtestdata.DomainInstanceBuilder
 import grails.buildtestdata.handler.ConstraintHandlerException
+import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
 import org.codehaus.groovy.grails.commons.GrailsClass
 import org.codehaus.groovy.grails.orm.hibernate.cfg.CompositeIdentity
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsDomainBinder
@@ -17,6 +18,7 @@ class DomainHelper {
 	static Map cachedInstances = [:]
 
 	static def createOrGetInst(def dClass, int groupId) {
+
 		updateRequiredPropertyNames(dClass)
 
 		//Get instance from cache or create if does not exists
@@ -27,21 +29,33 @@ class DomainHelper {
 		if (cachedInstances.containsKey(groupKey)) {
 			inst = cachedInstances[groupKey]
 		} else {
-			domainClazz.withNewTransaction { status ->
-				try {
-					inst = domainClazz.buildWithoutSave()
-					inst.discard()
 
-					status.setRollbackOnly();
+			if(domainClazz.metaClass.respondsTo(domainClazz, 'withNewTransaction')) {
+				try{
+					domainClazz.withNewTransaction { status ->
+						try {
+							inst = domainClazz.buildWithoutSave()
+							inst.discard()
+
+							status.setRollbackOnly();
 
 
-				} catch (ConstraintHandlerException ex) {
-					println ex.message;
+						} catch (ConstraintHandlerException ex) {
+							println ex.message;
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
 				} catch (Exception ex) {
+					println "Problem  with class ${dClass.name}"
 					ex.printStackTrace();
 				}
+
+
+				cachedInstances[groupKey] = inst
+			}else{
+				//println "$domainClazz not domain instance"
 			}
-			cachedInstances[groupKey] = inst
 		}
 
 		return inst

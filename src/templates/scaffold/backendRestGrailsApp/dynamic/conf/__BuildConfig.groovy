@@ -17,7 +17,7 @@
 		}
 		
 
-		String pluginLine5 = 'compile ":build-test-data:2.2.2"'
+		String pluginLine5 = 'compile ":build-test-data:2.4.0"'
 		if(!destFile.text.contains('build-test-data')) {
 			linesToAdd += "\t\t" + pluginLine5 + "\n"
 		}

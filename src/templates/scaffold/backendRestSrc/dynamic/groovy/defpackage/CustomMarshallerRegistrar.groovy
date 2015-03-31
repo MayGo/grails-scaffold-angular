@@ -50,10 +50,10 @@ class CustomMarshallerRegistrar {
 
 		Map res = [:]
 
-		if (!excludes.containsKey('id')) {
+		if (!excludes.containsKey('id') && domain.hasProperty('id')) {
 			res << [id: domain.id]
 		}
-		if (!excludes.containsKey('version')) {
+		if (!excludes.containsKey('version') && domain.hasProperty('version')) {
 			res << [version: domain.version]
 		}
 		for (String key in getDomainProperties(domain.class)) {
@@ -95,10 +95,7 @@ class CustomMarshallerRegistrar {
 		}
 <%
 
-
-
 	for(d in allDomainClasses){
-
 		%>
 		JSON.registerObjectMarshaller ${d.name}, priority, { ${d.name} instance, JSON json ->
 <%
@@ -116,7 +113,7 @@ class CustomMarshallerRegistrar {
 					continue
 				}
 
-				for(relationProp in domainProperty.getReferencedDomainClass().persistentProperties){
+				for(relationProp in domainProperty.getReferencedDomainClass()?.persistentProperties){
 					defaultExcludes << "\n'${domainProperty.name}.${relationProp.name}'"
 					if(relationProp.manyToOne || relationProp.oneToOne){
 						defaultExcludes << "\n'${domainProperty.name}.${relationProp.name}Id'"

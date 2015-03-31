@@ -95,13 +95,19 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 			}*/
 
 			def val
-			refClass.getClazz().withNewTransaction{status ->
-				try {
-					val = refClass.getClazz().first(sort: 'id')?.id
+			try {
+				refClass.getClazz().withNewTransaction { status ->
+					try {
+						val = refClass.getClazz().first(sort: 'id')?.id
 
-				} catch (Exception ex) {
-					println ex.message
+					} catch (Exception ex) {
+						println "Problem  with class ${dClass.name} and propertys ${p.name} class ${refClass.getClazz()}"
+						println ex.message
+					}
 				}
+			} catch (Exception ex) {
+				println "Problem  with class ${dClass.name} and propertys ${p.name} class ${refClass.getClazz()}"
+				println ex.message
 			}
 
 
@@ -112,17 +118,25 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 			}
 			respStr += str
 
-		} else if(p.isEmbedded()){
+		} else if(p.isEmbedded() ){
 
 			def refClass = p.component
 			if(refClass){
-				if(isResp) {
-					//TODO: test response
-				}else {
-					str += "${p.name}{\n\t"
-					str += createDomainInstanceJson(refClass, isResp, DomainHelper.createOrGetInst(refClass, 10), alreadyCreatedClasses)
-					str += "\t\t\t\t}\n"
-					respStr += str
+				def embeddedInst = DomainHelper.createOrGetInst(refClass, 10)
+				if(!embeddedInst){
+					embeddedInst = inst."${p.name}"
+				}
+				if(embeddedInst) {
+					if (isResp) {
+						//TODO: test response
+					} else {
+						str += "${p.name}{\n\t"
+						str += createDomainInstanceJson(refClass, isResp, embeddedInst, alreadyCreatedClasses)
+						str += "\t\t\t\t}\n"
+						respStr += str
+					}
+				}else{
+
 				}
 			}
 		} else {
@@ -410,15 +424,19 @@ class ${className}Spec extends Specification implements RestQueries, AuthQueries
 
 		if(p.referencedDomainClass?.hasProperty('id')){
 			def refClass = new DefaultGrailsDomainClass(p.type)
-
-			refClass.getClazz().withNewTransaction{status ->
-				try {
-					realVal = refClass.getClazz().first(sort: 'id')?.id
-				} catch (Exception ex) {
-					println ex.message;
+			try {
+				refClass.getClazz().withNewTransaction { status ->
+					try {
+						realVal = refClass.getClazz().first(sort: 'id')?.id
+					} catch (Exception ex) {
+						println "Problem  with class ${domainClass.name} and propertys ${p.name} class ${refClass.getClazz()}"
+						println ex.message;
+					}
 				}
+			}catch (Exception ex) {
+				println "Problem  with class ${dClass.name} and propertys ${p.name} class ${refClass.getClazz()}"
+				println ex.message;
 			}
-
 			jsonVal = (["${p.name}":realVal] as JSON).toString()
 			println "\t\t\t'$jsonVal' || 2 "
 

@@ -2,7 +2,7 @@
 "app":{
 	"name":"${appName}",
 	"title":"${appName}"
-},	
+},
 "header" : {
   "navbar" : {
     "UPLOAD" : "Upload",

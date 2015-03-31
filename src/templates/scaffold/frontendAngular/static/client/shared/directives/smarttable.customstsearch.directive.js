@@ -15,7 +15,7 @@ angular.module('angularDemoApp').directive('customStSearch', function() {
 			}, function(value) {
 
 				if (value !== undefined) {
-					//setting initial value did one extra query to backend
+
 
 					//reset
 					//tableState.search.predicateObject = {};
@@ -24,13 +24,17 @@ angular.module('angularDemoApp').directive('customStSearch', function() {
 					if(_.isArray(value)){
 						value = _.filter(value, function(item) { return !angular.isDefined(item.$resolved) || item.$resolved; });
 						searchVal = _.pluck(value, 'id') ;
+            console.log("Searching value:" + searchVal );
+            // TODO: was problem with initializing
             if (initializing){
+              //setting initial value did one extra query to backend
               initializing = false;
-              return;
+             // return;
             }
 					}else{
 						searchVal = value;
 					}
+          console.log(searchVal)
           if(searchVal && typeof searchVal.getMonth === 'function' ){
             ctrl.search(searchVal.toJSON(), searchProperty);
           }else{

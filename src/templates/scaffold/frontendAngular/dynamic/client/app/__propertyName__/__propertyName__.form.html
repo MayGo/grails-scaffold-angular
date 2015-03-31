@@ -207,6 +207,8 @@ String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' 
 }
 
 private String renderManyToOne(owningClass, p, cp, parentProperty) {
+
+    if(!p.referencedDomainClass) return "<!--ManyToOne- no referencedDomainClass -->"
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     String parentIdName = (parentProperty?.component) ? parentProperty.name + '_' : ''
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
@@ -240,7 +242,8 @@ private String renderManyToOne(owningClass, p, cp, parentProperty) {
 
 
 private String renderOneToMany(owningClass, p, cp, parentProperty) {
-String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
+    if(!p.referencedDomainClass) return "<!--OneToMany- no referencedDomainClass -->"
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
@@ -257,6 +260,7 @@ String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' 
 }
 
 private String renderManyToMany(owningClass, p, cp, parentProperty) {
+    if(!p.referencedDomainClass) return "<!--ManyToMany- no referencedDomainClass -->"
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
@@ -273,6 +277,7 @@ private String renderManyToMany(owningClass, p, cp, parentProperty) {
 }
 
 private String renderAutocomplete(owningClass, p, cp, parentProperty) {
+
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     String parentIdName = (parentProperty?.component) ? parentProperty.name + '_' : ''
     String acFunctionName = (cp.format)?:p.name
@@ -357,7 +362,6 @@ private renderFieldRow(p, owningClass, parentProperty = null, displayParentPropN
 	<div class="line line-dashed b-b line-lg pull-in"></div>
 	"""
 }%>
-
 <div id="${domainClass.propertyName}_form"
      ng-init="pageTitle = (isEditForm)?'pages.${domainClass.shortName}.edit.title':'pages.${domainClass.shortName}.create.title'" data-ng-include=" 'shared/blocks/page_heading.html' "></div>
 <div class="wrapper-md ng-scope">

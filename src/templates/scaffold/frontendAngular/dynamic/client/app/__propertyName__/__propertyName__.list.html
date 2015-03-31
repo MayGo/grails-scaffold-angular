@@ -7,6 +7,8 @@
 private renderFieldRow(p, owningClass) {
     if (p.type && p.isEnum()){
         return "<td>{{${owningClass.propertyName}.${p.name}}}</td>"
+    }else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
+return "<td>{{${owningClass.propertyName}.${p.name} | date:'yyyy-MM-dd HH:mm'}}</td>"
     }else if (p.manyToOne || p.oneToOne){
         Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
         if(!useDisplaynames) useDisplaynames = ["id":null]
@@ -30,7 +32,6 @@ private renderFieldHeader(p, owningClass) {
 <%
 
 //####################### SEARCH ###################################
-
 
 
 private String renderFieldSearch(p, owningClass, parentProperty = null){
@@ -242,6 +243,7 @@ private String renderEnum(owningClass, p, parentProperty) {
 }
 
 private String renderManyToOne(owningClass, p, parentProperty) {
+    if(!p.referencedDomainClass) return "<!--ManyToOne- no referencedDomainClass -->"
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
@@ -252,7 +254,8 @@ private String renderManyToOne(owningClass, p, parentProperty) {
             ng-model="search.${parentPropName}${p.name}s"
             custom-st-search="${parentPropName}${p.name}s"
             placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}">
-              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
+              <auto-complete
+                      source="autocompleteService.${p.referencedDomainClass?.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
      str += """</tags-input></div>"""
 

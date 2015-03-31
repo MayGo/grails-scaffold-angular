@@ -51,25 +51,27 @@ private String renderOneToMany(owningClass, p, cp) {
     //Lets find field to display in autocomplete 
 	String useDisplaynamesStr = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p).collect{key, value->"item." + key + ""}.join("+ ', ' +")
 	if(!useDisplaynamesStr) useDisplaynamesStr = "item.id"
-	excludes = scaffoldingHelper.getProps(p.referencedDomainClass).findAll{it.isAssociation()}
-	
-    String str =  """
-	     if(\$scope.isEditForm){
-			${p.referencedDomainClass.shortName}Service.query({max:50, filter:{${(p.referencedPropertyName)?:p.otherSide?.name}:\$stateParams.id}, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
-		        function( response ){
-	     			\$scope.${domainClass.propertyName}.${p.name} = response.map(function(item){
-                        return {id:item.id, name:$useDisplaynamesStr};
-				    });
-		       	}
-	     	);
-		 }
-		 //Watch for oneToMany property, to add custom object to each value. Without this, adding elements have no effect when POSTing.
-     	 \$scope.\$watch('${domainClass.propertyName}.${p.name}', function(values) {
-     	 	if(values && values.length>0){
-				_.forEach(values, function(value) { value.${p.referencedPropertyName}={id:\$stateParams.id}; });
-		    }
-	     }, true);
-     """;
+	if(p.referencedDomainClass) excludes = scaffoldingHelper.getProps(p.referencedDomainClass).findAll{it.isAssociation()}
+	String str = ""
+	if(p.referencedDomainClass){
+		str =  """
+			 if(\$scope.isEditForm){
+				${p.referencedDomainClass.shortName}Service.query({max:50, filter:{${(p.referencedPropertyName)?:p.otherSide?.name}:\$stateParams.id}, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
+					function( response ){
+						\$scope.${domainClass.propertyName}.${p.name} = response.map(function(item){
+							return {id:item.id, name:$useDisplaynamesStr};
+						});
+					}
+				);
+			 }
+			 //Watch for oneToMany property, to add custom object to each value. Without this, adding elements have no effect when POSTing.
+			 \$scope.\$watch('${domainClass.propertyName}.${p.name}', function(values) {
+				if(values && values.length>0){
+					_.forEach(values, function(value) { value.${p.referencedPropertyName}={id:\$stateParams.id}; });
+				}
+			 }, true);
+		 """;
+	}
 	String uniDirectionalStr = """
 	if(\$scope.${domainClass.propertyName}.${p.name}){
 		\$scope.${domainClass.propertyName}.${p.name} = \$scope.${domainClass.propertyName}.${p.name}.map(function(item){
