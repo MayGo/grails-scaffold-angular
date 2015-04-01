@@ -219,14 +219,8 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
 %>
 <div id="${domainClass.propertyName}_view" ng-init="pageTitle = 'pages.${domainClass.shortName}.view.title'"
      ng-include=" 'shared/blocks/page_heading.html' "></div>
-<div class="wrapper-md ng-scope">
-    <div class="container-fluid">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-              <span class="h4" translate="pages.${domainClass.shortName}.view.title"></span>
-            </div>
-            <div class="panel-body">
-                <div class="form-horizontal">
+<div class="wrapper-md bg-white-only ng-scope">
+    <div class="form-horizontal">
 <%for (p in props) {
         if(p.embedded){
             def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
@@ -253,25 +247,28 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
             println renderFieldRow(p, domainClass)
         }
 }%>
-                </div>
-            </div>
-            <footer class="panel-footer text-right bg-light lter">
-                <a id="editBtn" class="btn btn-default" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
-                    <i class="fa fa-edit" translate="pages.${domainClass.shortName}.view.edit"></i>
-                </a>
-                <a id="deleteBtn" class="btn btn-danger" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
-                    <i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.view.delete"></i>
-                </a>
-
-                <a id="backBtn" class="btn btn-default" ng-click="back()">
-                    <i class="fa fa-chevron-left" translate="pages.${domainClass.shortName}.view.back"></i>
-                </a>
-
-            </footer>
-         </div>
     </div>
-    <div class="container-fluid">
-            <%
+    <div class="line line-dashed b-b line-lg pull-in"></div>
+    <div class="form-group">
+        <div class="form-action pull-right">
+            <a id="editBtn" class="btn btn-default"
+               ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
+                <i class="fa fa-edit" translate="pages.${domainClass.shortName}.view.edit"></i>
+            </a>
+            <a id="deleteBtn" class="btn btn-danger"
+               ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
+                <i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.view.delete"></i>
+            </a>
+
+            <a id="backBtn" class="btn btn-default" ng-click="back()">
+                <i class="fa fa-chevron-left" translate="pages.${domainClass.shortName}.view.back"></i>
+            </a>
+        </div>
+        <div class="clearfix"/>
+    </div>
+
+    <div>
+<%
             relationsProps = scaffoldingHelper.findRelationsProps(domainClass, domainClasses as List)
             relationsProps.each{property, domainCl->
                 Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainCl, property)
@@ -283,12 +280,13 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
              ng-init="search={${property.name}s:[autocompleteService.promiseToLabel(${domainClass.propertyName}, [$useDisplaynamesStr])]}"
                     ng-controller="${domainCl.shortName}EmbeddedListController as ${property.name}${domainCl.propertyName}Ct"
                     >
-                 <div class="col-sm-10 form-control-static">
+                 <div class="form-control-static">
                  <a class="h4" href ui-sref="app.${domainCl.propertyName}.list({search:{${property.name}s:${domainClass.propertyName}.id}})"
                     translate="pages.${domainCl.shortName}.view.lists"
                     translate-value-isval="{{ 'pages.${property.getDomainClass().shortName}.view.field.${property.name}' | translate }}" translate-value-inval="{{ 'pages.${domainCl.shortName}.name' | translate }}">
                  </a></div>
-                <div class="col-sm-10 form-control-static" 
+                 <div class="line line-dashed b-b line-lg pull-in"></div>
+                <div class="form-control-static"
                     ng-controller="${domainCl.shortName}ListController"
                     ng-include="'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html'">
 
@@ -296,4 +294,4 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
              </div>
         <%}%>
     </div>
-</div>			
+</div>

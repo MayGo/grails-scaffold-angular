@@ -364,16 +364,9 @@ private renderFieldRow(p, owningClass, parentProperty = null, displayParentPropN
 }%>
 <div id="${domainClass.propertyName}_form"
      ng-init="pageTitle = (isEditForm)?'pages.${domainClass.shortName}.edit.title':'pages.${domainClass.shortName}.create.title'" data-ng-include=" 'shared/blocks/page_heading.html' "></div>
-<div class="wrapper-md ng-scope">
-        <div class="container-fluid">
-            <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal"
-            	novalidate>
-                <div class="panel panel-default">
-                	<div class="panel-heading">
-                      <span class="h4" translate="pages.${domainClass.shortName}.edit.form.title"></span>
-                    </div>
-                    <div class="panel-body">
-                        <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
+<div class="wrapper-md bg-white-only ng-scope">
+    <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal" novalidate>
+        <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
 <%for (p in props) {
     if(p.embedded){
         def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false &&it.cp?.editable != false && it.name!= 'id'}
@@ -382,34 +375,35 @@ private renderFieldRow(p, owningClass, parentProperty = null, displayParentPropN
                 println renderFieldRow(embeddedProps.first(), domainClass, p, true)
             }else{
       %>
-                        <accordion close-others="false" id="${p.name}Accordion">
-                            <accordion-group
-                                    heading="{{'pages.${domainClass.shortName}.edit.form.field.${p.name}.title' | translate}}"
-                                    is-open="isSearchOpen">
-                                <div class="row">
-                                    <%embeddedProps.each{ep->
-                                        println renderFieldRow(ep, domainClass, p)
-                                    }%>
-                                </div>
-                            </accordion-group>
-                        </accordion>
+        <accordion close-others="false" id="${p.name}Accordion">
+            <accordion-group
+                    heading="{{'pages.${domainClass.shortName}.edit.form.field.${p.name}.title' | translate}}"
+                    is-open="isSearchOpen">
+                <div class="row">
+                    <%embeddedProps.each{ep->
+                        println renderFieldRow(ep, domainClass, p)
+                    }%>
+                </div>
+            </accordion-group>
+        </accordion>
 <%          }
         }
     }else{
         println renderFieldRow(p, domainClass)
     }
 }%>
-                	</div>
-                    <footer class="panel-footer text-right bg-light lter">
-                      	<button id="${domainClass.propertyName}SubmitBtn"
-                      		class="btn btn-success" 
-	                      	type='submit' 
-	                      	ng-disabled="${domainClass.propertyName}Form.\$invalid"
-	                      	translate="pages.${domainClass.shortName}.edit.form.submit" 
-	                      	mx-show-loading ng-click="submit(${domainClass.propertyName}Form)"></button> 
-                		<a class="btn btn-default" ng-click="back()" translate="pages.${domainClass.shortName}.edit.form.cancel" mx-show-loading></a> 
-                    </footer>
-                </div>
-            </form>
+
+        <div class="form-group">
+            <div class="form-action pull-right">
+                <button id="${domainClass.propertyName}SubmitBtn"
+                    class="btn btn-success"
+                    type='submit'
+                    ng-disabled="${domainClass.propertyName}Form.\$invalid"
+                    translate="pages.${domainClass.shortName}.edit.form.submit"
+                    mx-show-loading ng-click="submit(${domainClass.propertyName}Form)"></button>
+                <a class="btn btn-default" ng-click="back()" translate="pages.${domainClass.shortName}.edit.form.cancel" mx-show-loading></a>
+            </div>
+            <div class="clearfix"/>
         </div>
+    </form>
 </div>
