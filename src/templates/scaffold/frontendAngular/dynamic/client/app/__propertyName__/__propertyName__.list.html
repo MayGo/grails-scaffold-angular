@@ -318,7 +318,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 %>
 
 <div id="${domainClass.propertyName}_list" ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'"
-     data-ng-include=" 'shared/blocks/page_heading.html' " ng-hide="isEmbeddedView" ></div>
+     data-ng-include=" 'shared/blocks/page_heading.html' "></div>
 <div class="wrapper-md bg-white-only ">
 <div class="list-search"  st-table="rowCollection" st-pipe="callServer" >
 <accordion close-others="false">
@@ -384,7 +384,6 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 	      	</thead>
 	      
 	      	<tbody ng-hide="isLoading">
-	      		
 				<tr ng-repeat="${domainClass.propertyName} in rowCollection">
 					 <td>{{${domainClass.propertyName}.id}}</td>\
 					<%for (p in props) {%>
@@ -404,6 +403,11 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 		            </td>
 				</tr>
 			</tbody>
+              <tbody ng-show="isLoading">
+                  <tr>
+                      <td class="text-center" translate="messages.loading"></td>
+                  </tr>
+              </tbody>
 			<tfoot ng-hide="isLoading">
 	          <tr>
 	            <td colspan="10" class="text-center">

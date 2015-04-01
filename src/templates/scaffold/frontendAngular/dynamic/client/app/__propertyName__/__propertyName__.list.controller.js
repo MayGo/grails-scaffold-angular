@@ -13,11 +13,7 @@ angular.module('angularDemoApp')
 		});
 	};
 
-	if(\$stateParams.relationName){
-		console.log(\$stateParams);
-	}
-	
-	\$scope.isLoading = false;
+	\$scope.isLoading = true;
 	\$scope.rowCollection = [];
 	
 	\$scope.callServer = function (tableState) {
@@ -30,37 +26,26 @@ angular.module('angularDemoApp')
 
 		var searchParams = tableState.search.predicateObject;
 		query.filter = {};
-		if (searchParams) {
 
+		if (searchParams) {
 			angular.forEach(searchParams, function(value, key) {
 				if(!_.isEmpty(value)){
 					this[key] = value;
 				}
 			}, query.filter);
 		}
+
 		if(\$stateParams.relationName && \$stateParams.id){
 			if(_.isEmpty(query.filter[\$stateParams.relationName])){
 				query.filter[\$stateParams.relationName] = [];
 			}
 			query.filter[\$stateParams.relationName].push(Number(\$stateParams.id));
 		}
-		
-		if(!\$scope.skipFirstQueryInEmbeddedView ){
-			${domainClass.shortName}Service.query(query, function(response, responseHeaders){
-				\$scope.isLoading = false;
-				\$scope.rowCollection = response;
-				tableState.pagination.numberOfPages = Math.ceil(responseHeaders().total / tableState.pagination.number);
-			});
-		}else{
-			\$scope.skipFirstQueryInEmbeddedView = null;
-		}
+
+		${domainClass.shortName}Service.query(query, function(response, responseHeaders){
+			\$scope.isLoading = false;
+			\$scope.rowCollection = response;
+			tableState.pagination.numberOfPages = Math.ceil(responseHeaders().total / tableState.pagination.number);
+		});
 	};
-
 });
-//Simple Controller to make new scope for ListController
-angular.module('angularDemoApp')
-	.controller('${domainClass.shortName}EmbeddedListController', function (\$scope) {
-	\$scope.isEmbeddedView = true;
-	\$scope.skipFirstQueryInEmbeddedView = true;
-});
-

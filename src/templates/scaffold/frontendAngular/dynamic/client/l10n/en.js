@@ -17,6 +17,9 @@
 	"logout":"Logout"
   }
 },
+"messages":{
+	"loading": "Loading ..."
+},
 "pages":{
 	"Dashboard":{
 		"lastinserted":{
