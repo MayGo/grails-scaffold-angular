@@ -10,4 +10,7 @@ angular.module('angularDemoApp')
 				return instance;
 			});
 		};
+		\$scope.go = function(route){
+			\$state.go(route);
+		};
 	});

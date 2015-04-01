@@ -81,7 +81,7 @@ angular.module('angularDemoApp', [
   	// Override default config from custom config  file
   	\$stateProvider
 		.state('app', {
-			//abstract: true,
+			abstract: true,
 			url: '/app',
 			templateUrl: 'app/app.html',
 			controller: 'AppController',

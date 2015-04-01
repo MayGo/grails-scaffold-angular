@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-	.controller('${domainClass.shortName}ListController', function (\$scope, \$q, ${domainClass.shortName}Service) {
+	.controller('${domainClass.shortName}ListController', function (\$scope, \$q, ${domainClass.shortName}Service, \$stateParams) {
 		
 	\$scope.delete${domainClass.shortName} = function(instance){
 		return ${domainClass.shortName}Service.deleteInstance(instance).then(function(instance){
@@ -12,7 +12,10 @@ angular.module('angularDemoApp')
 			return instance;
 		});
 	};
-	
+
+	if(\$stateParams.relationName){
+		console.log(\$stateParams);
+	}
 	
 	\$scope.isLoading = false;
 	\$scope.rowCollection = [];
@@ -26,13 +29,20 @@ angular.module('angularDemoApp')
 		}
 
 		var searchParams = tableState.search.predicateObject;
+		query.filter = {};
 		if (searchParams) {
-			query.filter = {};
+
 			angular.forEach(searchParams, function(value, key) {
 				if(!_.isEmpty(value)){
 					this[key] = value;
 				}
 			}, query.filter);
+		}
+		if(\$stateParams.relationName && \$stateParams.id){
+			if(_.isEmpty(query.filter[\$stateParams.relationName])){
+				query.filter[\$stateParams.relationName] = [];
+			}
+			query.filter[\$stateParams.relationName].push(Number(\$stateParams.id));
 		}
 		
 		if(!\$scope.skipFirstQueryInEmbeddedView ){

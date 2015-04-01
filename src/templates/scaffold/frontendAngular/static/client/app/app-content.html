@@ -1,0 +1,27 @@
+
+<div class="wrapper row-offcanvas row-offcanvas-left">
+	<!-- Left side column. contains the logo and sidebar -->
+	<aside data-ng-include=" 'shared/sidebar/sidebar.html' " class="left-side sidebar-offcanvas"></aside>
+
+	<!-- Right side column. Contains the navbar and content of the page -->
+	<aside class="right-side">
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+				Dashboard
+				<small>Control panel</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+				<li class="active">Dashboard</li>
+			</ol>
+
+		</section>
+		<div inform></div>
+		<!-- Main content -->
+		<section class="content" ui-view>
+
+		</section><!-- /.content -->
+
+	</aside><!-- /.right-side -->
+</div><!-- ./wrapper -->

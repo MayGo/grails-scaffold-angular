@@ -46,5 +46,16 @@ angular.module('angularDemoApp')
 					);
 				}
 			}
-		});		
+		})
+<%
+relationsProps = scaffoldingHelper.findRelationsProps(domainClass, domainClasses as List).collect{it.value}.unique()
+relationsProps.each{domainCl->
+	%>
+		.state('app.${domainClass.propertyName}.view.${domainCl.propertyName}',{
+			url: '/${domainCl.propertyName}/:relationName',
+			templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html',
+			controller: '${domainCl.shortName}ListController'
+		})
+	<%}%>
+;
 });

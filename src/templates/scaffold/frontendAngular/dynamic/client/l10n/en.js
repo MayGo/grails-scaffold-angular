@@ -111,6 +111,7 @@
 				"delete": " Delete",
 				"back": " Back",
 				"lists": "{{isval}} in {{inval}}",
+				"selecttab": "Click on tab to show table",
 				"field":{
 					<%for (p in d.persistentProperties) {
 						if(p.embedded){%>
