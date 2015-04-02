@@ -8,35 +8,35 @@
           <div class="row row-sm text-center"  >
             <div class="col-xs-6" ng-repeat="item in totalInsertedCollection">
               <div class="panel padder-v item">
-                <div class="h1 text-info font-thin h1">{{item.count}}</div>
-                <span class="text-muted text-xs">{{item.displayName}}</span>
+                <div class="h1 text-info font-thin h1">{{::item.count}}</div>
+                <span class="text-muted text-xs">{{::item.displayName}}</span>
                 <div class="top text-right w-full">
                   <i class="fa fa-caret-down text-warning m-r-sm"></i>
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
         <div class="col-md-7">
           <div class="panel wrapper">
-       
+
             <h4 class="font-thin m-t-none m-b text-muted" translate="pages.Dashboard.lastinserted.title"></h4>
            <table class="table table-responsive" st-table="lastinsertedCollection" st-safe-src="lastinsertedCollectionSafe">
             <thead>
                 <tr>
-                    <th width='9%' translate="pages.Dashboard.lastinserted.table.header.id"></th>               
-                    <th translate="pages.Dashboard.lastinserted.table.header.name"></th>                
-                    <th translate="pages.Dashboard.lastinserted.table.header.description"></th>                       
+                    <th width='9%' translate="pages.Dashboard.lastinserted.table.header.id"></th>
+                    <th translate="pages.Dashboard.lastinserted.table.header.name"></th>
+                    <th translate="pages.Dashboard.lastinserted.table.header.description"></th>
                     <th width='12%'></th>
                 </tr>
             </thead>
-          
+
             <tbody>
                 <tr ng-repeat="item in lastinsertedCollection">
-                    <td>{{item.id}}</td>                  
-                    <td>{{item.displayName}}</td>                  
-                    <td>{{item.description}}</td>                 
+                    <td>{{::item.id}}</td>
+                    <td>{{::item.displayName}}</td>
+                    <td>{{::item.description}}</td>
                     <td>
                         <a class="btn btn-default btn-xs" ui-sref="app.{{item.name}}.view({id:item.id})">
                             <i class="fa fa-eye" translate="pages.Dashboard.lastinserted.view"></i>
@@ -57,7 +57,7 @@
       </div>
       <!-- / stats -->
 
-    
+
 
     </div>
   </div>

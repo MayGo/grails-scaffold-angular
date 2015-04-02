@@ -231,7 +231,7 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
                     %>
                 <accordion close-others="false" id="${p.name}Accordion">
                     <accordion-group
-                            heading="{{'pages.${domainClass.shortName}.view.field.${p.name}.title' | translate}}"
+                            heading="{{::'pages.${domainClass.shortName}.view.field.${p.name}.title' | translate}}"
                             is-open="isSearchOpen">
                         <div class="row">
                             <%embeddedProps.each{ep->
@@ -267,12 +267,16 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
         <div class="clearfix"/>
     </div>
 </div>
+
+<%
+    relationsProps = scaffoldingHelper.findRelationsProps(domainClass, domainClasses as List)
+    if(relationsProps){
+    %>
 <div>
     <tabset>
 
-
 <%
-relationsProps = scaffoldingHelper.findRelationsProps(domainClass, domainClasses as List)
+}
 relationsProps.each{property, domainCl->
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(domainCl, property)
     if(!useDisplaynames) useDisplaynames = ['id': null]
@@ -282,12 +286,18 @@ relationsProps.each{property, domainCl->
              ui-sref-active="active">
             <tab-heading
                    translate="pages.${domainCl.shortName}.view.lists"
-                   translate-value-isval="{{ 'pages.${property.getDomainClass().shortName}.view.field.${property.name}' | translate }}"
-                   translate-value-inval="{{ 'pages.${domainCl.shortName}.name' | translate }}">
+                   translate-value-isval="{{::'pages.${property.getDomainClass().shortName}.view.field.${property.name}' | translate }}"
+                   translate-value-inval="{{::'pages.${domainCl.shortName}.name' | translate }}">
             </tab-heading>
         </tab>
-<%}%>
+<%}
+if(relationsProps){
+        %>
     </tabset>
-    <div ui-view ><div class="wrapper-md bg-white-only ng-scope">{{'pages.${domainClass.shortName}.view.selecttab' |
+    <div ui-view ><div class="wrapper-md bg-white-only ng-scope">{{::'pages.${domainClass.shortName}.view.selecttab' |
         translate}}</div></div>
 </div>
+    <%
+    }
+    %>
+

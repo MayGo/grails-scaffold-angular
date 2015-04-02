@@ -145,7 +145,8 @@ private String renderNumber(owningClass, p, cp, parentProperty) {
 	      				
 	String rangeExtraInputStr = ""
 	if (cp.range) {
-		rangeExtraInputStr = """<span class="input-group-addon">{{${owningClass.propertyName}.${parentPropName}${p.name}}}</span>"""
+		rangeExtraInputStr = """<span class="input-group-addon">{{::${owningClass.propertyName}.${parentPropName}${p
+    .name}}}</span>"""
         str += """ type="range" """
         str += """ min="${cp.range.from}" """
         str += """ max="${cp.range.to}" """
@@ -377,7 +378,7 @@ private renderFieldRow(p, owningClass, parentProperty = null, displayParentPropN
       %>
         <accordion close-others="false" id="${p.name}Accordion">
             <accordion-group
-                    heading="{{'pages.${domainClass.shortName}.edit.form.field.${p.name}.title' | translate}}"
+                    heading="{{::'pages.${domainClass.shortName}.edit.form.field.${p.name}.title' | translate}}"
                     is-open="isSearchOpen">
                 <div class="row">
                     <%embeddedProps.each{ep->

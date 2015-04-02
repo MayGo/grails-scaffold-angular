@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-	.controller('${domainClass.shortName}ListController', function (\$scope, \$q, ${domainClass.shortName}Service, \$stateParams) {
+	.controller('${domainClass.shortName}ListController', function (\$scope, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout) {
 		
 	\$scope.delete${domainClass.shortName} = function(instance){
 		return ${domainClass.shortName}Service.deleteInstance(instance).then(function(instance){
@@ -15,7 +15,7 @@ angular.module('angularDemoApp')
 
 	\$scope.isLoading = true;
 	\$scope.rowCollection = [];
-	
+	var filterTimeout;
 	\$scope.callServer = function (tableState) {
 		
 		var query = {max: \$scope.stTable.itemsByPage, offset: tableState.pagination.start};
@@ -41,11 +41,17 @@ angular.module('angularDemoApp')
 			}
 			query.filter[\$stateParams.relationName].push(Number(\$stateParams.id));
 		}
+		if (filterTimeout){
+			\$timeout.cancel(filterTimeout);
+		}
 
-		${domainClass.shortName}Service.query(query, function(response, responseHeaders){
-			\$scope.isLoading = false;
-			\$scope.rowCollection = response;
-			tableState.pagination.numberOfPages = Math.ceil(responseHeaders().total / tableState.pagination.number);
-		});
+		filterTimeout = \$timeout(function() {
+			${domainClass.shortName}Service.query(query, function(response, responseHeaders){
+				\$scope.isLoading = false;
+				\$scope.rowCollection = response;
+				tableState.pagination.numberOfPages = Math.ceil(responseHeaders().total / tableState.pagination.number);
+			});
+		}, 255);
+
 	};
 });

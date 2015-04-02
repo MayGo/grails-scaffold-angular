@@ -6,7 +6,7 @@
 <%
 private renderFieldRow(p, owningClass) {
     if (p.type && p.isEnum()){
-        return "<td>{{${owningClass.propertyName}.${p.name}}}</td>"
+        return "<td>{{::${owningClass.propertyName}.${p.name}}}</td>"
     }else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
 return "<td>{{${owningClass.propertyName}.${p.name} | date:'yyyy-MM-dd HH:mm'}}</td>"
     }else if (p.manyToOne || p.oneToOne){
@@ -15,12 +15,12 @@ return "<td>{{${owningClass.propertyName}.${p.name} | date:'yyyy-MM-dd HH:mm'}}<
         
         String str ="<td>"
         useDisplaynames.each{ key, value->
-            str += """{{${owningClass.propertyName}.${p.name}.${key}}} """
+            str += """{{::${owningClass.propertyName}.${p.name}.${key}}} """
         }
         str += "</td>"
         return str
     }else{
-        return "<td>{{${owningClass.propertyName}.${p.name}}}</td>"
+        return "<td>{{::${owningClass.propertyName}.${p.name}}}</td>"
     }
 }
 %>
@@ -88,7 +88,7 @@ private String renderString(owningClass, p, parentProperty) {
                    		st-search="'${parentPropName}${p.name}'"
                    		class="form-control" 
                    		type="text" 
-                   		placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}" """
+                   		placeholder="{{::'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}" """
     
     if (p.cp.matches) str += """ ng-pattern="/${p.cp.matches}/" """
     str += " ></div> "
@@ -101,7 +101,7 @@ private String renderBoolean(owningClass, p, parentProperty) {
       return """
     <div class="form-group">
 	  <label for="${parentPropName}${p.name}" class="control-label">
-          {{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}</label>
+          {{::'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}</label>
 	  <div class="input-group input-group-sm">
 		<ng-toggle 
 			tri-toggle 
@@ -142,7 +142,7 @@ private String renderDate(owningClass, p, parentProperty) {
         custom-st-search="${parentPropName}${p.name}"
      	type="text" 
      	class="form-control" 
-     	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
+     	placeholder="{{::'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
         datepicker-popup
         is-open="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open"
         ng-click="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open = true"
@@ -169,7 +169,7 @@ private String renderNumber(owningClass, p, parentProperty) {
                         	ng-model="search.${parentPropName}${p.name}"
                         	st-search="'${parentPropName}${p.name}'"
                         	class="form-control" 
-                        	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
+                        	placeholder="{{::'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
                         	 """
                         
     String rangeExtraInputStr = ""
@@ -203,7 +203,7 @@ private String renderUrl(owningClass, p, parentProperty) {
                     	st-search="'${parentPropName}${p.name}'"
                     	class="form-control" 
                     	type="url" 
-                    	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"  """
+                    	placeholder="{{::'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"  """
 
     str += " ></div> "
     return str
@@ -218,7 +218,7 @@ private renderSelectType(owningClass, p, parentProperty, type) {
                     	st-search="'${parentPropName}${p.name}'"
                     	class="form-control" 
                     	type="text" 
-                    	placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"  """
+                    	placeholder="{{::'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"  """
     
     if (p.cp.matches) str += """ ng-pattern="${p.cp.matches}" """
     str += " ></div> "
@@ -236,7 +236,7 @@ private String renderEnum(owningClass, p, parentProperty) {
           	st-search="'${parentPropName}${p.name}'"
           	type="text" 
           	class="form-control" 
-            placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
+            placeholder="{{::'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
             typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List | filter:\$viewValue" ></div> 
            """
      return str;
@@ -253,7 +253,7 @@ private String renderManyToOne(owningClass, p, parentProperty) {
      	<tags-input
             ng-model="search.${parentPropName}${p.name}s"
             custom-st-search="${parentPropName}${p.name}s"
-            placeholder="{{'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}">
+            placeholder="{{::'pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}">
               <auto-complete
                       source="autocompleteService.${p.referencedDomainClass?.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
@@ -284,7 +284,7 @@ private String renderAutocomplete(owningClass, p, parentProperty) {
         <tags-input
                 ng-model="search.${parentPropName}${p.name}s"
                 custom-st-search="${parentPropName}${p.name}s"
-                placeholder="{{'${translateStr}' | translate}}">
+                placeholder="{{::'${translateStr}' | translate}}">
             <auto-complete source="autocompleteService.${acFunctionName}SimpleQuery(\$query, true)" ></auto-complete>
             """
             str += """</tags-input></div>"""
@@ -322,7 +322,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 <div class="wrapper-md bg-white-only ">
 <div class="list-search"  st-table="rowCollection" st-pipe="callServer" >
 <accordion close-others="false">
-    <accordion-group  heading="{{'pages.${domainClass.shortName}.list.table.search' | translate}}"  is-open="isSearchOpen">
+    <accordion-group  heading="{{::'pages.${domainClass.shortName}.list.table.search' | translate}}"  is-open="isSearchOpen">
         <div class="row form-inline">
             <%for (p in props) {%>
                   ${renderFieldSearch(p, domainClass)}
@@ -365,42 +365,42 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
         %>
     </accordion-group>
 </accordion>
-      	<div class="box-tools pull-right">
-			<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.create">
-				<i class="fa fa-plus" translate="pages.${domainClass.shortName}.list.new" mx-show-loading></i>
-	       	</a>
-		</div>
+        <div class="box-tools pull-right">
+            <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.create">
+                <i class="fa fa-plus" translate="pages.${domainClass.shortName}.list.new" mx-show-loading></i>
+            </a>
+        </div>
         <div class="clearfix"/>
         <div class = "list-search-table">
 	      <table class="table table-responsive">
 	      	<thead>
 	      		<tr>
+                    <th></th>
 	      			<th width='20' st-sort="id" translate="pages.${domainClass.shortName}.list.table.header.id"></th>\
 	      		<%for (p in props) {%>
 			   		${renderFieldHeader(p, domainClass)}\
 				 <%}%>
-				 	<th></th>
+
 				</tr>
 	      	</thead>
-	      
 	      	<tbody ng-hide="isLoading">
 				<tr ng-repeat="${domainClass.propertyName} in rowCollection">
-					 <td>{{${domainClass.propertyName}.id}}</td>\
+                    <td class="text-left">
+                        <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.view({id:${domainClass.propertyName}.id})">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger btn-xs" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+					 <td>{{::${domainClass.propertyName}.id}}</td>\
 					<%for (p in props) {%>
 			   		${renderFieldRow(p, domainClass)}\
 				 	<%}%>
-				 	
-		            <td class="text-right">
-		            	<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.view({id:${domainClass.propertyName}.id})">
-		            		<i class="fa fa-eye" translate="pages.${domainClass.shortName}.list.view"></i>
-		            	</a>
-		            	<a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
-		            		<i class="fa fa-edit" translate="pages.${domainClass.shortName}.list.edit"></i>
-		            	</a>
-		            	<a class="btn btn-danger btn-xs" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
-		            		<i class="fa fa-trash-o" translate="pages.${domainClass.shortName}.list.delete" ></i>
-		            	</a>
-		            </td>
+
 				</tr>
 			</tbody>
               <tbody ng-show="isLoading">
