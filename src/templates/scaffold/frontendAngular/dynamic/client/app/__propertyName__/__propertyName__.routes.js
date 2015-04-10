@@ -55,14 +55,15 @@ modalRoutesDomainClasses.each{domainCl->
 %>
 .state('app.${domainClass.propertyName}.view.${domainCl.propertyName}Modal',{
 		url: '/modal/${domainCl.propertyName}/:modalId',
+		data:{
+			isModal:true
+		},
 		onEnter: function(\$stateParams, \$state, \$modal, \$resource) {
 			var modalId = \$stateParams.modalId
 			\$modal.open({
 				size:'lg',
 				templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.view.html',
-				data:{
-					isModal:true,
-				},
+
 				resolve: {
 					${domainCl.propertyName}Data: function(\$stateParams, ${domainCl.shortName}Service){
 							//TODO: Add parent (\$stateParams.id) to query
@@ -74,6 +75,8 @@ modalRoutesDomainClasses.each{domainCl->
 					}
 				},
 				controller: '${domainCl.shortName}ViewController',
+			}).result.finally(function() {
+				\$state.go('^');
 			});
 		}
 
