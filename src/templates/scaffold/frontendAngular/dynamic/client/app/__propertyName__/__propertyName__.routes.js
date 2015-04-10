@@ -47,6 +47,38 @@ angular.module('angularDemoApp')
 				}
 			}
 		})
+
+<%
+allProps = scaffoldingHelper.getProps(domainClass)
+modalRoutesDomainClasses = allProps.grep{p->p.manyToOne || p.oneToOne}.collect{it.referencedDomainClass}.unique()
+modalRoutesDomainClasses.each{domainCl->
+%>
+.state('app.${domainClass.propertyName}.view.${domainCl.propertyName}Modal',{
+		url: '/modal/${domainCl.propertyName}/:modalId',
+		onEnter: function(\$stateParams, \$state, \$modal, \$resource) {
+			var modalId = \$stateParams.modalId
+			\$modal.open({
+				size:'lg',
+				templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.view.html',
+				data:{
+					isModal:true,
+				},
+				resolve: {
+					${domainCl.propertyName}Data: function(\$stateParams, ${domainCl.shortName}Service){
+							//TODO: Add parent (\$stateParams.id) to query
+							return ${domainCl.shortName}Service.get({id:modalId}).\$promise.then(
+							function( response ){
+								return response;
+							}
+						);
+					}
+				},
+				controller: '${domainCl.shortName}ViewController',
+			});
+		}
+
+	})
+	<%}%>
 <%
 relationsProps = scaffoldingHelper.findRelationsProps(domainClass, domainClasses as List).collect{it.value}.unique()
 relationsProps.each{domainCl->

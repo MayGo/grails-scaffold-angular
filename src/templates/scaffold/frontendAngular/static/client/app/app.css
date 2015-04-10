@@ -186,4 +186,10 @@ body tags-input .tags {
   position: inherit !important;
 }
 
-
+/**
+* bootstrap modal backdrop fix
+*/
+.modal-backdrop{
+  bottom: 0;
+  position: fixed;
+}
