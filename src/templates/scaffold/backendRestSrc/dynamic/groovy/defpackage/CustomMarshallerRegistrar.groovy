@@ -1,7 +1,10 @@
 package defpackage
 
 import grails.converters.JSON
+import org.apache.commons.lang.time.FastDateFormat
 import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
+import org.codehaus.groovy.grails.web.converters.marshaller.json.DateMarshaller
+
 <%
 allDomainClasses.each{
 	println "import ${it.fullName}"
@@ -90,9 +93,10 @@ class CustomMarshallerRegistrar {
 	@javax.annotation.PostConstruct
     static void registerMarshallers() {
 		int priority = 10
-		JSON.registerObjectMarshaller(Date) {
-			return it?.time
-		}
+		def customDateMarshaller = new DateMarshaller(FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZ",
+				TimeZone.getDefault(), Locale.getDefault()))
+		JSON.registerObjectMarshaller(customDateMarshaller)
+
 <%
 
 	for(d in allDomainClasses){

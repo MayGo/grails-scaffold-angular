@@ -1,5 +1,5 @@
 package defpackage
-import grails.util.Holders
+
 import java.text.SimpleDateFormat
 
 trait TestUtils {
@@ -8,10 +8,11 @@ trait TestUtils {
 	SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
 	Date today = new Date().clearTime()
 
-	String getTodayForInput(){
+	String getTodayForInput() {
 		return inputFormat.format(today)
 	}
-	String getTodayForOutput(){
+
+	String getTodayForOutput() {
 		//return outputFormat.format(today)
 		return today.time
 	}

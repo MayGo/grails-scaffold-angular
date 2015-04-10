@@ -283,7 +283,7 @@ private String renderAutocomplete(owningClass, p, cp, parentProperty) {
     String parentIdName = (parentProperty?.component) ? parentProperty.name + '_' : ''
     String acFunctionName = (cp.format)?:p.name
     if(parentProperty){
-        acFunctionName = (parentProperty?.cp?.format)?:parentProperty.name
+        acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
     }
 
     String templStr="""

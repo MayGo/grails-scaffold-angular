@@ -1,129 +1,133 @@
 <!doctype html>
-<!--[if lt IE 7]>			<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>				 <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>				 <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<script type="text/javascript">
-		document.write("<base href='" + location.href+ "' />");
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<script type="text/javascript">
+		document.write("<base href='" + location.href + "' />");
 	</script>
-		<title translate="app.name"></title>
-		<meta name="description" content="">
-		<meta name="viewport" content="width=device-width">
+	<title translate="app.name"></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
 
-		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-		<!-- build:css(client) app/vendor.css -->
-			<!-- bower:css -->
-			<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-			<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-			<!-- endbower -->
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<!-- build:css(client) app/vendor.css -->
+	<!-- bower:css -->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+	<!-- endbower -->
 
 	<!-- Theme style -->
-			<!-- Ionicons -->
-			<link href="//code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-			<!-- Morris chart -->
-			<link href="assets/css/morris/morris.css" rel="stylesheet" type="text/css" />
-			<!-- jvectormap -->
-			<link href="assets/css/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
-	 
-			<link href="assets/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
-			<!-- Theme style -->
-			<link href="bower_components/angular-loading-bar/build/loading-bar.min.css" rel="stylesheet" type="text/css" />
-			<link href="bower_components/angular-inform/dist/angular-inform.min.css" rel="stylesheet" type="text/css"	/>
+	<!-- Ionicons -->
+	<link href="//code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet" type="text/css"/>
+	<!-- Morris chart -->
+	<link href="assets/css/morris/morris.css" rel="stylesheet" type="text/css"/>
+	<!-- jvectormap -->
+	<link href="assets/css/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css"/>
 
-			<link href="assets/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-			<!-- injector:css -->
-			<link rel="stylesheet" href="app/app.css">
-			<link rel="stylesheet" href="shared/modal/modal.css">
-			<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" type="text/css" />
-			<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css" type="text/css" />
-			<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css"	/>
-			<link rel="stylesheet" href="bower_components/ngToggle/ng-toggle.css" type="text/css"	/>
-            <link  href="bower_components/json-edit/css/styles.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css"/>
+	<!-- Theme style -->
+	<link href="bower_components/angular-loading-bar/build/loading-bar.min.css" rel="stylesheet" type="text/css"/>
+	<link href="bower_components/angular-inform/dist/angular-inform.min.css" rel="stylesheet" type="text/css"/>
 
-			<!-- endinjector -->
-		<!-- endbuild -->
-	</head>
-	<body ng-app="angularDemoApp" class="skin-blue" ui-view="">
-		<!--[if lt IE 7]>
-			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-		<![endif]-->
+	<link href="assets/css/AdminLTE.css" rel="stylesheet" type="text/css"/>
+	<!-- injector:css -->
+	<link rel="stylesheet" href="app/app.css">
+	<link rel="stylesheet" href="shared/modal/modal.css">
+	<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" type="text/css"/>
+	<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css" type="text/css"/>
+	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css"/>
+	<link rel="stylesheet" href="bower_components/ngToggle/ng-toggle.css" type="text/css"/>
+	<link href="bower_components/json-edit/css/styles.css" rel="stylesheet" type="text/css"/>
+	<!-- endinjector -->
+	<!-- endbuild -->
+</head>
+<body ng-app="angularDemoApp" class="skin-blue" ui-view="">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+	your browser</a> to improve your experience.</p>
+<![endif]-->
 
-		<!-- Add your site or application content here -->
-		<!--[if lt IE 9]>
-		<script src="bower_components/es5-shim/es5-shim.js"></script>
-		<script src="bower_components/json3/lib/json3.min.js"></script>
-		<![endif]-->
-		<!-- build:js({client,node_modules}) app/vendor.js -->
-			<!-- bower:js -->
-			<script src="bower_components/jquery/dist/jquery.js"></script>
-            <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-			<script src="bower_components/angular/angular.js"></script>
-            <script src="bower_components/angular-ui-sortable/sortable.min.js"></script>
-			<script src="bower_components/angular-animate/angular-animate.js"></script>
-			<script src="bower_components/angular-resource/angular-resource.js"></script>
-			<script src="bower_components/angular-cookies/angular-cookies.js"></script>
-			<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-			<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-			<script src="bower_components/lodash/dist/lodash.compat.js"></script>
-			<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-			<script src="bower_components/angular-auto-validate/dist/jcs-auto-validate.min.js"></script>
-			<script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
-			<script src="bower_components/angular-inform/dist/angular-inform.min.js"></script>
-			<script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
-			<script src="bower_components/angular-touch/angular-touch.min.js"></script>
-    		<script src="bower_components/ngstorage/ngStorage.min.js"></script>
-    		<script src="bower_components/angular-translate/angular-translate.min.js"></script>
-    		<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
-    		<script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
-    		<script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
-    		<script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
-    		<script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
-    		<script src="bower_components/angular-fullscreen/src/angular-fullscreen.js"></script>
-    		<script src="bower_components/satellizer/satellizer.min.js"></script>
-    		<script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
-			<script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
-			<script src="bower_components/ngToggle/ng-toggle.js"></script>
-			<script src="bower_components/angular-mocks/angular-mocks.js"></script>
-            <script src="bower_components/angular-permission/dist/angular-permission.js"></script>
-            <script src="bower_components/json-edit/js/directives.js"></script>
-			<!-- endbower -->
-		<!-- endbuild -->
-	
-		<!-- build:js({.tmp,client}) app/app.js -->
-        	<script src="app/app.js"></script>
-        	<script src="app/app.service.js"></script>
-        	<script src="app/app.controller.js"></script>
-        	<script src="app/dashboard/dashboard.controller.js"></script>
-        	<script src="app/dashboard/dashboard.js"></script>
-            <script src="app/error/error.controller.js"></script>
-            <script src="app/error/error.js"></script>
-        	<script src="app/search/search.controller.js"></script>
-        	<script src="app/search/search.js"></script>
-			<!-- injector:js -->
-			<script src="app/login/login.controller.js"></script>
-			<script src="app/login/login.js"></script>
-			<script src="app/logout/logout.controller.js"></script>
-			<script src="app/logout/logout.js"></script>
-            <script src="app/session/session.service.js"></script>
-            <script src="app/settings/settings.controller.js"></script>
-			<script src="app/settings/settings.js"></script>
-    		<script src="shared/directives/menu.directive.js"></script>
-    		<script src="shared/directives/smarttable.customstsearch.directive.js"></script>
-			<script src="shared/directives/show-loading.directive.js"></script>
-            <script src="shared/modal/modal.service.js"></script>
-            <script src="shared/navbar/navbar.controller.js"></script>
+<!-- Add your site or application content here -->
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.min.js"></script>
+<![endif]-->
+<!-- build:js({client,node_modules}) app/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-ui-sortable/sortable.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/lodash/dist/lodash.compat.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-auto-validate/dist/jcs-auto-validate.min.js"></script>
+<script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+<script src="bower_components/angular-inform/dist/angular-inform.min.js"></script>
+<script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+<script src="bower_components/angular-touch/angular-touch.min.js"></script>
+<script src="bower_components/ngstorage/ngStorage.min.js"></script>
+<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+<script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+<script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+<script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+<script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+<script src="bower_components/angular-fullscreen/src/angular-fullscreen.js"></script>
+<script src="bower_components/satellizer/satellizer.min.js"></script>
+<script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
+<script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+<script src="bower_components/ngToggle/ng-toggle.js"></script>
+<script src="bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="bower_components/angular-permission/dist/angular-permission.js"></script>
+<script src="bower_components/json-edit/js/directives.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,client}) app/app.js -->
+<script src="app/app.js"></script>
+<script src="app/app.service.js"></script>
+<script src="app/app.controller.js"></script>
+<script src="app/dashboard/dashboard.controller.js"></script>
+<script src="app/dashboard/dashboard.js"></script>
+<script src="app/error/error.controller.js"></script>
+<script src="app/error/error.js"></script>
+<script src="app/search/search.controller.js"></script>
+<script src="app/search/search.js"></script>
+<!-- injector:js -->
+<script src="app/login/login.controller.js"></script>
+<script src="app/login/login.js"></script>
+<script src="app/logout/logout.controller.js"></script>
+<script src="app/logout/logout.js"></script>
+<script src="app/session/session.service.js"></script>
+<script src="app/settings/settings.controller.js"></script>
+<script src="app/settings/settings.js"></script>
+<script src="shared/directives/menu.directive.js"></script>
+<script src="shared/directives/smarttable.customstsearch.directive.js"></script>
+<script src="shared/directives/show-loading.directive.js"></script>
+<script src="shared/modal/modal.service.js"></script>
+<script src="shared/navbar/navbar.controller.js"></script>
 <%for(d in domainClasses){%>
-			<script src="app/${d.propertyName}/${d.propertyName}.routes.js"></script>
-			<script src="app/${d.propertyName}/${d.propertyName}.edit.controller.js"></script>
-			<script src="app/${d.propertyName}/${d.propertyName}.list.controller.js"></script>
-			<script src="app/${d.propertyName}/${d.propertyName}.view.controller.js"></script>
-			<script src="app/${d.propertyName}/${d.propertyName}.service.js"></script>
+<script src="app/${d.propertyName}/${d.propertyName}.routes.js"></script>
+<script src="app/${d.propertyName}/${d.propertyName}.edit.controller.js"></script>
+<script src="app/${d.propertyName}/${d.propertyName}.list.controller.js"></script>
+<script src="app/${d.propertyName}/${d.propertyName}.view.controller.js"></script>
+<script src="app/${d.propertyName}/${d.propertyName}.service.js"></script>
 <%}%>
 
-			<!-- endinjector -->
-		<!-- endbuild -->
+<!-- endinjector -->
+<!-- endbuild -->
 </body>
 </html>

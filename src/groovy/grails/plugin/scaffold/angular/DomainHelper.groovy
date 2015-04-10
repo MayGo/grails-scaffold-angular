@@ -1,9 +1,7 @@
 package grails.plugin.scaffold.angular
 
 import grails.buildtestdata.BuildTestDataService
-import grails.buildtestdata.DomainInstanceBuilder
 import grails.buildtestdata.handler.ConstraintHandlerException
-import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
 import org.codehaus.groovy.grails.commons.GrailsClass
 import org.codehaus.groovy.grails.orm.hibernate.cfg.CompositeIdentity
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsDomainBinder
@@ -30,8 +28,8 @@ class DomainHelper {
 			inst = cachedInstances[groupKey]
 		} else {
 
-			if(domainClazz.metaClass.respondsTo(domainClazz, 'withNewTransaction')) {
-				try{
+			if (domainClazz.metaClass.respondsTo(domainClazz, 'withNewTransaction')) {
+				try {
 					domainClazz.withNewTransaction { status ->
 						try {
 							inst = domainClazz.buildWithoutSave()
@@ -53,7 +51,7 @@ class DomainHelper {
 
 
 				cachedInstances[groupKey] = inst
-			}else{
+			} else {
 				//println "$domainClazz not domain instance"
 			}
 		}
@@ -64,7 +62,7 @@ class DomainHelper {
 	static updateRequiredPropertyNames(def domainClass) {
 		if (!buildTestDataService) {
 			def domainClazz = domainClass.clazz
-			buildTestDataService =  domainClazz.metaClass.getMetaMethod("buildWithoutSave", [GrailsClass] as Class[]).getClosure().delegate
+			buildTestDataService = domainClazz.metaClass.getMetaMethod("buildWithoutSave", [GrailsClass] as Class[]).getClosure().delegate
 
 			// Generate data for not required properties also
 			def findRequiredPropertyNames = { domainArtefact ->
@@ -75,7 +73,7 @@ class DomainHelper {
 					propNames.contains(propName) || !constrainedProperties."$propName".isNullable()
 				}
 			}
-			buildTestDataService.domainInstanceBuilders.each{k, v->
+			buildTestDataService.domainInstanceBuilders.each { k, v ->
 				v.requiredPropertyNames = findRequiredPropertyNames(k)
 			}
 		}

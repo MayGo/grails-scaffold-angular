@@ -17,8 +17,9 @@ class ConstraintHelper {
 	static String getCreditCard(Boolean valid) {
 		valid ? '4111111111111111' : '41014'
 	}
+
 	static BigDecimal getScale(int scale) {
-		new BigDecimal( 120, scale )
+		new BigDecimal(120, scale)
 	}
 
 	static void validateConstraints(obj, field, error) {

@@ -25,7 +25,7 @@ module.exports = function(){
 	String renderAutocompleteMock(p, owningClass, parentProperty = null){
 		def dClass = (p.component)?:owningClass
 		String parentVarName = (parentProperty?.component) ? parentProperty.name + '_': ''
-		String acFunctionName = (p.cp.format)?:p.name
+		String acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
 		def inst = DomainHelper.createOrGetInst(dClass, 1)
 
 		def val = (inst) ?: []

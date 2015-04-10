@@ -123,12 +123,13 @@ private String renderManyToOne(owningClass, p, parentProperty) {
     String str = """<!--ManyToOne-->
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
+            <a ng-click="openModal('${parentProperty.name}')">
             <div class="col-sm-10 form-control-static">
             """
     useDisplaynames.each{ key, value->
         str += """<span ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}.${key}"></span> """
     }
-    str += """</div></div>
+    str += """</div></a></div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
     
@@ -161,7 +162,9 @@ private String renderOneToMany(owningClass, p, parentProperty) {
     return """<!--OneToMany-->
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
+            <a class="col-sm-10 form-control-static"
+               ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></a>
+
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
@@ -201,7 +204,7 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
         def embeddedProps = scaffoldingHelper.getProps(parentProperty.component).grep{it.cp?.display != false &&it.cp?.editable != false && it.name!= 'id'}
         displayParentPropName =(embeddedProps.size()==1)
 
-        acFunctionName = (parentProperty?.cp?.format)?:parentProperty.name
+        acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
     }
 
     String translateStr = "pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"

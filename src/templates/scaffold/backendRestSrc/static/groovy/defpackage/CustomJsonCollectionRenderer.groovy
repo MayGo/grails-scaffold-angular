@@ -1,11 +1,10 @@
 package defpackage
 
-import grails.rest.render.json.JsonRenderer
 import grails.converters.JSON
 import grails.rest.render.ContainerRenderer
 import grails.rest.render.RenderContext
+import grails.rest.render.json.JsonRenderer
 import groovy.transform.CompileStatic
-
 import org.codehaus.groovy.grails.web.mime.MimeType
 
 @CompileStatic

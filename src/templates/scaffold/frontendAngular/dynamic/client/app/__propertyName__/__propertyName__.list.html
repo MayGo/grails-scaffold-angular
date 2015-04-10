@@ -271,7 +271,7 @@ private String renderAutocomplete(owningClass, p, parentProperty) {
         def embeddedProps = scaffoldingHelper.getProps(parentProperty.component).grep{it.cp?.display != false &&it.cp?.editable != false && it.name!= 'id'}
         displayParentPropName =(embeddedProps.size()==1 || parentProperty.cp.widget == 'autocomplete')
 
-        acFunctionName = (parentProperty?.cp?.format)?:parentProperty.name
+        acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
     }
     String translateStr = "pages.${domainClass.shortName}.list.search.placeholder.${parentPropName}${p.name}"
     if(displayParentPropName)translateStr = "pages.${domainClass.shortName}.list.table.embeddedSearch.${parentProperty.name}.title"

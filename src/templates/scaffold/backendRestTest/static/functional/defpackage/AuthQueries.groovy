@@ -1,8 +1,8 @@
 package defpackage
 
 import grails.plugins.rest.client.RestBuilder
-import grails.util.Holders
 import grails.plugins.rest.client.RestResponse
+import grails.util.Holders
 
 trait AuthQueries {
 
@@ -10,9 +10,9 @@ trait AuthQueries {
 
 	static final String APP_URL = Holders.config.grails.serverURL
 
-	static final String USERNAME = (Holders.config.functionalTest.userName)?:'john'
-	static final String PASSWORD = (Holders.config.functionalTest.password)?:'john'
-	
+	static final String USERNAME = (Holders.config.functionalTest.userName) ?: 'john'
+	static final String PASSWORD = (Holders.config.functionalTest.password) ?: 'john'
+
 	RestResponse loginToApp(String serviceUrl, String passwordStr, String usernameStr) {
 		restBuilder.post("${serviceUrl}/api/login") {
 			json {

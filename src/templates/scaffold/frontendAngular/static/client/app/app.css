@@ -38,18 +38,19 @@
     padding: 0.2em 0;
 }
 
+/**
+* Form validation
+*/
 
-
-.form-validation .form-control.ng-dirty.ng-invalid {
+.form-validation .ng-invalid {
   border-color: #f05050;
 }
 
-.form-validation .form-control.ng-dirty.ng-valid,
-.form-validation .form-control.ng-dirty.ng-valid:focus {
+.form-validation .ng-valid:focus {
   border-color: #27c24c;
 }
 
-.form-validation .i-checks .ng-invalid.ng-dirty + i {
+.form-validation .i-checks .ng-dirty + i {
   border-color: #f05050;
 }
 
@@ -176,6 +177,13 @@ body tags-input .tags {
 .st-selected{
     background: #216eff !important;
     color: white !important;
+}
+
+
+
+
+.settings{
+  position: inherit !important;
 }
 
 
