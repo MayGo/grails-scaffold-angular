@@ -94,6 +94,8 @@ angular.module('angularDemoApp')
     	\$scope.isEditForm = (\$stateParams.id)?true:false;
 
 		\$scope.${domainClass.propertyName} = ${domainClass.propertyName}Data;
+
+
 	    \$scope.submit = function(frmController) {
 			var deferred = \$q.defer();
 	    	var errorCallback = function(response){

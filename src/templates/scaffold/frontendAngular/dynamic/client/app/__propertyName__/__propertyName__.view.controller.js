@@ -3,6 +3,7 @@
 angular.module('angularDemoApp')
     .controller('${domainClass.shortName}ViewController', function (\$scope, \$state, \$stateParams, \$translate, inform, ${domainClass.shortName}Service, ${domainClass.propertyName}Data) {
 	 	\$scope.${domainClass.propertyName} = ${domainClass.propertyName}Data;
+
 		if(\$state.current.data){
 			\$scope.isModal = \$state.current.data.isModal;
 		}

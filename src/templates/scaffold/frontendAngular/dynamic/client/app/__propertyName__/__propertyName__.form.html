@@ -235,7 +235,11 @@ private String renderManyToOne(owningClass, p, cp, parentProperty) {
       """
       
      if (isRequired(cp)) str += " required"
-     str += """ /></div> """
+     str += """ />
+         <span class="input-group-btn" item-selector update-model="${domainClass.propertyName}.${parentPropName}${p.name}"
+               ui-link="app.${domainClass.propertyName}.edit.${p.referencedDomainClass.propertyName}SearchModal({modalId:${owningClass.propertyName}.${parentPropName}${p.name}.id})" >
+         </span>
+     </div> """
      str +=templStr;
      return str;
 }

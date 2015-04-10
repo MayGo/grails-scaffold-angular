@@ -53,21 +53,22 @@ allProps = scaffoldingHelper.getProps(domainClass)
 modalRoutesDomainClasses = allProps.grep{p->p.manyToOne || p.oneToOne}.collect{it.referencedDomainClass}.unique()
 modalRoutesDomainClasses.each{domainCl->
 %>
-.state('app.${domainClass.propertyName}.view.${domainCl.propertyName}Modal',{
+	.state('app.${domainClass.propertyName}.view.${domainCl.propertyName}Modal',{
 		url: '/modal/${domainCl.propertyName}/:modalId',
 		data:{
 			isModal:true
 		},
 		onEnter: function(\$stateParams, \$state, \$modal, \$resource) {
-			var modalId = \$stateParams.modalId
+			var modalId = \$stateParams.modalId;
+
 			\$modal.open({
 				size:'lg',
 				templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.view.html',
 
 				resolve: {
 					${domainCl.propertyName}Data: function(\$stateParams, ${domainCl.shortName}Service){
-							//TODO: Add parent (\$stateParams.id) to query
-							return ${domainCl.shortName}Service.get({id:modalId}).\$promise.then(
+						//TODO: Add parent (\$stateParams.id) to query
+						return ${domainCl.shortName}Service.get({id:modalId}).\$promise.then(
 							function( response ){
 								return response;
 							}
@@ -75,11 +76,29 @@ modalRoutesDomainClasses.each{domainCl->
 					}
 				},
 				controller: '${domainCl.shortName}ViewController',
-			}).result.finally(function() {
+			}).result.finally(function(item) {
+				console.log(item)
 				\$state.go('^');
 			});
+
 		}
 
+	}).state('app.${domainClass.propertyName}.edit.${domainCl.propertyName}SearchModal',{
+		url: '/search/${domainCl.propertyName}/:modalId',
+
+		data:{
+			isModal:true
+		},
+		onEnter: function(\$stateParams, \$state, \$modal, \$resource, \$rootScope, ItemSelectorService) {
+			var modalId = \$stateParams.modalId;
+			//\$stateParams.relationName = 'id';
+			var settings ={
+				templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html',
+				controller: '${domainCl.shortName}ListController'
+			}
+
+			ItemSelectorService.openModal(settings);
+		}
 	})
 	<%}%>
 <%

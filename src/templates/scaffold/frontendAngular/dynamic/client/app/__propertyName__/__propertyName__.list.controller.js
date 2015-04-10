@@ -1,7 +1,14 @@
 'use strict';
 
 angular.module('angularDemoApp')
-	.controller('${domainClass.shortName}ListController', function (\$scope, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout) {
+	.controller('${domainClass.shortName}ListController', function (\$scope, \$rootScope, \$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout) {
+
+	if(\$state.current.data){
+		\$scope.isModal = \$state.current.data.isModal;
+	}
+
+	
+
 		
 	\$scope.delete${domainClass.shortName} = function(instance){
 		return ${domainClass.shortName}Service.deleteInstance(instance).then(function(instance){

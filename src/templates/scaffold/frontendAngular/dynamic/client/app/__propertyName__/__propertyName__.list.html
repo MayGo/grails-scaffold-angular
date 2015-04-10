@@ -365,7 +365,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
         %>
     </accordion-group>
 </accordion>
-        <div class="box-tools pull-right">
+        <div class="box-tools pull-right" ng-if="!isModal">
             <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.create">
                 <i class="fa fa-plus" translate="pages.${domainClass.shortName}.list.new" mx-show-loading></i>
             </a>
@@ -385,15 +385,18 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 	      	</thead>
 	      	<tbody ng-hide="isLoading">
 				<tr ng-repeat="${domainClass.propertyName} in rowCollection">
-                    <td class="text-left">
-                        <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.view({id:${domainClass.propertyName}.id})">
+                    <td class="text-left" >
+                        <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.view({id:${domainClass.propertyName}.id})" ng-if="!isModal">
                             <i class="fa fa-eye"></i>
                         </a>
-                        <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})">
+                        <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.edit({id:${domainClass.propertyName}.id})" ng-if="!isModal">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a class="btn btn-danger btn-xs" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
+                        <a class="btn btn-danger btn-xs" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading ng-if="!isModal">
                             <i class="fa fa-trash-o"></i>
+                        </a>
+                        <a class="btn btn-default btn-xs" ng-click="selectItem(${domainClass.propertyName})" ng-if="isModal">
+                            <i class="fa fa-edit"></i>
                         </a>
                     </td>
 					 <td>{{::${domainClass.propertyName}.id}}</td>\
@@ -410,7 +413,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
               </tbody>
 			<tfoot ng-hide="isLoading">
 	          <tr>
-	            <td colspan="10" class="text-center">
+	            <td colspan="10" class="text-center" >
 	              <div st-pagination="" st-items-by-page="stTable.itemsByPage" st-displayed-pages="15" ></div>
 	            </td>
 	          </tr>

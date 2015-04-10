@@ -298,10 +298,7 @@ relationsProps.each{property, domainCl->
 if(relationsProps){
         %>
     </tabset>
-    <div ui-view ><div class="wrapper-md bg-white-only ng-scope">{{::'pages.${domainClass.shortName}.view.selecttab' |
-        translate}}</div></div>
+    <div ui-view ><div class="wrapper-md bg-white-only ng-scope">{{::'pages.${domainClass.shortName}.view.selecttab' | translate}}</div></div>
 </div>
-    <%
-    }
-    %>
+    <%} %>
 
