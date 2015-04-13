@@ -27,11 +27,8 @@ angular.module('angularDemoApp').factory('ItemSelectorService', function ($state
       if (item) {
         settings.scope.updateModel = item;
       }
-    }, function(){})
+    })
 
-    modalInstance.result.finally(function () {
-
-    });
   }
 
   return service;

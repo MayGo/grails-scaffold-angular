@@ -27,10 +27,6 @@ angular.module('angularDemoApp').directive('itemSelector', function (ItemSelecto
 
         ItemSelectorService.openModal(settings);
       }
-    },
-
-    link: function (scope, element) {
-
     }
   };
 });
