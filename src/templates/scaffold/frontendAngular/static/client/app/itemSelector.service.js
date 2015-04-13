@@ -7,9 +7,9 @@ angular.module('angularDemoApp').factory('ItemSelectorService', function ($state
   var service = {};
   var modalInstance;
 
-  service.closeModal = function () {
+  service.closeModal = function (item) {
     if (modalInstance) {
-      modalInstance.close();
+      modalInstance.close(item);
     }
     modalInstance = null;
   }
@@ -23,10 +23,14 @@ angular.module('angularDemoApp').factory('ItemSelectorService', function ($state
       templateUrl: settings.templateUrl,
       controller: settings.controller
     })
+    modalInstance.result.then(function (item) {
+      if (item) {
+        settings.scope.updateModel = item;
+      }
+    }, function(){})
 
     modalInstance.result.finally(function () {
-      $rootScope.$emit('select-and-close-modal');
-      $state.go('^');
+
     });
   }
 

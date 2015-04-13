@@ -77,7 +77,6 @@ modalRoutesDomainClasses.each{domainCl->
 				},
 				controller: '${domainCl.shortName}ViewController',
 			}).result.finally(function(item) {
-				console.log(item)
 				\$state.go('^');
 			});
 
