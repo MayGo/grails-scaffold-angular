@@ -84,21 +84,8 @@ modalRoutesDomainClasses.each{domainCl->
 		}
 
 	}).state('app.${domainClass.propertyName}.edit.${domainCl.propertyName}SearchModal',{
-		url: '/search/${domainCl.propertyName}/:modalId',
-
-		data:{
-			isModal:true
-		},
-		onEnter: function(\$stateParams, \$state, \$modal, \$resource, \$rootScope, ItemSelectorService) {
-			var modalId = \$stateParams.modalId;
-			//\$stateParams.relationName = 'id';
-			var settings ={
-				templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html',
-				controller: '${domainCl.shortName}ListController'
-			}
-
-			ItemSelectorService.openModal(settings);
-		}
+		templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html',
+		controller: '${domainCl.shortName}ListController'
 	})
 	<%}%>
 <%

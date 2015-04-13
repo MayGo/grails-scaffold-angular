@@ -6,21 +6,19 @@ angular.module('angularDemoApp').factory('ItemSelectorService', function ($state
   var updateModel;
   var service = {};
   var modalInstance;
-  var scope
+
   service.closeModal = function () {
     if (modalInstance) {
       modalInstance.close();
     }
     modalInstance = null;
   }
-  service.setScope = function (s) {
-    scope = s;
-  }
+
   service.openModal = function (settings) {
     selectedItem = null;
     updateModel = null;
     modalInstance = $modal.open({
-      scope: scope,
+      scope: settings.scope,
       size: 'lg',
       templateUrl: settings.templateUrl,
       controller: settings.controller
