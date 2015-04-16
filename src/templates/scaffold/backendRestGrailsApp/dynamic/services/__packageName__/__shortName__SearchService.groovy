@@ -34,7 +34,7 @@ private renderSearchRow(p, parentProperty = null){
 				if(filter['${parentPropName}${p.name}'].toString().isNumber()){
 					d = new Date(filter['${parentPropName}${p.name}'].toString().toLong())
 				}else{
-					String inputFormat = "yyyy-MM-dd HH:mm:ss.SSSZ"
+					String inputFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 					d = Date.parse(inputFormat, filter['${parentPropName}${p.name}'].toString())
 				}
 
