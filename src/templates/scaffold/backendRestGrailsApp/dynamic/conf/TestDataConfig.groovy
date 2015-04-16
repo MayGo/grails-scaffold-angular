@@ -1,7 +1,7 @@
 String inputFormat = "yyyy-MM-dd"
 testDataConfig {
 	sampleData {
-		< %
+		<%
 		import java.text.SimpleDateFormat
 		allDomainClasses.each { dClass ->
 			allProps = scaffoldingHelper.getProps(dClass)
@@ -44,6 +44,6 @@ testDataConfig {
 			}
 			println "\t\t}"
 		}
-		% >
+		%>
 	}
 }
