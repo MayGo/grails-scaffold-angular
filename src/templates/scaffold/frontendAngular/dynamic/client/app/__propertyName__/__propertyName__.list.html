@@ -2,13 +2,12 @@
     allProps = scaffoldingHelper.getProps(domainClass)
     props = allProps.findAll{p->!p.embedded && !p.oneToMany && !p.manyToMany}.grep{it.cp?.display != false}
     allEmbeddedProps = allProps.findAll{p->p.embedded}.grep{it.cp?.display != false}
-%>
-<%
+
 private renderFieldRow(p, owningClass) {
     if (p.type && p.isEnum()){
         return "<td>{{::${owningClass.propertyName}.${p.name}}}</td>"
     }else if (p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
-return "<td>{{${owningClass.propertyName}.${p.name} | date:'yyyy-MM-dd HH:mm'}}</td>"
+        return "<td>{{${owningClass.propertyName}.${p.name} | date:'yyyy-MM-dd HH:mm'}}</td>"
     }else if (p.manyToOne || p.oneToOne){
         Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
         if(!useDisplaynames) useDisplaynames = ["id":null]
@@ -23,13 +22,11 @@ return "<td>{{${owningClass.propertyName}.${p.name} | date:'yyyy-MM-dd HH:mm'}}<
         return "<td>{{::${owningClass.propertyName}.${p.name}}}</td>"
     }
 }
-%>
-<%
+
 private renderFieldHeader(p, owningClass) {
 	return """<th st-sort="${p.name}" translate="pages.${domainClass.shortName}.list.table.header.${p.name}" ></th>"""
 }
-%>
-<%
+
 
 //####################### SEARCH ###################################
 
@@ -316,7 +313,6 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 
 //####################### SEARCH ###################################
 %>
-
 <div id="${domainClass.propertyName}_list" ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'"
      data-ng-include=" 'shared/blocks/page_heading.html' "></div>
 <div class="wrapper-md bg-white-only ">
@@ -363,15 +359,16 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
         }
     }
         %>
-    </accordion-group>
-</accordion>
+            </accordion-group>
+        </accordion>
         <div class="box-tools pull-right" ng-if="!isModal">
             <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.create">
                 <i class="fa fa-plus" translate="pages.${domainClass.shortName}.list.new" mx-show-loading></i>
             </a>
         </div>
-        <div class="clearfix"/>
-        <div class = "list-search-table">
+
+        <div class="clearfix"></div>
+        <div class="list-search-table">
 	      <table class="table table-responsive">
 	      	<thead>
 	      		<tr>
