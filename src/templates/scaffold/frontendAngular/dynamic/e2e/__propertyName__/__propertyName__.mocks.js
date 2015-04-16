@@ -17,6 +17,7 @@ module.exports = function(){
 
 	import grails.plugin.scaffold.angular.DomainHelper
 	import grails.converters.JSON
+	import static java.lang.reflect.Modifier.isStatic
 
 	allProps = scaffoldingHelper.getProps(domainClass)
 	props = allProps
@@ -26,10 +27,9 @@ module.exports = function(){
 		def dClass = (p.component)?:owningClass
 		String parentVarName = (parentProperty?.component) ? parentProperty.name + '_': ''
 		String acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
-		def inst = DomainHelper.createOrGetInst(dClass, 1)
+		def inst = DomainHelper.createOrGetInst(dClass, 1, owningClass, p)
 
 		def val = (inst) ?: []
-
 		def json = val as JSON
 		jsonData = json.toString()
 
@@ -40,6 +40,7 @@ module.exports = function(){
 			\$httpBackend.whenGET(${parentVarName}${p.name}Re).respond(function(method, url){return [200, [$jsonData]]});//list
 			"""
 	}
+
 
 	props.each{p->
 			if(p.cp.widget == 'autocomplete'){

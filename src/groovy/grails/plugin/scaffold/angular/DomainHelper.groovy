@@ -7,6 +7,7 @@ import org.codehaus.groovy.grails.orm.hibernate.cfg.CompositeIdentity
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsDomainBinder
 
 import java.text.SimpleDateFormat
+import static java.lang.reflect.Modifier.isStatic
 
 class DomainHelper {
 
@@ -56,6 +57,21 @@ class DomainHelper {
 			}
 		}
 
+		return inst
+	}
+	static def createOrGetInst(def dClass, int groupId, def fallbackDomainClass, def p) {
+		def inst = createOrGetInst(dClass, groupId)
+		if(!inst){
+			//Search from fallbackDomainclass
+			// Use case: if domainclass has embeddedproperty that itself is not domainclass
+			def mainInst = DomainHelper.createOrGetInst(fallbackDomainClass, 1)
+			mainInst = (mainInst)?mainInst["${p.name}"]:null
+			if(mainInst){
+				inst = mainInst.class.declaredFields.findAll { !it.synthetic && !isStatic(it.modifiers) }.collectEntries {
+					[ (it.name):mainInst."$it.name" ]
+				}
+			}
+		}
 		return inst
 	}
 

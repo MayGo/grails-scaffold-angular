@@ -12,40 +12,52 @@ private renderFieldRowBind(p, owningClass, parentProperty = null) {
 	}else{
 		println "\t\texpect(page.${parentVarName}${p.name}ViewEl).toBeDefined()"
 	}
-
 }
 
 private renderFieldSendKeys(p, owningClass, inst, parentProperty = null) {
 	String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
 	String parentVarName = (parentProperty?.component) ? parentProperty.name + '_': ''
 
-	def realVal = ""
+	Closure findAllValuesFromMap
+	findAllValuesFromMap = {map->
+		String str = ""
+		map.each{k, v->
+			if(v instanceof Map){
+				str += findAllValuesFromMap(v)
+			}else{
+				if(str){
+					str += ' ';
+				}
+				str += v
+			}
+		}
+		return str
+	}
 
-	if(p.type == Map || "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
+	def realVal = ""
+	if(p.cp.widget == 'autocomplete'){
+		Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(p.getType())
+
+		useDisplaynames.each{key, value->
+			if(realVal) realVal += " " + realVal
+
+			def val = inst."${p.name}"?."${key}"
+			if(val && val?.getClass() == Map || "${val?.getClass()?.name}" == "com.google.gson.internal.LinkedTreeMap"){
+				realVal +=findAllValuesFromMap(val)
+			}else if(val){
+				realVal += val; // Using only one value, because backend does not accept multistring for autocomplete
+			}
+		}
+	}else if(p.type == Map || "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
 
 		def val = inst."${p.name}"
 
-		Closure findAllValuesFromMap
 
-		findAllValuesFromMap = {map->
-			String str = ""
-			map.each{k, v->
-				if(v instanceof Map){
-					str += findAllValuesFromMap(v)
-				}else{
-					if(str){
-						str += ' ';
-					}
-					str += v
-				}
-			}
-			return str
-		}
 		if(val){
 			realVal = findAllValuesFromMap(val)
 		}
-
 	}else if(p.isAssociation()){
+
 		Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass,  p)
 		if(!useDisplaynames) useDisplaynames = ['id': null]
 		useDisplaynames.each{key, value->
@@ -57,7 +69,8 @@ private renderFieldSendKeys(p, owningClass, inst, parentProperty = null) {
 		realVal = (val.toString())?DomainHelper.getRealValueForInput(p, val):null
 	}
 
-	if(realVal.toString()){
+
+	if(realVal.toString() && realVal.toString()!='null'){//there can be also boolean true/false and 1, -1, 0
 		if(p.type == boolean || p.type == Boolean){
 			println "\t\tpage.${parentVarName}${p.name}El.click();"
 		}else if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
@@ -68,10 +81,9 @@ private renderFieldSendKeys(p, owningClass, inst, parentProperty = null) {
 			println "\t\tpage.${parentVarName}${p.name}El.sendKeys('$realVal');"
 		}
 	}else{
-		println "//no val for ${parentVarName}${p.name}"
+		println "\t\tpage.${parentVarName}${p.name}El.sendKeys('');//no val for ${parentVarName}${p.name}"
 	}
 }
-
 %>
 var helper = require('../utils/helper.js');
 describe('${domainClass.propertyName} create page', function() {
@@ -100,15 +112,21 @@ if(inst){
 		if(p.embedded){
 			def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false &&it.cp?.editable != false && it.name!= 'id'}
 			if(embeddedProps){
+
 				if(embeddedProps.size()>1) {
 					println	"\t\tpage.${p.name}AccordionEl.click()"
 				}
-				embeddedProps.each{ep->
-					def embeddedInst = DomainHelper.createOrGetInst(p.component, 1)
-					if(embeddedInst) {
+				def embeddedInst = DomainHelper.createOrGetInst(p.component, 1, domainClass, p)
+
+				if(embeddedInst) {
+					embeddedProps.each{ep ->
 						renderFieldSendKeys(ep, p.component, embeddedInst, p)
 					}
+				}else{
+					println "// no data for ${p.name}"
 				}
+			}else{
+				println "// no embeddedporps for ${p.name}"
 			}
 		}else{
 			renderFieldSendKeys(p, domainClass, inst)
