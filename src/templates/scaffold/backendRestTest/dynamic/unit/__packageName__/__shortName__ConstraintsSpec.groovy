@@ -1,6 +1,5 @@
 <%=packageName ? "package ${packageName}" : ''%>
 
-
 import grails.test.mixin.TestFor
 import spock.lang.Unroll
 import spock.lang.Specification
@@ -10,7 +9,8 @@ import defpackage.ConstraintHelper
 class ${className}ConstraintsSpec extends Specification {
 
 	def setup() {
-		//mock a ${className} with some data (put unique violations in here so they can be tested, the others aren't needed)
+		//mock a ${className} with some data
+		//(put unique violations in here so they can be tested, the others aren't needed)
 		mockForConstraintsTests( ${className}, [ new ${className}() ] )
 	}
 
@@ -31,6 +31,8 @@ class ${className}ConstraintsSpec extends Specification {
 
 import grails.converters.JSON
 import org.codehaus.groovy.grails.validation.ConstrainedProperty
+import grails.plugin.scaffold.angular.DomainHelper
+
 allProps = scaffoldingHelper.getProps(domainClass)
 uniqueProps = []
 boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
@@ -47,16 +49,7 @@ private def outputByType(def p, def val=''){
 		String dateStr = 'new Date().clearTime()'
 		str +="$dateStr"
 	}else if(p.type == Map || "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
-		val = (val) ?: []
-		def json = val as JSON
-		json.setPrettyPrint(true)
-		jsonData = json.toString()
-		jsonData = jsonData.replaceAll(/\{/, '[')
-		jsonData = jsonData.replaceAll(/\}/, ']')
-		jsonData = jsonData.replaceAll('"', "'")
-		jsonData = jsonData.replaceAll('\':', "\': ")
-		jsonData = jsonData.replaceAll(",'", ", '")
-		jsonData = jsonData.replaceAll("'\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+\\d{4}'","new Date().clearTime()")
+		String jsonData = DomainHelper.prettyJsonData(val)
 		str += "$jsonData"
 
 	}else{

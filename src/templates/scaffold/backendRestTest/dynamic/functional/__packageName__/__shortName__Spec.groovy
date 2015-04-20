@@ -155,17 +155,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 				if(isResp) {
 
 				}else{
-					val = (val) ?: []
-
-					def json = val as JSON
-					json.setPrettyPrint(true)
-					jsonData = json.toString()
-					jsonData = jsonData.replaceAll(/\{/, '[')
-					jsonData = jsonData.replaceAll(/\}/, ']')
-					jsonData = jsonData.replaceAll('"', "'")
-					jsonData = jsonData.replaceAll('\':', "\': ")
-					jsonData = jsonData.replaceAll(",'", ", '")
-					jsonData = jsonData.replaceAll("'\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+\\d{4}'","new Date().clearTime()")
+					String jsonData = DomainHelper.prettyJsonData(val)
 
 					str += "${p.name} $asign $jsonData\n"
 				}

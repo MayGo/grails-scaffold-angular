@@ -44,7 +44,7 @@ class TestDataGeneratorService {
 	def sessionFactory
 	def propertyInstanceMap = org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin.PROPERTY_INSTANCE_MAP
 
-	static int GENERATE_N_ITEMS = (Holders.config.generateTestDataAmount)?:150
+	static final int GENERATE_N_ITEMS = (Holders.config.generateTestDataAmount)?:150
 
 	void generate() {
 		log.info 'Generating test data.'

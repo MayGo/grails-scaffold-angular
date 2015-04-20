@@ -31,14 +31,14 @@ private renderSearchRow(p, parentProperty = null){
 			println """
 			if (filter['${parentPropName}${p.name}']) {
 				Date d
-				if(filter['${parentPropName}${p.name}'].toString().isNumber()){
+				if (filter['${parentPropName}${p.name}'].toString().isNumber()) {
 					d = new Date(filter['${parentPropName}${p.name}'].toString().toLong())
-				}else{
+				} else {
 					String inputFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
 					d = Date.parse(inputFormat, filter['${parentPropName}${p.name}'].toString())
 				}
 
-				between('${parentPropName}${p.name}', d, d+1)
+				between('${parentPropName}${p.name}', d, d + 1)
 			}"""
 		}else if (p.type == URL)
 			str += "//url"
@@ -68,9 +68,11 @@ private renderSearchRow(p, parentProperty = null){
 			str += "//oneToMany"
 		else if (p.joinProperty){
 			str += "//joinProperty"
-		}
-		else
+		} else if(p.type == Map || "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
+			str += """eq('${parentPropName}${p.name}', filter['${parentPropName}${p.name}'])"""
+		} else {
 			str += "//No type for ${p.name}"
+		}
 
 		if (str) println "\t\t\t" + "if (filter['${parentPropName}${p.name}']) {\n\t\t\t\t" + str + "\n\t\t\t}"
 	}

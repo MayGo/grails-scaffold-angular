@@ -94,11 +94,9 @@ class CustomMarshallerRegistrar {
     static void registerMarshallers() {
 		int priority = 10
 		def customDateMarshaller = new DateMarshaller(FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZ",
-				TimeZone.getDefault(), Locale.getDefault()))
+				TimeZone.default, Locale.default))
 		JSON.registerObjectMarshaller(customDateMarshaller)
-
 <%
-
 	for(d in allDomainClasses){
 		%>
 		JSON.registerObjectMarshaller ${d.name}, priority, { ${d.name} instance, JSON json ->

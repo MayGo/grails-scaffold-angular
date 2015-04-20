@@ -167,31 +167,18 @@ class ${className}ModifyServiceSpec extends Specification {
 					}
 
 				}
-
 			}
-
 		}
 		if(!map) map = ["'foo'": " 'Sadisfy empty data exception'"]
 		%>
-		return $map
+		return ${map.toString().replaceAll(",", ",\n")}
 	}
 
 	Map validData() {
 <%
-		String jsonData = ""
 		def inst = DomainHelper.createOrGetInst(domainClass, 1)
-		if(inst){
-			def json = inst as JSON
-			json.setPrettyPrint(true)
-			jsonData = json.toString()
-			jsonData = jsonData.replaceAll(/\{/,'[')
-			jsonData = jsonData.replaceAll(/\}/,']')
-			jsonData = jsonData.replaceAll('"',"'")
-			jsonData = jsonData.replaceAll('\':', "\': ")
-			jsonData = jsonData.replaceAll(",'",", '")
-			jsonData = jsonData.replaceAll("'\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+\\d{4}'","new Date().clearTime()")
+		String jsonData = DomainHelper.prettyJsonData(inst)
 
-		}
 		%>
 		Map data = <% print jsonData %>
 		return data

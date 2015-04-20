@@ -48,10 +48,15 @@ class ${className}Controller {
 
 	@RestApiMethod(description='Get a ${className}')
 	@RestApiParams(params=[
-		@RestApiParam(name='id', type='long', paramType = RestApiParamType.PATH, description = 'The ${className} id')
+		@RestApiParam(
+				name='id', type='long',
+				paramType = RestApiParamType.PATH,
+				description = 'The ${className} id'
+		)
 	])
 	def show() {
-		respond ${domainClass.propertyName}SearchService.queryFor${className}(params.long('id')), [includes: includes, excludes: excludes]
+		respond ${domainClass.propertyName}SearchService.queryFor${className}(params.long('id')),
+				[includes: includes, excludes: excludes]
 	}
 
 	@RestApiMethod(description = 'Save a ${className}')
@@ -69,15 +74,26 @@ class ${className}Controller {
 
 	@RestApiMethod(description = 'Edit a ${className}')
 	@RestApiParams(params = [
-		@RestApiParam(name = 'id', type = 'long', paramType = RestApiParamType.PATH, description = 'The ${className} id')
+		@RestApiParam(
+				name = 'id',
+				type = 'long',
+				paramType = RestApiParamType.PATH,
+				description = 'The ${className} id'
+		)
 	])
 	def edit() {
-		respond ${domainClass.propertyName}SearchService.queryFor${className}(params.long('id')), [includes: includes, excludes: excludes]
+		respond ${domainClass.propertyName}SearchService.queryFor${className}(params.long('id')),
+				[includes: includes, excludes: excludes]
 	}
 
 	@RestApiMethod(description = 'Update a ${className}')
 	@RestApiParams(params = [
-			@RestApiParam(name = 'id', type = 'long', paramType = RestApiParamType.PATH, description = 'The ${className} id')
+			@RestApiParam(
+					name = 'id',
+					type = 'long',
+					paramType = RestApiParamType.PATH,
+					description = 'The ${className} id'
+			)
 	])
 	def update() {
 		request.JSON.id = params.long('id')
@@ -92,7 +108,12 @@ class ${className}Controller {
 
 	@RestApiMethod(description = 'Delete a ${className}')
 	@RestApiParams(params = [
-			@RestApiParam(name = 'id', type = 'long', paramType = RestApiParamType.PATH, description = 'The ${className} id')
+			@RestApiParam(
+					name = 'id',
+					type = 'long',
+					paramType = RestApiParamType.PATH,
+					description = 'The ${className} id'
+			)
 	])
 	def delete() {
 		${domainClass.propertyName}ModifyService.delete${className}(params.long('id'))

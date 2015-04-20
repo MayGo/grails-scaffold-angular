@@ -2,6 +2,7 @@ package grails.plugin.scaffold.angular
 
 import grails.buildtestdata.BuildTestDataService
 import grails.buildtestdata.handler.ConstraintHandlerException
+import grails.converters.JSON
 import org.codehaus.groovy.grails.commons.GrailsClass
 import org.codehaus.groovy.grails.orm.hibernate.cfg.CompositeIdentity
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsDomainBinder
@@ -149,4 +150,21 @@ class DomainHelper {
 		return propName
 	}
 
+	static String prettyJsonData(def inst){
+		if(!inst) return "[]"
+		def json = inst as JSON
+		json.setPrettyPrint(true)
+		String jsonData = json.toString()
+		jsonData = jsonData.replaceAll(/\{/,'[')
+		jsonData = jsonData.replaceAll(/\}/,']')
+		jsonData = jsonData.replaceAll('"',"'")
+		jsonData = jsonData.replaceAll('\':', "\': ")
+		jsonData = jsonData.replaceAll(",'",", '")
+		jsonData = jsonData.replaceAll("'\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+\\d{4}'","new Date().clearTime()")
+		jsonData = jsonData.replaceAll("('.*'):\\s*('.{100,}')") { all, propName, txt ->
+			def a = txt.split("(?<=\\G.{100})")
+			"${propName}: ${a.join("' +\n'")}"
+		}
+		return jsonData
+	}
 }
