@@ -5,19 +5,19 @@ import grails.plugin.scaffold.angular.DomainHelper
 allProps = scaffoldingHelper.getProps(domainClass)
 props =  allProps.grep{it.cp?.display != false && it.cp?.editable != false && it.name!= 'id'}
 
-private renderFieldRowBind(p, owningClass, parentProperty = null) {
-	String parentVarName = (parentProperty?.component) ? parentProperty.name + '_': ''
+private renderFieldRowBind(p, owningClass, parentProperty = null, boolean displayParentPropName = false) {
+
+	String varName = DomainHelper.getPropertyFullName(p, parentProperty, '_', displayParentPropName)
 	if((p.oneToMany && !p.bidirectional) || p.manyToMany){
-		println "\t\t//expect(page.${parentVarName}${p.name}ViewEl).toBeDefined()"
+		println "\t\t//expect(page.${varName}ViewEl).toBeDefined()"
 	}else{
-		println "\t\texpect(page.${parentVarName}${p.name}ViewEl).toBeDefined()"
+		println "\t\texpect(page.${varName}ViewEl).toBeDefined()"
 	}
 }
 
-private renderFieldSendKeys(p, owningClass, inst, parentProperty = null) {
-	String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-	String parentVarName = (parentProperty?.component) ? parentProperty.name + '_': ''
 
+private renderFieldSendKeys(p, owningClass, inst, parentProperty = null, boolean displayParentPropName = false) {
+	String varName = DomainHelper.getPropertyFullName(p, parentProperty, '_', displayParentPropName)
 	Closure findAllValuesFromMap
 	findAllValuesFromMap = {map->
 		String str = ""
@@ -72,27 +72,31 @@ private renderFieldSendKeys(p, owningClass, inst, parentProperty = null) {
 
 	if(realVal.toString() && realVal.toString()!='null'){//there can be also boolean true/false and 1, -1, 0
 		if(p.type == boolean || p.type == Boolean){
-			println "\t\tpage.${parentVarName}${p.name}El.click();"
+			println "\t\tpage.${varName}El.click();"
 		}else if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
-			println "\t\tpage.${parentVarName}${p.name}El.sendKeys('${realVal.toString().replaceAll(" ", "_")}').sendKeys(protractor.Key.ENTER);"
+			println "\t\tpage.${varName}El.sendKeys('${realVal.toString().replaceAll(" ", "_")}').sendKeys(protractor.Key.ENTER);"
 		}else if(p.isAssociation()){
-			println "\t\tpage.${parentVarName}${p.name}El.sendKeys('${realVal.toString().replaceAll(" ", "_")}').sendKeys(protractor.Key.ENTER);"
+			println "\t\tpage.${varName}El.sendKeys('${realVal.toString().replaceAll(" ", "_")}').sendKeys(protractor.Key.ENTER);"
 		}else{
-			println "\t\tpage.${parentVarName}${p.name}El.sendKeys('$realVal');"
+			println "\t\tpage.${varName}El.sendKeys('$realVal');"
 		}
 	}else{
-		println "\t\tpage.${parentVarName}${p.name}El.sendKeys('');//no val for ${parentVarName}${p.name}"
+		println "\t\tpage.${varName}El.sendKeys('');//no val for ${varName}"
 	}
 }
 %>
 var helper = require('../utils/helper.js');
 describe('${domainClass.propertyName} create page', function() {
 	var page;
-	var mockModule = require('./${domainClass.propertyName}.mocks');
-	browser.addMockModule('httpBackendMock', mockModule );
+
 	beforeEach(function() {
+		var mockModule = require('./${domainClass.propertyName}.mocks');
+		browser.addMockModule('httpBackendMock', mockModule );
 		browser.get('/#/app/${domainClass.propertyName}/create');
 		page = require('./${domainClass.propertyName}.create.po');
+	});
+	afterEach(function() {
+		browser.clearMockModules();
 	});
 
 /*
@@ -120,7 +124,7 @@ if(inst){
 
 				if(embeddedInst) {
 					embeddedProps.each{ep ->
-						renderFieldSendKeys(ep, p.component, embeddedInst, p)
+						renderFieldSendKeys(ep, p.component, embeddedInst, p, true)
 					}
 				}else{
 					println "// no data for ${p.name}"
@@ -152,7 +156,7 @@ if(inst){
 						println	"\t\tpage.${p.name}AccordionEl.click()"
 					}
 					embeddedProps.each{ep->
-					renderFieldRowBind(ep, p.component, p)
+						renderFieldRowBind(ep, p.component, p, true)
 					}
 				}
 			}else{

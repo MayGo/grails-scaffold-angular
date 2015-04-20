@@ -63,8 +63,9 @@ class ${className}SearchServiceSpec extends Specification {
 			jsonData = jsonData.replaceAll(/\{/,'[')
 			jsonData = jsonData.replaceAll(/\}/,']')
 			jsonData = jsonData.replaceAll('"',"'")
-			jsonData = jsonData.replaceAll(':',": ")
+			jsonData = jsonData.replaceAll('\':', "\': ")
 			jsonData = jsonData.replaceAll(",'",", '")
+			jsonData = jsonData.replaceAll("'\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+\\d{4}'","new Date().clearTime()")
 		}
 		%>
 		Map data = <% print jsonData %>

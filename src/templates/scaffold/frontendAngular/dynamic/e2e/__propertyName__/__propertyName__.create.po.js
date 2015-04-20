@@ -1,21 +1,28 @@
 'use strict';
 <%
+
+import grails.plugin.scaffold.angular.DomainHelper
+
 allProps = scaffoldingHelper.getProps(domainClass)
 props = allProps.grep{it.cp?.display != false && it.cp?.editable != false && it.name!= 'id'}
 
-private renderFieldRow(p, owningClass, parentProperty = null) {
-	String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-	String parentVarName = (parentProperty?.component) ? parentProperty.name + '_': ''
-	println "\t\tthis.${parentVarName}${p.name}El = element(by.model('${owningClass.propertyName}.${parentPropName}${p.name}'));"
+private renderFieldRow(p, owningClass, parentProperty = null, boolean displayParentPropName = false) {
+	String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', displayParentPropName)
+	String varName = DomainHelper.getPropertyFullName(p, parentProperty, '_', displayParentPropName)
+	if((p.oneToMany && !p.bidirectional) || p.manyToMany){
+		println "\t\tthis.${varName}El = element(by.css('#${propName} .input'));"
+	}else{
+		println "\t\tthis.${varName}El = element(by.model('${owningClass.propertyName}.${propName}'));"
+	}
 }
 
-private renderFieldRowBind(p, owningClass, parentProperty = null) {
-	String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-	String parentVarName = (parentProperty?.component) ? parentProperty.name + '_': ''
+private renderFieldRowBind(p, owningClass, parentProperty = null, boolean displayParentPropName = false) {
+	String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', displayParentPropName)
+	String varName = DomainHelper.getPropertyFullName(p, parentProperty, '_', displayParentPropName)
 	if((p.oneToMany && !p.bidirectional) || p.manyToMany){
-		println "\t\tthis.${parentVarName}${p.name}ViewEl = element.all(by.repeater('item in ${owningClass.propertyName}.${parentPropName}${p.name}'));"
+		println "\t\tthis.${varName}ViewEl = element.all(by.repeater('item in ${owningClass.propertyName}.${propName}'));"
 	}else{
-		println "\t\tthis.${parentVarName}${p.name}ViewEl = element.all(by.binding('${owningClass.propertyName}.${parentPropName}${p.name}')).first();"
+		println "\t\tthis.${varName}ViewEl = element.all(by.binding('${owningClass.propertyName}.${propName}')).first();"
 	}
 }
 %>
@@ -31,8 +38,8 @@ var CreatePage = function() {
 						println "\t\tthis.${p.name}AccordionEl = element(by.css('#${p.name}Accordion a.accordion-toggle'));"
 					}
 					embeddedProps.each{ep->
-						renderFieldRow(ep, domainClass, p)
-						renderFieldRowBind(ep, domainClass, p)
+						renderFieldRow(ep, domainClass, p, true)
+						renderFieldRowBind(ep, domainClass, p, true)
 					}
 				}
 			}else{

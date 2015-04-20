@@ -14,13 +14,16 @@ private renderFieldRow(p, owningClass) {
 }%>
 describe('${domainClass.propertyName} edit page', function() {
   var page;
-  var mockModule = require('./${domainClass.propertyName}.mocks');
+
   beforeEach(function() {
+	  var mockModule = require('./${domainClass.propertyName}.mocks');
 	  browser.addMockModule('httpBackendMock', mockModule );
-    browser.get('/#/app/${domainClass.propertyName}/edit/1');
+	browser.get('/#/app/${domainClass.propertyName}/edit/1');
     page = require('./${domainClass.propertyName}.edit.po');
   });
-
+	afterEach(function() {
+		browser.clearMockModules();
+	});
   it('should contain all fields.', function() {
 	  <%for (p in props) {
 		  if(p.embedded){

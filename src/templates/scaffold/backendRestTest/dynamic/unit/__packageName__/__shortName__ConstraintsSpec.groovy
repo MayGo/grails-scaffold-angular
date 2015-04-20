@@ -1,5 +1,6 @@
 <%=packageName ? "package ${packageName}" : ''%>
 
+
 import grails.test.mixin.TestFor
 import spock.lang.Unroll
 import spock.lang.Specification
@@ -26,10 +27,43 @@ class ${className}ConstraintsSpec extends Specification {
 			error                  | field        | val
 			'valid' | 'id' | 1 // Keep always one here or remove test
 <%
+
+
+import grails.converters.JSON
 import org.codehaus.groovy.grails.validation.ConstrainedProperty
 allProps = scaffoldingHelper.getProps(domainClass)
 uniqueProps = []
 boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate') || pluginManager?.hasGrailsPlugin('hibernate4')
+
+private def outputByType(def p, def val=''){
+	String str=''
+
+	if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)){
+		if(p.type == boolean || p.type == Boolean){
+			val = true
+		}
+		str +="$val"
+	}else if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
+		String dateStr = 'new Date().clearTime()'
+		str +="$dateStr"
+	}else if(p.type == Map || "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
+		val = (val) ?: []
+		def json = val as JSON
+		json.setPrettyPrint(true)
+		jsonData = json.toString()
+		jsonData = jsonData.replaceAll(/\{/, '[')
+		jsonData = jsonData.replaceAll(/\}/, ']')
+		jsonData = jsonData.replaceAll('"', "'")
+		jsonData = jsonData.replaceAll('\':', "\': ")
+		jsonData = jsonData.replaceAll(",'", ", '")
+		jsonData = jsonData.replaceAll("'\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+\\d{4}'","new Date().clearTime()")
+		str += "$jsonData"
+
+	}else{
+		str +="'$val'"
+	}
+	return str
+}
 if (hasHibernate) {
 	allProps.each{p->
 		cp = domainClass.constrainedProperties[p.name]
@@ -121,16 +155,18 @@ if (hasHibernate) {
 					}
 					break
 				case ConstrainedProperty.MIN_CONSTRAINT:
-					val = cp.min
+
+					val = outputByType(p, cp.min)
 					println "\t\t\t'valid' | '$fieldName' | $val"
-					val =  cp.min - 1
-					println "\t\t\t'$errorName' | '$fieldName' | $val"
+
+					println "\t\t\t'$errorName' | '$fieldName' | $val - 1"
 					break
 				case ConstrainedProperty.MAX_CONSTRAINT:
-					val = cp.max
+					val = outputByType(p, cp.max)
 					println "\t\t\t'valid' | '$fieldName' | $val"
-					val =  cp.max +1
-					println "\t\t\t'$errorName' | '$fieldName' | $val"
+
+
+					println "\t\t\t'$errorName' | '$fieldName' | $val + 1"
 					break
 
 				case ConstrainedProperty.SCALE_CONSTRAINT:

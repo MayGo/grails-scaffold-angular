@@ -1,7 +1,7 @@
 module.exports = function(){
 	angular.module('httpBackendMock', ['ngMockE2E'])
 		.run(function(\$httpBackend, appConfig) {
-
+			console.log("running module ${domainClass.propertyName}HttpBackendMock")
 			function quote(str) {
 				return str.replace(/(?=[\\/\\\\^\$*+?.()|{}[\\]])/g, "\\\\");
 			}

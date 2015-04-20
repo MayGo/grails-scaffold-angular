@@ -14,12 +14,18 @@ private renderFieldRow(p, owningClass) {
 var helper = require('../utils/helper.js');
 describe('${domainClass.propertyName} view page', function() {
 	var page;
-	var mockModule = require('./${domainClass.propertyName}.mocks');
+
 	beforeEach(function() {
+		var mockModule = require('./${domainClass.propertyName}.mocks');
 		browser.addMockModule('httpBackendMock', mockModule );
 		browser.get('/#/app/${domainClass.propertyName}/view/1');
 		page = require('./${domainClass.propertyName}.view.po');
 	});
+	afterEach(function() {
+		browser.clearMockModules();
+	});
+
+
 
   it('should contain all fields.', function() {
     <%for (p in props) {%>

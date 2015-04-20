@@ -1,14 +1,13 @@
 <%
-    allProps = scaffoldingHelper.getProps(domainClass)
-    props = allProps.grep{it.cp?.display != false && it.cp?.editable != false && it.name!= 'id'}
-%>
+import grails.plugin.scaffold.angular.DomainHelper
+allProps = scaffoldingHelper.getProps(domainClass)
+props = allProps.grep{it.cp?.display != false && it.cp?.editable != false && it.name!= 'id'}
 
-<%
 private String renderEditField(p, owningClass, parentProperty = null){
 	def cp = p.cp // TODO: refactor, add directly to subfunctions
 
     if(cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
-        return renderAutocomplete(domainClass, p, cp, parentProperty)
+        return renderAutocomplete(owningClass, p, cp, parentProperty)
     } else if (p.type == Boolean || p.type == boolean)
 	    return renderBoolean(owningClass, p, cp, parentProperty)
 	else if (cp && cp.inList) 
@@ -277,6 +276,7 @@ private String renderOneToMany(owningClass, p, cp, parentProperty) {
      String str =  """<!--OneToMany-->
           <tags-input
                   name="${parentPropName}${p.name}"
+                  id="${parentPropName}${p.name}"
                   ng-model="${domainClass.propertyName}.${parentPropName}${p.name}">
               <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
@@ -294,6 +294,7 @@ private String renderManyToMany(owningClass, p, cp, parentProperty) {
     
      String str =  """<!--ManyToMany-->
           <tags-input  name="${parentPropName}${p.name}"
+                       id="${parentPropName}${p.name}"
                         ng-model="${domainClass.propertyName}.${parentPropName}${p.name}">
               <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
             """
@@ -302,26 +303,28 @@ private String renderManyToMany(owningClass, p, cp, parentProperty) {
      return str;
 }
 
+
+
 private String renderAutocomplete(owningClass, p, cp, parentProperty) {
 
-    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-    String parentIdName = (parentProperty?.component) ? parentProperty.name + '_' : ''
+    String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', true)
+    String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
     String acFunctionName = (cp.format)?:p.name
     if(parentProperty){
         acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
     }
 
     String templStr="""
-    <script type="text/ng-template" id="${parentIdName}${p.name}AutocompleteTemplate.html"><a>
+    <script type="text/ng-template" id="${idName}AutocompleteTemplate.html"><a>
         <span bind-html-unsafe="match.model.item.label | typeaheadHighlight:query"></span>
     </a></script>"""
     String str =  """<!--Autocomplete-->
         <div class="input-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>
-            <input id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" type="text" class="form-control"
-                   ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
+            <input id="$propName" name="$propName" type="text" class="form-control"
+                   ng-model="${domainClass.propertyName}.$propName"
                    typeahead-editable="false"
-                   typeahead-template-url="${parentIdName}${p.name}AutocompleteTemplate.html"
+                   typeahead-template-url="${idName}AutocompleteTemplate.html"
                    typeahead="b for b in autocompleteService.${acFunctionName}SimpleQuery(\$viewValue)"
                    typeahead-input-formatter="autocompleteService.${acFunctionName}SimpleFormatLabel(\$model)"
         """
@@ -372,14 +375,15 @@ private boolean isOptional(cp) {
 }
 %>
 <%
-private renderFieldRow(p, owningClass, parentProperty = null, displayParentPropName = false) {
-    String parentPropName = (parentProperty) ? parentProperty?.name + '.' : ''
-    String translateStr = "pages.${domainClass.shortName}.edit.form.field.${parentPropName}${p.name}"
+private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayParentPropName = false) {
+    boolean isAutocomplete = (p.cp.widget == 'autocomplete')
+    String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', isAutocomplete)
+    String translateStr = "pages.${domainClass.shortName}.edit.form.field.$propName"
 
     if(displayParentPropName)translateStr = "pages.${domainClass.shortName}.edit.form.field.${parentProperty.name}.title"
 	return """
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="${parentPropName}${p.name}"
+		<label class="col-sm-2 control-label" for="$propName"
                translate="${translateStr}"></label>
 		<div class="col-sm-10">
             ${renderEditField(p, owningClass, parentProperty)}

@@ -70,7 +70,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 	alreadyCreatedClasses << dClass.name
 
 	String respStr = ""
-	def properties = scaffoldingHelper.getProps(dClass).findAll{p->!p.isManyToMany() && !p.isOneToMany()}
+	def properties = scaffoldingHelper.getProps(dClass).findAll{p->!p.isManyToMany() && !p.isOneToMany()}//.grep{it.cp?.display != false && it.cp?.editable != false}
 
 	properties.each{p->
 		String str = (isResp)?"\t\t\tresponse.json.":"\t\t\t\t"
@@ -148,7 +148,7 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 
 				String dateStr = (val)?'getTodayForInput()':''
 				if(isResp){//format input differently then comparison
-					dateStr = (val)? 'getTodayForOutput().toLong()':''
+					dateStr = (val)? 'getTodayForOutput()':''
 				}
 				str +="${p.name} $asign $dateStr\n"
 			}else if(p.type == Map || "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
@@ -163,8 +163,9 @@ private String createDomainInstanceJson(def dClass, boolean isResp, def inst, Li
 					jsonData = jsonData.replaceAll(/\{/, '[')
 					jsonData = jsonData.replaceAll(/\}/, ']')
 					jsonData = jsonData.replaceAll('"', "'")
-					jsonData = jsonData.replaceAll(':', ": ")
+					jsonData = jsonData.replaceAll('\':', "\': ")
 					jsonData = jsonData.replaceAll(",'", ", '")
+					jsonData = jsonData.replaceAll("'\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\+\\d{4}'","new Date().clearTime()")
 
 					str += "${p.name} $asign $jsonData\n"
 				}

@@ -9,11 +9,15 @@ private renderFieldRow(p, owningClass) {
 %>
 describe('${domainClass.propertyName} list page', function() {
 	var page;
-	var mockModule = require('./${domainClass.propertyName}.mocks');
+
 	beforeEach(function() {
+		var mockModule = require('./${domainClass.propertyName}.mocks');
 		browser.addMockModule('httpBackendMock', mockModule );
 		browser.get('/#/app/${domainClass.propertyName}/list');
 		page = require('./${domainClass.propertyName}.list.po');
+	});
+	afterEach(function() {
+		browser.clearMockModules();
 	});
 
  

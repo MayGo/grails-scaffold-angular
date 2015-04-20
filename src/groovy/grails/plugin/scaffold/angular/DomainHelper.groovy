@@ -136,4 +136,17 @@ class DomainHelper {
 		return isComposite
 	}
 
+	static String getPropertyFullName(p, parentProperty, String ch, boolean includeFirstProp = false){
+		String propName = (parentProperty?.component) ? parentProperty.name + ch : ''
+		String mainPropName = p.name
+		if(p.component &&  includeFirstProp){
+			propName += mainPropName + ch
+			def firstProp = p.component.persistantProperties.first()
+			mainPropName = firstProp.name
+		}
+		propName += mainPropName
+
+		return propName
+	}
+
 }

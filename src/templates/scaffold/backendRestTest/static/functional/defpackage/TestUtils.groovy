@@ -4,8 +4,8 @@ import java.text.SimpleDateFormat
 
 trait TestUtils {
 
-	SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ")
-	SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+	SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+	SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
 	Date today = new Date().clearTime()
 
 	String getTodayForInput() {
@@ -13,7 +13,6 @@ trait TestUtils {
 	}
 
 	String getTodayForOutput() {
-		//return outputFormat.format(today)
-		return today.time
+		return outputFormat.format(today)
 	}
 }

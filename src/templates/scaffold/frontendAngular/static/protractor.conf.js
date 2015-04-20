@@ -60,7 +60,7 @@ exports.config = {
     var path = require('path');
     jasmine.getEnv().addReporter(new HtmlReporter({
       docName: 'index.html',
-      baseDirectory: 'test-results/e2e/',
+      baseDirectory: './test-results/e2e/',
       preserveDirectory: false,
       pathBuilder: function pathBuilder(spec, descriptions, results, capabilities) {
         // Return '<browser>/<specname>' as path for screenshots:
@@ -73,7 +73,7 @@ exports.config = {
 
     require('jasmine-reporters');
     jasmine.getEnv().addReporter(
-      new jasmine.JUnitXmlReporter('test-results/e2e/JUnitXML/', true, true)
+      new jasmine.JUnitXmlReporter('./test-results/e2e/JUnitXML/', true, true)
     );
     var SpecReporter = require('jasmine-spec-reporter');
     // add jasmine spec reporter

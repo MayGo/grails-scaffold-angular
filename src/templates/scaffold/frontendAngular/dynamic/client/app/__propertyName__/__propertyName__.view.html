@@ -1,11 +1,10 @@
 <%
     allProps = scaffoldingHelper.getProps(domainClass)
     props = allProps.grep{it.cp?.display != false}
-   
+import grails.plugin.scaffold.angular.DomainHelper
 %>
 <%
 private String renderFieldRow(p, owningClass, parentProperty = null){
-
     if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
         return renderAutocomplete(domainClass, p, parentProperty)
     }else if (p.type == Boolean || p.type == boolean)
@@ -196,7 +195,8 @@ private String renderMap(owningClass, p, parentProperty) {
     return str
 }
 private String renderAutocomplete(owningClass, p,  parentProperty) {
-    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
+    String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', true)
+    String translateName = DomainHelper.getPropertyFullName(p, parentProperty, '.', false)
     String acFunctionName = (p.cp.format)?:p.name
 
     boolean displayParentPropName = false
@@ -207,14 +207,14 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
         acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
     }
 
-    String translateStr = "pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"
+    String translateStr = "pages.${owningClass.shortName}.view.field.${translateName}"
     if(displayParentPropName)translateStr = "pages.${domainClass.shortName}.view.field.${parentProperty.name}.title"
 
     return """<!--Autocomplete-->
     <div class="form-group">
         <label class="col-sm-2 control-label" translate="${translateStr}"></label>
         <div class="col-sm-10 form-control-static"
-             ng-bind="autocompleteService.${acFunctionName}SimpleFormatLabel(${owningClass.propertyName}.${parentPropName}${p.name})"></div>
+             ng-bind="autocompleteService.${acFunctionName}SimpleFormatLabel(${owningClass.propertyName}.$propName)"></div>
     </div>
     <div class="line line-dashed b-b line-lg pull-in"></div>
 """
