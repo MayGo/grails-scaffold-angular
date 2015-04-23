@@ -6,7 +6,8 @@
 * Create domain model or copy somewhere.
 * Add to BuildConfig.groovy:compile ":scaffold-angular:0.3.20"
 * grails compile (for resolving plugin dependencies)
-* grails createDemo
+* grails create-demo
+* Plugin generates initial configs in files: TestDataConfig.groovy, Config.groovy täiendus, BuildConfig.groovy. Call "grails create-demo" again, so plugin can use new configs.
 * grails run-app
 
 Everything should work now, including tests.
@@ -80,6 +81,12 @@ grails{
 	}
 }
 ```
+You can seperate frontend from backend before generating scaffolding.
+Add to Config.groovy:
+```
+grails.plugin.scaffold.angular.serveFrontendFromGrails = false
+grails.plugin.scaffold.core.folders = [frontendAngular:'../angular_ui/']
+```
 
 ## Domain config
 
@@ -123,37 +130,42 @@ For every domain model
 
 ## Used angular/js plugins
 
-validation
-http://jonsamwell.github.io/angular-auto-validate/
-other were http://huei90.github.io/angular-validation/ and https://github.com/kelp404/angular-validator
+* validation
 
-Loading bar: http://chieffancypants.github.io/angular-loading-bar/
+ http://jonsamwell.github.io/angular-auto-validate/
 
-Inform messages, exceptions, network errors: https://github.com/McNull/angular-inform
+* other options were 
 
-Tags input: https://github.com/mbenford/ngTagsInput
+ http://huei90.github.io/angular-validation/
+ 
+ https://github.com/kelp404/angular-validator
 
-Autocomplete/typeahead
+* Loading bar
+
+ http://chieffancypants.github.io/angular-loading-bar/
+
+* Inform messages, exceptions, network errors: 
+
+ https://github.com/McNull/angular-inform
+
+* Tags input
+
+ https://github.com/mbenford/ngTagsInput
+
+**Autocomplete/typeahead**
+
+ https://angular-ui.github.io/bootstrap/#/typeahead
 * need to send only id
 * validation: required
 * allow only to select value(no custom values)
 * simple setup
 
-multiselect
+**Multiselect**
+
+Not used currently
 
 
-
-# MISC PROBLEMS
-oneToMany relations has Tags in edit form. To get removing from collection to work, cascade has to be "all-delete-orphan"
-e.g:
-```
-static mapping = {
-	persons cascade: "all-delete-orphan"
-}
-```
-
-security
-===
+## security
 
 Plugins adds spring-security-rest and all necessary security config in config.groovy.
 
@@ -165,11 +177,18 @@ If you add spring-security-ldap or add real users some other way and want to use
 
 Then set grails.util.Holders.config.functionalTest.userName and grails.util.Holders.config.functionalTest.password
 
-
+# MISC PROBLEMS
+oneToMany relations has Tags in edit form. To get removing from collection to work, cascade has to be "all-delete-orphan"
+e.g:
+```
+static mapping = {
+	persons cascade: "all-delete-orphan"
+}
+```
 
 		
-TODO
-=====
+# TODO
+
 * paging config global: Use pagingGonfig or add _paging partial.
 * Add to functional test. Add failing create/update (domain has to have some constraints, can check with build-test-data build method and roll back if succeeds).
 * Create TestDataConfigInitial.groovy, with all domains, def i, and unique constraint. 
