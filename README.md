@@ -1,8 +1,6 @@
-grails-scaffold-angular
-=======================
+# grails-scaffold-angular
 
-Using this plugin
------------------
+# Using plugin
 
 * Create app with "grails create-app myApp" (don't use ver 2.4.4, bug with excludes, includes)
 * Create domain model or copy somewhere.
@@ -13,23 +11,26 @@ Using this plugin
 
 Everything should work now, including tests.
 
+If domain model is not buildable with build-test-data, then you have to add correct mappings to TestDataConfig.groovy. e.g. if you have non-nullable custom validator, then you have to add validatable value to sampleData mapping
+
 If tests fail, then you have to add BuildTestData Config to generate correct data(e.g. unique constraints can fail).
 
-Functional test creates 2 domain instances (with the help of build-test-data build() method) and deletes them at the end.
 
-Note: build-test-data plugins findRequiredPropertyNames method is overriden, so all properties are initiated with values, not only non-nullable.
-Note: hibernate4 and createDemo can give errors. Switch temporaraly back to hibernate3 and generate scaffolding then.
-
-Note: When you still have errors, try running without scaffolding tests: folders = ['backendRestSrc':'src/', 'backendRestTest':null, 'backendRestGrailsApp':'grails-app/', 'frontendAngular':'angular/', 'frontendAngulr':'angular/']
-
-Note: If domain model is no buildable with build-test-data, then you have to add correct mappings to TestDataConfig.groovy. e.g. if you have nonnullable custom validator, then you have to add to mapping validatable value
 or without backend altogether: folders = ['backendRestSrc':null, 'backendRestTest':null, 'backendRestGrailsApp':null, 'frontendAngular':'angular/']
+
+## Bower and Npm dependencies
+
+Bower components are included with plugin, so you can run frontend without installing npm/bower. But 
+
+**To install  bower components**
+
+```bower install```
+
+**To install  npm components**
+
+```npm install```
 				
-
-Frontend displays only ids, except 'name', 'username', 'authority' propertynames. When some readable name should be insetead, then edit displayNames config.
-
-Frontend serving
---------------
+## Frontend serving
 Frontend is included in grails by default (files are statically served). This is for quick demoing purpuses only. 
 Should move "angular" folder to separate project and build from there.
 From grails:
@@ -43,22 +44,24 @@ Using generator-angular-fullstack frontend as basis (https://www.npmjs.org/packa
 * Run "grunt serve:dist" for a preview of the built app.
 
 
-Testing
--------------
+## Running frontend tests
+
+
+**Karma unit tests**
 Running grunt test will run the client and server unit tests with karma and mocha.
 
 Use grunt test:client to only run client tests.
 
-Protractor tests
--------------
+**Protractor e2e tests**
+
 To setup protractor e2e tests, you must first run
 
 npm run update-webdriver
 
 Use grunt test:e2e to have protractor go through tests located in the e2e folder.
 
-
-Config
+# Plugin Configuration
+## Config
 ====
 ```
 grails{
@@ -78,8 +81,7 @@ grails{
 }
 ```
 
-Domain config
-=====
+## Domain config
 
 To render autocomplete to edit field, add widget:'autocomplete'. In format you can define custom prop name that is
 used to generate functions name. And with that variable name application expects resource Url in config.json.
@@ -90,8 +92,15 @@ static constraints = {
 }
 
 
-Using
-=====
+# Generated Content
+## Backend functional tests
+* creates 2 domain instances (with the help of build-test-data build() method) 
+* edits domain instance
+* reads domain instance
+* queries for domain instance
+* deletes 2 domain instances at the end.
+
+## Using angular/js plugins
 
 validation
 http://jonsamwell.github.io/angular-auto-validate/
@@ -111,18 +120,9 @@ Autocomplete/typeahead
 
 multiselect
 
-INSTALL
-====
-To install  bower components
-bower-install
-
-TODO
-====
-* paging config global: Use pagingGonfig or add _paging partial.
 
 
-PROBLEMS
-====
+# MISC PROBLEMS
 oneToMany relations has Tags in edit form. To get removing from collection to work, cascade has to be "all-delete-orphan"
 e.g:
 ```
@@ -144,10 +144,12 @@ If you add spring-security-ldap or add real users some other way and want to use
 
 Then set grails.util.Holders.config.functionalTest.userName and grails.util.Holders.config.functionalTest.password
 
+
+
 		
 TODO
 =====
-
+* paging config global: Use pagingGonfig or add _paging partial.
 * Add to functional test. Add failing create/update (domain has to have some constraints, can check with build-test-data build method and roll back if succeeds).
 * Create TestDataConfigInitial.groovy, with all domains, def i, and unique constraint. 
 * Add version prop to edit view
