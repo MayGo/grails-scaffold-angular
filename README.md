@@ -1,35 +1,58 @@
-grails-scaffold-angular
-=======================
+# grails-scaffold-angular
+Plugin generates for every domain object:
+* Angular REST frontend(CRUD view) with unit and e2e tests.
+* Grails REST backend(Controller, ModifyService, SearchService, UrlMapping) with unit and integration tests.
 
-Using this plugin
------------------
+Frontend uses AdminLTE opensource template: https://almsaeedstudio.com/preview
 
-* Create app with "grails create-app myApp" (don't use ver 2.4.4, bug with excludes, includes)
+# Using plugin
+
+* Create app with ```grails create-app myApp``` (use ver 2.4.3, see below for explanation)
 * Create domain model or copy somewhere.
-* Add to BuildConfig.groovy:compile ":scaffold-angular:0.3.20"
-* grails compile (for resolving plugin dependencies)
-* grails createDemo
-* grails run-app
+* Add to BuildConfig.groovy:
+```compile ":scaffold-angular:x.x"```
+* ```grails compile``` (for resolving plugin dependencies)
+* ```grails create-demo```
+* Plugin generates initial configs in files: TestDataConfig.groovy, Config.groovy täiendus, BuildConfig.groovy. Call ```grails create-demo``` again, so plugin can use new configs.
+* ```grails run-app```
 
 Everything should work now, including tests.
 
+If domain model is not buildable with build-test-data, then you have to add correct mappings to TestDataConfig.groovy. e.g. if you have non-nullable custom validator, then you have to add validatable value to sampleData mapping
+
 If tests fail, then you have to add BuildTestData Config to generate correct data(e.g. unique constraints can fail).
 
-Functional test creates 2 domain instances (with the help of build-test-data build() method) and deletes them at the end.
+## Using plugin with grails ver > 2.4.3
+Plugin should generate all files with 2.* versions. But in 2.4.4 and later. There is problem with respond includes/excludes properties and custom CollectionRenderer.
+REST output just renders {empty:false} always. Bug https://jira.grails.org/browse/GRAILS-11892
 
-Note: build-test-data plugins findRequiredPropertyNames method is overriden, so all properties are initiated with values, not only non-nullable.
-Note: hibernate4 and createDemo can give errors. Switch temporaraly back to hibernate3 and generate scaffolding then.
+You can always remove custom CollectionRenderer from resources.groovy. And remove file src/groovy/defpackage/CustomJsonCollectionRenderer.groovy
 
-Note: When you still have errors, try running without scaffolding tests: folders = ['backendRestSrc':'src/', 'backendRestTest':null, 'backendRestGrailsApp':'grails-app/', 'frontendAngular':'angular/', 'frontendAngulr':'angular/']
+And remove file src/groovy/defpackage/CustomMarshallerRegistrar.groovy (or not needed domain config from that file). One marshaller in there is important (should define somewhere or edit frontend so datepicker expectations are met):
+```
+def customDateMarshaller = new DateMarshaller(FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZ", TimeZone.default, Locale.default))
+JSON.registerObjectMarshaller(customDateMarshaller)
+```
+With CustomJsonCollectionRenderer you can exclude/include relationships properties:
+```
+excludes=id,version,someDomain.someProperty,someDomain.someSubDomain.someProperty, someDomain.someOtherSubDomain
+includes=fooProp,someDomain.someProperty,someDomain.someSubDomain
+```
 
-Note: If domain model is no buildable with build-test-data, then you have to add correct mappings to TestDataConfig.groovy. e.g. if you have nonnullable custom validator, then you have to add to mapping validatable value
-or without backend altogether: folders = ['backendRestSrc':null, 'backendRestTest':null, 'backendRestGrailsApp':null, 'frontendAngular':'angular/']
+
+## Bower and Npm dependencies
+
+Bower components are included with plugin, so you can run frontend without installing npm/bower. But 
+
+**To install  bower components**
+
+```bower install```
+
+**To install  npm components**
+
+```npm install```
 				
-
-Frontend displays only ids, except 'name', 'username', 'authority' propertynames. When some readable name should be insetead, then edit displayNames config.
-
-Frontend serving
---------------
+## Frontend serving
 Frontend is included in grails by default (files are statically served). This is for quick demoing purpuses only. 
 Should move "angular" folder to separate project and build from there.
 From grails:
@@ -38,27 +61,29 @@ From grails:
 
 Using generator-angular-fullstack frontend as basis (https://www.npmjs.org/package/generator-angular-fullstack)
 
-* Run "grunt" for building, 
-* Run "grunt serve" for preview, and 
-* Run "grunt serve:dist" for a preview of the built app.
+* Run ```grunt``` for building, 
+* Run ```grunt serve``` for preview, and 
+* Run ```grunt serve:dist``` for a preview of the built app.
 
 
-Testing
--------------
+## Running frontend tests
+
+
+**Karma unit tests**
 Running grunt test will run the client and server unit tests with karma and mocha.
 
-Use grunt test:client to only run client tests.
+Use ```grunt test:client``` to only run client tests.
 
-Protractor tests
--------------
+**Protractor e2e tests**
+
 To setup protractor e2e tests, you must first run
 
-npm run update-webdriver
+```npm run update-webdriver```
 
 Use grunt test:e2e to have protractor go through tests located in the e2e folder.
 
-
-Config
+# Plugin Configuration
+## Config
 ====
 ```
 grails{
@@ -72,67 +97,103 @@ grails{
 				folders = ['backendSrc':'src/', 'backendTests':'test/', 'backendGrailsApp':'grails-app/', 'frontend':'angular/']
                 // don't generate files or menu for domains
                 ignoreDomainNames = []
+                ignoreFileNames = ['TestDataGeneratorService.groovy', 'TestDataConfig.groovy']
+    			ignoreStatic = true
 			}
 		}
 	}
 }
 ```
+You can seperate frontend from backend before generating scaffolding.
+Add to Config.groovy:
+```
+grails.plugin.scaffold.angular.serveFrontendFromGrails = false
+grails.plugin.scaffold.core.folders = [frontendAngular:'../angular_ui/']
+```
 
-Domain config
-=====
+You can generate only frontend : 
+```
+grails.plugin.scaffold.core.folders = ['backendRestSrc':null, 'backendRestTest':null, 'backendRestGrailsApp':null]
+```
+
+## Domain config
 
 To render autocomplete to edit field, add widget:'autocomplete'. In format you can define custom prop name that is
 used to generate functions name. And with that variable name application expects resource Url in config.json.
-eg:someVarNameUrl:'http://foobar.com/somerestservice'. When format is ommited, then property name is used. Eg:
+```
+someVarNameUrl:'http://foobar.com/somerestservice'
+```
+
+When format is ommited, then property name is used. Eg:
 myPropUrl.
+```
 static constraints = {
 	myProp widget:'autocomplete', format:'someVarName'
 }
+```
 
+# Generated Content
+## Backend functional tests
+* creates 2 domain instances (with the help of build-test-data build() method) 
+* edits domain instance
+* reads domain instance
+* queries for domain instance
+* deletes 2 domain instances at the end.
+## Backend unit tests
 
-Using
-=====
+## Frontend unit tests
+Domain Service tests:
+* query()
+* get()
+* update()
+* save()
 
-validation
-http://jonsamwell.github.io/angular-auto-validate/
-other were http://huei90.github.io/angular-validation/ and https://github.com/kelp404/angular-validator
+## Frontend e2e tests
+For every domain model
+* Backend mocks
+* Create PageObjects and create page elements check 
+* Edit PageObjects and edit page elements check 
+* List PageObjects and list page search elements check 
+* View PageObjects and view page elements check. Edit/back/delete button tests. 
 
-Loading bar: http://chieffancypants.github.io/angular-loading-bar/
+## Used angular/js plugins
 
-Inform messages, exceptions, network errors: https://github.com/McNull/angular-inform
+* validation
 
-Tags input: https://github.com/mbenford/ngTagsInput
+ http://jonsamwell.github.io/angular-auto-validate/
 
-Autocomplete/typeahead
+* other options were 
+
+ http://huei90.github.io/angular-validation/
+ 
+ https://github.com/kelp404/angular-validator
+
+* Loading bar
+
+ http://chieffancypants.github.io/angular-loading-bar/
+
+* Inform messages, exceptions, network errors: 
+
+ https://github.com/McNull/angular-inform
+
+* Tags input
+
+ https://github.com/mbenford/ngTagsInput
+
+**Autocomplete/typeahead**
+
+ https://angular-ui.github.io/bootstrap/#/typeahead
 * need to send only id
 * validation: required
 * allow only to select value(no custom values)
 * simple setup
 
-multiselect
+**Multiselect**
 
-INSTALL
-====
-To install  bower components
-bower-install
-
-TODO
-====
-* paging config global: Use pagingGonfig or add _paging partial.
+Not used currently
 
 
-PROBLEMS
-====
-oneToMany relations has Tags in edit form. To get removing from collection to work, cascade has to be "all-delete-orphan"
-e.g:
-```
-static mapping = {
-	persons cascade: "all-delete-orphan"
-}
-```
-
-security
-===
+## security
 
 Plugins adds spring-security-rest and all necessary security config in config.groovy.
 
@@ -144,10 +205,19 @@ If you add spring-security-ldap or add real users some other way and want to use
 
 Then set grails.util.Holders.config.functionalTest.userName and grails.util.Holders.config.functionalTest.password
 
-		
-TODO
-=====
+# MISC PROBLEMS
+oneToMany relations has Tags in edit form. To get removing from collection to work, cascade has to be "all-delete-orphan"
+e.g:
+```
+static mapping = {
+	persons cascade: "all-delete-orphan"
+}
+```
 
+		
+# TODO
+
+* paging config global: Use pagingGonfig or add _paging partial.
 * Add to functional test. Add failing create/update (domain has to have some constraints, can check with build-test-data build method and roll back if succeeds).
 * Create TestDataConfigInitial.groovy, with all domains, def i, and unique constraint. 
 * Add version prop to edit view
