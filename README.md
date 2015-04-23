@@ -1,4 +1,9 @@
 # grails-scaffold-angular
+Plugin generates for every domain object:
+* Angular REST frontend(CRUD view) with unit and e2e tests.
+* Grails REST backend(Controller, ModifyService, SearchService, UrlMapping) with unit and integration tests.
+
+Frontend uses AdminLTE opensource template: https://almsaeedstudio.com/preview
 
 # Using plugin
 
