@@ -165,8 +165,7 @@ private String renderNumber(owningClass, p, cp, parentProperty) {
 	      				
 	String rangeExtraInputStr = ""
 	if (cp.range) {
-		rangeExtraInputStr = """<span class="input-group-addon">{{::${owningClass.propertyName}.${parentPropName}${p
-    .name}}}</span>"""
+		rangeExtraInputStr = """<span class="input-group-addon">{{${owningClass.propertyName}.${parentPropName}${p.name}}}</span>"""
         str += """ type="range" """
         str += """ min="${cp.range.from}" """
         str += """ max="${cp.range.to}" """
@@ -308,6 +307,7 @@ private String renderManyToMany(owningClass, p, cp, parentProperty) {
 private String renderAutocomplete(owningClass, p, cp, parentProperty) {
 
     String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', true)
+    String validatableName = (parentProperty?.component) ? parentProperty.name : p.name
     String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
     String acFunctionName = (cp.format)?:p.name
     if(parentProperty){
@@ -321,7 +321,7 @@ private String renderAutocomplete(owningClass, p, cp, parentProperty) {
     String str =  """<!--Autocomplete-->
         <div class="input-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>
-            <input id="$propName" name="$propName" type="text" class="form-control"
+            <input id="$validatableName" name="$validatableName" type="text" class="form-control"
                    ng-model="${domainClass.propertyName}.$propName"
                    typeahead-editable="false"
                    typeahead-template-url="${idName}AutocompleteTemplate.html"
@@ -377,13 +377,15 @@ private boolean isOptional(cp) {
 <%
 private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayParentPropName = false) {
     boolean isAutocomplete = (p.cp.widget == 'autocomplete')
+
     String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', isAutocomplete)
+    String validatableName = (isAutocomplete)?((parentProperty?.component) ? parentProperty.name : p.name):propName
     String translateStr = "pages.${domainClass.shortName}.edit.form.field.$propName"
 
     if(displayParentPropName)translateStr = "pages.${domainClass.shortName}.edit.form.field.${parentProperty.name}.title"
 	return """
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="$propName"
+		<label class="col-sm-2 control-label" for="$validatableName"
                translate="${translateStr}"></label>
 		<div class="col-sm-10">
             ${renderEditField(p, owningClass, parentProperty)}

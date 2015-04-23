@@ -51,7 +51,7 @@ exports.config = {
     // If true, include stack traces in failures.
     includeStackTrace: false,
     // Time to wait in milliseconds before a test automatically fails
-    defaultTimeoutInterval: 50000,
+    defaultTimeoutInterval: 150000,
     realtimeFailure: true
   },
   onPrepare: function () {
