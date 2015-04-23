@@ -2,13 +2,14 @@
 
 # Using plugin
 
-* Create app with "grails create-app myApp" (don't use ver 2.4.4, bug with excludes, includes)
+* Create app with ```grails create-app myApp``` (use ver 2.4.3, see below for explanation)
 * Create domain model or copy somewhere.
-* Add to BuildConfig.groovy:compile ":scaffold-angular:0.3.20"
-* grails compile (for resolving plugin dependencies)
-* grails create-demo
-* Plugin generates initial configs in files: TestDataConfig.groovy, Config.groovy täiendus, BuildConfig.groovy. Call "grails create-demo" again, so plugin can use new configs.
-* grails run-app
+* Add to BuildConfig.groovy:
+```compile ":scaffold-angular:x.x"```
+* ```grails compile``` (for resolving plugin dependencies)
+* ```grails create-demo```
+* Plugin generates initial configs in files: TestDataConfig.groovy, Config.groovy täiendus, BuildConfig.groovy. Call ```grails create-demo``` again, so plugin can use new configs.
+* ```grails run-app```
 
 Everything should work now, including tests.
 
@@ -16,8 +17,23 @@ If domain model is not buildable with build-test-data, then you have to add corr
 
 If tests fail, then you have to add BuildTestData Config to generate correct data(e.g. unique constraints can fail).
 
+## Using plugin with grails ver > 2.4.3
+Plugin should generate all files with 2.* versions. But in 2.4.4 and later. There is problem with respond includes/excludes properties and custom CollectionRenderer.
+REST output just renders {empty:false} always. Bug https://jira.grails.org/browse/GRAILS-11892
 
-or without backend altogether: folders = ['backendRestSrc':null, 'backendRestTest':null, 'backendRestGrailsApp':null, 'frontendAngular':'angular/']
+You can always remove custom CollectionRenderer from resources.groovy. And remove file src/groovy/defpackage/CustomJsonCollectionRenderer.groovy
+
+And remove file src/groovy/defpackage/CustomMarshallerRegistrar.groovy (or not needed domain config from that file). One marshaller in there is important (should define somewhere or edit frontend so datepicker expectations are met):
+```
+def customDateMarshaller = new DateMarshaller(FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZ", TimeZone.default, Locale.default))
+JSON.registerObjectMarshaller(customDateMarshaller)
+```
+With CustomJsonCollectionRenderer you can exclude/include relationships properties:
+```
+excludes=id,version,someDomain.someProperty,someDomain.someSubDomain.someProperty, someDomain.someOtherSubDomain
+includes=fooProp,someDomain.someProperty,someDomain.someSubDomain
+```
+
 
 ## Bower and Npm dependencies
 
@@ -40,9 +56,9 @@ From grails:
 
 Using generator-angular-fullstack frontend as basis (https://www.npmjs.org/package/generator-angular-fullstack)
 
-* Run "grunt" for building, 
-* Run "grunt serve" for preview, and 
-* Run "grunt serve:dist" for a preview of the built app.
+* Run ```grunt``` for building, 
+* Run ```grunt serve``` for preview, and 
+* Run ```grunt serve:dist``` for a preview of the built app.
 
 
 ## Running frontend tests
@@ -51,13 +67,13 @@ Using generator-angular-fullstack frontend as basis (https://www.npmjs.org/packa
 **Karma unit tests**
 Running grunt test will run the client and server unit tests with karma and mocha.
 
-Use grunt test:client to only run client tests.
+Use ```grunt test:client``` to only run client tests.
 
 **Protractor e2e tests**
 
 To setup protractor e2e tests, you must first run
 
-npm run update-webdriver
+```npm run update-webdriver```
 
 Use grunt test:e2e to have protractor go through tests located in the e2e folder.
 
@@ -86,6 +102,11 @@ Add to Config.groovy:
 ```
 grails.plugin.scaffold.angular.serveFrontendFromGrails = false
 grails.plugin.scaffold.core.folders = [frontendAngular:'../angular_ui/']
+```
+
+You can generate only frontend : 
+```
+grails.plugin.scaffold.core.folders = ['backendRestSrc':null, 'backendRestTest':null, 'backendRestGrailsApp':null]
 ```
 
 ## Domain config
