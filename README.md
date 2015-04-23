@@ -85,12 +85,17 @@ grails{
 
 To render autocomplete to edit field, add widget:'autocomplete'. In format you can define custom prop name that is
 used to generate functions name. And with that variable name application expects resource Url in config.json.
-eg:someVarNameUrl:'http://foobar.com/somerestservice'. When format is ommited, then property name is used. Eg:
+```
+someVarNameUrl:'http://foobar.com/somerestservice'
+```
+
+When format is ommited, then property name is used. Eg:
 myPropUrl.
+```
 static constraints = {
 	myProp widget:'autocomplete', format:'someVarName'
 }
-
+```
 
 # Generated Content
 ## Backend functional tests
@@ -99,8 +104,24 @@ static constraints = {
 * reads domain instance
 * queries for domain instance
 * deletes 2 domain instances at the end.
+## Backend unit tests
 
-## Using angular/js plugins
+## Frontend unit tests
+Domain Service tests:
+* query()
+* get()
+* update()
+* save()
+
+## Frontend e2e tests
+For every domain model
+* Backend mocks
+* Create PageObjects and create page elements check 
+* Edit PageObjects and edit page elements check 
+* List PageObjects and list page search elements check 
+* View PageObjects and view page elements check. Edit/back/delete button tests. 
+
+## Used angular/js plugins
 
 validation
 http://jonsamwell.github.io/angular-auto-validate/
