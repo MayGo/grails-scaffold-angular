@@ -97,6 +97,8 @@ grails{
 				folders = ['backendSrc':'src/', 'backendTests':'test/', 'backendGrailsApp':'grails-app/', 'frontend':'angular/']
                 // don't generate files or menu for domains
                 ignoreDomainNames = []
+                ignoreFileNames = ['TestDataGeneratorService.groovy', 'TestDataConfig.groovy']
+    			ignoreStatic = true
 			}
 		}
 	}
