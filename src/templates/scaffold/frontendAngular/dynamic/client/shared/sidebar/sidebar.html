@@ -1,12 +1,12 @@
-<!-- sidebar: style can be found in sidebar.less -->
+<!-- Content Header (Page header) -->
 <section class="sidebar">
 	<!-- Sidebar user panel -->
 	<div class="user-panel">
 		<div class="pull-left image">
-			<img src="assets/img/avatar3.png" class="img-circle" alt="User Image" />
+			<img src="assets/AdminLTE/img/avatar2.png" class="img-circle" alt="User Image"/>
 		</div>
 		<div class="pull-left info">
-			<p>Hello, Jane</p>
+			<p>Jane Doe</p>
 
 			<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 		</div>
@@ -15,43 +15,45 @@
 	<form action="#" method="get" class="sidebar-form">
 		<div class="input-group">
 			<input type="text" name="q" class="form-control" placeholder="Search..."/>
-			<span class="input-group-btn">
-				<button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-			</span>
+              <span class="input-group-btn">
+                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
+				</button>
+              </span>
 		</div>
 	</form>
 	<!-- /.search form -->
 	<!-- sidebar menu: : style can be found in sidebar.less -->
 	<ul class="sidebar-menu"  ng-menu>
+		<li class="header">MAIN NAVIGATION</li>
 		<li ui-sref-active="active">
 			<a ui-sref="app.dashboard">
 				<i class="fa fa-dashboard"></i> <span translate="menu.static.DASHBOARD"></span>
 			</a>
-		</li>	
-<%
+		</li>
+		<%
 
-List glyhs=['glyphicon-cloud','glyphicon-envelope','glyphicon-glass','glyphicon-music','glyphicon-user','glyphicon-film','glyphicon-th-large','glyphicon-th','glyphicon-th-list','glyphicon-off',
-'glyphicon-signal','glyphicon-home','glyphicon-file','glyphicon-time',
-'glyphicon-road','glyphicon-download-alt','glyphicon-download','glyphicon-upload','glyphicon-inbox','glyphicon-play-circle','glyphicon-repeat','glyphicon-refresh','glyphicon-list-alt',
-'glyphicon-lock','glyphicon-flag','glyphicon-headphones','glyphicon-volume-off','glyphicon-volume-down','glyphicon-volume-up','glyphicon-qrcode','glyphicon-barcode','glyphicon-tag',
-'glyphicon-tags','glyphicon-book','glyphicon-bookmark','glyphicon-print','glyphicon-camera','glyphicon-font','glyphicon-bold','glyphicon-italic','glyphicon-text-height',
-'glyphicon-text-width','glyphicon-align-left','glyphicon-align-center','glyphicon-align-right','glyphicon-align-justify','glyphicon-list','glyphicon-indent-left',
-'glyphicon-indent-right','glyphicon-facetime-video','glyphicon-picture','glyphicon-map-marker','glyphicon-adjust','glyphicon-tint']
+		List glyhs=['glyphicon-cloud','glyphicon-envelope','glyphicon-glass','glyphicon-music','glyphicon-user','glyphicon-film','glyphicon-th-large','glyphicon-th','glyphicon-th-list','glyphicon-off',
+		'glyphicon-signal','glyphicon-home','glyphicon-file','glyphicon-time',
+		'glyphicon-road','glyphicon-download-alt','glyphicon-download','glyphicon-upload','glyphicon-inbox','glyphicon-play-circle','glyphicon-repeat','glyphicon-refresh','glyphicon-list-alt',
+		'glyphicon-lock','glyphicon-flag','glyphicon-headphones','glyphicon-volume-off','glyphicon-volume-down','glyphicon-volume-up','glyphicon-qrcode','glyphicon-barcode','glyphicon-tag',
+		'glyphicon-tags','glyphicon-book','glyphicon-bookmark','glyphicon-print','glyphicon-camera','glyphicon-font','glyphicon-bold','glyphicon-italic','glyphicon-text-height',
+		'glyphicon-text-width','glyphicon-align-left','glyphicon-align-center','glyphicon-align-right','glyphicon-align-justify','glyphicon-list','glyphicon-indent-left',
+		'glyphicon-indent-right','glyphicon-facetime-video','glyphicon-picture','glyphicon-map-marker','glyphicon-adjust','glyphicon-tint']
 
-int i = -1
-if(domainClasses.size() < 8){
-	for(d in domainClasses){
+		int i = -1
+		if(domainClasses.size() < 8){
+		for(d in domainClasses){
 		i++%>
 		<li ui-sref-active="active">
 			<a ui-sref="app.${d.propertyName}.list">
-				<i class="glyphicon ${glyhs[i]} icon text-success"></i>
+				<i class="glyphicon ${glyhs[i]} icon"></i>
 				<span class="font-bold" translate="menu.domain.${d.shortName}"></span>
 			</a>
 		</li>
-  <%}%>
-<%}else{//Group menu items based on package name
-	Map groupedDomainClasses = domainClasses.groupBy([{it.packageName}])
-	groupedDomainClasses.each{packageName, domainClasses->
+		<%}%>
+		<%}else{//Group menu items based on package name
+		Map groupedDomainClasses = domainClasses.groupBy([{it.packageName}])
+		groupedDomainClasses.each{packageName, domainClasses->
 		String groupName = packageName.tokenize('.').last()
 		i++%>
 		<li>
@@ -60,17 +62,18 @@ if(domainClasses.size() < 8){
 			        <i class="fa fa-fw fa-angle-right text"></i>
 			        <i class="fa fa-fw fa-angle-down text-active"></i>
 			    </span>
-			    <i class="glyphicon ${glyhs[i]} icon text-success"></i>
+				<i class="glyphicon ${glyhs[i]} icon"></i>
 				<span class="font-bold" translate="menu.package.${groupName}"></span>
 			</a>
-			<ul>
-			<% domainClasses.each{d->
+			<ul class="treeview-menu">
+				<% domainClasses.each{d->
 				%>
-				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}.list" translate="menu.domain.${d.shortName}"><i class="fa fa-angle-double-right"></i></a></li>
-			<%}%>
+				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}.list" ><i class="fa fa-circle-o"></i> {{ 'menu.domain.${d.shortName}' | translate}}</a></li>
+				<%}%>
 			</ul>
 		</li>
-	<%}%>
-<%}%>
+		<%}%>
+		<%}%>
 	</ul>
 </section>
+

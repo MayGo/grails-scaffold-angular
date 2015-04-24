@@ -179,9 +179,6 @@ body tags-input .tags {
     color: white !important;
 }
 
-
-
-
 .settings{
   position: inherit !important;
 }
@@ -189,7 +186,49 @@ body tags-input .tags {
 /**
 * bootstrap modal backdrop fix
 */
-.modal-backdrop{
+.modal-backdrop {
   bottom: 0;
   position: fixed;
 }
+
+
+
+/**
+*
+*/
+.wrapper-md {
+  padding: 20px;
+}
+
+.bg-white-only {
+  background-color: rgb(255, 255, 255);
+}
+
+.page-heading{
+  padding: 20px;
+  color: #58666e;
+  background-color: #f6f8f8;
+  border-bottom: 1px solid #dee5e7;
+  position: relative;
+}
+
+.page-heading h1{
+  margin: 0 !important;
+  font-weight: 300;
+}
+
+
+.breadcrumb {
+  float: right;
+  background: transparent;
+  margin-top: 0px;
+  margin-bottom: 0;
+  font-size: 12px;
+  padding: 7px 5px;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  border-radius: 2px;
+  list-style: none;
+}
+
