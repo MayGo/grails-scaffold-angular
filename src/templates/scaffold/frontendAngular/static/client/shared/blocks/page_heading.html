@@ -1,3 +1,8 @@
-<div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3" translate="{{::pageTitle}}"></h1>
-</div>
+<!-- Content Header (Page header) -->
+<section class="page-heading">
+  <h1 class="h3" translate="{{::pageTitle}}"></h1>
+  <ol class="breadcrumb" ng-if="!isModal && !isTab">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">Dashboard</li>
+  </ol>
+</section>
