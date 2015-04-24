@@ -194,13 +194,10 @@ body tags-input .tags {
 
 
 /**
-*
+* Navbar, bearcrumbs content body
 */
-.wrapper-md {
+.content-body{
   padding: 20px;
-}
-
-.bg-white-only {
   background-color: rgb(255, 255, 255);
 }
 

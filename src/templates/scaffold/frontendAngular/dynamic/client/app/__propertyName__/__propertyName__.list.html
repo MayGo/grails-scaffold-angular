@@ -315,7 +315,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 %>
 <div id="${domainClass.propertyName}_list" ng-init="pageTitle = 'pages.${domainClass.shortName}.list.title'"
      data-ng-include=" 'shared/blocks/page_heading.html' "></div>
-<div class="wrapper-md bg-white-only ">
+<div class="content-body">
 <div class="list-search"  st-table="rowCollection" st-pipe="callServer" >
 <accordion close-others="false">
     <accordion-group  heading="{{::'pages.${domainClass.shortName}.list.table.search' | translate}}"  is-open="isSearchOpen">

@@ -396,7 +396,7 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
 }%>
 <div id="${domainClass.propertyName}_form"
      ng-init="pageTitle = (isEditForm)?'pages.${domainClass.shortName}.edit.title':'pages.${domainClass.shortName}.create.title'" data-ng-include=" 'shared/blocks/page_heading.html' "></div>
-<div class="wrapper-md bg-white-only ng-scope">
+<div class="content-body">
     <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal" novalidate>
         <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
 <%for (p in props) {

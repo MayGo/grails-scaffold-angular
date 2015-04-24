@@ -93,6 +93,9 @@ relationsProps.each{domainCl->
 	%>
 		.state('app.${domainClass.propertyName}.view.${domainCl.propertyName}',{
 			url: '/${domainCl.propertyName}/:relationName',
+			data:{
+				isTab:true
+			},
 			templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html',
 			controller: '${domainCl.shortName}ListController'
 		})

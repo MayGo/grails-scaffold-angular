@@ -222,7 +222,7 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
 %>
 <div id="${domainClass.propertyName}_view" ng-init="pageTitle = 'pages.${domainClass.shortName}.view.title'"
      ng-include=" 'shared/blocks/page_heading.html' "></div>
-<div class="wrapper-md bg-white-only ng-scope">
+<div class="content-body">
     <div class="form-horizontal">
 <%for (p in props) {
         if(p.embedded){
@@ -298,7 +298,7 @@ relationsProps.each{property, domainCl->
 if(relationsProps){
         %>
     </tabset>
-    <div ui-view ><div class="wrapper-md bg-white-only ng-scope">{{::'pages.${domainClass.shortName}.view.selecttab' | translate}}</div></div>
+    <div ui-view ><div class="content-body">{{::'pages.${domainClass.shortName}.view.selecttab' | translate}}</div></div>
 </div>
     <%} %>
 
