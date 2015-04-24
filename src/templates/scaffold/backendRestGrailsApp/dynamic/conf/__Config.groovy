@@ -170,7 +170,9 @@ grails{
 				linesToAdd += line5
 			}
 
-			String line6 = 'grails.databinding.dateFormats = ["yyyy-MM-dd\'T\'hh:mm:ssZ"]'
+			String line6 = """
+			grails.databinding.dateFormats = ["yyyy-MM-dd'T'hh:mm:ssZ"]
+"""
 			if(!destFile.text.contains('dateFormats')) {
 				linesToAdd += line6
 			}
