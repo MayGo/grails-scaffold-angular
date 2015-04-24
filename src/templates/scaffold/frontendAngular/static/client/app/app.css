@@ -191,6 +191,13 @@ body tags-input .tags {
   position: fixed;
 }
 
+/**
+* Dashboard
+*/
+
+.padding{
+  padding: 15px;
+}
 
 
 /**

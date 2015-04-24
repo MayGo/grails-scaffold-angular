@@ -47,7 +47,7 @@ grails.project.dependency.resolution = {
 	    compile(":hibernate4:4.3.6.1"){
 		    export = false
 	    }
-		compile ':scaffold-core:0.5'
+		compile ':scaffold-core:1.0'
 		compile ":build-test-data:2.4.0"
     }
 }
