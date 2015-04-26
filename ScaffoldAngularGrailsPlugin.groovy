@@ -1,35 +1,22 @@
 import grails.plugin.scaffold.core.ConfigUtility
+import grails.plugin.scaffold.core.DefaultTemplatesLocator
 
 class ScaffoldAngularGrailsPlugin {
 	def version = "1.0"
-	// the version or versions of Grails the plugin is designed for
 	def grailsVersion = "2.4 > *"
-
-	def dependsOn = [scaffoldCore: "* > 0.1"]
 	def loadAfter = ['scaffoldCore']
 	def loadBefore = ['buildTestData']
-
 	def title = "Scaffold Angular Plugin"
 	def author = "Maigo Erit"
 	def authorEmail = "maigo.erit@gmail.com"
-	def description = '''\
-Grails plugin for generating working demo with Angular frontend and REST backend.
-'''
-
-	// URL to the plugin's documentation
+	def description = 'Generates a working demo with Angular frontend and REST backend.'
 	def documentation = "http://grails.org/plugin/scaffold-angular"
-
-	// Extra (optional) plugin metadata
-
-	// License: one of 'APACHE', 'GPL2', 'GPL3'
-//    def license = "APACHE"
-
-	// Online location of the plugin's browseable source code.
+	def license = "APACHE"
 	def scm = [url: "https://github.com/MayGo/grails-scaffold-angular"]
-
+	def issueManagement = [url: 'https://github.com/MayGo/grails-scaffold-angular/issues']
 
 	def doWithSpring = {
 		ConfigUtility.mergeDefaultConfig(application, 'ScaffoldAngularDefaultConfig')
-		angularTemplatesLocator(grails.plugin.scaffold.core.DefaultTemplatesLocator, "scaffold-angular")
+		angularTemplatesLocator(DefaultTemplatesLocator, "scaffold-angular")
 	}
 }
