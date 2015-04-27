@@ -11,6 +11,7 @@ import defpackage.exceptions.ResourceNotFound
 import ${packageName}.${className}
 import ${packageName}.${className}ModifyService
 import ${packageName}.${className}SearchService
+import ${packageName}.${className}SearchCommand
 
 @RestApi(name = '${className} services', description = 'Methods for managing ${className}s')
 class ${className}Controller {
@@ -35,10 +36,15 @@ class ${className}Controller {
 		@RestApiParam(name = 'sort', type='string', paramType = RestApiParamType.QUERY,
 				description = 'Retrieved ${className} list sort')
 	])
-	def index(final Integer max) {
-		params.max = Math.min(max ?: 10, 100)
+	def index(${className}SearchCommand cmd) {
+		params.max = Math.min(params.int('max') ?: 10, 100)
 
-		def result = ${domainClass.propertyName}SearchService.search(params)
+		if (cmd.hasErrors()) {
+			throw new ValidationException("Search does not validate.", cmd.errors)
+		}
+
+
+		def result = ${domainClass.propertyName}SearchService.search(cmd, params)
 
 		header 'Access-Control-Expose-Headers', 'total'
 		header 'total', result.totalCount

@@ -56,7 +56,7 @@ private String renderOneToMany(owningClass, p, cp) {
 	if(p.referencedDomainClass){
 		str =  """
 			 if(\$scope.isEditForm){
-				${p.referencedDomainClass.shortName}Service.query({max:50, filter:{${(p.referencedPropertyName)?:p.otherSide?.name}:\$stateParams.id}, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
+				${p.referencedDomainClass.shortName}Service.query({max:50, ${(p.referencedPropertyName)?:p.otherSide?.name}:\$stateParams.id, excludes:'${excludes*.name.join(",")}'}).\$promise.then(
 					function( response ){
 						\$scope.${domainClass.propertyName}.${p.name} = response.map(function(item){
 							return {id:item.id, name:$useDisplaynamesStr};
