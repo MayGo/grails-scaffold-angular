@@ -1,15 +1,18 @@
 package grails.plugin.scaffold.angular
 
+import static java.lang.reflect.Modifier.isStatic
 import grails.buildtestdata.BuildTestDataService
 import grails.buildtestdata.handler.ConstraintHandlerException
 import grails.converters.JSON
+import groovy.util.logging.Slf4j
+
+import java.text.SimpleDateFormat
+
 import org.codehaus.groovy.grails.commons.GrailsClass
 import org.codehaus.groovy.grails.orm.hibernate.cfg.CompositeIdentity
 import org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsDomainBinder
 
-import java.text.SimpleDateFormat
-import static java.lang.reflect.Modifier.isStatic
-
+@Slf4j
 class DomainHelper {
 
 	static BuildTestDataService buildTestDataService
@@ -17,13 +20,13 @@ class DomainHelper {
 	//cache instances for later use
 	static Map cachedInstances = [:]
 
-	static def createOrGetInst(def dClass, int groupId) {
+	static createOrGetInst(dClass, int groupId) {
 
 		updateRequiredPropertyNames(dClass)
 
 		//Get instance from cache or create if does not exists
 		def inst
-		def domainClazz = dClass.getClazz()
+		def domainClazz = dClass.clazz
 
 		String groupKey = "${dClass.name}_$groupId"
 		if (cachedInstances.containsKey(groupKey)) {
@@ -37,20 +40,18 @@ class DomainHelper {
 							inst = domainClazz.buildWithoutSave()
 							inst.discard()
 
-							status.setRollbackOnly();
+							status.setRollbackOnly()
 
 
 						} catch (ConstraintHandlerException ex) {
-							println ex.message;
+							log.error ex.message
 						} catch (Exception ex) {
-							ex.printStackTrace();
+							log.error ex.message, ex
 						}
 					}
 				} catch (Exception ex) {
-					println "Problem  with class ${dClass.name}"
-					ex.printStackTrace();
+					log.error "Problem  with class ${dClass.name}", ex
 				}
-
 
 				cachedInstances[groupKey] = inst
 			} else {
@@ -60,7 +61,8 @@ class DomainHelper {
 
 		return inst
 	}
-	static def createOrGetInst(def dClass, int groupId, def fallbackDomainClass, def p) {
+
+	static createOrGetInst(dClass, int groupId, fallbackDomainClass, p) {
 		def inst = createOrGetInst(dClass, groupId)
 		if(!inst){
 			//Search from fallbackDomainclass
@@ -76,7 +78,7 @@ class DomainHelper {
 		return inst
 	}
 
-	static updateRequiredPropertyNames(def domainClass) {
+	static updateRequiredPropertyNames(domainClass) {
 		if (!buildTestDataService) {
 			def domainClazz = domainClass.clazz
 			buildTestDataService = domainClazz.metaClass.getMetaMethod("buildWithoutSave", [GrailsClass] as Class[]).getClosure().delegate
@@ -96,7 +98,7 @@ class DomainHelper {
 		}
 	}
 
-	static def getRealValue(def p, def val) {
+	static getRealValue(p, val) {
 		def realVal
 		if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)) {
 			if (p.type == boolean || p.type == Boolean) realVal = true
@@ -112,7 +114,7 @@ class DomainHelper {
 		return realVal
 	}
 
-	static def getRealValueForInput(def p, def val) {
+	static getRealValueForInput(p, val) {
 		def realVal
 		if (p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)) {
 			if (p.type == boolean || p.type == Boolean) realVal = true
