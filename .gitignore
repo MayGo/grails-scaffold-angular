@@ -1,12 +1,10 @@
 .classpath
 .project
-web-app/
-target/
+/web-app
+/target
 *.zip
-.settings/
-foo/
-foo2/
-.idea/
+/.settings
+/.idea
 grails-scaffold-angular-grailsPlugins.iml
 *.iml
 plugin.xml
