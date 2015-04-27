@@ -125,6 +125,7 @@ private String renderManyToOne(owningClass, p, parentProperty) {
             <a ui-sref="app.${domainClass.propertyName}.view.${p.referencedDomainClass.propertyName}Modal({modalId:${owningClass.propertyName}.${parentPropName}${p.name}.id})" >
             <div class="col-sm-10 form-control-static">
             """
+
     useDisplaynames.each{ key, value->
         str += """<span ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}.${key}"></span> """
     }
@@ -162,7 +163,7 @@ private String renderOneToMany(owningClass, p, parentProperty) {
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.shortName}.view.field.${parentPropName}${p.name}"></label>
             <div class="col-sm-10 form-control-static"
-               ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></dvi>
+               ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
 
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>

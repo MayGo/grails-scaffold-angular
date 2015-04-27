@@ -9,3 +9,4 @@ foo2/
 .idea/
 grails-scaffold-angular-grailsPlugins.iml
 *.iml
+plugin.xml
