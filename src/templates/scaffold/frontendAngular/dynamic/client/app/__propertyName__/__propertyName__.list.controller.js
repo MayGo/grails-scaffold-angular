@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('angularDemoApp')
-	.controller('${domainClass.shortName}ListController', function (\$scope, \$rootScope, \$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout) {
+	.controller('${domainClass.shortName}ListController', function (\$scope, \$rootScope,
+		\$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout, inform) {
 
 	if(\$state.current.data){
 		\$scope.isTab = \$state.current.data.isTab;
@@ -51,11 +52,19 @@ angular.module('angularDemoApp')
 				query[\$stateParams.relationName].push(Number(\$stateParams.id));
 			}
 
+			var errorCallback = function(response){
+				if (response.data.errors) {
+					angular.forEach(response.data.errors, function (error) {
+						inform.add(error.message, {ttl: -1,'type': 'warning'});
+					});
+				}
+			};
+
 			${domainClass.shortName}Service.query(query, function(response, responseHeaders){
 				\$scope.isLoading = false;
 				\$scope.rowCollection = response;
 				tableState.pagination.numberOfPages = Math.ceil(responseHeaders().total / tableState.pagination.number);
-			});
+			}, errorCallback);
 		}, 255);
 
 	};

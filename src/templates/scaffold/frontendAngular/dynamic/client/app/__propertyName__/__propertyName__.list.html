@@ -319,6 +319,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 <div class="list-search"  st-table="rowCollection" st-pipe="callServer" >
 <accordion close-others="false">
     <accordion-group  heading="{{::'pages.${domainClass.shortName}.list.table.search' | translate}}"  is-open="isSearchOpen">
+         <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal" novalidate>
         <div class="row form-inline">
             <%for (p in props) {%>
                   ${renderFieldSearch(p, domainClass)}
@@ -354,11 +355,13 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
             <% embeddedProps.each{ep->%>
             ${renderFieldSearch(ep, domainClass, p)}
             <%}%>
+
         </div>
     <%      }
         }
     }
         %>
+                </form>
             </accordion-group>
         </accordion>
         <div class="box-tools pull-right" ng-if="!isModal">
