@@ -1,4 +1,6 @@
 <%=packageName ? "package ${packageName}\n" : ''%>
+
+import grails.util.GrailsNameUtils
 import grails.validation.Validateable
 import groovy.transform.ToString
 
@@ -8,7 +10,9 @@ import org.apache.commons.lang.ClassUtils
 allProps = scaffoldingHelper.getProps(domainClass)
 props = allProps.findAll{p->!p.oneToMany && !p.manyToMany}
 importNames = allProps.findAll{p->p.referencedDomainClass}.collect{p->p.referencedDomainClass.fullName}.unique()
-importNames += allProps.findAll{p->p.isEmbedded()}.collect{p->p.component.fullName}.unique()
+importNames += allProps.findAll{p->p.isEmbedded()}.collect{p-> GrailsNameUtils.getClassName()p.component.fullName}.unique()
+importNames += allProps.findAll{p->p.isEnum()}.collect{p->ClassUtils.getPackageName(p.type) + '.' + ClassUtils.getShortClassName(p.type)}.unique()
+
 importNames.each{
 	println "import ${it}"
 }

@@ -8,7 +8,7 @@ angular.module('angularDemoApp')
 		    template: '<div ui-view class="fade-in-up"></div>'
 		})
 		.state('app.${domainClass.propertyName}.list', {
-			url: '/list?search',//TODO: search so that search is not an object in url
+			url: '/list?search&sort&order',//TODO: search so that search is not an object in url
 			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.list.html',
 			controller: '${domainClass.shortName}ListController'
 		}).state('app.${domainClass.propertyName}.create',{
