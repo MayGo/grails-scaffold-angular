@@ -1,8 +1,6 @@
 <%=packageName ? "package ${packageName}\n" : ''%>
-
 import grails.validation.Validateable
 import groovy.transform.ToString
-
 <%
 
 import grails.plugin.scaffold.angular.DomainHelper
@@ -10,8 +8,8 @@ import org.apache.commons.lang.ClassUtils
 
 allProps = scaffoldingHelper.getProps(domainClass)
 props = allProps.findAll{p->!p.oneToMany && !p.manyToMany}
-importNames = allProps.findAll{p->p.referencedDomainClass}.collect{p->p.referencedDomainClass.fullName}.unique()
-importNames += allProps.findAll{p->p.isEmbedded()}.collect{p-> p.component.fullName}.unique()
+importNames = allProps.findAll{p->!p.manyToOne && !p.oneToOne && !p.oneToMany && !p.manyToMany && p.referencedDomainClass && p.referencedDomainClass.packageName != packageName}.collect{p->p.referencedDomainClass.fullName}.unique()
+//importNames += allProps.findAll{p->p.isEmbedded()}.collect{p-> p.component.fullName}.unique()
 importNames += allProps.findAll{p->p.isEnum()}.collect{p->ClassUtils.getPackageName(p.type) + '.' + ClassUtils.getShortClassName(p.type)}.unique()
 
 importNames.each{
