@@ -12,7 +12,7 @@ angular.module('angularDemoApp', [
   'pascalprecht.translate',
   'jcs-autoValidate',
   'angular-loading-bar',
-  'smart-table',
+  'ngTable',
   'ui.bootstrap.typeahead',
   'inform',
   'inform-exception',

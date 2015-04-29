@@ -2,7 +2,7 @@
 
 angular.module('angularDemoApp')
 	.controller('${domainClass.shortName}ListController', function (\$scope, \$rootScope,
-		\$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout, inform) {
+		\$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout, inform, ngTableParams) {
 
 	if(\$state.current.data){
 		\$scope.isTab = \$state.current.data.isTab;
@@ -18,54 +18,61 @@ angular.module('angularDemoApp')
 		});
 	};
 
-	\$scope.isLoading = true;
+
+	\$scope.search = {};
 	\$scope.rowCollection = [];
+
 	var filterTimeout;
-	\$scope.callServer = function (tableState) {
+	\$scope.tableParams = new ngTableParams({
+		page: 1,            // show first page
+		count: 10,          // count per page
+		sorting: {
+			id: 'asc'     // initial sorting
+		},
+		filter: \$scope.search
+	}, {
+		total: 0,           // length of data
+		getData: function(\$defer, params) {
 
-		// do not let to make do much queries
-		if (filterTimeout){
-			\$timeout.cancel(filterTimeout);
-		}
-
-		filterTimeout = \$timeout(function() {
-			var query = {max: \$scope.stTable.itemsByPage, offset: tableState.pagination.start};
-			if (tableState.sort.predicate) {
-				query.order = tableState.sort.reverse ? 'asc' : 'desc';
-				query.sort = tableState.sort.predicate;
+			// do not let to make do much queries
+			if (filterTimeout){
+				\$timeout.cancel(filterTimeout);
 			}
 
-			var searchParams = tableState.search.predicateObject;
+			filterTimeout = \$timeout(function() {
+				var offset = (params.page()-1) * params.count();
+				var paging = {max: \$scope.stTable.itemsByPage, offset: offset};
 
-			if (searchParams) {
-				angular.forEach(searchParams, function(value, key) {
-					if(!_.isEmpty(value)){
-						this[key] = value;
+				var query = _.merge(paging, params.filter())
+				console.log(params.filter())
+				if (params.sorting()) {
+					query.sort = Object.keys(params.sorting())[0];
+					query.order = params.sorting()[query.sort];
+				}
+
+
+				if(\$stateParams.relationName && \$stateParams.id){
+					if(_.isEmpty(query[\$stateParams.relationName])){
+						query[\$stateParams.relationName] = [];
 					}
-				}, query);
-			}
-
-			if(\$stateParams.relationName && \$stateParams.id){
-				if(_.isEmpty(query[\$stateParams.relationName])){
-					query[\$stateParams.relationName] = [];
+					query[\$stateParams.relationName].push(Number(\$stateParams.id));
 				}
-				query[\$stateParams.relationName].push(Number(\$stateParams.id));
-			}
 
-			var errorCallback = function(response){
-				if (response.data.errors) {
-					angular.forEach(response.data.errors, function (error) {
-						inform.add(error.message, {ttl: -1,'type': 'warning'});
-					});
-				}
-			};
+				var errorCallback = function(response){
+					if (response.data && response.data.errors) {
+						angular.forEach(response.data.errors, function (error) {
+							inform.add(error.message, {ttl: -1,'type': 'warning'});
+						});
+					}
+				};
 
-			${domainClass.shortName}Service.query(query, function(response, responseHeaders){
-				\$scope.isLoading = false;
-				\$scope.rowCollection = response;
-				tableState.pagination.numberOfPages = Math.ceil(responseHeaders().total / tableState.pagination.number);
-			}, errorCallback);
-		}, 255);
+				${domainClass.shortName}Service.query(query, function(response, responseHeaders){
+					params.total(responseHeaders().total);
+					\$defer.resolve(response);
+				}, errorCallback);
+			}, 255);
 
-	};
+		}
+	});
+
 });

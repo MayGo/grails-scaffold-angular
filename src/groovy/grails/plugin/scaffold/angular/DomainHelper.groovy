@@ -138,16 +138,31 @@ class DomainHelper {
 		}
 		return isComposite
 	}
-
+	/*
+	*	Convert domain tree to property name
+	*  if no CH then return camelcased property name
+	*/
 	static String getPropertyFullName(p, parentProperty, String ch, boolean includeFirstProp = false){
 		String propName = (parentProperty?.component) ? parentProperty.name + ch : ''
 		String mainPropName = p.name
 		if(p.component &&  includeFirstProp){
-			propName += mainPropName + ch
+			if(ch){
+				propName += mainPropName + ch
+			}else{
+				propName += mainPropName.capitalize()
+			}
+
 			def firstProp = p.component.persistantProperties.first()
+
 			mainPropName = firstProp.name
+
 		}
-		propName += mainPropName
+		if(ch){
+			propName += mainPropName
+		}else{
+			propName += mainPropName.capitalize()
+		}
+
 
 		return propName
 	}

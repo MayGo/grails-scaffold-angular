@@ -1,4 +1,4 @@
-describe('ngTableParams', function () {
+describe('NgTableParams', function () {
     var scope, ctrl, data = [
         {name: "Moroni", age: 50, role: 'Administrator'},
         {name: "Tiancum", age: 43, role: 'Administrator'},
@@ -24,50 +24,50 @@ describe('ngTableParams', function () {
         scope = $rootScope.$new();
     }));
 
-    it('ngTableParams should be defined', inject(function (ngTableParams) {
-        var params = new ngTableParams();
-        expect(ngTableParams).toBeDefined();
+    it('NgTableParams should be defined', inject(function (NgTableParams) {
+        var params = new NgTableParams();
+        expect(NgTableParams).toBeDefined();
     }));
 
-    it('ngTableParams test generatePagesArray', inject(function (ngTableParams) {
-        var params = new ngTableParams();
+    it('NgTableParams test generatePagesArray', inject(function (NgTableParams) {
+        var params = new NgTableParams();
         expect(params.generatePagesArray(1, 30, 10)).toEqual([
             { type: 'prev', number: 1, active: false },
-            { type: 'first', number: 1, active: false },
-            { type: 'page', number: 2, active: true },
-            { type: 'last', number: 3, active: true },
+            { type: 'first', number: 1, active: false, current: true },
+            { type: 'page', number: 2, active: true, current: false },
+            { type: 'last', number: 3, active: true, current: false },
             { type: 'next', number: 2, active: true }
         ]);
         expect(params.generatePagesArray(2, 30, 10)).toEqual([
             { type: 'prev', number: 1, active: true },
-            { type: 'first', number: 1, active: true },
-            { type: 'page', number: 2, active: false },
-            { type: 'last', number: 3, active: true },
+            { type: 'first', number: 1, active: true, current: false },
+            { type: 'page', number: 2, active: false, current: true },
+            { type: 'last', number: 3, active: true, current: false },
             { type: 'next', number: 3, active: true }
         ]);
         expect(params.generatePagesArray(2, 100, 10)).toEqual([
             { type: 'prev', number: 1, active: true },
-            { type: 'first', number: 1, active: true },
-            { type: 'page', number: 2, active: false },
-            { type: 'page', number: 3, active: true },
-            { type: 'page', number: 4, active: true },
-            { type: 'page', number: 5, active: true },
-            { type: 'page', number: 6, active: true },
-            { type: 'page', number: 7, active: true },
+            { type: 'first', number: 1, active: true, current: false },
+            { type: 'page', number: 2, active: false, current: true },
+            { type: 'page', number: 3, active: true, current: false },
+            { type: 'page', number: 4, active: true, current: false },
+            { type: 'page', number: 5, active: true, current: false },
+            { type: 'page', number: 6, active: true, current: false },
+            { type: 'page', number: 7, active: true, current: false },
             { type: 'more', active: false },
-            { type: 'last', number: 10, active: true },
+            { type: 'last', number: 10, active: true, current: false },
             { type: 'next', number: 3, active: true }
         ]);
     }));
 
-    it('ngTableParams `page` parameter', inject(function (ngTableParams) {
-        var params = new ngTableParams();
+    it('NgTableParams `page` parameter', inject(function (NgTableParams) {
+        var params = new NgTableParams();
 
         expect(params.page()).toBe(1);
         expect(params.page(2)).toEqual(params);
         expect(params.page()).toBe(2);
 
-        params = new ngTableParams({
+        params = new NgTableParams({
             page: 3
         });
         expect(params.page()).toBe(3);
@@ -86,8 +86,8 @@ describe('ngTableParams', function () {
         expect(callCount).toBe(1);
     }));
 
-    it('ngTableParams parse url parameters', inject(function (ngTableParams) {
-        var params = new ngTableParams({
+    it('NgTableParams parse url parameters', inject(function (NgTableParams) {
+        var params = new NgTableParams({
             'sorting[name]': 'asc',
             'sorting[age]': 'desc',
             'filter[name]': 'test',
@@ -101,8 +101,8 @@ describe('ngTableParams', function () {
         expect(params.sorting({})).toEqual(params);
     }));
 
-    it('ngTableParams return url parameters', inject(function (ngTableParams) {
-        var params = new ngTableParams({
+    it('NgTableParams return url parameters', inject(function (NgTableParams) {
+        var params = new NgTableParams({
             'sorting[name]': 'asc',
             'sorting[age]': 'desc',
             'filter[name]': 'test',
@@ -124,8 +124,8 @@ describe('ngTableParams', function () {
         ]);
     }));
 
-    it('ngTableParams test orderBy', inject(function (ngTableParams) {
-        var params = new ngTableParams({
+    it('NgTableParams test orderBy', inject(function (NgTableParams) {
+        var params = new NgTableParams({
             'sorting[name]': 'asc'
         });
 
@@ -136,8 +136,8 @@ describe('ngTableParams', function () {
         expect(params.orderBy()).toEqual([ '-name', '+age' ]);
     }));
 
-    it('ngTableParams test settings', inject(function (ngTableParams) {
-        var params = new ngTableParams();
+    it('NgTableParams test settings', inject(function (NgTableParams) {
+        var params = new NgTableParams();
 
         expect(params.settings()).toEqual({
             $scope: null,
@@ -151,7 +151,7 @@ describe('ngTableParams', function () {
             filterDelay: 750
         });
 
-        params = new ngTableParams({}, { total: 100 });
+        params = new NgTableParams({}, { total: 100 });
 
         expect(params.settings()).toEqual({
             $scope: null,
@@ -166,8 +166,8 @@ describe('ngTableParams', function () {
         });
     }));
 
-    it('ngTableParams test getData', inject(function ($q, ngTableParams) {
-        var params = new ngTableParams();
+    it('NgTableParams test getData', inject(function ($q, NgTableParams) {
+        var params = new NgTableParams();
         $defer = $q.defer();
         $defer.promise.then(function(data) {
             expect(data).toEqual([]);
@@ -175,8 +175,8 @@ describe('ngTableParams', function () {
         params.getData($defer);
     }));
 
-    it('ngTableParams test grouping', inject(function ($q, ngTableParams) {
-        var params = new ngTableParams();
+    it('NgTableParams test grouping', inject(function ($q, NgTableParams) {
+        var params = new NgTableParams();
         params.getData = function ($defer) {
             $defer.resolve(data);
         };
@@ -269,5 +269,22 @@ describe('ngTableParams', function () {
             ]);
         });
         params.getGroups($defer, 'age');
+    }));
+
+    it('ngTableParams test defaults', inject(function ($q, ngTableParams, ngTableDefaults) {
+        ngTableDefaults.params = {
+            count: 2
+        };
+        ngTableDefaults.settings = {
+            counts: []
+        };
+        var params = new ngTableParams();
+
+        expect(params.count()).toEqual(2);
+        expect(params.page()).toEqual(1);
+
+        var settings = params.settings()
+        expect(settings.counts.length).toEqual(0);
+        expect(settings.filterDelay).toEqual(750);
     }));
 });

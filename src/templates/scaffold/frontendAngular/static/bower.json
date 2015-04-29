@@ -20,7 +20,6 @@
     "angular-inform": "~0.0.18",
     "satellizer": "~0.9.2",
     "ng-tags-input": "~2.1.1",
-    "angular-smart-table": "~1.4.4",
     "ngstorage": "~0.3.0",
     "angular-translate": "~2.4.2",
     "angular-translate-loader-static-files": "~2.4.2",
@@ -32,7 +31,8 @@
     "ngToggle": "*",
     "angular-mocks": ">=1.2.*",
     "angular-permission": "~0.1.6",
-    "json-edit": "~0.2.0"
+    "json-edit": "~0.2.0",
+    "ng-table": "~0.5.4"
   },
   "devDependencies": {
     "angular-scenario": ">=1.2.*"
