@@ -5,25 +5,44 @@ angular.module('angularDemoApp')
 \$stateProvider
 		.state('app.${domainClass.propertyName}', {
 		    url: '/${domainClass.propertyName}',
-		    template: '<div ui-view class="fade-in-up"></div>'
+			abstract: true,
+		    template: '<div ui-view="page" class="fade-in-up"></div>'
 		})
 		.state('app.${domainClass.propertyName}.list', {
 			url: '/list?search',//TODO: search so that search is not an object in url
-			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.list.html',
-			controller: '${domainClass.shortName}ListController'
+			views: {
+				"page@app.${domainClass.propertyName}": {
+					templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.list.html',
+					controller: '${domainClass.shortName}ListController'
+				}
+			}
 		}).state('app.${domainClass.propertyName}.create',{
 			url: '/create',
-			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.form.html',
-			controller: '${domainClass.shortName}EditController',
+			ncyBreadcrumb: {
+				parent: 'app.${domainClass.propertyName}.list'
+			},
+			views: {
+				"page@app.${domainClass.propertyName}": {
+					templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.form.html',
+					controller: '${domainClass.shortName}EditController'
+				}
+			},
 			resolve:{
 				${domainClass.propertyName}Data: function(\$stateParams, ${domainClass.shortName}Service) {
 					return new ${domainClass.shortName}Service();
 				}
 			}
-		}).state('app.${domainClass.propertyName}.edit',{
-			url: '/edit/:id',
-			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.form.html',
-			controller: '${domainClass.shortName}EditController',
+		}).state('app.${domainClass.propertyName}.view',{
+			url: '/view/:id',
+			ncyBreadcrumb: {
+				parent: 'app.${domainClass.propertyName}.list'
+			},
+			views: {
+				"page@app.${domainClass.propertyName}": {
+					templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.view.html',
+					controller: '${domainClass.shortName}ViewController'
+				}
+			},
 			resolve:{
 				${domainClass.propertyName}Data: function(\$stateParams, ${domainClass.shortName}Service){
 					return ${domainClass.shortName}Service.get({id:\$stateParams.id}).\$promise.then(
@@ -33,15 +52,19 @@ angular.module('angularDemoApp')
 					);
 				}
 			}
-		}).state('app.${domainClass.propertyName}.view',{
-			url: '/view/:id',
-			templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.view.html',
-			controller: '${domainClass.shortName}ViewController',
-				resolve:{
+		}).state('app.${domainClass.propertyName}.view.edit',{
+			url: '/edit',
+			views: {
+				"page@app.${domainClass.propertyName}": {
+					templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.form.html',
+					controller: '${domainClass.shortName}EditController',
+				}
+			},
+			resolve:{
 				${domainClass.propertyName}Data: function(\$stateParams, ${domainClass.shortName}Service){
 					return ${domainClass.shortName}Service.get({id:\$stateParams.id}).\$promise.then(
 						function( response ){
-							return response;
+								return response;
 						}
 					);
 				}
@@ -82,7 +105,7 @@ modalRoutesDomainClasses.each{domainCl->
 
 		}
 
-	}).state('app.${domainClass.propertyName}.edit.${domainCl.propertyName}SearchModal',{
+	}).state('app.${domainClass.propertyName}.view.edit.${domainCl.propertyName}SearchModal',{
 		templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html',
 		controller: '${domainCl.shortName}ListController'
 	})
@@ -93,11 +116,18 @@ relationsProps.each{domainCl->
 	%>
 		.state('app.${domainClass.propertyName}.view.${domainCl.propertyName}',{
 			url: '/${domainCl.propertyName}/:relationName',
+			ncyBreadcrumb: {
+				skip: true
+			},
 			data:{
 				isTab:true
 			},
-			templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html',
-			controller: '${domainCl.shortName}ListController'
+			views: {
+				"tabs": {
+					templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html',
+					controller: '${domainCl.shortName}ListController'
+				}
+			}
 		})
 	<%}%>
 ;

@@ -32,7 +32,8 @@
     "angular-mocks": ">=1.2.*",
     "angular-permission": "~0.1.6",
     "json-edit": "~0.2.0",
-    "ng-table": "~0.5.4"
+    "ng-table": "~0.5.4",
+    "angular-breadcrumb": "~0.3.3"
   },
   "devDependencies": {
     "angular-scenario": ">=1.2.*"

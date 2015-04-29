@@ -12,7 +12,6 @@ angular.module('angularDemoApp')
     $scope.username = SessionService.getCurrentUser().login;
     $scope.autocompleteService = AutocompleteService;
 
-    $scope.stTable = {'itemsByPage': 20};
     // add 'ie' classes to html
     var isIE = !!navigator.userAgent.match(/MSIE/i);
     if (isIE) {

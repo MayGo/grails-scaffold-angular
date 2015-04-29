@@ -63,7 +63,7 @@
 		}
 	},
 	<%for(d in domainClasses){%>
-		"${d.shortName}":{
+		"${d.propertyName}":{
 			"name":"${d.naturalName}",
 			"list":{
 				"title": "${d.naturalName} List",	
@@ -108,11 +108,13 @@
 				}
 			},
 			"view":{
-				"title": "${d.naturalName} View",	
-				"new": " New ${d.naturalName}",
-				"edit": " Edit",
-				"delete": " Delete",
-				"back": " Back",
+				"title": "${d.naturalName} View",
+				"buttons":{
+					"new": " New ${d.naturalName}",
+						"edit": " Edit",
+						"delete": " Delete",
+						"back": " Back"
+				},
 				"lists": "{{isval}} in {{inval}}",
 				"selecttab": "Click on tab to show table",
 				"field":{
@@ -129,31 +131,32 @@
 						<%	}
 					}%>
 				    "id": "Id"
-				}
-			},
-			"edit":{
-				"title": "Edit ${d.naturalName}",	
-				"form":{
-					"title":"${d.naturalName} Form",	
-					"submit":"Submit",
-					"cancel":"Cancel",
-					"field":{
+				},
+				"edit":{
+					"title": "Edit ${d.naturalName}",
+						"form":{
+						"title":"${d.naturalName} Form",
+							"submit":"Submit",
+							"cancel":"Cancel",
+							"field":{
 						<%for (p in d.persistentProperties) {
-							if(p.embedded){%>
-								"${p.name}.title":"${p.naturalName}",\
+								if(p.embedded){%>
+									"${p.name}.title":"${p.naturalName}",\
 								<%p.component.persistentProperties.each{ep->%>
-								"${p.name}.${ep.name}":"${ep.naturalName}",\
-							<%
-								}
-							}else{
-						%>
-				   		"${p.name}":"${p.naturalName}",\
-					    <%	}
+									"${p.name}.${ep.name}":"${ep.naturalName}",\
+									<%
+									}
+								}else{
+								%>
+									"${p.name}":"${p.naturalName}",\
+								<%	}
 							}%>
-					    "id": "Id"
+							"id": "Id"
+						}
 					}
 				}
 			},
+
 			"messages":{
 				"delete": "Deleted ${d.naturalName}",
 				"update": "Updated ${d.naturalName}",
@@ -172,7 +175,7 @@
 	},
 	"domain":{
 	<%for(d in domainClasses){%>
-		"${d.shortName}":"${d.naturalName}"${(d == domainClasses.last()?'':',')}
+		"${d.propertyName}":"${d.naturalName}"${(d == domainClasses.last()?'':',')}
 	<%}%>
 	},
 	"package":{

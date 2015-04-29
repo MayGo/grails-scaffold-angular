@@ -256,7 +256,7 @@ private String renderManyToOne(owningClass, p, cp, parentProperty) {
      if (isRequired(cp)) str += " required"
      str += """ />
          <span class="input-group-btn" item-selector update-model="${domainClass.propertyName}.${parentPropName}${p.name}"
-               ui-link="app.${domainClass.propertyName}.edit.${p.referencedDomainClass.propertyName}SearchModal" >
+               ui-link="app.${domainClass.propertyName}.view.edit.${p.referencedDomainClass.propertyName}SearchModal" >
          </span>
      </div> """
      str +=templStr;
@@ -380,9 +380,9 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
 
     String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', isAutocomplete)
     String validatableName = (isAutocomplete)?((parentProperty?.component) ? parentProperty.name : p.name):propName
-    String translateStr = "pages.${domainClass.shortName}.edit.form.field.$propName"
+    String translateStr = "pages.${domainClass.propertyName}.view.edit.form.field.$propName"
 
-    if(displayParentPropName)translateStr = "pages.${domainClass.shortName}.edit.form.field.${parentProperty.name}.title"
+    if(displayParentPropName)translateStr = "pages.${domainClass.propertyName}.view.edit.form.field.${parentProperty.name}.title"
 	return """
 	<div class="form-group">
 		<label class="col-sm-2 control-label" for="$validatableName"
@@ -395,7 +395,7 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
 	"""
 }%>
 <div id="${domainClass.propertyName}_form"
-     ng-init="pageTitle = (isEditForm)?'pages.${domainClass.shortName}.edit.title':'pages.${domainClass.shortName}.create.title'" data-ng-include=" 'shared/blocks/page_heading.html' "></div>
+     ng-init="pageTitle = (isEditForm)?'pages.${domainClass.propertyName}.view.edit.title':'pages.${domainClass.propertyName}.create.title'" data-ng-include=" 'shared/blocks/page_heading.html' "></div>
 <div class="content-body">
     <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal" novalidate>
         <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
@@ -409,7 +409,7 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
       %>
         <accordion close-others="false" id="${p.name}Accordion">
             <accordion-group
-                    heading="{{::'pages.${domainClass.shortName}.edit.form.field.${p.name}.title' | translate}}"
+                    heading="{{::'pages.${domainClass.propertyName}.view.edit.form.field.${p.name}.title' | translate}}"
                     is-open="isSearchOpen">
                 <div class="row">
                     <%embeddedProps.each{ep->
@@ -431,9 +431,9 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
                     class="btn btn-success"
                     type='submit'
                     ng-disabled="${domainClass.propertyName}Form.\$invalid"
-                    translate="pages.${domainClass.shortName}.edit.form.submit"
+                    translate="pages.${domainClass.propertyName}.view.edit.form.submit"
                     mx-show-loading ng-click="submit(${domainClass.propertyName}Form)"></button>
-                <a class="btn btn-default" ng-click="back()" translate="pages.${domainClass.shortName}.edit.form.cancel" mx-show-loading></a>
+                <a class="btn btn-default" ng-click="back()" translate="pages.${domainClass.propertyName}.view.edit.form.cancel" mx-show-loading></a>
             </div>
             <div class="clearfix"/>
         </div>

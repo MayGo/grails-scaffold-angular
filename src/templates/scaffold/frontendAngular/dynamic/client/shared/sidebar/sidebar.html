@@ -47,7 +47,7 @@
 		<li ui-sref-active="active">
 			<a ui-sref="app.${d.propertyName}.list">
 				<i class="glyphicon ${glyhs[i]} icon"></i>
-				<span class="font-bold" translate="menu.domain.${d.shortName}"></span>
+				<span class="font-bold" translate="menu.domain.${d.propertyName}"></span>
 			</a>
 		</li>
 		<%}%>
@@ -68,7 +68,7 @@
 			<ul class="treeview-menu">
 				<% domainClasses.each{d->
 				%>
-				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}.list" ><i class="fa fa-circle-o"></i> {{ 'menu.domain.${d.shortName}' | translate}}</a></li>
+				<li ui-sref-active="active"><a ui-sref="app.${d.propertyName}.list" ><i class="fa fa-circle-o"></i> {{ 'menu.domain.${d.propertyName}' | translate}}</a></li>
 				<%}%>
 			</ul>
 		</li>

@@ -2,7 +2,7 @@
 
 angular.module('angularDemoApp')
 	.controller('${domainClass.shortName}ListController', function (\$scope, \$rootScope,
-		\$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout, inform, ngTableParams) {
+		\$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout, inform, ngTableParams, appConfig) {
 
 	if(\$state.current.data){
 		\$scope.isTab = \$state.current.data.isTab;
@@ -41,10 +41,10 @@ angular.module('angularDemoApp')
 
 			filterTimeout = \$timeout(function() {
 				var offset = (params.page()-1) * params.count();
-				var paging = {max: \$scope.stTable.itemsByPage, offset: offset};
+				var paging = {max: appConfig.itemsByPage, offset: offset};
 
 				var query = _.merge(paging, params.filter())
-				console.log(params.filter())
+
 				if (params.sorting()) {
 					query.sort = Object.keys(params.sorting())[0];
 					query.order = params.sorting()[query.sort];

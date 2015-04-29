@@ -22,7 +22,8 @@ angular.module('angularDemoApp', [
   //'mgcrea.ngStrap',
   'ngToggle',
   'permission',
-	'JSONedit'
+	'JSONedit',
+	'ncy-angular-breadcrumb'
 ])
 	.constant('appConfig', (function() {
 
@@ -35,6 +36,7 @@ angular.module('angularDemoApp', [
 
  		//Set defaults
 		var defaultConfig = {
+				itemsByPage: 15,
  				restUrl : '${appUrl}',
  	 			loginUrl : '${appUrl}${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"/api/login"}',
  	 			logoutUrl : '${appUrl}${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"/api/logout"}',
@@ -167,13 +169,21 @@ angular.module('angularDemoApp', [
 		\$httpProvider.interceptors.push('AuthHttpInterceptor');
 	})
 
+
+	.config(function(\$breadcrumbProvider) {
+		\$breadcrumbProvider.setOptions({
+			templateUrl: 'shared/blocks/breadcrumbs.html'
+		});
+	})
+
+
 	.value('uiJqConfig', {
-    iCheck: {
-        checkboxClass: 'icheckbox_square-blue',
-        radioClass: 'iradio_square-blue',
-        increaseArea: '20%' // optional
-    }
-  })
+		iCheck: {
+			checkboxClass: 'icheckbox_square-blue',
+			radioClass: 'iradio_square-blue',
+			increaseArea: '20%' // optional
+		}
+	})
 	.run(function(\$filter, validator) {
 		validator.setValidElementStyling(false);
 
@@ -193,14 +203,14 @@ angular.module('angularDemoApp', [
 			\$state.go('app.error', stateParams, {location: false});
 		});
 
-	\$rootScope.\$on('\$stateChangePermissionDenied', function (e, toPage) {
-		console.log('State Change Permission Denied');
+		\$rootScope.\$on('\$stateChangePermissionDenied', function (e, toPage) {
+			console.log('State Change Permission Denied');
 
-		var stateParams = { };
-		stateParams.messageCode = 'pages.session.messages.permission-denied';
-		stateParams.url = toPage.url;
-		\$state.go('app.error', stateParams, {location: false});
-	});
+			var stateParams = { };
+			stateParams.messageCode = 'pages.session.messages.permission-denied';
+			stateParams.url = toPage.url;
+			\$state.go('app.error', stateParams, {location: false});
+		});
 
 	}).run(function (Permission, SessionService) {
 		Permission

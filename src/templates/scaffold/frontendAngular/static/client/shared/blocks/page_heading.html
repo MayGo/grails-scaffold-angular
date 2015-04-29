@@ -1,8 +1,6 @@
 <!-- Content Header (Page header) -->
 <section class="page-heading">
   <h1 class="h3" translate="{{::pageTitle}}"></h1>
-  <ol class="breadcrumb" ng-if="!isModal && !isTab">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Dashboard</li>
-  </ol>
+  <div class="breadcrumb" ng-if="!isModal && !isTab" ncy-breadcrumb>
+  </div>
 </section>
