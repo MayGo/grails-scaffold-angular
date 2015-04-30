@@ -26,7 +26,7 @@ If tests fail, then you have to add BuildTestData Config to generate correct dat
 Plugin should generate all files with 2.* versions. But in 2.4.4 and later. There is problem with respond includes/excludes properties and custom CollectionRenderer.
 REST output just renders {empty:false} always. Bug https://jira.grails.org/browse/GRAILS-11892
 
-Plugin adds CollectionRenderer but it will be commented out. So app should run without errors.
+Plugin adds CollectionRenderer but it will be commented out. So app should run without errors(except saving dates, because customDateMarshaller is not registered, it substracts/adds your timezone amount of hours).
 
 You can always remove custom CollectionRenderer from resources.groovy. And remove file src/groovy/defpackage/CustomJsonCollectionRenderer.groovy
 
