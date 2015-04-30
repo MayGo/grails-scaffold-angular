@@ -113,7 +113,7 @@ angular.module('angularDemoApp')
 
 	    	if(\$scope.isEditForm){
 	    		${domainClass.shortName}Service.update(\$scope.${domainClass.propertyName}, function(response) {	
-	    			\$translate('pages.${domainClass.shortName}.messages.update').then(function (msg) {
+	    			\$translate('pages.${domainClass.propertyName}.messages.update').then(function (msg) {
 				    	inform.add(msg, {'type': 'success'});
 					});
 	            	deferred.resolve(response);
@@ -121,7 +121,7 @@ angular.module('angularDemoApp')
 	    	}else{
     			${domainClass.shortName}Service.save(\$scope.${domainClass.propertyName},function(response) {
 					
-    				\$translate('pages.${domainClass.shortName}.messages.create').then(function (msg) {
+    				\$translate('pages.${domainClass.propertyName}.messages.create').then(function (msg) {
 				    	inform.add(msg, {'type': 'success'});
 					});
 					\$state.go('^.view', { id: response.id }, {location: 'replace'});

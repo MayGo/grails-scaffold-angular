@@ -326,7 +326,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 <div id="${domainClass.propertyName}_list" ng-init="pageTitle = 'pages.${domainClass.propertyName}.list.title'"
      data-ng-include=" 'shared/blocks/page_heading.html' "></div>
 <div class="content-body">
-<div class="list-search"  st-table="rowCollection" st-pipe="callServer" >
+<div class="list-search">
 <accordion close-others="false">
     <accordion-group  heading="{{::'pages.${domainClass.propertyName}.list.table.search' | translate}}"  is-open="isSearchOpen">
          <form name="${domainClass.propertyName}Form" novalidate>
@@ -392,7 +392,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
                         <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.view.edit({id:${domainClass.propertyName}.id})" ng-if="!isModal">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a class="btn btn-danger btn-xs" ng-click="delete${domainClass.propertyName}(${domainClass.propertyName})" mx-show-loading ng-if="!isModal">
+                        <a class="btn btn-danger btn-xs" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading ng-if="!isModal">
                             <i class="fa fa-trash-o"></i>
                         </a>
                         <a class="btn btn-default btn-xs" ng-click="selectItem(${domainClass.propertyName})" ng-if="isModal">

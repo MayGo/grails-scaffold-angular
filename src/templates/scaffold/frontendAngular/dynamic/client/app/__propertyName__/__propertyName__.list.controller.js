@@ -10,17 +10,13 @@ angular.module('angularDemoApp')
 
 	\$scope.delete${domainClass.shortName} = function(instance){
 		return ${domainClass.shortName}Service.deleteInstance(instance).then(function(instance){
-			var index = \$scope.rowCollection.indexOf(instance);
-			if (index !== -1) {
-				\$scope.rowCollection.splice(index, 1);
-			}
+			\$scope.tableParams.reload();
 			return instance;
 		});
 	};
 
 
 	\$scope.search = {};
-	\$scope.rowCollection = [];
 
 	var filterTimeout;
 	\$scope.tableParams = new ngTableParams({
