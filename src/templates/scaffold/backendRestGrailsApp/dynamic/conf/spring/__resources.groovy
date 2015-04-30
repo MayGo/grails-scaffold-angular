@@ -13,12 +13,17 @@
 		"json\${domainClass.shortName}CollectionRenderer"(defpackage.CustomJsonCollectionRenderer, domainClass.clazz)
 	}
 		"""
+
+		if(grailsApplication.metadata.getGrailsVersion() > "2.4.3"){
+			line2 = "/* CollectionRenderer not working in grails version > 2.4.3\n" + line2 + "*/"
+		}
+
 		if(!destFile.text.contains('defpackage.CustomJsonCollectionRenderer')) {
 			linesToAdd += "\t\t" + line2 + "\n"
 		}
 		
 		String line3 = "nonAuthFilter(defpackage.NonAuthenticationFilter)"
-		if(!destFile.text.contains(line3)) {
+		if(!destFile.text.contains(line3) ) {
 			linesToAdd += "\t\t" + line3+ "\n"
 		}
 		String line4 = """
