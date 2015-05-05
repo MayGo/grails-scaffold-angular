@@ -219,3 +219,23 @@ body tags-input .tags {
   list-style: none;
 }
 
+/**
+* List loading overlay
+*/
+.loading-container {
+  position: relative;
+}
+.loading-container .loading:before, .loading-container .loading:after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 50px;
+  min-width: 50px;
+}
+.loading-container .loading:before {
+  background-color: white;
+  opacity: 0.5;
+}
