@@ -52,6 +52,7 @@ class ${className}SearchServiceSpec extends Specification {
 			${domainClass.propertyName}.id == 1
 	}
 
+	@SuppressWarnings(['MethodSize'])
 	Map validData() {
 <%
 		def inst = DomainHelper.createOrGetInst(domainClass, 1)

@@ -359,7 +359,7 @@ class ${className}Spec extends Specification implements RestQueries, AuthQueries
 
 	void 'Test querying in ${className} list by dummy searchString.'() {
 		when: 'Get ${propertyName} list by searchString'
-			response = queryListWithUrlVariables('searchString={searchString}', [searchString: "999999999999999"])
+			response = queryListWithMap([searchString: "999999999999999"])
 
 		then: 'Should be with size 0'
 			response.json.size() == 0
@@ -368,30 +368,30 @@ class ${className}Spec extends Specification implements RestQueries, AuthQueries
 
 	void 'Test querying in ${className} list by real searchString.'() {
 		when: 'Get ${propertyName} list by searchString'
-			response = queryListWithUrlVariables('order=desc&sort=id&searchString={searchString}',
-					[searchString: "${getSearchString()}"])
+			response = queryListWithMap(
+					[order: 'desc', sort: 'id', searchString: "${getSearchString()}"])
 
 		then: 'Should at least last inserted item'
-			response.json[0].id == domainId
 			response.json.size() > 0
+			response.json[0].id == domainId
 			response.status == HttpStatus.OK.value()
 	}
 
 	void 'Test filtering in ${className} list by id.'() {
 		when: 'Get ${propertyName} list filtered by id'
 
-			response = queryListWithUrlVariables('filter={filter}', [filter:"{id:\${domainId}}"])
+			response = queryListWithMap([id: domainId])
 
 		then: 'Should contains one item, just inserted item.'
-			response.json[0].id == domainId
 			response.json.size() == 1
+			response.json[0].id == domainId
 			response.status == HttpStatus.OK.value()
 	}
 
-	@Unroll("${className} list search with props '#jsonVal' returns '#respSize' items")
+	@Unroll("${className} list search with props '#filter' returns '#respSize' items")
 	void 'Filtering in ${className} list by all properties.'() {
 		given:
-			response = queryListWithUrlVariables('filter={filter}', [filter:"\${jsonVal}"])
+			response = queryListWithMap(filter)
 			<%
 			def instBefore = DomainHelper.createOrGetInst(domainClass, 1)//comparing instBefore and inst variables decides if test results 1 or 10 items in output
 			def inst = DomainHelper.createOrGetInst(domainClass, 2)
@@ -400,14 +400,14 @@ class ${className}Spec extends Specification implements RestQueries, AuthQueries
 		expect:
 			response.json.size() == respSize
 		where:
-			jsonVal 	        || respSize
-			'{}'                || 10
+			filter 	        || respSize
+			[:]                || 10
 <% if(instBefore && inst)simpleProps.each{p->
 		def hasChanged = !(instBefore."${p.name}" == inst."${p.name}")
 
 		def val = inst."${p.name}"
 		def realVal = DomainHelper.getRealValue(p, val)
-		def jsonVal
+		def mapVal
 		if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
 			hasChanged = false
 			realVal = (val)?'\' + getTodayForInput() + \'':''
@@ -428,18 +428,24 @@ class ${className}Spec extends Specification implements RestQueries, AuthQueries
 				println "Problem  with class ${dClass.name} and propertys ${p.name} class ${refClass.getClazz()}"
 				println ex.message;
 			}
-			jsonVal = (["${p.name}":realVal] as JSON).toString()
-			println "\t\t\t'$jsonVal' || 2 "
 
-			jsonVal = (["${p.name}s":[realVal]] as JSON).toString()
-			println "\t\t\t'$jsonVal' || 2 "
+			mapVal = ["${p.name}": realVal]
+			println "\t\t\t$mapVal || 3 "
+
+			mapVal = ["${p.name}s": realVal]
+			println "\t\t\t$mapVal || 3 "
 		}else{
-			jsonVal = (["${p.name}":realVal] as JSON).toString()
-			if(hasChanged && jsonVal.matches(".*\\s+.*")){
+			if(p.type && Number.isAssignableFrom(p.type) || (p.type?.isPrimitive() || p.type == boolean || p.type == Boolean)){
+				mapVal = ["${p.name}": realVal]
+			}else{
+				mapVal = ["${p.name}": "'$realVal'"]
+			}
+
+			if(hasChanged && realVal.toString().matches(".*\\s+.*")){
 				print "//Can't predict 'size'"
 			}
 			def nr = hasChanged? 1: 10
-			println "\t\t\t'$jsonVal' || $nr "
+			println "\t\t\t$mapVal || $nr "
 		}
 }%>
 	}

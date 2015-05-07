@@ -16,6 +16,7 @@ import grails.validation.ValidationException
 
 @TestFor(${className}ModifyService)
 @Mock(${className})
+@SuppressWarnings(['DuplicateNumberLiteral'])
 class ${className}ModifyServiceSpec extends Specification {
 
 	static final long ILLEGAL_ID = -1L
@@ -174,6 +175,7 @@ class ${className}ModifyServiceSpec extends Specification {
 		return ${map.toString().replaceAll(",", ",\n")}
 	}
 
+	@SuppressWarnings(['MethodSize'])
 	Map validData() {
 <%
 		def inst = DomainHelper.createOrGetInst(domainClass, 1)

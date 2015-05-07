@@ -177,8 +177,14 @@ grails{
 				linesToAdd += line6
 			}
 
+			def containsAop = /\s*grails.spring.bean.packages = \[[^\[\]]*defpackage.aop[^\[]*?\]/
+			def findContainsAop = (destFile.text =~ /$containsAop/)
 
-
+			if(!destFile.text.contains('grails.spring.bean.packages')) {
+				linesToAdd += "grails.spring.bean.packages = ['defpackage.aop']"
+			}else if(findContainsAop.count == 0){
+				linesToAdd += "grails.spring.bean.packages = ['defpackage.aop']"
+			}
 
 			return linesToAdd
 		}

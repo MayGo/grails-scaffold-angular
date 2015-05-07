@@ -11,9 +11,10 @@ trait RestQueries {
 		}
 	}
 
-	RestResponse queryListWithUrlVariables(String paramsStr, Map urlVariables) {
+	RestResponse queryListWithMap(Map urlVariables) {
 		//Using urlvariables because in url cannot be filter={id:1}
-		return restBuilder.get("${REST_URL}.json?$paramsStr", urlVariables) {
+		String paramsStr = urlVariables.collect { it }.join('&')
+		return restBuilder.get("${REST_URL}.json?$paramsStr") {
 			header 'Authorization', 'Bearer ' + authResponse.json.access_token
 			accept 'application/json'
 		}

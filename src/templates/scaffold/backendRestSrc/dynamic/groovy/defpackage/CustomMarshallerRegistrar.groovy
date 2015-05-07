@@ -10,6 +10,7 @@ allDomainClasses.each{
 	println "import ${it.fullName}"
 }
 %>
+@SuppressWarnings(['AbcMetric', 'CyclomaticComplexity', 'MethodSize', 'NestedForLoop', 'DuplicateListLiteral'])
 class CustomMarshallerRegistrar {
 
 	static Map domainPropertiesCache = [:]
@@ -61,7 +62,7 @@ class CustomMarshallerRegistrar {
 		}
 		for (String key in getDomainProperties(domain.class)) {
 			def value = domain[key]
-			if (excludes.containsKey(key) && !excludes[key]) {
+			if (excludes.containsKey(key) && !excludes[key] || !value) {
 				continue
 			}
 			if (excludes.containsKey(key) && excludes[key] && value) {
@@ -79,12 +80,10 @@ class CustomMarshallerRegistrar {
 				} else {
 					res[key] = filter(value, excludes[key])
 				}
-			} else if (value != null && value != '') {
-				if (value.class?.isEnum()) {
+			} else if (value.class?.isEnum()) {
 					res[key] = value.name()
-				} else {
-					res[key] = value
-				}
+			} else {
+				res[key] = value
 			}
 		}
 		return res
@@ -96,44 +95,46 @@ class CustomMarshallerRegistrar {
 		def customDateMarshaller = new DateMarshaller(FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZ",
 				TimeZone.default, Locale.default))
 		JSON.registerObjectMarshaller(customDateMarshaller)
+		JSON.with {
 <%
-	for(d in allDomainClasses){
-		%>
-		JSON.registerObjectMarshaller ${d.name}, priority, { ${d.name} instance, JSON json ->
+
+	for(d in allDomainClasses){%>
+			registerObjectMarshaller(${d.name}, priority) { ${d.name} instance, JSON json ->
 <%
-		List defaultExcludes = []
-		for(domainProperty in d.persistentProperties){
-			//if(domainProperty.oneToMany || domainProperty.manyToMany) defaultExcludes << "'${domainProperty.name}'"
+			List defaultExcludes = []
+			for(domainProperty in d.persistentProperties){
+				//if(domainProperty.oneToMany || domainProperty.manyToMany) defaultExcludes << "'${domainProperty.name}'"
 
-			if(domainProperty.isAssociation() && !domainProperty.embedded){
-				Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(d, domainProperty)
+				if(domainProperty.isAssociation() && !domainProperty.embedded){
+					Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(d, domainProperty)
 
-				if(domainProperty.manyToOne || domainProperty.oneToOne){
-					defaultExcludes << "\n'${domainProperty.name}Id'"
-				}else if(domainProperty.bidirectional){
-					defaultExcludes << "\n'${domainProperty.name}'"
-					continue
-				}
+					if(domainProperty.manyToOne || domainProperty.oneToOne){
+						defaultExcludes << "\n'${domainProperty.name}Id'"
+					}else if(domainProperty.bidirectional){
+						defaultExcludes << "\n'${domainProperty.name}'"
+						continue
+					}
 
-				for(relationProp in domainProperty.getReferencedDomainClass()?.persistentProperties){
-					defaultExcludes << "\n'${domainProperty.name}.${relationProp.name}'"
-					if(relationProp.manyToOne || relationProp.oneToOne){
-						defaultExcludes << "\n'${domainProperty.name}.${relationProp.name}Id'"
+					for(relationProp in domainProperty.getReferencedDomainClass()?.persistentProperties){
+						defaultExcludes << "\n'${domainProperty.name}.${relationProp.name}'"
+						if(relationProp.manyToOne || relationProp.oneToOne){
+							defaultExcludes << "\n'${domainProperty.name}.${relationProp.name}Id'"
+						}
+					}
+					useDisplaynames.each{ displayKey, displayValue ->
+						defaultExcludes -= "\n'${domainProperty.name}.${displayKey}'"
+						/*displayValue?.each{
+							defaultExcludes -= "'${domainProperty.name}.${displayKey}.$it'"
+						}*/
 					}
 				}
-				useDisplaynames.each{ displayKey, displayValue ->
-					defaultExcludes -= "\n'${domainProperty.name}.${displayKey}'"
-					/*displayValue?.each{
-						defaultExcludes -= "'${domainProperty.name}.${displayKey}.$it'"
-					}*/
-				}
-			}
-		}%>\
-			Class cl = instance.getClass()
-			List defaultExcludes = ${defaultExcludes.toString().replaceAll(' ','')}
-			Map excludes = createMap(defaultExcludes + json.getExcludes(cl) - json.getIncludes(cl))
-			return filter(instance, excludes)
-		}\
+			}%>\
+				Class cl = instance.getClass()
+				List defaultExcludes = ${defaultExcludes.toString().replaceAll(' ','')}
+				Map excludes = createMap(defaultExcludes + json.getExcludes(cl) - json.getIncludes(cl))
+				return filter(instance, excludes)
+			}\
 <%}%>
+		}
     }
 }

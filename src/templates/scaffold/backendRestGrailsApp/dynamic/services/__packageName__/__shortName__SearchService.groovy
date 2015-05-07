@@ -29,7 +29,7 @@ private renderSearchRow(p, parentProperty = null){
 """
 		} else if (p.type == String){
 			println """\
-			if (cmd.${propName}){
+			if (cmd.${propName}) {
 				ilike('${sqlName}', cmd.${propName} + '%')
 			}\
 """
@@ -91,7 +91,7 @@ private renderSearchRow(p, parentProperty = null){
 			if ( "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
 				println """\
 			if (cmd.${propName}s != null) {
-				cmd.${propName}s.each{
+				cmd.${propName}s.each {
  					pgJsonHasFieldValue '${sqlName}', 'item', cmd.${propName}
 				}
 			}\
@@ -116,7 +116,7 @@ private void printSearchCriteria(){
 				or {
 					eq('id', -1L)"""
 
-	useDisplaynames.each{key, value->
+	useDisplaynames.each {key, value->
 		def property = allProps.find{it.name == key}
 		String str = "\t\t\t\t\t"
 		if(property) {
@@ -204,9 +204,9 @@ class ${className}SearchService {
 		return results
 	}
 
+	@SuppressWarnings(['AbcMetric', 'CyclomaticComplexity', 'MethodSize'])
 	private void searchCriteria(BuildableCriteria builder, ${className}SearchCommand cmd) {
 		String searchString = cmd.searchString
-
 		builder.with {
 			//readOnly true
 <%
@@ -216,11 +216,10 @@ class ${className}SearchService {
 			}"""
 			//lets find property to be used in searchString
 			printSearchCriteria()
-
 			props.each { p ->
 				if(p.embedded){
 					def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.name!= 'id'}
-					embeddedProps.each{ep->
+					embeddedProps.each {ep->
 						renderSearchRow(ep, p)
 					}
 				}else{
