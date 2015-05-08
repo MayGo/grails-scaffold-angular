@@ -23,7 +23,8 @@ angular.module('angularDemoApp', [
   'ngToggle',
   'permission',
 	'JSONedit',
-	'ncy-angular-breadcrumb'
+	'ncy-angular-breadcrumb',
+	'angularFileUpload'
 ])
 	.constant('appConfig', (function() {
 

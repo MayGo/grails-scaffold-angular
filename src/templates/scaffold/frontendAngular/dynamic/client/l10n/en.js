@@ -20,6 +20,26 @@
 "messages":{
 	"loading": "Loading ..."
 },
+"upload":{
+	"title":"Upload files",
+	"file":"Upload file",
+	"or":"OR",
+	"drop":"Drag And Drop your file here",
+	"queue":"Upload queue",
+	"length":"Queue lenght",
+	"progress":"Queue progress",
+	"uploadAll":"Upload all",
+	"cancelAll":"Cancel all",
+	"removeAll":"Remove all",
+	"upload":"Upload",
+	"cancel":"Cancel",
+	"remove":"Remove",
+	"name":"Name",
+	"size":"Size",
+	"progress":"Progress",
+	"status":"Status",
+	"actions":"Actions"
+},
 "pages":{
 	"Dashboard":{
 		"lastinserted":{
@@ -54,6 +74,7 @@
 		}
 	},
 	"settings":{
+		"title":"Settings",
 		"view":{
 			"title":"Settings",
 			"info":{
@@ -62,6 +83,7 @@
 			}
 		}
 	},
+
 	<%for(d in domainClasses){%>
 		"${d.propertyName}":{
 			"name":"${d.naturalName}",
