@@ -8,8 +8,9 @@ import org.springframework.stereotype.Component
 
 @Component
 @Aspect
+@SuppressWarnings(['EmptyMethod', 'SpaceAfterOpeningBrace'])
 class ServicesLogging {
-	<%
+<%
 
 	import org.apache.commons.lang3.StringUtils
 	String[] packages = domainClasses*.packageName
@@ -17,7 +18,6 @@ class ServicesLogging {
 
 	%>
 	@Pointcut('bean(*Service) && execution(public * $pack.*(..))')
-	@SuppressWarnings(['EmptyMethod', 'SpaceAfterOpeningBrace'])
 	void publicServiceMethod() {}
 
 	@Pointcut('execution(public groovy.lang.MetaClass getMetaClass()) \\
@@ -25,11 +25,9 @@ class ServicesLogging {
 				|| execution(public Object getProperty(String)) \\
 				|| execution(public void setProperty(String, Object)) \\
 				|| execution(public Object invokeMethod(String, Object))')
-	@SuppressWarnings(['SpaceAfterOpeningBrace', 'EmptyMethod'])
 	void groovyObjectMethods() {}
 
 	@Pointcut('execution(public * *\$*(..))')
-	@SuppressWarnings(['EmptyMethod', 'SpaceAfterOpeningBrace'])
 	void groovyDollarSignMethods() {}
 
 	@Around('publicServiceMethod() && !groovyObjectMethods() && !groovyDollarSignMethods()')
@@ -48,5 +46,4 @@ class ServicesLogging {
 			throw e
 		}
 	}
-
 }
