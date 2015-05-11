@@ -120,11 +120,12 @@ private String renderByteArray(owningClass, p, cp, parentProperty) {
 
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
       return """<div class="input-group input-group">
-                    <span class="input-group-addon">file</span>
-                    <input id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" class="form-control"
-                           type="file"
-                           ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" />
-                </div>"""
+    <div class="panel-body"
+         name="${parentPropName}${p.name}"
+         uploader-widget
+         bytes-model="${domainClass.propertyName}.${parentPropName}${p.name}"
+         ></div>
+    </div>"""
 }
 
 
@@ -424,7 +425,6 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
         println renderFieldRow(p, domainClass)
     }
 }%>
-
         <div class="form-group">
             <div class="form-action pull-right">
                 <button id="${domainClass.propertyName}SubmitBtn"

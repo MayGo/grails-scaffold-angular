@@ -48,9 +48,15 @@ class UploadController {
 			throw new RuntimeException("Error while creating  ${originalFileName} at ${fileStorageLocation}")
 		}
 
+
+
 		Map fileData = [
-				'originalFileName': originalFileName
+				'realFileName': originalFileName
 		]
+
+		if(params.sendBytesBack){
+			fileData.fileAsBytes = uploadedFile.bytes
+		}
 		render fileData as JSON
 	}
 

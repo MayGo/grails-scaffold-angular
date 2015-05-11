@@ -85,7 +85,7 @@ private String renderByteArray(owningClass, p, parentProperty) {
    return """
         <div class="form-group">
             <label class="col-sm-2 control-label" translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
+            <div class="col-sm-10 form-control-static" ng-model="${owningClass.propertyName}.${parentPropName}${p.name}" byte-downloader></div>
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
     """
