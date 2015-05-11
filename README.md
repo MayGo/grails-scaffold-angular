@@ -120,8 +120,10 @@ grails.plugin.scaffold.core.folders = ['backendRestSrc':null, 'backendRestTest':
 
 ## Domain config
 
-To render autocomplete to edit field, add widget:'autocomplete'. In format you can define custom prop name that is
+To render autocomplete to edit field, add widget:'autocomplete'. In 'format' property you can define custom prop name that is
 used to generate functions name. And with that variable name application expects resource Url in config.json.
+
+To render uploader widget add widget:'upload-one' or widget:'upload-many'. Then it sends json object(or object array) with uploaded file info. You have to take file from temp location and move to more permanent location.
 ```
 someVarNameUrl:'http://foobar.com/somerestservice'
 ```

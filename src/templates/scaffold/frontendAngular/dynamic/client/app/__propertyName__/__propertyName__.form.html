@@ -6,8 +6,13 @@ props = allProps.grep{it.cp?.display != false && it.cp?.editable != false && it.
 private String renderEditField(p, owningClass, parentProperty = null){
 	def cp = p.cp // TODO: refactor, add directly to subfunctions
 
+
     if(cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
         return renderAutocomplete(owningClass, p, cp, parentProperty)
+    } else if(cp.widget == 'upload-one' || parentProperty?.cp?.widget == 'upload-one'){
+        return renderUploader(owningClass, p, cp, parentProperty, true)
+    } else if(cp.widget == 'upload-many' || parentProperty?.cp?.widget == 'upload-many'){
+        return renderUploader(owningClass, p, cp, parentProperty, false)
     } else if (p.type == Boolean || p.type == boolean)
 	    return renderBoolean(owningClass, p, cp, parentProperty)
 	else if (cp && cp.inList) 
@@ -120,12 +125,24 @@ private String renderByteArray(owningClass, p, cp, parentProperty) {
 
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
       return """<div class="input-group input-group">
-    <div class="panel-body"
+    <div
          name="${parentPropName}${p.name}"
          uploader-widget
          bytes-model="${domainClass.propertyName}.${parentPropName}${p.name}"
          ></div>
     </div>"""
+}
+
+private String renderUploader(owningClass, p, cp, parentProperty, needOnlyOne) {
+
+String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
+return """<div class="input-group input-group">
+    <div
+         name="${parentPropName}${p.name}"
+         uploader-widget
+         uploaded-items-to-model="${domainClass.propertyName}.${parentPropName}${p.name}" upload-only-one="${needOnlyOne}"
+            ></div>
+</div>"""
 }
 
 
