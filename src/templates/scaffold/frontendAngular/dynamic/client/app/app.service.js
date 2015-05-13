@@ -55,6 +55,7 @@ angular.module('angularDemoApp')
 			});
 		};
 		stringify(model);
+		//console.log(str)
 		return str;
 	};
 
@@ -111,7 +112,6 @@ angular.module('angularDemoApp')
 						}
 
 						// postgres json can only save objects at the moment
-
 						return obj;
 					});
 				}

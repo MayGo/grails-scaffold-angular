@@ -18,6 +18,11 @@ angular.module('angularDemoApp')
 
 		\$scope.search = {};
 
+		if(\$location.search().filter) {
+			angular.extend(\$scope.search,\$location.search())
+			\$location.search().filter = null
+		}
+
 		var filterTimeout;
 		var defaultParams = {
 			page: 1,            // show first page

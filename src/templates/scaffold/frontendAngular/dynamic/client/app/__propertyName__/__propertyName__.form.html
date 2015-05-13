@@ -155,9 +155,7 @@ private String renderDate(owningClass, p, cp, parentProperty) {
      <div class="input-group input-group">
      <input id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" type="text" class="form-control"
             ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
-	     datepicker-popup
-	     is-open="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open"
-	     ng-click="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open = true"
+            bs-datepicker
       """
 
       if (isRequired(cp)) str += " required"
@@ -333,18 +331,23 @@ private String renderAutocomplete(owningClass, p, cp, parentProperty) {
     }
 
     String templStr="""
-    <script type="text/ng-template" id="${idName}AutocompleteTemplate.html"><a>
-        <span bind-html-unsafe="match.model.item.label | typeaheadHighlight:query"></span>
-    </a></script>"""
+    <script type="text/ng-template" id="${idName}AutocompleteTemplate.html">
+        <ul tabindex="-1" class="typeahead dropdown-menu" ng-show="\$isVisible()" role="select">
+            <li role="presentation" ng-repeat="match in \$matches" ng-class="{active: \$index == \$activeIndex}">
+                <a role="menuitem" tabindex="-1" ng-click="\$select(\$index, \$event)" ng-bind="autocompleteService.${acFunctionName}SimpleFormatLabel(match)"></a>
+            </li>
+        </ul>
+        <a>
+    </script>"""
     String str =  """<!--Autocomplete-->
         <div class="input-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>
             <input id="$validatableName" name="$validatableName" type="text" class="form-control"
-                   ng-model="${domainClass.propertyName}.$propName"
-                   typeahead-editable="false"
-                   typeahead-template-url="${idName}AutocompleteTemplate.html"
-                   typeahead="b for b in autocompleteService.${acFunctionName}SimpleQuery(\$viewValue)"
-                   typeahead-input-formatter="autocompleteService.${acFunctionName}SimpleFormatLabel(\$model)"
+                ng-model="${domainClass.propertyName}.$propName"
+                data-template="${idName}AutocompleteTemplate.html"
+                bs-options="item for item in autocompleteService.${acFunctionName}SimpleQuery(\$viewValue)"
+                bs-typeahead
+                object-formatter="autocompleteService.${acFunctionName}SimpleFormatLabel"
         """
     if(parentProperty){
         if (isRequired(parentProperty.cp)) str += " required"

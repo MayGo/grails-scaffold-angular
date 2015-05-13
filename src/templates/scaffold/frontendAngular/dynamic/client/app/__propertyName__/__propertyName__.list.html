@@ -145,13 +145,12 @@ private String renderDate(owningClass, p, parentProperty) {
      <input 
      	name="${parentPropName}${p.name}"
      	ng-model="search.${parentPropName}${p.name}"
-        custom-st-search="${parentPropName}${p.name}"
      	type="text" 
      	class="form-control" 
      	placeholder="{{::'pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
-        datepicker-popup
-        is-open="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open"
-        ng-click="${owningClass.propertyName}.${parentPropNameFunc}_${p.name}Open = true"
+        bs-datepicker
+        data-model-date-format="yyyy-MM-dd'T'HH:mm:ssZ"
+        data-date-type='string'
       """
       
       str += """
