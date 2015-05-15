@@ -326,25 +326,17 @@ private String renderAutocomplete(owningClass, p, cp, parentProperty) {
     String validatableName = (parentProperty?.component) ? parentProperty.name : p.name
     String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
     String acFunctionName = (cp.format)?:p.name
+
     if(parentProperty){
         acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
     }
 
-    String templStr="""
-    <script type="text/ng-template" id="${idName}AutocompleteTemplate.html">
-        <ul tabindex="-1" class="typeahead dropdown-menu" ng-show="\$isVisible()" role="select">
-            <li role="presentation" ng-repeat="match in \$matches" ng-class="{active: \$index == \$activeIndex}">
-                <a role="menuitem" tabindex="-1" ng-click="\$select(\$index, \$event)" ng-bind="autocompleteService.${acFunctionName}SimpleFormatLabel(match)"></a>
-            </li>
-        </ul>
-        <a>
-    </script>"""
     String str =  """<!--Autocomplete-->
         <div class="input-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>
             <input id="$validatableName" name="$validatableName" type="text" class="form-control"
                 ng-model="${domainClass.propertyName}.$propName"
-                data-template="${idName}AutocompleteTemplate.html"
+                data-template="${acFunctionName}AutocompleteCustomTemplate.html"
                 bs-options="item for item in autocompleteService.${acFunctionName}SimpleQuery(\$viewValue)"
                 bs-typeahead
                 object-formatter="autocompleteService.${acFunctionName}SimpleFormatLabel"
@@ -355,8 +347,6 @@ private String renderAutocomplete(owningClass, p, cp, parentProperty) {
         if (isRequired(p.cp)) str += " required"
     }
     str += """/></div> """
-
-    str +=templStr;
     return str;
 }
 

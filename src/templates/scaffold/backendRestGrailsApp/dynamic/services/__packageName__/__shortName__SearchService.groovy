@@ -82,12 +82,7 @@ private renderSearchRow(p, parentProperty = null){
  				pgJsonHasFieldValue '${sqlName}', 'item', cmd.${propName}
 			}\
 """
-		} else {
-			println "//No type for  - ${propName}"
-			return
-		}
-		if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
-
+		} else if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
 			if ( "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
 				println """\
 			if (cmd.${propName}s != null) {
@@ -103,7 +98,10 @@ private renderSearchRow(p, parentProperty = null){
 			}\
 """
 			}
+		} else {
+			println "//No type for  - ${propName}"
 		}
+
 
 	}
 }

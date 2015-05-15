@@ -186,10 +186,11 @@ For every domain model
 
 **Autocomplete/typeahead**
 
- https://angular-ui.github.io/bootstrap/#/typeahead
-* need to send only id
+http://mgcrea.github.io/angular-strap/#/typeaheads
+* need to send object. ngModel = selected object
+* custom formatting display value
+* open on focus (0 chars required)
 * validation: required
-* allow only to select value(no custom values)
 * simple setup
 
 **Multiselect**

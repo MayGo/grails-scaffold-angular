@@ -157,9 +157,9 @@ class DomainHelper {
 			mainPropName = firstProp.name
 
 		}
-		if(ch){
+		if(ch || !propName){
 			propName += mainPropName
-		}else{
+		}else {
 			propName += mainPropName.capitalize()
 		}
 
