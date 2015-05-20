@@ -202,6 +202,7 @@ class ${className}SearchService {
 		return results
 	}
 
+	// TODO: Refactor and cleanup code so Codenarc check passes
 	@SuppressWarnings(['AbcMetric', 'CyclomaticComplexity', 'MethodSize'])
 	private void searchCriteria(BuildableCriteria builder, ${className}SearchCommand cmd) {
 		String searchString = cmd.searchString

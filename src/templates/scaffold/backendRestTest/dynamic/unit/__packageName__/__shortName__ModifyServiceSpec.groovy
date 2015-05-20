@@ -175,6 +175,7 @@ class ${className}ModifyServiceSpec extends Specification {
 		return ${map.toString().replaceAll(",", ",\n")}
 	}
 
+	// TODO: Refactor and cleanup code so Codenarc check passes
 	@SuppressWarnings(['MethodSize'])
 	Map validData() {
 <%

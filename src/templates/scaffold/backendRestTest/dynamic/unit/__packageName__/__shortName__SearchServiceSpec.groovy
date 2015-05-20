@@ -52,6 +52,7 @@ class ${className}SearchServiceSpec extends Specification {
 			${domainClass.propertyName}.id == 1
 	}
 
+	// TODO: Refactor and cleanup code so Codenarc check passes
 	@SuppressWarnings(['MethodSize'])
 	Map validData() {
 <%

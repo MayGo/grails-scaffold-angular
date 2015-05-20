@@ -10,6 +10,7 @@ allDomainClasses.each{
 	println "import ${it.fullName}"
 }
 %>
+// TODO: Refactor and cleanup code so Codenarc check passes
 @SuppressWarnings(['AbcMetric', 'CyclomaticComplexity', 'MethodSize', 'NestedForLoop', 'DuplicateListLiteral'])
 class CustomMarshallerRegistrar {
 

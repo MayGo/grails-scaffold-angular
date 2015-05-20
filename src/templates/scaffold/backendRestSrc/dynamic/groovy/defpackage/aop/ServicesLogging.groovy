@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Pointcut
 import org.springframework.stereotype.Component
 
+// TODO: Refactor and cleanup code so Codenarc check passes
 @Component
 @Aspect
 @SuppressWarnings(['EmptyMethod', 'SpaceAfterOpeningBrace'])
@@ -30,6 +31,7 @@ class ServicesLogging {
 	@Pointcut('execution(public * *\$*(..))')
 	void groovyDollarSignMethods() {}
 
+	// TODO: Refactor and cleanup code so Codenarc check passes
 	@Around('publicServiceMethod() && !groovyObjectMethods() && !groovyDollarSignMethods()')
 	@SuppressWarnings('CatchThrowable')
 	def traceServiceMethodCall(ProceedingJoinPoint jp) throws Throwable {
