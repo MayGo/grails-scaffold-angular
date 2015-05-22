@@ -40,14 +40,23 @@ angular.module('angularDemoApp', [
  			return str;
  		};
 
- 		//Set defaults
+		var absUrl = window.location.href;
+		var redirectUrl = absUrl;
+		var hasHash = absUrl.indexOf("#")
+		if(hasHash !== -1){
+			redirectUrl = absUrl.substr(0, hasHash);
+		}
+
+
+		//Set defaults
 		var defaultConfig = {
 				itemsByPage: 15,
  				restUrl : '${appUrl}',
  	 			loginUrl : '${appUrl}${(config.grails.plugin.springsecurity.rest.login.endpointUrl)?:"/api/login"}',
  	 			logoutUrl : '${appUrl}${(config.grails.plugin.springsecurity.rest.logout.endpointUrl)?:"/api/logout"}',
  	 			validationUrl: '${appUrl}${(config.grails.plugin.springsecurity.rest.token.validation.endpointUrl)?:"/api/validate"}',
- 	 			securityEnabled: ${(config.grails.plugin.springsecurity.active)?:false}
+ 	 			securityEnabled: ${(config.grails.plugin.springsecurity.active)?:false},
+				redirectUrl: redirectUrl
 		};
  		var loadSuccess = function( data ) {
 			 if(data){
