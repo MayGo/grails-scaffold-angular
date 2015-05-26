@@ -129,7 +129,8 @@ $( document ).ready(function() {
   $.AdminLTE.layout.activate();
 
   //Enable sidebar tree view controls
-  $.AdminLTE.tree('.sidebar');
+  // custom sidebar uses ng-menu directive instead
+  // $.AdminLTE.tree('.sidebar');
 
   //Add slimscroll to navbar dropdown
   if (o.navbarMenuSlimscroll && typeof $.fn.slimscroll != 'undefined') {

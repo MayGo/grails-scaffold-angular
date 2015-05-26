@@ -15,7 +15,7 @@ class ServicesLogging {
 
 	import org.apache.commons.lang3.StringUtils
 	String[] packages = domainClasses*.packageName
-	String pack = StringUtils.getCommonPrefix(packages)
+	String pack = StringUtils.getCommonPrefix(packages)?:'*'
 
 	%>
 	@Pointcut('bean(*Service) && execution(public * $pack.*(..))')

@@ -2,7 +2,7 @@ import grails.plugin.scaffold.core.ConfigUtility
 import grails.plugin.scaffold.core.DefaultTemplatesLocator
 
 class ScaffoldAngularGrailsPlugin {
-	def version = "1.3.0"
+	def version = "1.3.2"
 	def grailsVersion = "2.4 > *"
 	def loadAfter = ['scaffoldCore']
 	def loadBefore = ['buildTestData']
