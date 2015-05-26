@@ -1,14 +1,15 @@
 <%= packageName ? "package ${packageName}" : '' %>
 
 import grails.compiler.GrailsCompileStatic
+import org.codehaus.groovy.grails.web.binding.GrailsWebDataBinder
 import org.grails.databinding.SimpleMapDataBindingSource
 import grails.transaction.Transactional
 import defpackage.exceptions.ResourceNotFound
 
-//@GrailsCompileStatic
+@GrailsCompileStatic
 @Transactional
 class ${className}ModifyService {
-	def grailsWebDataBinder
+	GrailsWebDataBinder grailsWebDataBinder
 
 	${className} create${className}(Map data) {
 		${className} ${domainClass.propertyName} = ${className}.newInstance()
@@ -16,13 +17,15 @@ class ${className}ModifyService {
 	}
 
 	${className} update${className}(Map data) {
-		if (!data.id || data.id < 0) {
+		Long objId = (Long)data.id
+		if (!objId || objId < 0) {
 			throw new IllegalArgumentException('no.valid.id')
 		}
-		${className} ${domainClass.propertyName} = ${className}.where { id == data.id }.find()
+
+		${className} ${domainClass.propertyName} = ${className}.where { id == objId }.find()
 
 		if (!${domainClass.propertyName}) {
-			throw new ResourceNotFound("No ${className} found with Id :[\${data.id}]")
+			throw new ResourceNotFound("No ${className} found with Id :[\$objId]")
 		}
 
 		return createOrUpdate(${domainClass.propertyName}, data)

@@ -170,25 +170,40 @@ private void printSearchCriteria(){
 import grails.compiler.GrailsCompileStatic
 import grails.gorm.PagedResultList
 import grails.transaction.Transactional
+import groovy.transform.TypeCheckingMode
 import org.grails.datastore.mapping.query.api.BuildableCriteria
 import defpackage.exceptions.ResourceNotFound
 
-//@GrailsCompileStatic
+@GrailsCompileStatic
 @Transactional(readOnly = true)
 class ${className}SearchService {
 
-	${className} queryFor${className}(Long ${domainClass.propertyName}Id) {
+	${className} queryForRead(Long ${domainClass.propertyName}Id) {
+		return queryFor(${domainClass.propertyName}Id, true)
+	}
+
+	${className} queryForWrite(Long ${domainClass.propertyName}Id) {
+		return queryFor(${domainClass.propertyName}Id, false)
+	}
+
+	private ${className} queryFor(Long ${domainClass.propertyName}Id, boolean doReadOnly = true) {
 		if (!${domainClass.propertyName}Id || ${domainClass.propertyName}Id < 0) {
 			throw new IllegalArgumentException('no.valid.id')
 		}
-		${className} ${domainClass.propertyName} = ${className}.where { id == ${domainClass.propertyName}Id }.find()
+		${className} ${domainClass.propertyName}
+		if (doReadOnly) {
+			${domainClass.propertyName} = ${className}.read(${domainClass.propertyName}Id)
+		} else {
+			${domainClass.propertyName} = ${className}.get(${domainClass.propertyName}Id)
+		}
+
 		if (!${domainClass.propertyName}) {
 			throw new ResourceNotFound("No ${className} found with Id :[\$${domainClass.propertyName}Id]")
 		}
 		return ${domainClass.propertyName}
 	}
 
-	PagedResultList search(${className}SearchCommand cmd, Map pagingParams) {
+	PagedResultList search(${className}SearchCommand cmd, Map pagingParams, boolean doReadOnly = true) {
 
 		BuildableCriteria criteriaBuilder = (BuildableCriteria) ${domainClass.name}.createCriteria()
 		PagedResultList results = (PagedResultList) criteriaBuilder.list(
@@ -198,16 +213,18 @@ class ${className}SearchService {
 				sort: pagingParams.sort
 		) {
 			searchCriteria criteriaBuilder, cmd
+			readOnly(doReadOnly)
 		}
+
 		return results
 	}
 
-	// TODO: Refactor and cleanup code so Codenarc check passes
+	// TODO: Refactor and cleanup code so Codenarc check passes dynamic pgJsonHasFieldValue
 	@SuppressWarnings(['AbcMetric', 'CyclomaticComplexity', 'MethodSize'])
+	@GrailsCompileStatic(TypeCheckingMode.SKIP) // We want to use dynamically added criterias, eg: pgJsonHasFieldValue
 	private void searchCriteria(BuildableCriteria builder, ${className}SearchCommand cmd) {
 		String searchString = cmd.searchString
 		builder.with {
-			//readOnly true
 <%
 			println """\
 			if (cmd.id) {

@@ -14,7 +14,7 @@ class UploadController {
 
 	def index() {
 
-		String fileName = request.getFileNames()[0]
+		String fileName = request.fileNames[0]
 
 		log.info("Uploading file $fileName started.")
 
@@ -31,7 +31,7 @@ class UploadController {
 
 		InputStream inputStream = uploadedFile.inputStream
 
-		def fileStorageLocation = grailsApplication.config.uploadFolder ?: System.getProperty("java.io.tmpdir")
+		def fileStorageLocation = grailsApplication.config.uploadFolder ?: System.getProperty('java.io.tmpdir')
 
 		File dir = new File(fileStorageLocation)
 		File file = new File(fileStorageLocation, originalFileName)
@@ -45,19 +45,16 @@ class UploadController {
 				fos.close()
 			}
 		} else {
-			throw new RuntimeException("Error while creating  ${originalFileName} at ${fileStorageLocation}")
+			throw new IllegalStateException("Error while creating  ${originalFileName} at ${fileStorageLocation}")
 		}
-
-
 
 		Map fileData = [
 				'realFileName': originalFileName
 		]
 
-		if(params.sendBytesBack){
+		if (params.sendBytesBack) {
 			fileData.fileAsBytes = uploadedFile.bytes
 		}
 		render fileData as JSON
 	}
-
 }

@@ -60,7 +60,7 @@ class ${className}Controller {
 		)
 	])
 	def show() {
-		respond ${domainClass.propertyName}SearchService.queryFor${className}(params.long('id')),
+		respond ${domainClass.propertyName}SearchService.queryForRead(params.long('id')),
 				[includes: includes, excludes: excludes]
 	}
 
@@ -87,7 +87,7 @@ class ${className}Controller {
 		)
 	])
 	def edit() {
-		respond ${domainClass.propertyName}SearchService.queryFor${className}(params.long('id')),
+		respond ${domainClass.propertyName}SearchService.queryForRead(params.long('id')),
 				[includes: includes, excludes: excludes]
 	}
 

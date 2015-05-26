@@ -22,21 +22,21 @@ class ${className}SearchServiceSpec extends Specification {
 	void 'Quering ${className} without id is not possible'() {
 
 		when:
-			service.queryFor${className}(null)
+			service.queryForRead(null)
 		then:
 			thrown(IllegalArgumentException)
 	}
 
 	void 'Quering ${className} with illegal id is not possible'() {
 		when:
-			service.queryFor${className}(ILLEGAL_ID)
+			service.queryForRead(ILLEGAL_ID)
 		then:
 			thrown(IllegalArgumentException)
 	}
 
 	void 'Quering ${className} with fictional id is not possible'() {
 		when:
-			service.queryFor${className}(FICTIONAL_ID)
+			service.queryForRead(FICTIONAL_ID)
 		then:
 			thrown(ResourceNotFound)
 	}
@@ -46,7 +46,7 @@ class ${className}SearchServiceSpec extends Specification {
 		setup:
 			Long ${domainClass.propertyName}Id = createValid${className}().id
 		when:
-			${className} ${domainClass.propertyName} = service.queryFor${className}(${domainClass.propertyName}Id)
+			${className} ${domainClass.propertyName} = service.queryForRead(${domainClass.propertyName}Id)
 		then:
 			${domainClass.propertyName} != null
 			${domainClass.propertyName}.id == 1
