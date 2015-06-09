@@ -18,7 +18,7 @@ class ServicesLogging {
 	String pack = StringUtils.getCommonPrefix(packages)?:'*'
 
 	%>
-	@Pointcut('bean(*Service) && execution(public * $pack.*(..))')
+	@Pointcut('bean(*Service) && execution(public * $pack..*(..))')
 	void publicServiceMethod() {}
 
 	@Pointcut('execution(public groovy.lang.MetaClass getMetaClass()) \\
