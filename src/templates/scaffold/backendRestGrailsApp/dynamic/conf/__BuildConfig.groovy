@@ -27,7 +27,7 @@
 			linesToAdd += "\t\t" + pluginLine6 + "\n"
 		}
 		
-		String pluginLine7 = 'compile ":rest-client-builder:2.0.3"'
+		String pluginLine7 = 'compile ":rest-client-builder:2.1.1"'
 		if(!destFile.text.contains('rest-client-builder')) {
 			linesToAdd += "\t\t" + pluginLine7 + "\n"
 		}
