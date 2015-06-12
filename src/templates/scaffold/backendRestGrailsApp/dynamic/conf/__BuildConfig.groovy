@@ -33,8 +33,8 @@
 		}
 		
 		String pluginLine9 = """
-			compile ":spring-security-core:2.0-RC3"
-			compile ":spring-security-rest:1.4.1.RC2", {
+			compile ':spring-security-core:2.0-RC4'
+			compile ':spring-security-rest:1.5.1', {
 				excludes: 'spring-security-core'
 			}
 		"""
