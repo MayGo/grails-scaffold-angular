@@ -215,7 +215,7 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
     <div class="form-group">
         <label class="col-sm-2 control-label" translate="${translateStr}"></label>
         <div class="col-sm-10 form-control-static"
-             ng-bind="autocompleteService.${acFunctionName}SimpleFormatLabel(${owningClass.propertyName}.$propName)"></div>
+             ng-bind="${owningClass.propertyName}.$propName && autocompleteService.${acFunctionName}SimpleFormatLabel(${owningClass.propertyName}.$propName)"></div>
     </div>
     <div class="line line-dashed b-b line-lg pull-in"></div>
 """
