@@ -23,8 +23,6 @@ angular.module('angularDemoApp', [
 	'mgcrea.ngStrap.helpers.dateParser',
 	'mgcrea.ngStrap.tooltip',
 	'mgcrea.ngStrap.datepicker',
-	'mgcrea.ngStrap.typeahead',
-	'mgcrea.ngStrap.helpers.parseOptions',
 	'ngToggle',
 	'permission',
 	'JSONedit',
@@ -121,16 +119,11 @@ angular.module('angularDemoApp', [
 
 		// \$locationProvider.html5Mode(true);
 	})
-	.config(function(\$datepickerProvider, \$typeaheadProvider) {
+	.config(function(\$datepickerProvider) {
 		angular.extend(\$datepickerProvider.defaults, {
 			dateFormat: 'dd.MM.yyyy',
 			autoclose: 1,
 			container: 'body'
-		});
-
-		angular.extend(\$typeaheadProvider.defaults, {
-			minLength: 0,
-			limit: 10
 		});
 	})
 

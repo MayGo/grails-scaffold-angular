@@ -286,3 +286,14 @@ body tags-input .tags {
 .submenu-item {
   padding-left: 10px;
 }
+
+/**
+* Remove shadows from material design elements
+*/
+.md-whiteframe-z1 {
+  box-shadow: none;
+}
+
+md-input-container{
+  padding: 2px;
+}

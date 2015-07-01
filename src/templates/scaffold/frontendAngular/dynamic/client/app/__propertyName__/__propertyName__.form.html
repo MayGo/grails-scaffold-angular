@@ -326,27 +326,42 @@ private String renderAutocomplete(owningClass, p, cp, parentProperty) {
     String validatableName = (parentProperty?.component) ? parentProperty.name : p.name
     String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
     String acFunctionName = (cp.format)?:p.name
+    String translateStr = "pages.${domainClass.propertyName}.view.edit.form.field.$propName"
 
     if(parentProperty){
         acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
     }
 
-    String str =  """<!--Autocomplete-->
-        <div class="input-group input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>
-            <input id="$validatableName" name="$validatableName" type="text" class="form-control"
-                ng-model="${domainClass.propertyName}.$propName"
-                data-template="${acFunctionName}AutocompleteCustomTemplate.html"
-                bs-options="item for item in autocompleteService.${acFunctionName}SimpleQuery(\$viewValue)"
-                bs-typeahead
-                object-formatter="autocompleteService.${acFunctionName}SimpleFormatLabel"
-        """
+
+//md-floating-label="{{'$translateStr' | translate}}"
+String str =  """<!--Autocomplete-->
+    <md-input-container md-no-float="true">
+        <md-autocomplete
+                input-name="$validatableName"
+                md-cache="false"
+                md-selected-item="${domainClass.propertyName}.$propName"
+                md-search-text="${propName}SearchText"
+                md-items="item in autocompleteService.${acFunctionName}SimpleQuery(${propName}SearchText)"
+                md-item-text="item.name || item.label"
+                md-min-length="0"
+"""
     if(parentProperty){
-        if (isRequired(parentProperty.cp)) str += " required"
+    if (isRequired(parentProperty.cp)) str += " required"
     }else{
-        if (isRequired(p.cp)) str += " required"
+    if (isRequired(p.cp)) str += " required"
     }
-    str += """/></div> """
+    str += """
+        >
+            <md-item-template>
+                <span md-highlight-text="${propName}SearchText" md-highlight-flags="^i">{{item.name || item.label}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </md-input-container>
+"""
+
+
+
+
     return str;
 }
 
@@ -408,6 +423,7 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
 <div id="${domainClass.propertyName}_form"
      ng-init="pageTitle = (isEditForm)?'pages.${domainClass.propertyName}.view.edit.title':'pages.${domainClass.propertyName}.create.title'" data-ng-include=" 'shared/blocks/page_heading.html' "></div>
 <div class="content-body">
+    <md-content layout-padding layout="column">
     <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal" novalidate>
         <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
 <%for (p in props) {
@@ -448,4 +464,5 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
             <div class="clearfix"/>
         </div>
     </form>
+    </md-content>
 </div>
