@@ -81,5 +81,9 @@ angular.module('angularDemoApp')
       }
     };
 
+    $scope.username = SessionService.getCurrentUser().login;
+    $scope.autocompleteService = AutocompleteService;
+
+
 
   });
