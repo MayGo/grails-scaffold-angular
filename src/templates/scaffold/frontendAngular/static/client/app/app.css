@@ -279,3 +279,10 @@ body tags-input .tags {
   background: #5CB85C;
   color: #fff
 }
+
+/*
+* top submenu
+*/
+.submenu-item {
+  padding-left: 10px;
+}

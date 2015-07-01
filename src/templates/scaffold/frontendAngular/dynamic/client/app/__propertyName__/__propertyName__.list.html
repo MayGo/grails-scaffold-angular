@@ -324,7 +324,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 %>
 <div id="${domainClass.propertyName}_list" ng-init="pageTitle = 'pages.${domainClass.propertyName}.list.title'"
      data-ng-include=" 'shared/blocks/page_heading.html' "></div>
-<div class="content-body">
+<div>
 <div class="list-search">
 <accordion close-others="false">
     <accordion-group  heading="{{::'pages.${domainClass.propertyName}.list.table.search' | translate}}"  is-open="isSearchOpen">
