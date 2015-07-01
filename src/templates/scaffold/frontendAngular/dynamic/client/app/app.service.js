@@ -27,7 +27,7 @@ angular.module('angularDemoApp')
   	};
   	
   	var resourceQuery = function(val, urlPart, labelProperties, excludes, tagsOutput){
-  		var param = {limit: 15};
+  		var param = {max: 15};
 		param.searchString = val;
 		param.excludes = excludes;
 		var resource = \$resource(appConfig.restUrl + '/' + urlPart);
@@ -98,19 +98,18 @@ angular.module('angularDemoApp')
 				console.error('Define ' + urlVar + ' in config.json.');
 				url = 'http://localhost:8080/' + urlVar; // for karma tests
 			}
-			var param = {limit: 15};
+			var param = {max: 15};
 			param.searchString = val;
 			var resource = \$resource(url);
 			return resource.query(param).\$promise.then(
 				function( response ){
 					return response.map(function(item){
+						var obj = item;
 						if(tagsOutput){
-							var obj = {id: item.id, name: autocompleteObjToString(item)};
+							obj = {id: item.id, name: autocompleteObjToString(item)};
 						}else{
 							item.label = autocompleteObjToString(item);
-							var obj = {item: item};
 						}
-
 						// postgres json can only save objects at the moment
 						return obj;
 					});
