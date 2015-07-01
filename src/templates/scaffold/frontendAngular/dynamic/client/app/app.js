@@ -29,7 +29,9 @@ angular.module('angularDemoApp', [
 	'permission',
 	'JSONedit',
 	'ncy-angular-breadcrumb',
-	'angularFileUpload'
+	'angularFileUpload',
+	'ngAria',
+	'ngMaterial'
 ])
 	.constant('appConfig', (function() {
 

@@ -3,11 +3,11 @@
 
     angular.module('jcs-autoValidate')
         .provider('validator', [
-
             function () {
                 var elementStateModifiers = {},
                     enableValidElementStyling = true,
                     enableInvalidElementStyling = true,
+                    validationEnabled = true,
 
                     toBoolean = function (value) {
                         var v;
@@ -31,6 +31,16 @@
                         return val;
                     },
 
+                    attributeExists = function (el, attrName) {
+                        var exists;
+
+                        if (el !== undefined) {
+                            exists = el.attr(attrName) !== undefined || el.attr('data-' + attrName) !== undefined;
+                        }
+
+                        return exists;
+                    },
+
                     getBooleanAttributeValue = function (el, attrName) {
                         return toBoolean(getAttributeValue(el, attrName));
                     },
@@ -42,6 +52,45 @@
                     invalidElementStylingEnabled = function (el) {
                         return enableInvalidElementStyling && !getBooleanAttributeValue(el, 'disable-invalid-styling');
                     };
+
+                /**
+                 * @ngdoc function
+                 * @name validator#enable
+                 * @methodOf validator
+                 *
+                 * @description
+                 * By default auto validate will validate all forms and elements with an ngModel directive on.  By
+                 * setting enabled to false you will explicitly have to opt in to enable validation on forms and child
+                 * elements.
+                 *
+                 * Note: this can be overridden by add the 'auto-validate-enabled="true/false' attribute to a form.
+                 *
+                 * Example:
+                 * <pre>
+                 *  app.config(function (validator) {
+                 *    validator.enable(false);
+                 *  });
+                 * </pre>
+                 *
+                 * @param {Boolean} isEnabled true to enable, false to disable.
+                 */
+                this.enable = function (isEnabled) {
+                    validationEnabled = isEnabled;
+                };
+
+                /**
+                 * @ngdoc function
+                 * @name validator#isEnabled
+                 * @methodOf validator
+                 *
+                 * @description
+                 * Returns true if the library is enabeld.
+                 *
+                 * @return {Boolean} true if enabled, otherwise false.
+                 */
+                this.isEnabled = function () {
+                    return validationEnabled;
+                };
 
                 /**
                  * @ngdoc function
@@ -146,11 +195,18 @@
                  * It is provided as the error message may need information from the element i.e. ng-min (the min allowed value).
                  */
                 this.getErrorMessage = function (errorKey, el) {
+                    var defer;
                     if (this.errorMessageResolver === undefined) {
                         throw new Error('Please set an error message resolver via the setErrorMessageResolver function before attempting to resolve an error message.');
                     }
 
-                    return this.errorMessageResolver(errorKey, el);
+                    if (attributeExists(el, 'disable-validation-message')) {
+                        defer = angular.injector(['ng']).get('$q').defer();
+                        defer.resolve('');
+                        return defer.promise;
+                    } else {
+                        return this.errorMessageResolver(errorKey, el);
+                    }
                 };
 
                 /**
@@ -166,7 +222,6 @@
                 this.setValidElementStyling = function (enabled) {
                     enableValidElementStyling = enabled;
                 };
-
 
                 /**
                  * @ngdoc function
@@ -217,8 +272,14 @@
                     }
                 };
 
-                this.$get = [
+                this.defaultFormValidationOptions = {
+                    forceValidation: false,
+                    disabled: false,
+                    validateNonVisibleControls: false,
+                    removeExternalValidationErrorsOnSubmit: true
+                };
 
+                this.$get = [
                     function () {
                         return this;
                     }

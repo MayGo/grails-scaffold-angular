@@ -1,6 +1,6 @@
 {
   "name": "ng-tags-input",
-  "version": "2.1.1",
+  "version": "2.3.0",
   "location": "https://github.com/mbenford/ngTagsInput-bower",
   "homepage": "http://mbenford.github.io/ngTagsInput",
   "main": [
@@ -11,14 +11,13 @@
   "dependencies": {
     "angular": ">=1.2.1"
   },
-  "_release": "2.1.1",
+  "_release": "2.3.0",
   "_resolution": {
     "type": "version",
-    "tag": "v2.1.1",
-    "commit": "04ddd024e0afd421d1073732a1aab5a5efb68a9d"
+    "tag": "v2.3.0",
+    "commit": "5ce052c5c513f3a68ea322001a7c76e5091c09e3"
   },
   "_source": "git://github.com/mbenford/ngTagsInput-bower.git",
-  "_target": "~2.1.1",
-  "_originalSource": "ng-tags-input",
-  "_direct": true
+  "_target": "~2.3.0",
+  "_originalSource": "ng-tags-input"
 }

@@ -21,7 +21,8 @@
                                 setValidity = ngModelCtrl.$setValidity,
                                 setPristine = ngModelCtrl.$setPristine,
                                 setValidationState = debounce.debounce(function () {
-                                    validationManager.validateElement(ngModelCtrl, element);
+                                    var validateOptions = frmCtrl !== undefined && frmCtrl !== null ? frmCtrl.autoValidateFormOptions : undefined;
+                                    validationManager.validateElement(ngModelCtrl, element, validateOptions);
                                 }, 100);
 
                             // in the RC of 1.3 there is no directive.link only the directive.compile which
@@ -35,7 +36,9 @@
                                 ngModelOptions = ngModelCtrl.$options === undefined ? undefined : ngModelCtrl.$options;
                             }
 
-                            if (attrs.formnovalidate === undefined || (frmCtrl !== undefined && frmCtrl.disableDynamicValidation !== true)) {
+                            if (attrs.formnovalidate === undefined &&
+                                (frmCtrl !== undefined && frmCtrl !== null && frmCtrl.autoValidateFormOptions &&
+                                    frmCtrl.autoValidateFormOptions.disabled === false)) {
                                 if (supportsNgModelOptions || ngModelOptions === undefined || ngModelOptions.updateOn === undefined || ngModelOptions.updateOn === '') {
                                     ngModelCtrl.$setValidity = function (validationErrorKey, isValid) {
                                         setValidity.call(ngModelCtrl, validationErrorKey, isValid);
@@ -68,10 +71,39 @@
 
                             ngModelCtrl.setExternalValidation = function (errorMsgKey, errorMessage, addToModelErrors) {
                                 if (addToModelErrors) {
-                                    ngModelCtrl.$errors[errorMsgKey] = false;
+                                    var collection = ngModelCtrl.$error || ngModelCtrl.$errors;
+                                    collection[errorMsgKey] = false;
                                 }
 
+                                ngModelCtrl.externalErrors = ngModelCtrl.externalErrors || {};
+                                ngModelCtrl.externalErrors[errorMsgKey] = false;
                                 validationManager.setElementValidationError(element, errorMsgKey, errorMessage);
+                            };
+
+                            ngModelCtrl.removeExternalValidation = function (errorMsgKey, addToModelErrors) {
+                                if (addToModelErrors) {
+                                    var collection = ngModelCtrl.$error || ngModelCtrl.$errors;
+                                    collection[errorMsgKey] = true;
+                                }
+
+                                if (ngModelCtrl.externalErrors) {
+                                    delete ngModelCtrl.externalErrors[errorMsgKey];
+                                }
+
+                                validationManager.resetElement(element);
+                            };
+
+                            ngModelCtrl.removeAllExternalValidation = function () {
+                                if (ngModelCtrl.externalErrors) {
+                                    var errorCollection = ngModelCtrl.$error || ngModelCtrl.$errors;
+                                    angular.forEach(ngModelCtrl.externalErrors, function (value, key) {
+                                        errorCollection[key] = true;
+                                    });
+
+                                    ngModelCtrl.externalErrors = {};
+
+                                    validationManager.resetElement(element);
+                                }
                             };
 
                             if (frmCtrl) {
@@ -79,6 +111,16 @@
                                     var success = false;
                                     if (frmCtrl[modelProperty]) {
                                         frmCtrl[modelProperty].setExternalValidation(errorMsgKey, errorMessageOverride, addToModelErrors);
+                                        success = true;
+                                    }
+
+                                    return success;
+                                };
+
+                                frmCtrl.removeExternalValidation = function (modelProperty, errorMsgKey, errorMessageOverride, addToModelErrors) {
+                                    var success = false;
+                                    if (frmCtrl[modelProperty]) {
+                                        frmCtrl[modelProperty].removeExternalValidation(errorMsgKey, addToModelErrors);
                                         success = true;
                                     }
 

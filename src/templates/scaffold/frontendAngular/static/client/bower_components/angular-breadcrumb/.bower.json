@@ -1,7 +1,7 @@
 {
   "name": "angular-breadcrumb",
   "description": "AngularJS module that generates a breadcrumb from ui-router's states",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "main": "release/angular-breadcrumb.js",
   "ignore": [
     "sample",
@@ -31,14 +31,13 @@
     "angular-sanitize": ">=1.0.8"
   },
   "homepage": "https://github.com/ncuillery/angular-breadcrumb",
-  "_release": "0.3.3",
+  "_release": "0.4.0",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.3",
-    "commit": "884d9acb2059993e721e44e790969d783a1b6ce9"
+    "tag": "v0.4.0",
+    "commit": "ba4c4aaf736bd31fd506620388a8bbcf0417f00b"
   },
   "_source": "git://github.com/ncuillery/angular-breadcrumb.git",
-  "_target": "~0.3.3",
-  "_originalSource": "angular-breadcrumb",
-  "_direct": true
+  "_target": "~0.4.0",
+  "_originalSource": "angular-breadcrumb"
 }

@@ -1,12 +1,15 @@
 ![Project Logo](https://lh6.googleusercontent.com/-YmfKZZLZKL0/U-KVPFSbiOI/AAAAAAAAEZA/maoYT8iJCnA/w1089-h513-no/sshot-1.png)
 
 # [Satellizer](https://github.com/sahat/satellizer/)
+
+[![Join the chat at https://gitter.im/sahat/satellizer](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sahat/satellizer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](http://img.shields.io/travis/sahat/satellizer.svg?style=flat)](https://travis-ci.org/sahat/satellizer)
-[![Code Climate](http://img.shields.io/codeclimate/github/sahat/satellizer.svg?style=flat)](https://codeclimate.com/github/sahat/satellizer)
 [![Test Coverage](http://img.shields.io/codeclimate/coverage/github/sahat/satellizer.svg?style=flat)](https://codeclimate.com/github/sahat/satellizer)
-[![Version](http://img.shields.io/badge/version-0.9.2-orange.svg?style=flat)](https://www.npmjs.org/package/satellizer)
+[![Version](http://img.shields.io/badge/version-0.10.1-orange.svg?style=flat)](https://www.npmjs.org/package/satellizer)
 
 **Live Demo:** [https://satellizer.herokuapp.com](https://satellizer.herokuapp.com)
+
+---
 
 **Satellizer** is a simple to use, end-to-end, token-based authentication module
 for [AngularJS](http://angularjs.org) with built-in support for Google, Facebook,
@@ -46,7 +49,7 @@ npm install satellizer
 or use the CDN:
 
 ```html
-<script src="//cdn.jsdelivr.net/satellizer/0.9.2/satellizer.min.js"></script>
+<script src="//cdn.jsdelivr.net/satellizer/0.10.1/satellizer.min.js"></script>
 ```
 
 ## Usage
@@ -127,8 +130,9 @@ directory.
 Below is a complete listing of all default configuration options.
 
 ```js
-$authProvider.httpInterceptor = true, // Add Authorization header to HTTP request
+$authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
 $authProvider.loginOnSignup = true;
+$authProvider.baseUrl = '/' // API Base URL for the paths below.
 $authProvider.loginRedirect = '/';
 $authProvider.logoutRedirect = '/';
 $authProvider.signupRedirect = '/login';
@@ -142,12 +146,15 @@ $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
 $authProvider.unlinkUrl = '/auth/unlink/';
 $authProvider.unlinkMethod = 'get';
 $authProvider.authHeader = 'Authorization';
-$authProvider.withCredentials = true; // Send POST request with credentials
+$authProvider.authToken = 'Bearer';
+$authProvider.withCredentials = true;
+$authProvider.platform = 'browser'; // or 'mobile'
+$authProvider.storage = 'localStorage'; // or 'sessionStorage'
 
 // Facebook
 $authProvider.facebook({
   url: '/auth/facebook',
-  authorizationEndpoint: 'https://www.facebook.com/dialog/oauth',
+  authorizationEndpoint: 'https://www.facebook.com/v2.3/dialog/oauth',
   redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host + '/',
   scope: 'email',
   scopeDelimiter: ',',
@@ -355,13 +362,13 @@ and specify `mylocalwebsite.net` as your *Redirect URL* on **API Settings** tab.
 - [`$auth.login(user)`](#authloginuser)
 - [`$auth.signup(user)`](#authsignupuser)
 - [`$auth.authenticate(name, [userData])`](#authauthenticatename-userdata)
-- [`$auth.logout()`](#authlogout)
+- [`$auth.logout([redirect])`](#authlogout-redirect)
 - [`$auth.isAuthenticated()`](#authisauthenticated)
 - [`$auth.link(provider, [userData])`](#authlinkprovider-userdata)
 - [`$auth.unlink(provider)`](#authunlinkprovider)
 - [`$auth.getToken()`](#authgettoken)
 - [`$auth.getPayload()`](#authgetpayload)
-- [`$auth.setToken(token, [isLinking])`](#authsettokentoken-islinking)
+- [`$auth.setToken(token, [redirect])`](#authsettokentoken-redirect)
 - [`$auth.removeToken()`](#authremovetoken)
 
 #### `$auth.login(user)`
@@ -435,9 +442,11 @@ $auth.authenticate('google').then(function(response) {
 
 <hr>
 
-#### `$auth.logout()`
+#### `$auth.logout([redirect])`
 
 Deletes a JWT from Local Storage.
+
+- **redirect** - Optional URL string for redirecting after successful logout.
 
 #### Usage
 
@@ -566,13 +575,12 @@ Removes a JWT from Local Storage.
 ## TODO
 
 - [ ] C# (ASP.NET vNext) implementation
-- [ ] Elixir (Phoenix) implementation
-- [ ] Go (Beego) implementation
+- [ ] Go (Goji) implementation
 - [x] Java (Dropwizard) implementation
 - [x] Node.js (Express) implementation
 - [x] PHP (Laravel) implementation
 - [x] Python (Flask) implementation
-- [ ] Ruby (Sinatra) implementation
+- [x] Ruby (Ruby on Rails) implementation
 - [ ] Scala (Play!) implementation
 
 ## Contributing
