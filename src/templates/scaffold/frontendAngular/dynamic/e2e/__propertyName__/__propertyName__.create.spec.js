@@ -42,17 +42,15 @@ private renderFieldSendKeys(p, owningClass, inst, parentProperty = null, boolean
 			if(realVal) realVal += " " + realVal
 
 			def val = inst."${p.name}"?."${key}"
-			if(val && val?.getClass() == Map || "${val?.getClass()?.name}" == "com.google.gson.internal.LinkedTreeMap"){
+			if(val && Map.class.isAssignableFrom(val?.getClass())){
 				realVal +=findAllValuesFromMap(val)
 			}else if(val){
 				realVal += val; // Using only one value, because backend does not accept multistring for autocomplete
 			}
 		}
-	}else if(p.type == Map || "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
+	}else if(Map.class.isAssignableFrom(p.type)){
 
 		def val = inst."${p.name}"
-
-
 		if(val){
 			realVal = findAllValuesFromMap(val)
 		}

@@ -127,6 +127,8 @@ angular.module('angularDemoApp', [
 		});
 	})
 
+
+
 	.config(function(\$translateProvider){
 	    // Register a loader for the static files
 	    // So, the module will search missing translation tables under the specified urls.
@@ -227,7 +229,9 @@ angular.module('angularDemoApp', [
 			\$state.go('app.error', stateParams, {location: false});
 		});
 
-	}).run(function (Permission, SessionService) {
+
+	}).run(function (Permission, SessionService, \$timeout) {
+
 		Permission
 			.defineRole('ROLE_USER', function () {
 				return SessionService.hasRole('ROLE_USER');

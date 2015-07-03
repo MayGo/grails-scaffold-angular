@@ -286,6 +286,19 @@ body tags-input .tags {
 .submenu-item {
   padding-left: 10px;
 }
+.main-div .md-content {
+  margin-top: 50px;
+}
+.opened-dropdown {
+  display: block;
+}
+.nav .open>a {
+   background-color: transparent !important;
+}
+
+.sub-menu {
+  z-index: 900 !important;
+}
 
 /**
 * Remove shadows from material design elements

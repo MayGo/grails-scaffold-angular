@@ -49,7 +49,7 @@ private def outputByType(def p, def val=''){
 	}else if(p.type == Date || p.type == java.sql.Date || p.type == java.sql.Time || p.type == Calendar){
 		String dateStr = 'new Date().clearTime()'
 		str +="$dateStr"
-	}else if(p.type == Map || "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
+	}else if(Map.class.isAssignableFrom(p.type)){
 		String jsonData = DomainHelper.prettyJsonData(val)
 		str += "$jsonData"
 

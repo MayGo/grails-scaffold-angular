@@ -84,6 +84,10 @@ angular.module('angularDemoApp')
     $scope.username = SessionService.getCurrentUser().login;
     $scope.autocompleteService = AutocompleteService;
 
-
+    $scope.openedSubmenuId = 0;
+    $scope.openSubmenu = function (submenuId) {
+      $scope.openedSubmenuId = submenuId;
+      this.$parent.isOpen0 = true;
+    }
 
   });

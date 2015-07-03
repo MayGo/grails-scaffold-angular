@@ -3,8 +3,9 @@ package defpackage
 import grails.plugins.rest.client.RestBuilder
 import grails.plugins.rest.client.RestResponse
 import grails.util.Holders
+import spock.lang.Specification
 
-trait AuthQueries {
+class AuthQueries extends Specification {
 
 	final RestBuilder restBuilder = new RestBuilder()
 

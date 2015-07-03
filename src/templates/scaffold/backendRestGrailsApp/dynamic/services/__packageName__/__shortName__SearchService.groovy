@@ -76,10 +76,10 @@ private renderSearchRow(p, parentProperty = null){
 				eq('${sqlName}', cmd.${propName})
 			}\
 """
-		} else if ( "${p.type.name}" == "com.google.gson.internal.LinkedTreeMap"){
+		} else if ( "${p.type.name}" != "HashMap" && "${p.type.name}" != "Map" && "${p.type.name}".endsWith("Map")){
 			println """\
 			if (cmd.${propName} != null) {
- 				pgJsonHasFieldValue '${sqlName}', 'item', cmd.${propName}
+ 				pgJsonHasFieldValue '${sqlName}', cmd.${propName}
 			}\
 """
 		} else if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
