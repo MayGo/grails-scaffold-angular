@@ -18,7 +18,7 @@ grails.project.dependency.resolution = {
 		build ':release:3.0.1', ':rest-client-builder:2.0.3', {
 			export = false
 		}
-		compile ':scaffold-core:1.3.1'
+		compile ':scaffold-core:1.3.2'
 		compile ":build-test-data:2.4.0"
 		compile(":hibernate4:4.3.6.1") {
 			export = false
