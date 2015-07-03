@@ -74,7 +74,7 @@ module.exports = function (grunt) {
       },
       injectCss: {
         files: [
-          '<%= yeoman.client %>/{app,shared,assets}/**/*.css'
+          '<%= yeoman.client %>/{app,shared}/**/*.css'
         ],
         tasks: ['injector:css']
       },
@@ -91,7 +91,7 @@ module.exports = function (grunt) {
       },
       dev: {
         files: [
-          '{.tmp,<%= yeoman.client %>}/{app,shared,assets}/**/*.css',
+          '{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.css',
           '{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.html',
           '{.tmp,<%= yeoman.client %>}/{app,shared}/**/*.js',
           '!{.tmp,<%= yeoman.client %>}{app,shared}/**/*.spec.js',
@@ -217,7 +217,7 @@ module.exports = function (grunt) {
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
       html: ['<%= yeoman.dist %>/public/{,*/}*.html'],
-      css: ['<%= yeoman.dist %>/public/{,*/}*.css'],
+     // css: ['<%= yeoman.dist %>/public/{,*/}*.css'],
       js: ['<%= yeoman.dist %>/public/{,*/}*.js'],
       options: {
         assetsDirs: [
@@ -310,8 +310,7 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'assets/img/{,*/}*.{webp}',
-            'assets/fonts/**/*',
-            'assets/css/**/*',
+            'assets/**/*',
             'app/app.css',
             'shared/modal/modal.css',
             'l10n/*',
@@ -338,7 +337,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= yeoman.client %>',
         dest: '.tmp/',
-        src: ['{app,shared,assets}/**/*.css']
+        src: ['{app,shared}/**/*.css']
       }
     },
 
@@ -455,7 +454,7 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= yeoman.client %>/index.html': [
-            '<%= yeoman.client %>/{app,shared,assets}/**/*.css'
+            '<%= yeoman.client %>/{app,shared}/**/*.css'
           ]
         }
       }

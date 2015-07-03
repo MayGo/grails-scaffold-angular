@@ -72,7 +72,7 @@
   position: absolute;
   width: 300px;
   right: 0px;
-  z-index: 10;
+  z-index: 999;
 }
 
 .inform-message.alert{
