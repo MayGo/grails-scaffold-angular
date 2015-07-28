@@ -1,8 +1,96 @@
 'use strict';
 
 angular.module('angularDemoApp')
-  .controller('AppController', function ($scope, $state, $translate, $localStorage, $window, Fullscreen, AutocompleteService, SessionService) {
-     var isIE = !!navigator.userAgent.match(/MSIE/i);
+  .controller('AppController', function ($scope, $state, $translate, $localStorage, $window, Fullscreen, AutocompleteService, SessionService, MenuService, $mdSidenav, $timeout) {
+
+    $scope.menu = MenuService;
+    $scope.state = $state
+    $scope.path = path;
+    $scope.goHome = goHome;
+    $scope.openMenu = openMenu;
+    $scope.closeMenu = closeMenu;
+    $scope.isSectionSelected = isSectionSelected;
+
+    // Methods used by menuLink and menuToggle directives
+    this.isOpen = isOpen;
+    this.isSelected = isSelected;
+    this.toggleOpen = toggleOpen;
+    this.autoFocusContent = false;
+
+    var mainContentArea = document.querySelector("[role='main']");
+
+    // *********************
+    // Internal methods
+    // *********************
+
+    function closeMenu() {
+      $timeout(function() { $mdSidenav('left').close(); });
+    }
+
+    function openMenu() {
+      $timeout(function() { $mdSidenav('left').open(); });
+    }
+
+    function path() {
+      return $location.path();
+    }
+
+    function goHome($event) {
+      MenuService.selectPage(null, null);
+      $location.path( '/' );
+    }
+
+    function openPage() {
+      $scope.closeMenu();
+
+      if (self.autoFocusContent) {
+        focusMainContent();
+        self.autoFocusContent = false;
+      }
+    }
+
+    function focusMainContent($event) {
+      // prevent skip link from redirecting
+      if ($event) { $event.preventDefault(); }
+
+      $timeout(function(){
+        mainContentArea.focus();
+      },90);
+
+    }
+
+    function isSelected(page) {
+      return MenuService.isPageSelected(page);
+    }
+
+    function isSectionSelected(section) {
+      var selected = false;
+      var openedSection = MenuService.openedSection;
+      if(openedSection === section){
+        selected = true;
+      }
+      else if(section.children) {
+        section.children.forEach(function(childSection) {
+          if(childSection === openedSection){
+            selected = true;
+          }
+        });
+      }
+      return selected;
+    }
+
+    function isOpen(section) {
+      return MenuService.isSectionSelected(section);
+    }
+
+    function toggleOpen(section) {
+      MenuService.toggleSelectSection(section);
+    }
+
+    //grap
+
+
+    var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
       isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
 

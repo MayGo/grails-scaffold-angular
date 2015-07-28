@@ -44,7 +44,7 @@ private renderFieldHeader(p, owningClass) {
 
 private String renderFieldSearch(p, owningClass, parentProperty = null){
 
-    String str = """<div class="col-lg-2 form-group">"""
+    String str = """<div class="form-group">"""
 
     if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
         str += renderAutocomplete(owningClass, p, parentProperty)
@@ -287,13 +287,28 @@ private String renderAutocomplete(owningClass, p, parentProperty) {
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
     String str =  """<!--ManyToOne-->
-    <div class="input-group input-group-sm" style="width:100%">
-        <tags-input
-                ng-model="search.${propName}"
-                placeholder="{{::'${translateStr}' | translate}}">
-            <auto-complete source="autocompleteService.${acFunctionName}SimpleQuery(\$query, true)" ></auto-complete>
-            """
-            str += """</tags-input></div>"""
+        <md-chips
+            ng-model="search.${propName}"
+            md-autocomplete-snap md-require-match
+        >
+            <md-autocomplete
+                md-cache="false"
+                md-selected-item="${propName}SelectedItem"
+                md-search-text="${propName}SearchText"
+                md-items="item in autocompleteService.${acFunctionName}SimpleQuery(${propName}SearchText, true)"
+                md-item-text="item.name || item.label"
+                md-min-length="0"
+                placeholder="{{::'${translateStr}' | translate}}"
+            >
+                <span md-highlight-text="${propName}SearchText">{{item.name || item.label}}</span>
+            </md-autocomplete>
+            <md-chip-template>
+                <span>
+                  <strong>{{\$chip.name || \$chip.label}}</strong>
+                </span>
+            </md-chip-template>
+        </md-chips>
+    """
 
     return str;
 }
@@ -328,6 +343,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 <div class="list-search">
 <accordion close-others="false">
     <accordion-group  heading="{{::'pages.${domainClass.propertyName}.list.table.search' | translate}}"  is-open="isSearchOpen">
+        <md-content class="md-padding autocomplete" layout="column">
          <form name="${domainClass.propertyName}Form" novalidate>
         <div class="row form-inline">
             <%for (p in props) {%>
@@ -371,6 +387,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
     }
         %>
                 </form>
+            </md-content>
             </accordion-group>
         </accordion>
         <div class="box-tools pull-right" ng-if="!isModal">

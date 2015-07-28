@@ -35,7 +35,7 @@
     "ng-table": "~0.5.4",
     "angular-breadcrumb": "~0.4.0",
     "angular-file-upload": "~1.1.5",
-    "angular-material": "~0.10.0"
+    "angular-material": "master"
   },
   "resolutions": {
     "angular": "^1.3.*"
