@@ -10,7 +10,7 @@ angular.module('angularDemoApp', [
 	'ui.router',
 	'ui.bootstrap',
 	'pascalprecht.translate',
-	'jcs-autoValidate',
+	//'jcs-autoValidate',
 	'angular-loading-bar',
 	'ngTable',
 	'ui.bootstrap.typeahead',
@@ -141,6 +141,7 @@ angular.module('angularDemoApp', [
 	    \$translateProvider.preferredLanguage('en');
 	    // Tell the module to store the language in the local storage
 	    \$translateProvider.useLocalStorage();
+		\$translateProvider.useSanitizeValueStrategy('sanitize');
 	})
 	.config(function(tagsInputConfigProvider) {
 		tagsInputConfigProvider.setDefaults('tagsInput', {
@@ -202,8 +203,8 @@ angular.module('angularDemoApp', [
 			increaseArea: '20%' // optional
 		}
 	})
-	.run(function(\$filter, validator) {
-		validator.setValidElementStyling(false);
+	.run(function(\$filter) {
+		//validator.setValidElementStyling(false);
 
 		//Set date to timestamp to ignore users locale
 		Date.prototype.toJSON = function() {

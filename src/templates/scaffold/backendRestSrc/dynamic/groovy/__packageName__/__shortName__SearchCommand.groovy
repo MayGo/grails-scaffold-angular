@@ -43,6 +43,7 @@ private printPropertyDeclaration(def p, def parentProperty = null, embeddedPropN
 		if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
 			println "\tList<${wrapperClass.simpleName}> ${propName}s"
 		}
+
 		println "\t${wrapperClass.simpleName} ${propName}"
 
 	} else if(!"${p.type.name}".startsWith('java')){
@@ -57,13 +58,14 @@ private printPropertyDeclaration(def p, def parentProperty = null, embeddedPropN
 			}
 			println "\tList<${typeName}> ${propNameFull}s"
 			println "\t${typeName} ${propNameFull}"
-		}else{
+		}else if(p.type == ([] as byte[]).class) {
+			println "\tString ${propName}"
+		} else {
 			println "\t${typeName} ${propName}"
 		}
 
-	} else {
+	}else {
 		String typeName = p.type.simpleName
-
 		if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
 			println "\tList<${typeName}> ${propName}s"
 		}

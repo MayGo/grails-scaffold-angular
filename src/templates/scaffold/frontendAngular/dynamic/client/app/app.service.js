@@ -1,4 +1,7 @@
 'use strict';
+/**
+ * Generated autocomplete services to quickly demo autocomplete functionality
+ */
 angular.module('angularDemoApp')
   .factory('AutocompleteService', function(\$resource, appConfig){
   	var toLabel = function(model, labelProperties){
@@ -18,13 +21,15 @@ angular.module('angularDemoApp')
   		var obj = {id:item.id};
   		if(tagsOutput){
   			obj.name = _.map(labelProperties, function(label) { return item[label];  }).join(', ');
-		}else{
-			angular.forEach(labelProperties, function(label) {
-			  obj[label] = item[label];
-			}, item);
-		}
-        return obj;
-  	};
+	    }else if(labelProperties){
+		    angular.forEach(labelProperties, function(label) {
+			    obj[label] = item[label];
+		    }, item);
+	    }else{
+		    obj.name = autocompleteObjToString(item);
+	    }
+	    return obj;
+    };
   	
   	var resourceQuery = function(val, urlPart, labelProperties, excludes, tagsOutput){
   		var param = {max: 15};
@@ -55,7 +60,6 @@ angular.module('angularDemoApp')
 			});
 		};
 		stringify(model);
-		//console.log(str)
 		return str;
 	};
 

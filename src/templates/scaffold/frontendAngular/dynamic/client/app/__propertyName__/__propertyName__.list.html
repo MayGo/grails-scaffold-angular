@@ -44,7 +44,10 @@ private renderFieldHeader(p, owningClass) {
 
 private String renderFieldSearch(p, owningClass, parentProperty = null){
 
-    String str = """<div class="form-group">"""
+    String str = """<md-grid-tile class="gray"
+                                  md-rowspan="2" md-colspan="3" md-colspan-sm="1">
+    <md-input-container flex>
+"""
 
     if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
         str += renderAutocomplete(owningClass, p, parentProperty)
@@ -81,24 +84,23 @@ private String renderFieldSearch(p, owningClass, parentProperty = null){
     else
         return "<!-- No type for ${p.name} -->"
         
-    str += "</div>"
+    str += "</md-input-container></md-grid-tile>"
     return str
  
 }
 
 private String renderString(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty?.name + '.' : ''
-    String str = """<div class="input-group input-group-sm">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <input 
+    String str = """<label translate="pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}"></label>
+                    <input
                     	name="${parentPropName}${p.name}"
+                    	aria-label="${parentPropName}${p.name}"
                    		ng-model="search.${parentPropName}${p.name}"
-                   		class="form-control"
-                   		type="text" 
-                   		placeholder="{{::'pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}" """
-    
+                   		type="text"
+                """
+
     if (p.cp.matches) str += """ ng-pattern="/${p.cp.matches}/" """
-    str += " ></div> "
+    str += " /> "
     return str
 }
 
@@ -106,33 +108,24 @@ private String renderString(owningClass, p, parentProperty) {
 private String renderBoolean(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
       return """
-    <div class="form-group">
-	  <label for="${parentPropName}${p.name}" class="control-label">
-          {{::'pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}</label>
-	  <div class="input-group input-group-sm">
-		<ng-toggle 
-			tri-toggle 
-			name="${parentPropName}${p.name}"
-			ng-model="search.${parentPropName}${p.name}"
-			custom-st-search="${parentPropName}${p.name}"
-			ng-true-val="'true'" 
-			ng-false-val="'false'" 
-			></ng-toggle> 
-	  </div>
-	 </div>
+	    <label translate="pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}"></label>
+        <md-switch name="${parentPropName}${p.name}"
+                   ng-model="search.${domainClass.propertyName}.${parentPropName}${p.name}"
+                   aria-label="${parentPropName}${p.name} Switch">
+        </md-switch>
      """
 
 }
 
 private String renderByteArray(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-      return """<div class="input-group input-group-sm">
-                    <span class="input-group-addon">file</span> 
+      return """<label translate="pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}"></label>
                     <input 
                     	name="${parentPropName}${p.name}"
+                    	aria-label="${parentPropName}${p.name}"
                     	ng-model="search.${parentPropName}${p.name}"
-                    	class="form-control" type="file"   >
-                </div>"""
+                    	>
+              """
 }
 
 
@@ -141,13 +134,12 @@ private String renderDate(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     String parentPropNameFunc = (parentProperty?.component) ? parentProperty.name : ''
      String str =  """
-     <div class="input-group input-group-sm">
+    <label translate="pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}"></label>
      <input 
      	name="${parentPropName}${p.name}"
+     	aria-label="${parentPropName}${p.name}"
      	ng-model="search.${parentPropName}${p.name}"
      	type="text" 
-     	class="form-control" 
-     	placeholder="{{::'pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
         bs-datepicker
         data-model-date-format="yyyy-MM-dd'T'HH:mm:ssZ"
         data-date-type='string'
@@ -155,10 +147,6 @@ private String renderDate(owningClass, p, parentProperty) {
       
       str += """
       />
-     <span class="input-group-addon">
-       <i class="glyphicon glyphicon-calendar"></i>
-     </span>
-     </div>
       """
       return str;
 }
@@ -167,18 +155,15 @@ private String renderDate(owningClass, p, parentProperty) {
 
 private String renderNumber(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-    String str = """<div class="input-group input-group-sm">
-                        <span class="input-group-addon">nr</span>
-                        <input 
+    String str = """<label translate="pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}"></label>
+                    <input
                         	name="${parentPropName}${p.name}"
+                        	aria-label="${parentPropName}${p.name}"
                         	ng-model="search.${parentPropName}${p.name}"
-                        	class="form-control"
-                        	placeholder="{{::'pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
                         	 """
                         
-    String rangeExtraInputStr = ""
+
     if (p.cp.range) {
-        rangeExtraInputStr = """<span class="input-group-addon">{{${p.name}}}</span>"""
         str += """ type="range" """
         str += """ min="${p.cp.range.from}" """
         str += """ max="${p.cp.range.to}" """
@@ -192,76 +177,63 @@ private String renderNumber(owningClass, p, parentProperty) {
         if (p.cp.min != null) str += """ min="${p.cp.min}" """
         if (p.cp.max != null) str += """ max="${p.cp.max}" """
     }
-    str += " >$rangeExtraInputStr</div> "
+    str += " /> "
     return str;
 }
 
 
 private String renderUrl(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-    String str = """<div class="input-group input-group-sm">
-                    <span class="input-group-addon">url</span>
+    String str = """<label translate="pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}"></label>
                     <input 
                     	name="${parentPropName}${p.name}"
                     	ng-model="search.${parentPropName}${p.name}"
-                    	class="form-control"
                     	type="url" 
-                    	placeholder="{{::'pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"  """
+                """
 
-    str += " ></div> "
+    str += " /> "
     return str
 }
 private renderSelectType(owningClass, p, parentProperty, type) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-    String str = """<div class="input-group input-group-sm">
-                    <span class="input-group-addon">$type</span>
+    String str = """
+                    <label translate="pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}"></label>
                     <input 
                     	name="${parentPropName}${p.name}"
                     	ng-model="search.${parentPropName}${p.name}"
-                    	class="form-control"
                     	type="text" 
-                    	placeholder="{{::'pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"  """
+                """
     
     if (p.cp.matches) str += """ ng-pattern="${p.cp.matches}" """
-    str += " ></div> "
+    str += " /> "
     return str
 }
 
 private String renderEnum(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-     String str =  """
-     <div class="input-group input-group-sm">
-          <span class="input-group-addon">enum</span>   
-          <input 
-          	name="${parentPropName}${p.name}"
-          	ng-model="search.${parentPropName}${p.name}"
-          	type="text"
-          	class="form-control" 
-            placeholder="{{::'pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}"
-            typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List | filter:\$viewValue" ></div> 
-           """
-     return str;
+    String fnName = p.getTypePropertyName().replace(".", "")
+    String str =  """
+    <label translate="pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}"></label>
+    <md-select
+            aria-label="${parentPropName}${p.name}"
+            ng-model="search.${domainClass.propertyName}.${parentPropName}${p.name}"
+        >
+        <md-option ng-repeat="item in autocompleteService.${fnName}List" >{{item}}</md-option>
+    </md-select>
+    """
+    return str;
 }
 
 
 private String renderManyToOne(owningClass, p, parentProperty) {
     if(!p.referencedDomainClass) return "<!--ManyToOne- no referencedDomainClass -->"
-    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-    Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
-    if(!useDisplaynames) useDisplaynames = ['id': null]
-    String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
-     String str =  """<!--ManyToOne-->
-     <div class="input-group input-group-sm" style="width:100%">
-     	<tags-input
-            ng-model="search.${parentPropName}${p.name}s"
-            custom-st-search="${parentPropName}${p.name}s"
-            placeholder="{{::'pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}' | translate}}">
-              <auto-complete
-                      source="autocompleteService.${p.referencedDomainClass?.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
-            """
-     str += """</tags-input></div>"""
 
-     return str;
+    String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
+    String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', true)
+    String translate="pages.${domainClass.propertyName}.list.search.placeholder.${propName}"
+    String str =  """<!--ManyToMany-->"""
+    str += makeChipsWithAutocomplete("${domainClass.propertyName}.$propName", idName, p.referencedDomainClass.propertyName, makeUseDisplaynamesStr(owningClass, p), translate)
+    return str;
 }
 private String renderAutocomplete(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty?.name + '.' : ''
@@ -283,33 +255,10 @@ private String renderAutocomplete(owningClass, p, parentProperty) {
     String translateStr = "pages.${domainClass.propertyName}.list.search.placeholder.${parentPropName}${p.name}"
     if(displayParentPropName)translateStr = "pages.${domainClass.propertyName}.list.table.embeddedSearch.${parentProperty.name}.title"
 
-    Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
-    if(!useDisplaynames) useDisplaynames = ['id': null]
-    String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
-    String str =  """<!--ManyToOne-->
-        <md-chips
-            ng-model="search.${propName}"
-            md-autocomplete-snap md-require-match
-        >
-            <md-autocomplete
-                md-cache="false"
-                md-selected-item="${propName}SelectedItem"
-                md-search-text="${propName}SearchText"
-                md-items="item in autocompleteService.${acFunctionName}SimpleQuery(${propName}SearchText, true)"
-                md-item-text="item.name || item.label"
-                md-min-length="0"
-                placeholder="{{::'${translateStr}' | translate}}"
-            >
-                <span md-highlight-text="${propName}SearchText">{{item.name || item.label}}</span>
-            </md-autocomplete>
-            <md-chip-template>
-                <span>
-                  <strong>{{\$chip.name || \$chip.label}}</strong>
-                </span>
-            </md-chip-template>
-        </md-chips>
-    """
+    String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
 
+    String str =  """<!--ManyToMany-->"""
+    str += makeChipsWithAutocomplete("${domainClass.propertyName}.$propName", idName, acFunctionName, "", translateStr)
     return str;
 }
 
@@ -335,21 +284,74 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
         """
 }
 
+private String makeChipsWithAutocomplete(String modelName, String idName, String acQueryVar, String useDisplaynamesStr, placeholder){
+    String str =  """
+    <md-chips
+            ng-init="search.$modelName = []"
+            ng-model="search.$modelName"
+            readonly="false"
+            md-autocomplete-snap
+            md-require-match
+    """
+
+    boolean useTags= (useDisplaynamesStr)?true:false
+    useDisplaynamesStr = useTags?"[$useDisplaynamesStr]":"''"
+    //md-chips does not support
+    //if (isRequired(cp)) str += " required"
+
+    str += """><md-autocomplete
+            md-selected-item="selectedItem_$idName"
+            md-search-text="searchText_$idName"
+            md-items="item in autocompleteService.${acQueryVar}Query(searchText_$idName, $useDisplaynamesStr, $useTags)"
+            md-item-text="item.name"
+            placeholder="{{'$placeholder' | translate}}"
+            md-floating-label=""
+        >
+        <span md-highlight-text="searchText_$idName">{{item.name}}</span>
+    </md-autocomplete>
+    <md-chip-template>
+        <span>{{\$chip.name}}</span>
+    </md-chip-template>
+    """
+
+    str += """</md-chips>"""
+    return str;
+}
+//Same as in _.form.html template
+private makeUseDisplaynamesStr(owningClass, p){
+    Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
+    if(!useDisplaynames) useDisplaynames = ['id': null]
+    String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
+}
+
+
 //####################### SEARCH ###################################
 %>
-<div id="${domainClass.propertyName}_list" ng-init="pageTitle = 'pages.${domainClass.propertyName}.list.title'"
+<div ng-if="!isModal" id="${domainClass.propertyName}_list" ng-init="pageTitle = 'pages.${domainClass.propertyName}.list.title'"
      data-ng-include=" 'shared/blocks/page_heading.html' "></div>
 <div>
-<div class="list-search">
-<accordion close-others="false">
-    <accordion-group  heading="{{::'pages.${domainClass.propertyName}.list.table.search' | translate}}"  is-open="isSearchOpen">
-        <md-content class="md-padding autocomplete" layout="column">
+
+
+<md-content ng-init="isSearchOpen=true">
+    <md-toolbar class="md-gray" ng-click="isSearchOpen = !isSearchOpen">
+        <div class="md-toolbar-tools">
+            <md-button class="md-raised" translate="button.search"></md-button>
+            <span flex></span>
+            <md-button class="md-raised" ng-if="!isModal" ui-sref="app.${domainClass.propertyName}.create" translate="pages.${domainClass.propertyName}.list.new"></md-button>
+        </div>
+    </md-toolbar>
+    <md-content ng-if="isSearchOpen" layout-padding>
          <form name="${domainClass.propertyName}Form" novalidate>
-        <div class="row form-inline">
+             <md-grid-list
+                     md-row-height="50px"
+                     md-cols="6"
+                     md-cols-sm="1" md-cols-md="4"
+                     md-gutter="6px"
+                   >
             <%for (p in props) {%>
                   ${renderFieldSearch(p, domainClass)}
             <%}%>
-        </div>
+            </md-grid-list>
     <%
     def embeddedPropsWithOne = allEmbeddedProps.grep{p->
         scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}.size()==1 || p.cp.widget == 'autocomplete'
@@ -388,15 +390,8 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
         %>
                 </form>
             </md-content>
-            </accordion-group>
-        </accordion>
-        <div class="box-tools pull-right" ng-if="!isModal">
-            <a class="btn btn-default btn-xs" ui-sref="app.${domainClass.propertyName}.create">
-                <i class="fa fa-plus" translate="pages.${domainClass.propertyName}.list.new" mx-show-loading></i>
-            </a>
-        </div>
-
-        <div class="clearfix"></div>
+</md-item>
+    <md-content layout-padding layout="column" class="list-search">
         <div class="list-search-table" loading-container="tableParams.settings().\$loading">
 	      <table class="table table-responsive" ng-table="tableParams" show-filter="true" >
 	      	<tbody>
@@ -411,7 +406,7 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
                         <a class="btn btn-danger btn-xs" ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading ng-if="!isModal">
                             <i class="fa fa-trash-o"></i>
                         </a>
-                        <a class="btn btn-default btn-xs" ng-click="selectItem(${domainClass.propertyName})" ng-if="isModal">
+                        <a class="btn btn-default btn-xs" ng-click="selectItemToField(${domainClass.propertyName})" ng-if="isModal">
                             <i class="fa fa-plus"></i>
                         </a>
                     </td>
@@ -425,5 +420,5 @@ private renderJoinProperty(owningClass, p, parentProperty, joinProperty) {
 			</tbody>
 	      </table>
         </div>
-    </div>
-</div>
+    </md-content>
+</md-content>

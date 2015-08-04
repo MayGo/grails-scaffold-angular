@@ -48,18 +48,22 @@ private String renderEditField(p, owningClass, parentProperty = null){
 	else
 		return "<!-- No type for ${p.name} -->"
 
-
- 
 }
 
 private String renderInList(owningClass, p, cp, parentProperty){
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-	return """
-	<select id="${parentPropName}${p.name}" name="${parentPropName}${p.name}"
-            ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
-            ng-options="obj as obj for obj in ${(owningClass.constraints."${p.name}".inList).collect{"'$it'"}}">
-      <option value=""></option>
-    </select>
+
+    String items = "${(owningClass.constraints."${p.name}".inList).collect{"'$it'"}}"
+	str =  """
+            <md-select
+                    aria-label="${parentPropName}${p.name}"
+                    ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
+        """
+
+    if (isRequired(cp)) str += " required"
+
+    str += """><md-option ng-repeat="item in ${items}" >{{item}}</md-option>
+    </md-select>
 	"""
 }
 
@@ -69,36 +73,37 @@ private String renderString(owningClass, p, cp, parentProperty) {
     String type="text"
     if(cp.email) type="email"
 
-    String str = """<div class="input-group input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    """
+    String str = ""
 
     boolean isTextarea = (cp.maxSize > 255)
+
     if(isTextarea) {
         str += """
             <textarea rows="5"
-                      id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" class="form-control"
+                      name="${parentPropName}${p.name}"
+                      aria-label="${parentPropName}${p.name}"
                       type="$type"
                       ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
                 """
     } else {
         str += """
-                    <input id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" class="form-control"
+                    <input name="${parentPropName}${p.name}"
+                           aria-label="${parentPropName}${p.name}"
                            type="$type"
                            ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
                 """
     }
 
     if (cp.matches) str += """ ng-pattern="/${cp.matches}/" """
-    if (cp.minSize ) str += """ ng-minlength="${cp.minSize}" """
-    if (cp.maxSize) str += """ ng-maxlength="${cp.maxSize}" """
+    if (cp.minSize ) str += """ md-minlength="${cp.minSize}" """
+    if (cp.maxSize) str += """ md-maxlength="${cp.maxSize}" """
       
     if (isRequired(cp)) str += " required"
 
     if(isTextarea) {
-        str += " > </textarea></div> "
+        str += " > </textarea>"
     }else{
-        str += " /></div> "
+        str += " /> "
     }
 
     return str
@@ -107,18 +112,15 @@ private String renderString(owningClass, p, cp, parentProperty) {
 
 private String renderBoolean(owningClass, p, cp, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-	//if boolean is not required then show tri state toggle
-	String triToggleStr = isRequired(cp)?"":"tri-toggle"
+    if(isRequired(cp)){
+
+    }
     String str = """
-		<div class="input-group input-group">
-		  <ng-toggle $triToggleStr 
-		  disabled="disabled"
-		  ng-true-val="true" 
-		  ng-false-val="false"
-          id="${parentPropName}${p.name}"
-          name="${parentPropName}${p.name}"
-		  ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"></ng-toggle>
-		</div>"""
+<md-switch name="${parentPropName}${p.name}"
+           ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
+           aria-label="${p.name} Switch">
+</md-switch>
+		"""
 }
 
 private String renderByteArray(owningClass, p, cp, parentProperty) {
@@ -152,8 +154,9 @@ private String renderDate(owningClass, p, cp, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     String parentPropNameFunc = (parentProperty?.component) ? parentProperty.name : ''
      String str =  """
-     <div class="input-group input-group">
-     <input id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" type="text" class="form-control"
+     <input name="${parentPropName}${p.name}"
+            aria-label="${parentPropName}${p.name}"
+            type="text"
             ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
             bs-datepicker
       """
@@ -161,10 +164,6 @@ private String renderDate(owningClass, p, cp, parentProperty) {
       if (isRequired(cp)) str += " required"
       str += """
       />
-     <span class="input-group-addon">
-       <i class="glyphicon glyphicon-calendar"></i>
-     </span>
-     </div>
       """
       return str;
 }
@@ -174,14 +173,13 @@ private String renderDate(owningClass, p, cp, parentProperty) {
 private String renderNumber(owningClass, p, cp, parentProperty) {
 
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-	String str = """<div class="input-group input-group">
-	      				<span class="input-group-addon">nr</span>
-	      				<input id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" class="form-control"
-                               ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
-	      				
-	String rangeExtraInputStr = ""
+	String str = """<input
+                           name="${parentPropName}${p.name}"
+                           aria-label="${parentPropName}${p.name}"
+                           ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
+
 	if (cp.range) {
-		rangeExtraInputStr = """<span class="input-group-addon">{{${owningClass.propertyName}.${parentPropName}${p.name}}}</span>"""
+
         str += """ type="range" """
         str += """ min="${cp.range.from}" """
         str += """ max="${cp.range.to}" """
@@ -196,7 +194,7 @@ private String renderNumber(owningClass, p, cp, parentProperty) {
 		if (cp.max != null) str += """ max="${cp.max}" """
 	}
 	if (isRequired(cp)) str += " required"
-	str += " />$rangeExtraInputStr</div> "
+	str += " />"
 	return str;
 }
 
@@ -204,41 +202,41 @@ private String renderNumber(owningClass, p, cp, parentProperty) {
 private String renderUrl(owningClass, p, cp, parentProperty) {
 
 String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-	String str = """<div class="input-group input-group">
-      				<span class="input-group-addon">url</span>
-      				<input id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" class="form-control"
+	String str = """
+      				<input name="${parentPropName}${p.name}"
                            type="url"
                            ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
 	
     if (isRequired(cp)) str += " required"
-	str += " /></div> "
+	str += " />"
 	return str
 }
 private renderSelectType(owningClass, p, cp, type, parentProperty) {
 
-String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-	String str = """<div class="input-group input-group">
-      				<span class="input-group-addon">$type</span>
-      				<input id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" class="form-control"
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
+	String str = """<input name="${parentPropName}${p.name}"
                            type="text"
                            ng-model="${domainClass.propertyName}.${parentPropName}${p.name}" """
 	
     if (cp.matches) str += """ ng-pattern="${cp.matches}" """
     if (isRequired(cp)) str += " required"
-	str += " /></div> "
+	str += " />"
 	return str
 }
 
 private String renderEnum(owningClass, p, cp, parentProperty) {
-String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
+    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
+    String fnName = p.getTypePropertyName().replace(".", "")
      String str =  """
-     <div class="input-group input-group">
-          <span class="input-group-addon">enum</span>   
-          <input id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" type="text" class="form-control"
-                 ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
-                 typeahead="b for b in autocompleteService.${p.getTypePropertyName().replace(".", "")}List  | filter:\$viewValue"  """
-     if (isRequired(cp)) str += " required"
-     str += """ /></div> """
+            <md-select
+                    aria-label="${parentPropName}${p.name}"
+                    ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
+    """
+    if (isRequired(cp)) str += " required"
+
+    str +=  """><md-option ng-repeat="item in autocompleteService.${fnName}List" >{{item}}</md-option>
+            </md-select>
+ """
      return str;
 }
 
@@ -247,76 +245,85 @@ private String renderManyToOne(owningClass, p, cp, parentProperty) {
     if(!p.referencedDomainClass) return "<!--ManyToOne- no referencedDomainClass -->"
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     String parentIdName = (parentProperty?.component) ? parentProperty.name + '_' : ''
-    Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
-    if(!useDisplaynames) useDisplaynames = ['id': null]
-    String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
-    
-    String templStr="""
-     <script type="text/ng-template" id="${parentIdName}${p.name}AutocompleteTemplate.html"><a>"""
-     useDisplaynames.each{key, value->
-        templStr += """<span bind-html-unsafe="match.model.$key | typeaheadHighlight:query"></span> """
-     } 
-     templStr += """</a></script>"""
-     String str =  """<!--ManyToOne-->
-     <div class="input-group input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-flash"></i></span>  
-          <input id="${parentPropName}${p.name}" name="${parentPropName}${p.name}" type="text" class="form-control"
-          ng-model="${domainClass.propertyName}.${parentPropName}${p.name}"
-          typeahead-template-url="${parentIdName}${p.name}AutocompleteTemplate.html"
-          typeahead-editable="false" 
-          typeahead="b for b in autocompleteService.${p.referencedDomainClass.propertyName}Query(\$viewValue, [$useDisplaynamesStr])" 
-         
-          typeahead-input-formatter="autocompleteService.${p.referencedDomainClass.propertyName}FormatLabel(\$model, [$useDisplaynamesStr])"
-      """
-      
-     if (isRequired(cp)) str += " required"
-     str += """ />
-         <span class="input-group-btn" item-selector update-model="${domainClass.propertyName}.${parentPropName}${p.name}"
-               ui-link="app.${domainClass.propertyName}.view.edit.${p.referencedDomainClass.propertyName}SearchModal" >
-         </span>
-     </div> """
-     str +=templStr;
+
+
+    String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', true)
+    String validatableName = (parentProperty?.component) ? parentProperty.name : p.name
+    String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
+    String acFunctionName = p.referencedDomainClass.propertyName
+
+    String str = "<!-- ManyToOne-->"
+    str += makeAutocomplete("${domainClass.propertyName}.$propName", idName, validatableName, acFunctionName, isRequired(cp))
+
+     str += """
+         <item-selector update-model="${domainClass.propertyName}.${parentPropName}${p.name}"
+               item-link="app.${domainClass.propertyName}.view.edit.${p.referencedDomainClass.propertyName}SearchModal" >
+         </item-selector>
+     """
      return str;
+
+
 }
 
 
 
 private String renderOneToMany(owningClass, p, cp, parentProperty) {
     if(!p.referencedDomainClass) return "<!--OneToMany- no referencedDomainClass -->"
-    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
-    Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
-    if(!useDisplaynames) useDisplaynames = ['id': null]
-    String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
+
+    String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
+    String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', true)
     
-     String str =  """<!--OneToMany-->
-          <tags-input
-                  name="${parentPropName}${p.name}"
-                  id="${parentPropName}${p.name}"
-                  ng-model="${domainClass.propertyName}.${parentPropName}${p.name}">
-              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
-            """
-     if (isRequired(cp)) str += " minTags='1'"
-     str += """ </tags-input>"""
-     return str;
+    String str =  """<!--OneToMany-->"""
+    str += makeChipsWithAutocomplete("${domainClass.propertyName}.$propName", idName, p.referencedDomainClass.propertyName, cp, makeUseDisplaynamesStr(owningClass, p))
+    return str;
 }
 
 private String renderManyToMany(owningClass, p, cp, parentProperty) {
     if(!p.referencedDomainClass) return "<!--ManyToMany- no referencedDomainClass -->"
-    String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
+
+    String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
+    String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', true)
+
+    String str =  """<!--ManyToMany-->"""
+    str += makeChipsWithAutocomplete("${domainClass.propertyName}.$propName", idName, p.referencedDomainClass.propertyName, cp, makeUseDisplaynamesStr(owningClass, p))
+    return str;
+}
+
+private makeUseDisplaynamesStr(owningClass, p){
     Map useDisplaynames = scaffoldingHelper.getDomainClassDisplayNames(owningClass, p)
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
-    
-     String str =  """<!--ManyToMany-->
-          <tags-input  name="${parentPropName}${p.name}"
-                       id="${parentPropName}${p.name}"
-                        ng-model="${domainClass.propertyName}.${parentPropName}${p.name}">
-              <auto-complete source="autocompleteService.${p.referencedDomainClass.propertyName}Query(\$query, [$useDisplaynamesStr], true)" ></auto-complete>
-            """
-     if (isRequired(cp)) str += " minTags='1'"
-     str += """ </tags-input>"""
-     return str;
 }
+
+private String makeChipsWithAutocomplete(String modelName, String idName, String acQueryVar, cp, String useDisplaynamesStr){
+    String str =  """
+            <md-chips
+                    ng-model="$modelName"
+                    readonly="false"
+                    md-autocomplete-snap
+                    md-require-match
+    """
+
+    //md-chips does not support
+    //if (isRequired(cp)) str += " required"
+
+    str += """><md-autocomplete
+                    md-selected-item="selectedItem_$idName"
+                    md-search-text="searchText_$idName"
+                    md-items="item in autocompleteService.${acQueryVar}Query(searchText_$idName, [$useDisplaynamesStr], true)"
+                    md-item-text="item.name">
+                <span md-highlight-text="searchText_$idName">{{item.name}}</span>
+            </md-autocomplete>
+            <md-chip-template>
+                <span>{{\$chip.name}}</span>
+            </md-chip-template>
+    """
+
+    str += """</md-chips>"""
+    return str;
+}
+
+
 
 
 
@@ -332,35 +339,40 @@ private String renderAutocomplete(owningClass, p, cp, parentProperty) {
         acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
     }
 
+    boolean required = false
+    if(parentProperty){
+        if (isRequired(parentProperty.cp)) required = true
+    }else{
+        if (isRequired(p.cp)) required = true
+    }
 
-//md-floating-label="{{'$translateStr' | translate}}"
-String str =  """<!--Autocomplete-->
-    <md-input-container md-no-float="true">
+    String str = "<!--Autocomplete-->"
+    str += makeAutocomplete("${domainClass.propertyName}.$propName", idName, validatableName, "${acFunctionName}Simple", required)
+    return str;
+}
+
+private String makeAutocomplete(String modelName, String idName, String validatableName, String acQueryVar, boolean isRequired){
+    String str =  """
         <md-autocomplete
                 input-name="$validatableName"
                 md-cache="false"
-                md-selected-item="${domainClass.propertyName}.$propName"
-                md-search-text="${propName}SearchText"
-                md-items="item in autocompleteService.${acFunctionName}SimpleQuery(${propName}SearchText)"
-                md-item-text="item.name || item.label"
+                md-selected-item="$modelName"
+                md-search-text="searchText_${idName}"
+                md-items="item in autocompleteService.${acQueryVar}Query(searchText_${idName})"
+                md-item-text="item.name || item.label || item.id"
                 md-min-length="0"
-"""
-    if(parentProperty){
-    if (isRequired(parentProperty.cp)) str += " required"
-    }else{
-    if (isRequired(p.cp)) str += " required"
+    """
+
+    if(isRequired){
+        str += " required"
     }
     str += """
         >
             <md-item-template>
-                <span md-highlight-text="${propName}SearchText" md-highlight-flags="^i">{{item.name || item.label}}</span>
+                <span md-highlight-text="searchText_${idName}" md-highlight-flags="^i">{{item.name || item.label || item.id}}</span>
             </md-item-template>
         </md-autocomplete>
-    </md-input-container>
-"""
-
-
-
+    """
 
     return str;
 }
@@ -410,21 +422,20 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
 
     if(displayParentPropName)translateStr = "pages.${domainClass.propertyName}.view.edit.form.field.${parentProperty.name}.title"
 	return """
-	<div class="form-group">
-		<label class="col-sm-2 control-label" for="$validatableName"
-               translate="${translateStr}"></label>
-		<div class="col-sm-10">
+    <div class="input-container" layout layout-sm="column">
+		<label for="$validatableName"
+               translate="${translateStr}" flex="20"/>
+        <md-input-container md-no-float="true" flex="30" layout="row">
             ${renderEditField(p, owningClass, parentProperty)}
-        </div>
+        </md-input-container>
 	</div>
-	<div class="line line-dashed b-b line-lg pull-in"></div>
 	"""
 }%>
 <div id="${domainClass.propertyName}_form"
      ng-init="pageTitle = (isEditForm)?'pages.${domainClass.propertyName}.view.edit.title':'pages.${domainClass.propertyName}.create.title'" data-ng-include=" 'shared/blocks/page_heading.html' "></div>
-<div class="content-body">
-    <md-content layout-padding layout="column">
-    <form name="${domainClass.propertyName}Form" class="form-validation form-horizontal" novalidate>
+
+<md-content layout-padding layout="column">
+    <form name="${domainClass.propertyName}Form" novalidate>
         <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
 <%for (p in props) {
     if(p.embedded){
@@ -451,18 +462,19 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
         println renderFieldRow(p, domainClass)
     }
 }%>
-        <div class="form-group">
-            <div class="form-action pull-right">
-                <button id="${domainClass.propertyName}SubmitBtn"
-                    class="btn btn-success"
-                    type='submit'
-                    ng-disabled="${domainClass.propertyName}Form.\$invalid"
-                    translate="pages.${domainClass.propertyName}.view.edit.form.submit"
-                    mx-show-loading ng-click="submit(${domainClass.propertyName}Form)"></button>
-                <a class="btn btn-default" ng-click="back()" translate="pages.${domainClass.propertyName}.view.edit.form.cancel" mx-show-loading></a>
-            </div>
-            <div class="clearfix"/>
-        </div>
+
+        <section layout="row" layout-sm="column" layout-align="bottom left">
+            <md-button
+                id="${domainClass.propertyName}SubmitBtn"
+                class="md-raised md-primary"
+                ng-disabled="${domainClass.propertyName}Form.\$invalid"
+                ng-click="submit(${domainClass.propertyName}Form)"
+                translate="button.submit"
+                aria-label="save"
+            ></md-button>
+
+
+            <md-button class="md-flat" ng-click="back()" translate="button.back" aria-label="back"></md-button>
+        </section>
     </form>
-    </md-content>
-</div>
+</md-content>

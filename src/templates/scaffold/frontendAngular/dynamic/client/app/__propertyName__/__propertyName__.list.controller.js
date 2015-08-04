@@ -2,7 +2,7 @@
 
 angular.module('angularDemoApp')
 	.controller('${domainClass.shortName}ListController', function (\$scope, \$rootScope,
-		\$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout, inform, ngTableParams, appConfig, \$location) {
+		\$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout, inform, ngTableParams, appConfig, \$location, \$mdDialog) {
 
 		if(\$state.current.data){
 			\$scope.isTab = \$state.current.data.isTab;
@@ -75,4 +75,17 @@ angular.module('angularDemoApp')
 		};
 
 		\$scope.tableParams = new ngTableParams(parameters, settings);
+
+		/**
+		 * When list is opened as modal to select item to field with item-selector directive
+		 * @param item
+		 */
+		\$scope.selectItemToField = function (item) {
+			console.log("Selected item:", item);
+			\$mdDialog.hide(item);
+		};
+
+		\$scope.closeItemToFieldSelector = function () {
+			\$mdDialog.hide();
+		};
 });

@@ -3,6 +3,15 @@
 	"name":"${appName}",
 	"title":"${appName}"
 },
+"button": {
+	"submit": "Save",
+	"back": "Back",
+	"cancel": "Cancel",
+	"delete":"Delete",
+	"edit":"Edit",
+	"copy": "Copy",
+	"search":"Search"
+},
 "header" : {
   "navbar" : {
     "UPLOAD" : "Upload",
@@ -90,12 +99,8 @@
 			"list":{
 				"title": "${d.naturalName} List",	
 				"new": " New ${d.naturalName}",
-				"edit": " Edit",
-				"view": " View",
-				"delete": " Delete",
 				"table":{
-					"title":"${d.naturalName} Table",	
-					"search":"Search in ${d.naturalName} Table",
+					"title":"${d.naturalName} Table",
 					"embeddedSearch":{
 					<%for (p in d.persistentProperties) {
 							if(p.embedded){%>
@@ -131,12 +136,6 @@
 			},
 			"view":{
 				"title": "${d.naturalName} View",
-				"buttons":{
-					"new": " New ${d.naturalName}",
-						"edit": " Edit",
-						"delete": " Delete",
-						"back": " Back"
-				},
 				"lists": "{{isval}} in {{inval}}",
 				"selecttab": "Click on tab to show table",
 				"field":{
@@ -158,8 +157,6 @@
 					"title": "Edit ${d.naturalName}",
 						"form":{
 						"title":"${d.naturalName} Form",
-							"submit":"Submit",
-							"cancel":"Cancel",
 							"field":{
 						<%for (p in d.persistentProperties) {
 								if(p.embedded){%>

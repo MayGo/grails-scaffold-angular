@@ -46,48 +46,32 @@ private String renderFieldRow(p, owningClass, parentProperty = null){
 private String renderString(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     return """
-        <div class="form-group">
-            <label class="col-sm-2 control-label"
-                   translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-            <div class="col-sm-10 form-control-static"
-                 ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
-        </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}" flex="30"></div>
     """
 }
 
 private String renderDate(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     return """
-    <div class="form-group">
-        <label class="col-sm-2 control-label"
-               translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-        <div class="col-sm-10 form-control-static"
-             ng-bind="${owningClass.propertyName}.${parentPropName}${p.name} | date:'yyyy-MM-dd HH:mm'"></div>
-    </div>
-    <div class="line line-dashed b-b line-lg pull-in"></div>
+        <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+        <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name} | date:'yyyy-MM-dd HH:mm'" flex="30"></div>
     """
 }
 
 private String renderBoolean(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
    return """
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
-        </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}" flex="30"></div>
     """
 }
 
 private String renderByteArray(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
    return """
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-model="${owningClass.propertyName}.${parentPropName}${p.name}" byte-downloader></div>
-        </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <div class="read-field" ng-model="${owningClass.propertyName}.${parentPropName}${p.name}" byte-downloader flex="30"></div>
     """
 }
 
@@ -95,22 +79,16 @@ private String renderByteArray(owningClass, p, parentProperty) {
 private renderSelectType(owningClass, p, parentProperty, type) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
      return """
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
-        </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}" flex="30"></div>
     """
 }
 
 private String renderEnum(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
      return """
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-            <div class="col-sm-10 form-control-static" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
-        </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}" flex="30"></div>
     """
 }
 
@@ -120,18 +98,16 @@ private String renderManyToOne(owningClass, p, parentProperty) {
     if(!useDisplaynames) useDisplaynames = ["id":null]
     
     String str = """<!--ManyToOne-->
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-            <a ui-sref="app.${domainClass.propertyName}.view.${p.referencedDomainClass.propertyName}Modal({modalId:${owningClass.propertyName}.${parentPropName}${p.name}.id})" >
-            <div class="col-sm-10 form-control-static">
-            """
+
+            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <div class="read-field">
+                <a  ui-sref="app.${domainClass.propertyName}.view.${p.referencedDomainClass.propertyName}Modal({modalId:${owningClass.propertyName}.${parentPropName}${p.name}.id})" flex="30">
+                """
 
     useDisplaynames.each{ key, value->
         str += """<span ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}.${key}"></span> """
     }
-    str += """</div></a></div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
-    """
+    str += """</a></div>"""
     
     return str
 }
@@ -142,17 +118,14 @@ private String renderManyToMany(owningClass, p, parentProperty) {
     if(!useDisplaynames) useDisplaynames = ["id":null]
 
     String str = """<!--ManyToMany-->
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-        <div class="col-sm-10 form-control-static">
+        <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+        <div class="read-field" flex="30">
             <div ng-repeat="item in ${owningClass.propertyName}.${parentPropName}${p.name}">
 """
     useDisplaynames.each{ key, value->
     str += """<span ng-bind="item.${key}"></span> """
     }
-    str += """</div></div></div>
-    <div class="line line-dashed b-b line-lg pull-in"></div>
-    """
+    str += """</div></div>"""
 
     return str
 }
@@ -160,13 +133,8 @@ private String renderManyToMany(owningClass, p, parentProperty) {
 private String renderOneToMany(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     return """<!--OneToMany-->
-        <div class="form-group">
-            <label class="col-sm-2 control-label" translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-            <div class="col-sm-10 form-control-static"
-               ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}"></div>
-
-        </div>
-        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}" flex="30"></div>
     """
 }
 
@@ -184,13 +152,11 @@ private String renderMap(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
 
     String str = """<!--Map-->
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}"></label>
-        <div class="jsonView jsonRead col-sm-10 form-control-static">
+
+        <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+        <div class="read-field" class="jsonView jsonRead" flex="30">
             <json child="${domainClass.propertyName}.${parentPropName}${p.name}" default-collapsed="false" type="object"></json>
         </div>
-    </div>
-    <div class="line line-dashed b-b line-lg pull-in"></div>
     """
 
     return str
@@ -212,25 +178,28 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
     if(displayParentPropName)translateStr = "pages.${domainClass.propertyName}.view.field.${parentProperty.name}.title"
 
     return """<!--Autocomplete-->
-    <div class="form-group">
-        <label class="col-sm-2 control-label" translate="${translateStr}"></label>
-        <div class="col-sm-10 form-control-static"
-             ng-bind="${owningClass.propertyName}.$propName && autocompleteService.${acFunctionName}SimpleFormatLabel(${owningClass.propertyName}.$propName)"></div>
-    </div>
-    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+        <label translate="${translateStr}" flex="20"></label>
+        <div class="read-field" ng-bind="${owningClass.propertyName}.$propName && autocompleteService.${acFunctionName}SimpleFormatLabel(${owningClass.propertyName}.$propName)"
+             flex="30"
+                ></div>
 """
 }
 %>
+
 <div id="${domainClass.propertyName}_view" ng-init="pageTitle = 'pages.${domainClass.propertyName}.view.title'"
      ng-include=" 'shared/blocks/page_heading.html' "></div>
 <div class="content-body">
-    <div class="form-horizontal">
+    <md-content layout-padding layout="column">
+
 <%for (p in props) {
         if(p.embedded){
             def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
             if(embeddedProps){
                 if(embeddedProps.size()==1 || p.cp.widget == 'autocomplete'){
+                    println '<div class="input-container" layout layout-sm="column">'
                     println renderFieldRow(embeddedProps.first(), domainClass, p)
+                    println '</div>'
                 }else{
                     %>
                 <accordion close-others="false" id="${p.name}Accordion">
@@ -239,7 +208,9 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
                             is-open="isSearchOpen">
                         <div class="row">
                             <%embeddedProps.each{ep->
+                            println '<div class="input-container" layout layout-sm="column"class="input-container" layout layout-sm="column">'
                             println renderFieldRow(ep, domainClass, p)
+                            println '</div>'
                             }%>
                         </div>
                     </accordion-group>
@@ -248,29 +219,30 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
                 }
             }
         }else{
+            println '<div class="input-container" layout layout-sm="column">'
             println renderFieldRow(p, domainClass)
+            println '</div>'
         }
 }%>
-    </div>
-    <div class="line line-dashed b-b line-lg pull-in"></div>
-    <div class="form-group" ng-if="!isModal">
 
-        <div class="form-action pull-right">
-            <a id="editBtn" class="btn btn-default"
-               ui-sref="app.${domainClass.propertyName}.view.edit({id:${domainClass.propertyName}.id})">
-                <i class="fa fa-edit" translate="pages.${domainClass.propertyName}.view.buttons.edit"></i>
-            </a>
-            <a id="deleteBtn" class="btn btn-danger"
-               ng-click="delete${domainClass.shortName}(${domainClass.propertyName})" mx-show-loading>
-                <i class="fa fa-trash-o" translate="pages.${domainClass.propertyName}.view.buttons.delete"></i>
-            </a>
+    <section ng-if="!isModal" layout="row" layout-sm="column" layout-align="bottom left">
+        <md-button id="editBtn"
+                   class="md-raised md-primary"
+                   ui-sref="app.${domainClass.propertyName}.view.edit({id:${domainClass.propertyName}.id})"
+                   translate="button.edit"
+                   aria-label="edit"
+                ></md-button>
+        <md-button id="deleteBtn"
+                   class="md-raised md-warn"
+                   ng-click="delete${domainClass.shortName}(${domainClass.propertyName})"
+                   mx-show-loading
+                   translate="button.delete"
+                   aria-label="delete"
+                ></md-button>
 
-            <a id="backBtn" class="btn btn-default" ng-click="back()">
-                <i class="fa fa-chevron-left" translate="pages.${domainClass.propertyName}.view.buttons.back"></i>
-            </a>
-        </div>
-        <div class="clearfix"/>
-    </div>
+        <md-button class="md-flat" ng-click="back()" translate="button.back" aria-label="back"></md-button>
+    </section>
+    </md-content>
 </div>
 
 <%

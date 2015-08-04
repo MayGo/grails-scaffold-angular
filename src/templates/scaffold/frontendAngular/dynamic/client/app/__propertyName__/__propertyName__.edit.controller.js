@@ -77,6 +77,8 @@ private String renderOneToMany(owningClass, p, cp) {
 		\$scope.${domainClass.propertyName}.${p.name} = \$scope.${domainClass.propertyName}.${p.name}.map(function(item){
 			return {id:item.id, name:$useDisplaynamesStr};
 		});
+	}else{
+		\$scope.${domainClass.propertyName}.${p.name} = [];
 	}
 	""";
 	if(p.referencedPropertyName){

@@ -103,9 +103,9 @@
   color: #8B8B8B;
   text-shadow: none;
 }
-.list-search-table{
+/*.list-search-table{
   overflow: auto;
-}
+}*/
 .list-search tr { height:1em;  }
 .list-search td { max-width:200px; overflow:hidden; white-space:nowrap;  }
 /**
@@ -133,16 +133,8 @@
   background-image: url(../assets/img/spinner-small.gif);
 }
 
-/**
-* ng-toggle directive overrides
-*/
-form .ng-toggle-wrap {
-	margin: 0 !important;
-}
 
-.list-search .ng-toggle-wrap{
-  height: auto !important;
-}
+
 
 /**
 * ng-tags
@@ -283,6 +275,7 @@ body tags-input .tags {
 /*
 * top submenu
 */
+/*
 .submenu-item {
   padding-left: 10px;
 }
@@ -299,14 +292,4 @@ body tags-input .tags {
 .sub-menu {
   z-index: 900 !important;
 }
-
-/**
-* Remove shadows from material design elements
 */
-.md-whiteframe-z1 {
-  box-shadow: none;
-}
-
-md-input-container{
-  padding: 2px;
-}

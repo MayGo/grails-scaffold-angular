@@ -1,7 +1,10 @@
 <div nv-file-drop uploader="uploader">
   <div class="drop" nv-file-over uploader="uploader" over-class="drag-over">
               <span class="btn btn-default btn-file">{{'upload.file' | translate}}
-                <input type="file" nv-file-select uploader="uploader">
+                <input type="file"
+                       aria-label="upload file"
+                       nv-file-select
+                       uploader="uploader">
               </span>
     <b>{{'upload.or' | translate}}</b>
     {{'upload.drop' | translate}}

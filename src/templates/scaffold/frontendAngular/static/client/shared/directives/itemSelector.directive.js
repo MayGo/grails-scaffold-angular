@@ -1,32 +1,31 @@
 'use strict';
 
-angular.module('angularDemoApp').directive('itemSelector', function (ItemSelectorService, $rootScope) {
+angular.module('angularDemoApp').directive('itemSelector', function ($mdDialog) {
   return {
-    restrict: 'A',
+    restrict: 'E',
     scope: {
-      uiLink: '@',
+      itemLink: '@',
       updateModel: '='
     },
-    template: '<a class="btn btn-default"' +
-    ' ng-click="openItemSelector()" >' +
-    '<i class="fa fa-search-plus"></i>' +
-    ' </a>',
-    controller: function ($scope, $state, $rootScope) {
-      $scope.isModal = true
-      $scope.selectItem = function (item) {
-        ItemSelectorService.closeModal(item);
-      };
+    template: '<md-button class="md-icon-button" ng-click="openItemSelector($event)">'+
+              '<md-tooltip>{{"button.openItemSelector" |translate}}</md-tooltip>'+
+              '<md-icon md-font-set="material-icons" class="md-primary">add_circle</md-icon></md-button>',
 
-      $scope.openItemSelector = function () {
-        var stateSettings = $state.get($scope.uiLink);
-        var settings ={
+    controller: function ($scope, $state) {
+
+      var stateSettings = $state.get($scope.itemLink);
+
+      $scope.openItemSelector = function (ev) {
+        $mdDialog.show({
           templateUrl: stateSettings.templateUrl,
           controller: stateSettings.controller,
-          scope: $scope
-        }
-
-        ItemSelectorService.openModal(settings);
+          parent: angular.element(document.body),
+          targetEvent: ev,
+        }).then(function (selectedItem) {
+          $scope.updateModel = selectedItem;
+        });
       }
+
     }
   };
 });

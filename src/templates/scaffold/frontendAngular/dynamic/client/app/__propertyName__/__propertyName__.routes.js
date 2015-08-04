@@ -106,7 +106,7 @@ modalRoutesDomainClasses.each{domainCl->
 		}
 
 	}).state('app.${domainClass.propertyName}.view.edit.${domainCl.propertyName}SearchModal',{
-		templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html',
+		templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.modal.html',
 		controller: '${domainCl.shortName}ListController'
 	})
 	<%}%>
