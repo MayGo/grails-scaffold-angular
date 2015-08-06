@@ -312,7 +312,6 @@ module.exports = function (grunt) {
             'assets/img/{,*/}*.{webp}',
             'assets/**/*',
             'app/app.css',
-            'shared/modal/modal.css',
             'l10n/*',
             'index.html'
           ]

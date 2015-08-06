@@ -116,7 +116,7 @@ if(inst){
 			if(embeddedProps){
 
 				if(embeddedProps.size()>1) {
-					println	"\t\tpage.${p.name}AccordionEl.click()"
+					println	"\t\tpage.${p.name}EmbeddedEl.click()"
 				}
 				def embeddedInst = DomainHelper.createOrGetInst(p.component, 1, domainClass, p)
 
@@ -151,7 +151,7 @@ if(inst){
 				def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
 				if(embeddedProps){
 					if(embeddedProps.size()>1) {
-						println	"\t\tpage.${p.name}AccordionEl.click()"
+						println	"\t\tpage.${p.name}EmbeddedEl.click()"
 					}
 					embeddedProps.each{ep->
 						renderFieldRowBind(ep, p.component, p, true)

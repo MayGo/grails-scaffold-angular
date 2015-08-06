@@ -2,86 +2,87 @@
 
 angular.module('angularDemoApp').provider('SessionService', function ($authProvider, appConfig) {
 
-	$authProvider.loginOnSignup = true;
-    $authProvider.logoutRedirect = '/';
-    $authProvider.loginUrl = appConfig.loginUrl;
-    $authProvider.unlinkUrl = appConfig.logoutUrl;
-    $authProvider.loginRoute = '/login';
-    $authProvider.tokenName =  'access_token';
-    $authProvider.authHeader =  'Authorization';
+  $authProvider.loginOnSignup = true;
+  $authProvider.logoutRedirect = '/';
+  $authProvider.loginUrl = appConfig.loginUrl;
+  $authProvider.unlinkUrl = appConfig.logoutUrl;
+  $authProvider.loginRoute = '/login';
+  $authProvider.tokenName = 'access_token';
+  $authProvider.authHeader = 'Authorization';
 
-	this.$get = function ($localStorage, $auth, $q, appConfig, $http, $rootScope, $modal) {
-		var service = {};
-		var _currentUser = {};
+  this.$get = function ($localStorage, $auth, $q, appConfig, $http, $rootScope, $mdDialog) {
+    var service = {};
+    var _currentUser = {};
 
-		var _loginModal = null;
+    var _loginModal = null;
 
-		$rootScope.$on('show-relogin-modal', function (event) {
-			if(!_loginModal){
-				showTheModal();
-			}
-		});
+    $rootScope.$on('show-relogin-modal', function (event) {
+      if (!_loginModal) {
+        showTheModal();
+      }
+    });
 
-		function showTheModal() {
-			_loginModal = $modal.open({
-				templateUrl: 'app/login/login.html',
-				controller: 'LoginController'
-			})
-			_loginModal.result.finally(function() {
-				_loginModal = null;
-			});
-		}
+    function showTheModal() {
+      _loginModal = $mdDialog.show({
+        templateUrl: 'app/login/login.html',
+        controller: 'LoginController'
+      })
 
-		service.login = function (username, password) {
-		  var deferred = $q.defer();
+      _loginModal.result.finally(function () {
+        _loginModal = null;
+      });
+    }
 
-		  $auth.login({ username: username, password: password }).then(function (response) {
-			console.log("Logged in.");
-			// save settings to local storage
-			$localStorage.userData = _currentUser = response.data;
-			if(_loginModal){
-				_loginModal.close();
-			}
-			deferred.resolve(response.data);
-		  }).catch(function (response) {
-			console.log("Error when login.");
-			deferred.reject(response)
-		  });
+    service.login = function (username, password) {
+      var deferred = $q.defer();
 
-		  return deferred.promise;
-		};
+      $auth.login({username: username, password: password}).then(function (response) {
+        console.log("Logged in.");
+        // save settings to local storage
+        $localStorage.userData = _currentUser = response.data;
+        if (_loginModal) {
+          _loginModal.hide();
+        }
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        console.log("Error when login.");
+        deferred.reject(response)
+      });
 
-		service.logout = function () {
-		  delete $localStorage.userData;
-		  _currentUser = {};
-		  return $auth.logout();
-		};
+      return deferred.promise;
+    };
 
-		service.getCurrentUser = function () {
-		  if (!_.isEmpty(_currentUser)) {
-			return _currentUser;
-		  }
+    service.logout = function () {
+      delete $localStorage.userData;
+      _currentUser = {};
+      return $auth.logout();
+    };
 
-		  //get from local storage
-		  if (angular.isDefined($localStorage.userData)) {
-			_currentUser = $localStorage.userData;
-		  }
+    service.getCurrentUser = function () {
+      if (!_.isEmpty(_currentUser)) {
+        return _currentUser;
+      }
 
-		  return _currentUser;
-		};
+      //get from local storage
+      if (angular.isDefined($localStorage.userData)) {
+        _currentUser = $localStorage.userData;
+      }
 
-		service.hasRole = function (role) {
-			if (_.isEmpty(_currentUser) || _.isEmpty(_currentUser.permissions) ) {
-				return false;
-			}
+      return _currentUser;
+    };
 
-			return _.indexOf(_currentUser.permissions, role) !== -1;
-		};
+    service.hasRole = function (role) {
+      if (_.isEmpty(_currentUser) || _.isEmpty(_currentUser.permissions)) {
+        return false;
+      }
 
-		service.isAuthenticated = function () {
-		  return !_.isEmpty(service.getCurrentUser())
-		};
+      return _.indexOf(_currentUser.permissions, role) !== -1;
+    };
 
-		return service;
-	};
+    service.isAuthenticated = function () {
+      return !_.isEmpty(service.getCurrentUser())
+    };
+
+    return service;
+  };
 });

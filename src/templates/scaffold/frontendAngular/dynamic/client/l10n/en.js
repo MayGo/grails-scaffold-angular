@@ -10,7 +10,18 @@
 	"delete":"Delete",
 	"edit":"Edit",
 	"copy": "Copy",
-	"search":"Search"
+	"search":"Search",
+	"true":"True",
+	"false":"False",
+	"none":"None"
+},
+"searchSelect":{
+	"true":"True",
+	"false":"False",
+	"none":""
+},
+"tabs":{
+	"selecttab": "Click on tab to show table"
 },
 "header" : {
   "navbar" : {
@@ -96,82 +107,36 @@
 	<%for(d in domainClasses){%>
 		"${d.propertyName}":{
 			"name":"${d.naturalName}",
+			"defaultFieldName":{
+			<%for (p in d.persistentProperties) {
+					if(p.embedded){%>
+						"${p.name}.title":"${p.naturalName}",\
+					<%p.component.persistentProperties.each{ep->%>
+						"${p.name}.${ep.name}":"${ep.naturalName}",\
+						<%
+						}
+					}else{
+					%>
+						"${p.name}":"${p.naturalName}",\
+					<%	}
+				}%>
+				"id": "Id"
+			},
+
 			"list":{
 				"title": "${d.naturalName} List",	
 				"new": " New ${d.naturalName}",
 				"table":{
-					"title":"${d.naturalName} Table",
-					"embeddedSearch":{
-					<%for (p in d.persistentProperties) {
-							if(p.embedded){%>
-								"${p.name}.title":"${p.naturalName}",\
-							<%}
-						}%>
-						"all":"All"
-					},
-					"header":{
-						<%for (p in d.persistentProperties) {%>
-				   		"${p.name}":"${p.naturalName}",\
-					    <%}%>
-					    "id": "Id"
-					}
-				},
-				"search":{
-					"placeholder":{
-						<%for (p in d.persistentProperties) {
-							if(p.embedded){%>
-								"${p.name}.title":"${p.naturalName}",\
-							<%p.component.persistentProperties.each{ep->%>
-								"${p.name}.${ep.name}":"${ep.naturalName}",\
-								<%
-								}
-							}else{
-							%>
-								"${p.name}":"${p.naturalName}",\
-							<%	}
-						}%>
-					    "id": "Id"
-					}
+					"title":"${d.naturalName} Table"
 				}
 			},
 			"view":{
 				"title": "${d.naturalName} View",
 				"lists": "{{isval}} in {{inval}}",
-				"selecttab": "Click on tab to show table",
-				"field":{
-					<%for (p in d.persistentProperties) {
-						if(p.embedded){%>
-							"${p.name}.title":"${p.naturalName}",\
-						<%p.component.persistentProperties.each{ep->%>
-							"${p.name}.${ep.name}":"${ep.naturalName}",\
-							<%
-							}
-						}else{
-						%>
-							"${p.name}":"${p.naturalName}",\
-						<%	}
-					}%>
-				    "id": "Id"
-				},
 				"edit":{
 					"title": "Edit ${d.naturalName}",
 						"form":{
-						"title":"${d.naturalName} Form",
-							"field":{
-						<%for (p in d.persistentProperties) {
-								if(p.embedded){%>
-									"${p.name}.title":"${p.naturalName}",\
-								<%p.component.persistentProperties.each{ep->%>
-									"${p.name}.${ep.name}":"${ep.naturalName}",\
-									<%
-									}
-								}else{
-								%>
-									"${p.name}":"${p.naturalName}",\
-								<%	}
-							}%>
-							"id": "Id"
-						}
+						"title":"${d.naturalName} Form"
 					}
 				}
 			},

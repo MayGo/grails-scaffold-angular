@@ -8,22 +8,19 @@ angular.module('angularDemoApp', [
 	'ngTouch',
 	'ngStorage',
 	'ui.router',
-	'ui.bootstrap',
+	'ui.bootstrap.dropdown',
 	'pascalprecht.translate',
 	//'jcs-autoValidate',
 	'angular-loading-bar',
 	'ngTable',
-	'ui.bootstrap.typeahead',
 	'inform',
 	'inform-exception',
 	'FBAngular',
-	'ngTagsInput',
 	'satellizer',
 	'mgcrea.ngStrap.helpers.dimensions',
 	'mgcrea.ngStrap.helpers.dateParser',
 	'mgcrea.ngStrap.tooltip',
 	'mgcrea.ngStrap.datepicker',
-	'ngToggle',
 	'permission',
 	'JSONedit',
 	'ncy-angular-breadcrumb',
@@ -141,22 +138,16 @@ angular.module('angularDemoApp', [
 	    \$translateProvider.preferredLanguage('en');
 	    // Tell the module to store the language in the local storage
 	    \$translateProvider.useLocalStorage();
-		\$translateProvider.useSanitizeValueStrategy('sanitize');
+		\$translateProvider.useSanitizeValueStrategy('escaped');
 	})
-	.config(function(tagsInputConfigProvider) {
-		tagsInputConfigProvider.setDefaults('tagsInput', {
-			displayProperty:'name',
-			addFromAutocompleteOnly:true
-		})
-		.setDefaults('autoComplete', {
-			minLength:0,
-			maxResultsToShow:15,
-			highlightMatchedText: true,
-			loadOnDownArrow: true,
-			loadOnEmpty: true,
-			loadOnFocus: true
-		});
+
+	.config(function(\$mdThemingProvider){
+	\$mdThemingProvider.theme('default')
+		.primaryPalette('light-blue')
+		.accentPalette('light-green')
+		.warnPalette('red');
 	})
+
 	.factory('AuthHttpInterceptor', function (\$q, \$injector, \$rootScope, \$translate, inform) {
 		function interceptor(rejection) {
 			try {
@@ -214,7 +205,7 @@ angular.module('angularDemoApp', [
 		};
 	}).run(function (\$rootScope, \$state) {
 		\$rootScope.\$on('\$stateChangeError', function (e, toPage) {
-			console.log('State Change Error');
+			console.log('State Change Error', e, toPage);
 			var stateParams = { };
 			stateParams.messageCode = 'pages.session.messages.state-change-error';
 			stateParams.url = toPage.url;

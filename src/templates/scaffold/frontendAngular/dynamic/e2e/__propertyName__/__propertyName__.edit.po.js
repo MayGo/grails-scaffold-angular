@@ -29,7 +29,7 @@ var EditPage = function() {
 			def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
 			if(embeddedProps){
 				if(embeddedProps.size()>1) {
-					println	"\t\t//page.${p.name}AccordionEl.click()"
+					println	"\t\t//page.${p.name}EmbeddedEl.click()"
 				}
 				embeddedProps.each{ep->
 					renderFieldRow(ep, p.component, p)

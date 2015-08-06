@@ -46,13 +46,13 @@
 }*/
 /*body {
   font-size: 1.6rem;
-}*/
+}
 
 body {
   /*overflow: hidden;*/
-  max-width: 100%;
+ /* max-width: 100%;
   max-height: 100%;
-}
+}*/
 
 /***************
  * TYPE DEFAULTS
@@ -75,142 +75,8 @@ a:hover, a:focus {
 a.md-button {
   border-bottom: none;
 }
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-}
-h1 {
-  font-size: 3.400rem;
-  font-weight: 400;
-  line-height: 4rem;
-}
-h2 {
-  font-size: 2.400rem;
-  font-weight: 400;
-  line-height: 3.2rem;
-}
-h3 {
-  font-size: 2.000rem;
-  font-weight: 500;
-  letter-spacing: 0.005em;
-}
-h4 {
-  font-size: 1.600rem;
-  font-weight: 400;
-  letter-spacing: 0.010em;
-  line-height: 2.4rem;
-}
-
-p {
-  font-size: 1.6rem;
-  font-weight: 400;
-  letter-spacing: 0.010em;
-  line-height: 1.6em;
-  margin: 0.8em 0 1.6em;
-}
-strong {
-  font-weight: 500;
-}
-
-blockquote {
-  border-left: 3px solid rgba(0, 0, 0, 0.12);
-  font-style: italic;
-  margin-left: 0;
-  padding-left: 16px;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-ul li {
-  margin-left: 16px;
-  padding: 0;
-  margin-top: 3px;
-  list-style-position: inside;
-}
-ul li:first-child {
-  margin-top: 0;
-}
-/************
- * UTILS
- ************/
-ul.skip-links li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-ul.skip-links li a {
-  background-color: #fff;
-  display: block;
-  margin: 0.5em 0 0.5em 0.5em;
-  opacity: 0;
-  left: 0;
-  position: absolute;
-  text-decoration: none;
-  top: 0;
-  width: 92%;
-  -webkit-transition: opacity   0.15s linear;
-  -moz-transition: opacity  0.15s linear;
-  transition: opacity   0.15s linear;
-}
-ul.skip-links li a:focus {
-  background-color: #fff !important;
-  opacity: 1;
-  z-index: 2;
-}
-/*******************
- * CODE HIGHLIGHTING
- *******************/
-pre {
-  white-space: pre;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-pre > code.highlight {
-  padding: 16px;
-  font-weight: 400;
-  -webkit-user-select: initial;
-  -moz-user-select: initial;
-  -ms-user-select: initial;
-  user-select: initial;
-}
-
-pre, code {
-  margin: 0;
-  padding: 0;
-  font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
-  overflow-wrap: break-word;
-}
 
 
-pre > code.highlight {
-  background-color: transparent;
-  font-weight: 400;
-  padding: 16px;
-}
-
-code {
-  font-size: 1.4rem;
-  background: rgba(0, 0, 0, 0.065);
-}
-
-code.highlight {
-  display: block;
-  overflow-wrap: break-word;
-}
-
-code:not(.highlight) {
-  color: #106CC8;
-  margin-left: 1px;
-  margin-right: 1px;
-  -webkit-font-smoothing: auto;
-  padding: 0.125em 0.35em;
-  border-radius: 2px;
-}
-.layout-content code.highlight {
-  margin-bottom: 15px;
-}
 /************
  * DOCS MENU
  ************/
@@ -478,6 +344,14 @@ item-selector .md-button.md-icon-button{
   border-bottom: 1px solid #4054B2;
 }
 
+
+/**
+* Embedded collapseple content
+*/
+.embedded-content{
+  border: 2px solid rgb(254, 254, 254);;
+}
+
 /**
 * Remove shadows from material design elements
 */
@@ -493,10 +367,53 @@ item-selector .md-button.md-icon-button{
   text-transform: none;
 }
 
+/**
+* Toolbar
+*/
 
 md-toolbar.md-gray {
-  background-color:rgba(241, 241, 241, 0.100);
-  color: rgb(255,255,255);
+  background-color: rgb(254, 254, 254);
+  color: rgba(0,0,0,0.87);
   height: 50px;
   min-height: 50px;
+  border-bottom: 1px solid rgb(251, 251, 251);
 }
+/**
+* class that looks like toolbar
+*/
+.looks-like-toolbar {
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  font-size: 20px;
+  min-height: 64px;
+  width: 100%;
+
+  background-color: rgb(254, 254, 254);
+  color: rgba(0,0,0,0.87);
+  height: 50px;
+  min-height: 50px;
+  border-bottom: 1px solid rgb(251, 251, 251);
+}
+
+/**
+* md-dialog override
+*/
+md-dialog md-dialog-content{
+  padding: 0;
+}
+
+/**
+* chips in search margin fix
+*/
+md-input-container.chips-autocomplete{
+  margin-top: 10px;
+}
+
+

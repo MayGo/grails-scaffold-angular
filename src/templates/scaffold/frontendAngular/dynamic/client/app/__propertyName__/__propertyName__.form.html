@@ -302,6 +302,7 @@ private String makeChipsWithAutocomplete(String modelName, String idName, String
                     readonly="false"
                     md-autocomplete-snap
                     md-require-match
+                    flex
     """
 
     //md-chips does not support
@@ -333,7 +334,7 @@ private String renderAutocomplete(owningClass, p, cp, parentProperty) {
     String validatableName = (parentProperty?.component) ? parentProperty.name : p.name
     String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
     String acFunctionName = (cp.format)?:p.name
-    String translateStr = "pages.${domainClass.propertyName}.view.edit.form.field.$propName"
+    String translateStr = "pages.${domainClass.propertyName}.defaultFieldName.$propName"
 
     if(parentProperty){
         acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
@@ -361,6 +362,7 @@ private String makeAutocomplete(String modelName, String idName, String validata
                 md-items="item in autocompleteService.${acQueryVar}Query(searchText_${idName})"
                 md-item-text="item.name || item.label || item.id"
                 md-min-length="0"
+                flex
     """
 
     if(isRequired){
@@ -418,9 +420,9 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
 
     String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', isAutocomplete)
     String validatableName = (isAutocomplete)?((parentProperty?.component) ? parentProperty.name : p.name):propName
-    String translateStr = "pages.${domainClass.propertyName}.view.edit.form.field.$propName"
+    String translateStr = "pages.${domainClass.propertyName}.defaultFieldName.$propName"
 
-    if(displayParentPropName)translateStr = "pages.${domainClass.propertyName}.view.edit.form.field.${parentProperty.name}.title"
+    if(displayParentPropName)translateStr = "pages.${domainClass.propertyName}.defaultFieldName.${parentProperty.name}.title"
 	return """
     <div class="input-container" layout layout-sm="column">
 		<label for="$validatableName"
@@ -445,17 +447,19 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
                 println renderFieldRow(embeddedProps.first(), domainClass, p, true)
             }else{
       %>
-        <accordion close-others="false" id="${p.name}Accordion">
-            <accordion-group
-                    heading="{{::'pages.${domainClass.propertyName}.view.edit.form.field.${p.name}.title' | translate}}"
-                    is-open="isSearchOpen">
-                <div class="row">
+        <div class="looks-like-toolbar" ng-init="${p.name}Open = true" ng-click="${p.name}Open = !${p.name}Open" id="${p.name}Embedded">
+            <div class="md-toolbar-tools">
+                <h2 translate='pages.${domainClass.propertyName}.defaultFieldName.${p.name}.title'></h2>
+                <span flex></span>
+                <md-icon md-font-set="material-icons" class="md-primary" ng-if="!${p.name}Open">expand_more</md-icon>
+                <md-icon md-font-set="material-icons" class="md-primary" ng-if="${p.name}Open">expand_less</md-icon>
+            </div>
+        </div>
+        <md-content ng-show="${p.name}Open" layout-padding class="embedded-content">
                     <%embeddedProps.each{ep->
                         println renderFieldRow(ep, domainClass, p)
                     }%>
-                </div>
-            </accordion-group>
-        </accordion>
+        </md-content>
 <%          }
         }
     }else{

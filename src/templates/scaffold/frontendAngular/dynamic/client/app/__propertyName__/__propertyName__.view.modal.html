@@ -1,0 +1,14 @@
+<md-dialog flex="50">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2 translate='pages.${domainClass.propertyName}.view.title'></h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="closeItemViewer()">
+                    <md-icon md-font-set="material-icons">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content ng-init="isModal=true" data-ng-include=" 'app/${domainClass.propertyName}/${domainClass.propertyName}.view.html'">
+
+        </md-dialog-content>
+</md-dialog>

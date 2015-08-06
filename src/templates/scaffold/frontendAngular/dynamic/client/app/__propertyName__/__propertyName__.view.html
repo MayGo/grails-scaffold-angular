@@ -46,7 +46,7 @@ private String renderFieldRow(p, owningClass, parentProperty = null){
 private String renderString(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     return """
-            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <label translate="pages.${owningClass.propertyName}.defaultFieldName.${parentPropName}${p.name}" flex="20"></label>
             <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}" flex="30"></div>
     """
 }
@@ -54,7 +54,7 @@ private String renderString(owningClass, p, parentProperty) {
 private String renderDate(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     return """
-        <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+        <label translate="pages.${owningClass.propertyName}.defaultFieldName.${parentPropName}${p.name}" flex="20"></label>
         <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name} | date:'yyyy-MM-dd HH:mm'" flex="30"></div>
     """
 }
@@ -62,7 +62,7 @@ private String renderDate(owningClass, p, parentProperty) {
 private String renderBoolean(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
    return """
-            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <label translate="pages.${owningClass.propertyName}.defaultFieldName.${parentPropName}${p.name}" flex="20"></label>
             <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}" flex="30"></div>
     """
 }
@@ -70,7 +70,7 @@ private String renderBoolean(owningClass, p, parentProperty) {
 private String renderByteArray(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
    return """
-            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <label translate="pages.${owningClass.propertyName}.defaultFieldName.${parentPropName}${p.name}" flex="20"></label>
             <div class="read-field" ng-model="${owningClass.propertyName}.${parentPropName}${p.name}" byte-downloader flex="30"></div>
     """
 }
@@ -79,7 +79,7 @@ private String renderByteArray(owningClass, p, parentProperty) {
 private renderSelectType(owningClass, p, parentProperty, type) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
      return """
-            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <label translate="pages.${owningClass.propertyName}.defaultFieldName.${parentPropName}${p.name}" flex="20"></label>
             <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}" flex="30"></div>
     """
 }
@@ -87,7 +87,7 @@ private renderSelectType(owningClass, p, parentProperty, type) {
 private String renderEnum(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
      return """
-            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <label translate="pages.${owningClass.propertyName}.defaultFieldName.${parentPropName}${p.name}" flex="20"></label>
             <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}" flex="30"></div>
     """
 }
@@ -99,7 +99,7 @@ private String renderManyToOne(owningClass, p, parentProperty) {
     
     String str = """<!--ManyToOne-->
 
-            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <label translate="pages.${owningClass.propertyName}.defaultFieldName.${parentPropName}${p.name}" flex="20"></label>
             <div class="read-field">
                 <a  ui-sref="app.${domainClass.propertyName}.view.${p.referencedDomainClass.propertyName}Modal({modalId:${owningClass.propertyName}.${parentPropName}${p.name}.id})" flex="30">
                 """
@@ -118,7 +118,7 @@ private String renderManyToMany(owningClass, p, parentProperty) {
     if(!useDisplaynames) useDisplaynames = ["id":null]
 
     String str = """<!--ManyToMany-->
-        <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+        <label translate="pages.${owningClass.propertyName}.defaultFieldName.${parentPropName}${p.name}" flex="20"></label>
         <div class="read-field" flex="30">
             <div ng-repeat="item in ${owningClass.propertyName}.${parentPropName}${p.name}">
 """
@@ -133,7 +133,7 @@ private String renderManyToMany(owningClass, p, parentProperty) {
 private String renderOneToMany(owningClass, p, parentProperty) {
     String parentPropName = (parentProperty?.component) ? parentProperty.name + '.' : ''
     return """<!--OneToMany-->
-            <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+            <label translate="pages.${owningClass.propertyName}.defaultFieldName.${parentPropName}${p.name}" flex="20"></label>
             <div class="read-field" ng-bind="${owningClass.propertyName}.${parentPropName}${p.name}" flex="30"></div>
     """
 }
@@ -153,7 +153,7 @@ private String renderMap(owningClass, p, parentProperty) {
 
     String str = """<!--Map-->
 
-        <label translate="pages.${owningClass.propertyName}.view.field.${parentPropName}${p.name}" flex="20"></label>
+        <label translate="pages.${owningClass.propertyName}.defaultFieldName.${parentPropName}${p.name}" flex="20"></label>
         <div class="read-field" class="jsonView jsonRead" flex="30">
             <json child="${domainClass.propertyName}.${parentPropName}${p.name}" default-collapsed="false" type="object"></json>
         </div>
@@ -174,8 +174,8 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
         acFunctionName = (parentProperty?.cp?.format)?:(p.cp?.format)?:p.name
     }
 
-    String translateStr = "pages.${owningClass.propertyName}.view.field.${translateName}"
-    if(displayParentPropName)translateStr = "pages.${domainClass.propertyName}.view.field.${parentProperty.name}.title"
+    String translateStr = "pages.${owningClass.propertyName}.defaultFieldName.${translateName}"
+    if(displayParentPropName)translateStr = "pages.${domainClass.propertyName}.defaultFieldName.${parentProperty.name}.title"
 
     return """<!--Autocomplete-->
 
@@ -187,10 +187,10 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
 }
 %>
 
-<div id="${domainClass.propertyName}_view" ng-init="pageTitle = 'pages.${domainClass.propertyName}.view.title'"
+<div ng-if="!isModal" id="${domainClass.propertyName}_view" ng-init="pageTitle = 'pages.${domainClass.propertyName}.view.title'"
      ng-include=" 'shared/blocks/page_heading.html' "></div>
-<div class="content-body">
-    <md-content layout-padding layout="column">
+
+<md-content layout="column">
 
 <%for (p in props) {
         if(p.embedded){
@@ -202,19 +202,25 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
                     println '</div>'
                 }else{
                     %>
-                <accordion close-others="false" id="${p.name}Accordion">
-                    <accordion-group
-                            heading="{{::'pages.${domainClass.propertyName}.view.field.${p.name}.title' | translate}}"
-                            is-open="isSearchOpen">
-                        <div class="row">
-                            <%embeddedProps.each{ep->
-                            println '<div class="input-container" layout layout-sm="column"class="input-container" layout layout-sm="column">'
+
+                    <div class="looks-like-toolbar" ng-init="${p.name}Open = true" ng-click="${p.name}Open = !${p.name}Open" id="${p.name}Embedded">
+                        <div class="md-toolbar-tools">
+                           <h2 translate='pages.${domainClass.propertyName}.defaultFieldName.${p.name}.title'></h2>
+                            <span flex></span>
+                            <md-icon md-font-set="material-icons" class="md-primary" ng-if="!${domainClass.propertyName}Open">expand_more</md-icon>
+                            <md-icon md-font-set="material-icons" class="md-primary" ng-if="${domainClass.propertyName}Open">expand_less</md-icon>
+                        </div>
+                    </div>
+                    <md-content ng-if="${domainClass.propertyName}Open" layout-padding class="embedded-content">
+                    <%
+                        embeddedProps.each{ep->
+                            println '<div class="input-container" layout layout-sm="column">'
                             println renderFieldRow(ep, domainClass, p)
                             println '</div>'
-                            }%>
-                        </div>
-                    </accordion-group>
-                </accordion>
+                        }
+                    %>
+                    </md-content>
+
                     <%
                 }
             }
@@ -242,16 +248,15 @@ private String renderAutocomplete(owningClass, p,  parentProperty) {
 
         <md-button class="md-flat" ng-click="back()" translate="button.back" aria-label="back"></md-button>
     </section>
-    </md-content>
-</div>
+</md-content>
 
 <%
     relationsProps = scaffoldingHelper.findRelationsProps(domainClass, domainClasses as List)
     if(relationsProps){
     %>
 <div ng-if="!isModal">
-    <tabset>
-
+    <md-content class="md-padding">
+        <md-tabs md-dynamic-height md-border-bottom>
 <%
 }
 relationsProps.each{property, domainCl->
@@ -259,20 +264,22 @@ relationsProps.each{property, domainCl->
     if(!useDisplaynames) useDisplaynames = ['id': null]
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
 %>
-        <tab ui-sref="app.${domainClass.propertyName}.view.${domainCl.propertyName}({relationName:'${property.name}s'})"
-             ui-sref-active="active">
-            <tab-heading
-                   translate="pages.${domainCl.propertyName}.view.lists"
-                   translate-value-isval="{{::'pages.${property.getDomainClass().propertyName}.view.field.${property.name}' | translate }}"
-                   translate-value-inval="{{::'pages.${domainCl.propertyName}.name' | translate }}">
-            </tab-heading>
-        </tab>
+        <md-tab ui-sref="app.${domainClass.propertyName}.view.${domainCl.propertyName}({relationName:'${property.name}s'})"
+             ui-sref-active="active" label="asdsd">
+            <md-tab-label>
+                <span translate="pages.${domainCl.propertyName}.view.lists"
+                        translate-value-isval="{{::'pages.${property.getDomainClass().propertyName}.defaultFieldName.${property.name}' | translate }}"
+                        translate-value-inval="{{::'pages.${domainCl.propertyName}.name' | translate }}"></span>
+            </md-tab-label>
+        </md-tab>
 <%}
 if(relationsProps){
         %>
-    </tabset>
+    </md-tabs>
 
-    <div ui-view="tabs" ><div class="content-body">{{::'pages.${domainClass.propertyName}.view.selecttab' | translate}}</div></div>
+    <div ui-view="tabs" ><div class="content-body">{{::'tabs.selecttab' | translate}}</div></div>
+    </md-content>
 </div>
+
     <%} %>
 

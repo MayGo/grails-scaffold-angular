@@ -35,7 +35,7 @@ var CreatePage = function() {
 				def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false && it.name!= 'id'}
 				if(embeddedProps){
 					if(embeddedProps.size()>1) {
-						println "\t\tthis.${p.name}AccordionEl = element(by.css('#${p.name}Accordion a.accordion-toggle'));"
+						println "\t\tthis.${p.name}AccordionEl = element(by.css('#${p.name}Embedded'));"
 					}
 					embeddedProps.each{ep->
 						renderFieldRow(ep, domainClass, p, true)

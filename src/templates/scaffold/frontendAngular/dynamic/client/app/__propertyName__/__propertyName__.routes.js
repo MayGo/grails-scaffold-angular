@@ -81,13 +81,10 @@ modalRoutesDomainClasses.each{domainCl->
 		data:{
 			isModal:true
 		},
-		onEnter: function(\$stateParams, \$state, \$modal, \$resource) {
+		onEnter: function(\$stateParams, \$state, \$mdDialog, \$resource) {
 			var modalId = \$stateParams.modalId;
-
-			\$modal.open({
-				size:'lg',
-				templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.view.html',
-
+			\$mdDialog.show({
+				templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.view.modal.html',
 				resolve: {
 					${domainCl.propertyName}Data: function(\$stateParams, ${domainCl.shortName}Service){
 						//TODO: Add parent (\$stateParams.id) to query
@@ -99,10 +96,10 @@ modalRoutesDomainClasses.each{domainCl->
 					}
 				},
 				controller: '${domainCl.shortName}ViewController',
-			}).result.finally(function(item) {
+
+			}).then(function () {
 				\$state.go('^');
 			});
-
 		}
 
 	}).state('app.${domainClass.propertyName}.view.edit.${domainCl.propertyName}SearchModal',{

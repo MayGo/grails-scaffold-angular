@@ -30,7 +30,7 @@ describe('${domainClass.propertyName} edit page', function() {
 			  def embeddedProps = scaffoldingHelper.getProps(p.component).grep{it.cp?.display != false &&it.cp?.editable != false && it.name!= 'id'}
 			  if(embeddedProps){
 				  if(embeddedProps.size()>1) {
-					  println	"\t\tpage.${p.name}AccordionEl.click()"
+					  println	"\t\tpage.${p.name}EmbeddedEl.click()"
 				  }
 				  embeddedProps.each{ep->
 				  renderFieldRow(ep, p.component, p)

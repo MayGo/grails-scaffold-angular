@@ -22,13 +22,9 @@
 
 	<link rel="stylesheet" href="app/app.css" type="text/css" />
 
-	<link rel="stylesheet" href="shared/modal/modal.css" type="text/css"/>
 	<link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css" type="text/css"/>
 	<link rel="stylesheet" href="bower_components/angular-inform/dist/angular-inform.min.css" type="text/css"/>
-	<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" type="text/css"/>
-	<link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css" type="text/css"/>
 	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css"/>
-	<link rel="stylesheet" href="bower_components/ngToggle/ng-toggle.css" type="text/css"/>
 	<link rel="stylesheet" href="bower_components/json-edit/css/styles.css" type="text/css"/>
 	<link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css" type="text/css"/>
 
@@ -52,7 +48,6 @@
 <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
 <script src="bower_components/angular-inform/dist/angular-inform.js"></script>
 <script src="bower_components/satellizer/satellizer.js"></script>
-<script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
 <script src="bower_components/ngstorage/ngStorage.js"></script>
 <script src="bower_components/angular-translate/angular-translate.js"></script>
 <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
@@ -61,7 +56,6 @@
 <script src="bower_components/angular-fullscreen/src/angular-fullscreen.js"></script>
 <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
 <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
-<script src="bower_components/ngToggle/ng-toggle.js"></script>
 <script src="bower_components/angular-permission/dist/angular-permission.js"></script>
 <script src="bower_components/jquery-ui/jquery-ui.js"></script>
 <script src="bower_components/angular-ui-sortable/sortable.js"></script>
@@ -71,6 +65,8 @@
 <script src="bower_components/angular-file-upload/angular-file-upload.js"></script>
 <script src="bower_components/angular-aria/angular-aria.min.js"></script>
 <script src="bower_components/angular-material/angular-material.min.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+
 <!-- endbower -->
 <!-- endbuild -->
 <!-- build:js({.tmp,client}) app/app.js -->
@@ -112,7 +108,6 @@
 <script src="shared/menu/menu-toggle.directive.js"></script>
 <script src="shared/menu/menu-templates.js"></script>
 
-<script src="shared/modal/modal.service.js"></script>
 
 <%for(d in domainClasses){%>
 <script src="app/${d.propertyName}/${d.propertyName}.routes.js"></script>
