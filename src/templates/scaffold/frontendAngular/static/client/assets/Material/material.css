@@ -416,4 +416,19 @@ md-input-container.chips-autocomplete{
   margin-top: 10px;
 }
 
+/**
+* Validation
+*/
+md-select.ng-invalid .md-select-value{
+  border-bottom-color: #f05050 !important;
+}
+.ng-invalid {
+  border-bottom-color: #f05050 !important;
+}
+
+.input-error-msg{
+  position: absolute;
+  bottom: 8px;
+  color: rgb(244, 67, 54);
+}
 

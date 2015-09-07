@@ -16,13 +16,15 @@ class RestQueries extends AuthQueries {
 		}
 	}
 
-	RestResponse queryListWithMap(Map urlVariables) {
+	RestResponse queryListWithMap(Map param) {
+
 		//Using urlvariables because in url cannot be filter={id:1}
-		String paramsStr = urlVariables.inject([]) { result, entry ->
-			result << "${entry.key}=${entry.value.toString()}"
+		String paramsStr = param.inject([]) { result, entry ->
+			result << "${entry.key}={${entry.key}}"
 		}.join('&')
 
-		return restBuilder.get("${REST_URL}.json?$paramsStr") {
+		return restBuilder.get("${REST_URL}.json?${paramsStr}") {
+			urlVariables param
 			header 'Authorization', 'Bearer ' + ACCESS_TOKEN
 			accept 'application/json'
 		}

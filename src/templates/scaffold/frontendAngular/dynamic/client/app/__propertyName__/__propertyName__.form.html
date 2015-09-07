@@ -426,8 +426,8 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
 	return """
     <div class="input-container" layout layout-sm="column">
 		<label for="$validatableName"
-               translate="${translateStr}" flex="20"/>
-        <md-input-container md-no-float="true" flex="30" layout="row">
+               translate="${translateStr}" flex="30"></label>
+        <md-input-container md-no-float="true" flex="70" layout="row">
             ${renderEditField(p, owningClass, parentProperty)}
         </md-input-container>
 	</div>

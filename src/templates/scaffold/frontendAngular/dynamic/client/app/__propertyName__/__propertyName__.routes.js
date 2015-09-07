@@ -11,7 +11,7 @@ angular.module('angularDemoApp')
 		.state('app.${domainClass.propertyName}.list', {
 			url: '/list?search',//TODO: search so that search is not an object in url
 			views: {
-				"page@app.${domainClass.propertyName}": {
+				'page@app.${domainClass.propertyName}': {
 					templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.list.html',
 					controller: '${domainClass.shortName}ListController'
 				}
@@ -22,7 +22,7 @@ angular.module('angularDemoApp')
 				parent: 'app.${domainClass.propertyName}.list'
 			},
 			views: {
-				"page@app.${domainClass.propertyName}": {
+				'page@app.${domainClass.propertyName}': {
 					templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.form.html',
 					controller: '${domainClass.shortName}EditController'
 				}
@@ -38,7 +38,7 @@ angular.module('angularDemoApp')
 				parent: 'app.${domainClass.propertyName}.list'
 			},
 			views: {
-				"page@app.${domainClass.propertyName}": {
+				'page@app.${domainClass.propertyName}': {
 					templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.view.html',
 					controller: '${domainClass.shortName}ViewController'
 				}
@@ -55,7 +55,7 @@ angular.module('angularDemoApp')
 		}).state('app.${domainClass.propertyName}.view.edit',{
 			url: '/edit',
 			views: {
-				"page@app.${domainClass.propertyName}": {
+				'page@app.${domainClass.propertyName}': {
 					templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.form.html',
 					controller: '${domainClass.shortName}EditController',
 				}
@@ -81,7 +81,7 @@ modalRoutesDomainClasses.each{domainCl->
 		data:{
 			isModal:true
 		},
-		onEnter: function(\$stateParams, \$state, \$mdDialog, \$resource) {
+		onEnter: function(\$stateParams, \$state, \$mdDialog) {
 			var modalId = \$stateParams.modalId;
 			\$mdDialog.show({
 				templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.view.modal.html',
@@ -120,7 +120,7 @@ relationsProps.each{domainCl->
 				isTab:true
 			},
 			views: {
-				"tabs": {
+				'tabs': {
 					templateUrl: 'app/${domainCl.propertyName}/${domainCl.propertyName}.list.html',
 					controller: '${domainCl.shortName}ListController'
 				}

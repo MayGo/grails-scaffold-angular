@@ -10,7 +10,7 @@ angular.module('angularDemoApp', [
 	'ui.router',
 	'ui.bootstrap.dropdown',
 	'pascalprecht.translate',
-	//'jcs-autoValidate',
+	'jcs-autoValidate',
 	'angular-loading-bar',
 	'ngTable',
 	'inform',
@@ -116,6 +116,7 @@ angular.module('angularDemoApp', [
 
 		// \$locationProvider.html5Mode(true);
 	})
+
 	.config(function(\$datepickerProvider) {
 		angular.extend(\$datepickerProvider.defaults, {
 			dateFormat: 'dd.MM.yyyy',
@@ -123,8 +124,6 @@ angular.module('angularDemoApp', [
 			container: 'body'
 		});
 	})
-
-
 
 	.config(function(\$translateProvider){
 	    // Register a loader for the static files
@@ -174,18 +173,16 @@ angular.module('angularDemoApp', [
 		};
 
 	})
-	.config(function (\$httpProvider) {
 
+	.config(function (\$httpProvider) {
 		\$httpProvider.interceptors.push('AuthHttpInterceptor');
 	})
-
 
 	.config(function(\$breadcrumbProvider) {
 		\$breadcrumbProvider.setOptions({
 			templateUrl: 'shared/blocks/breadcrumbs.html'
 		});
 	})
-
 
 	.value('uiJqConfig', {
 		iCheck: {
@@ -194,8 +191,11 @@ angular.module('angularDemoApp', [
 			increaseArea: '20%' // optional
 		}
 	})
-	.run(function(\$filter) {
-		//validator.setValidElementStyling(false);
+
+	.run(function (\$filter, validator, materialElementModifier) {
+
+		validator.registerDomModifier(materialElementModifier.key, materialElementModifier);
+		validator.setDefaultElementModifier(materialElementModifier.key);
 
 		//Set date to timestamp to ignore users locale
 		Date.prototype.toJSON = function() {

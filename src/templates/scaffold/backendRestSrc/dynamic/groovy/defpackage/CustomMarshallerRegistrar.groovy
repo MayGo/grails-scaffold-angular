@@ -63,7 +63,7 @@ class CustomMarshallerRegistrar {
 		}
 		for (String key in getDomainProperties(domain.class)) {
 			def value = domain[key]
-			if (excludes.containsKey(key) && !excludes[key] || !value) {
+			if (excludes.containsKey(key) && !excludes[key] || value == null) {
 				continue
 			}
 			if (excludes.containsKey(key) && excludes[key] && value) {

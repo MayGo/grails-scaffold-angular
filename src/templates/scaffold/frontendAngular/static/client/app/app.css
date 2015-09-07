@@ -38,23 +38,6 @@
     padding: 0.2em 0;
 }
 
-/**
-* Form validation
-*/
-
-.form-validation .ng-invalid {
-  border-color: #f05050;
-}
-
-.form-validation .ng-valid:focus {
-  border-color: #27c24c;
-}
-
-.form-validation .i-checks .ng-dirty + i {
-  border-color: #f05050;
-}
-
-
 
 .text-active,
 .active > .text,
