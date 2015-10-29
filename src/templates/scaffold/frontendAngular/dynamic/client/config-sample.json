@@ -1,7 +1,0 @@
-{
-    "restUrl": "http://localhost:8181/",
-    "loginUrl": "http://localhost:8181/api/login",
-    "logoutUrl": "http://localhost:8181/api/logout",
-    "validationUrl": "http://localhost:8181/api/validate",
-    "securityEnabled": false
-}

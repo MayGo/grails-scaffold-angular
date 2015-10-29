@@ -1,21 +1,28 @@
-'use strict';
+(function () {
 
-angular.module('angularDemoApp')
-  .controller('AppController', function ($scope, $state, $translate, $localStorage, $window, Fullscreen, AutocompleteService, SessionService, MenuService, $mdSidenav, $timeout) {
+  angular
+    .module('angularDemoApp')
+    .controller('AppController', AppController);
 
-    $scope.menu = MenuService;
-    $scope.state = $state
-    $scope.path = path;
-    $scope.goHome = goHome;
-    $scope.openMenu = openMenu;
-    $scope.closeMenu = closeMenu;
-    $scope.isSectionSelected = isSectionSelected;
+  AppController.$inject = ['MenuService', '$mdSidenav', '$mdBottomSheet', '$log', '$q', '$state', '$mdToast'];
+
+  function AppController(MenuService, $mdSidenav, $mdBottomSheet, $log, $q, $state, $mdToast) {
+    var ctrl = this;
+
+
+    ctrl.menu = MenuService;
+    ctrl.state = $state
+    ctrl.path = path;
+    ctrl.goHome = goHome;
+    ctrl.openMenu = openMenu;
+    ctrl.closeMenu = closeMenu;
+    ctrl.isSectionSelected = isSectionSelected;
 
     // Methods used by menuLink and menuToggle directives
-    this.isOpen = isOpen;
-    this.isSelected = isSelected;
-    this.toggleOpen = toggleOpen;
-    this.autoFocusContent = false;
+    ctrl.isOpen = isOpen;
+    ctrl.isSelected = isSelected;
+    ctrl.toggleOpen = toggleOpen;
+    ctrl.autoFocusContent = false;
 
     var mainContentArea = document.querySelector("[role='main']");
 
@@ -90,92 +97,66 @@ angular.module('angularDemoApp')
     //grap
 
 
-    var isIE = !!navigator.userAgent.match(/MSIE/i);
-      isIE && angular.element($window.document.body).addClass('ie');
-      isSmartDevice( $window ) && angular.element($window.document.body).addClass('smart');
-
-      // config
-      $scope.app = {
-        settings: {
-          themeID: 1,
-          navbarHeaderColor: 'bg-black',
-          navbarCollapseColor: 'bg-white-only',
-          asideColor: 'bg-black',
-          headerFixed: true,
-          asideFixed: true,
-          asideFolded: false,
-          asideDock: false,
-          container: false
-        }
-      }
-
-      // save settings to local storage
-      if ( angular.isDefined($localStorage.settings) ) {
-        $scope.app.settings = $localStorage.settings;
-      } else {
-        $localStorage.settings = $scope.app.settings;
-      }
-      $scope.$watch('app.settings', function(){
-        if( $scope.app.settings.asideDock  &&  $scope.app.settings.asideFixed ){
-          // aside dock and fixed must set the header fixed.
-          $scope.app.settings.headerFixed = true;
-        }
-        // for box layout, add background image
-        $scope.app.settings.container ? angular.element('html').addClass('bg') : angular.element('html').removeClass('bg');
-        // save to local storage
-        $localStorage.settings = $scope.app.settings;
-      }, true);
-
-      // angular translate
-      $scope.lang = { isopen: false };
-      $scope.langs = {en:'English', de_DE:'German', it_IT:'Italian'};
-      $scope.selectLang = $scope.langs[$translate.proposedLanguage()] || "English";
-      $scope.setLang = function(langKey, $event) {
-        // set the current lang
-        $scope.selectLang = $scope.langs[langKey];
-        // You can change the language during runtime
-        $translate.use(langKey);
-        $scope.lang.isopen = !$scope.lang.isopen;
-      };
-
-      function isSmartDevice( $window )
-      {
-          // Adapted from http://www.detectmobilebrowsers.com
-          var ua = $window['navigator']['userAgent'] || $window['navigator']['vendor'] || $window['opera'];
-          // Checks for iOs, Android, Blackberry, Opera Mini, and Windows mobile devices
-          return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
-      }
 
 
-    $scope.goFullscreen = function () {
-      if (Fullscreen.isEnabled()) {
-        Fullscreen.cancel();
-      } else {
-        Fullscreen.all();
-      }
-    };
 
-    $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-      // to be used for back button //won't work when page is reloaded.
-      $scope.previousStateName = fromState.name;
-      $scope.previousStateParams = fromParams;
-    });
-    //back button function called from back button's ng-click='back()'
-    $scope.back = function () {
-      if ($scope.previousStateName) {
-        $state.go($scope.previousStateName, $scope.previousStateParams);
-      } else {
-        $state.go('^.list');
-      }
-    };
 
-    $scope.username = SessionService.getCurrentUser().login;
-    $scope.autocompleteService = AutocompleteService;
 
-    $scope.openedSubmenuId = 0;
-    $scope.openSubmenu = function (submenuId) {
-      $scope.openedSubmenuId = submenuId;
-      this.$parent.isOpen0 = true;
+
+    ctrl.toggleItemsList = toggleItemsList;
+    ctrl.showActions = showActions;
+   // ctrl.title = $state.current.data.title;
+    ctrl.showSimpleToast = showSimpleToast;
+
+
+    function toggleItemsList() {
+      var pending = $mdBottomSheet.hide() || $q.when(true);
+
+      pending.then(function () {
+        $mdSidenav('left').toggle();
+      });
     }
 
-  });
+
+
+    function showActions($event) {
+      $mdBottomSheet.show({
+        parent: angular.element(document.getElementById('content')),
+        templateUrl: 'app/views/partials/bottomSheet.html',
+        controller: ['$mdBottomSheet', SheetController],
+        controllerAs: "appCtrl",
+        bindToController: true,
+        targetEvent: $event
+      }).then(function (clickedItem) {
+        clickedItem && $log.debug(clickedItem.name + ' clicked!');
+      });
+
+      function SheetController($mdBottomSheet) {
+        var ctrl = this;
+
+        ctrl.actions = [
+          {
+            name: 'Share',
+            icon: 'share',
+            url: 'https://twitter.com/intent/tweet?text=Angular%20Material%20Dashboard%20https://github.com/flatlogic/angular-material-dashboard%20via%20@flatlogicinc'
+          },
+          {name: 'Star', icon: 'star', url: 'https://github.com/flatlogic/angular-material-dashboard/stargazers'}
+        ];
+
+        ctrl.performAction = function (action) {
+          $mdBottomSheet.hide(action);
+        };
+      }
+    }
+
+    function showSimpleToast(title) {
+      $mdToast.show(
+        $mdToast.simple()
+          .content(title)
+          .hideDelay(2000)
+          .position('top right')
+      );
+    }
+  }
+
+})();

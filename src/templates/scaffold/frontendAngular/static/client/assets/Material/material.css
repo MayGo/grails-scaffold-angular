@@ -1,44 +1,4 @@
 
-/**
-* Material icons font
-*/
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
-  src: local('Material Icons'),
-  local('MaterialIcons-Regular'),
-  url(iconfont/MaterialIcons-Regular.woff2) format('woff2'),
-  url(iconfont/MaterialIcons-Regular.woff) format('woff'),
-  url(iconfont/MaterialIcons-Regular.ttf) format('truetype');
-}
-
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
-  font-feature-settings: 'liga';
-}
-
 
 /*html {
   font-size: 62.5%;
@@ -57,7 +17,7 @@ body {
 /***************
  * TYPE DEFAULTS
  ***************/
-/*a {
+a {
   color: #106CC8;
   text-decoration: none;
   font-weight: 400;
@@ -67,45 +27,28 @@ body {
   -ms-transition: border-bottom 0.35s;
   -o-transition: border-bottom 0.35s;
   transition: border-bottom 0.35s;
-}*/
-/*
+}
 a:hover, a:focus {
   border-bottom: 1px solid #4054B2;
-}*/
+}
 a.md-button {
   border-bottom: none;
 }
 
 
 /************
- * DOCS MENU
+ * MENU
  ************/
-.site-sidenav {
-  background: #106CC8;
-}
-.site-sidenav md-content {
-  background: transparent;
-}
-.site-sidenav,
-.site-sidenav.md-locked-open-add-active,
-.site-sidenav.md-locked-open {
-  width: 256px;
-  min-width: 256px;
-  max-width: 256px;
-}
-.site-sidenav > * {
-  min-width: 218px;
-}
 
-.docs-menu,
-.docs-menu ul {
+.menu,
+.menu ul {
   list-style: none;
   padding: 0;
 }
-.docs-menu li {
+.menu li {
   margin: 0;
 }
-.docs-menu > li:nth-child(1) {
+.menu > li:nth-child(1) {
   border-top: none;
 }
 .md-whiteframe-glow-z1 {
@@ -113,63 +56,10 @@ a.md-button {
   0px 0px 2px 2px rgba(0, 0, 0, 0.098),
   0px 0px 5px 1px rgba(0, 0, 0, 0.084);
 }
-.docs-menu > li {
-  border-bottom: 1px solid #267ED5;
+.menu > li {
+  border-bottom: 1px solid #f1f1f1;
 }
 
-.docs-menu .md-button {
-  border-radius: 0;
-  color: white;
-  cursor: pointer;
-  display: block;
-  align-items: inherit;
-  line-height: 40px;
-  margin: 0;
-  max-height: 40px;
-  overflow: hidden;
-  padding: 0px 16px;
-  text-align: left;
-  text-decoration: none;
-  white-space: normal;
-  width: 100%;
-}
-.docs-menu .md-button:hover,
-.docs-menu .md-button:focus {
-  background: #267ED5 !important;
-}
-.docs-menu .md-button md-icon {
-  color: white;
-}
-
-.docs-menu md-select {
-
-  /* Override md-select margins.  With margins the menu will look incorrect and causes mobile list
-	 to not be scrollable.
-   */
-  margin: 0;
-  width: 100%;
-}
-
-.docs-menu md-select md-select-label {
-  justify-content: flex-end;
-  padding-top: 10px;
-}
-
-.docs-menu md-select md-select-label span {
-  margin-right: auto;
-  padding-left: 13px;
-}
-
-.docs-menu md-select .md-select-icon {
-  margin-right: 28px;
-}
-
-.docs-menu button.md-button::-moz-focus-inner {
-  padding: 0;
-}
-.docs-menu .md-button.active {
-  background: #267ED5;
-}
 .menu-heading {
   display: block;
   line-height: 32px;
@@ -179,8 +69,8 @@ a.md-button {
   width: 100%;
   color: rgba(255, 255, 255, 0.54)
 }
-.docs-menu li.parentActive,
-.docs-menu li.parentActive .menu-toggle-list {
+.menu li.parentActive,
+.menu li.parentActive .menu-toggle-list {
   /*background-color: #2C80D2 !important;*/
 }
 .menu-toggle-list {
@@ -194,7 +84,7 @@ a.md-button {
   transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
   transition-property: height;
 }
-.docs-menu .menu-toggle-list a.md-button {
+.menu .menu-toggle-list a.md-button {
   display: block;
   padding: 0 16px 0 32px;
   text-transform: none;
@@ -202,9 +92,7 @@ a.md-button {
   font-weight: 500;
 }
 
-ul#docs-menu-Directives {
-  margin-bottom: 20px;
-}
+
 .md-button-toggle .md-toggle-icon {
   display: block;
   margin-left: auto;
@@ -220,55 +108,10 @@ ul#docs-menu-Directives {
   -webkit-transform: rotate(0deg);
 }
 
-/* End Docs Menu */
 
-.logo {
-  display: inline-block;
-  float: none;
-  height: auto;
-  padding: 0 20px;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 50px;
-  text-align: center;
-  color: white;
-}
-.logo:focus {
-  outline: none;
-}
 
-.nav-header {
-  background-color: #106CC8;
-  background: linear-gradient(#185694, #106cc8);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #185694), color-stop(1, #106cc8));
-  background: -webkit-linear-gradient(top, #185694 0%, #106cc8 100%);
-  background: -moz-linear-gradient(top, #185694 0%, #106cc8 100%);
-  background: linear-gradient(top, #185694 0%, #106cc8 100%);
-  border-bottom: 1px solid #267ED5;
-  flex-shrink: 0;
-  z-index: 2;
-}
-a.logo {
-  border-bottom: none;
-}
 
-.docs-menu-separator-icon {
-  margin: 0;
-}
-.docs-menu-separator-icon img {
-  height: 16px;
-}
-.md-breadcrumb {
-  font-size: 24px !important;
-  font-weight: 400 !important;
-}
-.md-breadcrumb md-icon {
-  color: #666 !important;
-}
-.md-breadcrumb-page {
-  display: inline-block;
-  word-wrap: break-word;
-}
+
 
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -283,152 +126,3 @@ a.logo {
   -o-transition:      none !important;
   transition:         none !important;
 }
-
-
-/**
-* Item selector
-*/
-item-selector .md-button.md-icon-button{
-  line-height: 0;
-  height: 40px;
-}
-
-/**
-* Forms
-*/
-.input-container{
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 1px solid #dee5e7 ;
-  border-style: dashed;
-  padding: 15px 0 0 15px;
-}
-
-.input-container label {
-  padding-top: 7px;
-  padding-left: 2px;
-  margin-bottom: 0;
-  text-align: left;
-  padding-right: 15px;
-}
-
-@media(min-width: 768px){
-  .input-container label {
-    padding-top: 7px;
-    padding-left: 2px;
-    margin-bottom: 0;
-    text-align: right;
-  }
-}
-
-.read-field{
-  margin-top: 7px;
-  margin-bottom: 15px;
-  min-height: 34px;
-}
-
-.read-field a {
-  color: #106CC8;
-  text-decoration: none;
-  font-weight: 400;
-  border-bottom: 1px dotted #4054B2;
-  -webkit-transition: border-bottom 0.35s;
-  -moz-transition: border-bottom 0.35s;
-  -ms-transition: border-bottom 0.35s;
-  -o-transition: border-bottom 0.35s;
-  transition: border-bottom 0.35s;
-}
-
-.read-field a:hover, .read-field a:focus {
-  border-bottom: 1px solid #4054B2;
-}
-
-
-/**
-* Embedded collapseple content
-*/
-.embedded-content{
-  border: 2px solid rgb(254, 254, 254);;
-}
-
-/**
-* Remove shadows from material design elements
-*/
-.md-whiteframe-z1 {
-  box-shadow: none;
-}
-
-
-/**
-* Material button override
-*/
-.md-button{
-  text-transform: none;
-}
-
-/**
-* Toolbar
-*/
-
-md-toolbar.md-gray {
-  background-color: rgb(254, 254, 254);
-  color: rgba(0,0,0,0.87);
-  height: 50px;
-  min-height: 50px;
-  border-bottom: 1px solid rgb(251, 251, 251);
-}
-/**
-* class that looks like toolbar
-*/
-.looks-like-toolbar {
-  box-sizing: border-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  position: relative;
-  z-index: 2;
-  font-size: 20px;
-  min-height: 64px;
-  width: 100%;
-
-  background-color: rgb(254, 254, 254);
-  color: rgba(0,0,0,0.87);
-  height: 50px;
-  min-height: 50px;
-  border-bottom: 1px solid rgb(251, 251, 251);
-}
-
-/**
-* md-dialog override
-*/
-md-dialog md-dialog-content{
-  padding: 0;
-}
-
-/**
-* chips in search margin fix
-*/
-md-input-container.chips-autocomplete{
-  margin-top: 10px;
-}
-
-/**
-* Validation
-*/
-md-select.ng-invalid .md-select-value{
-  border-bottom-color: #f05050 !important;
-}
-.ng-invalid {
-  border-bottom-color: #f05050 !important;
-}
-
-.input-error-msg{
-  position: absolute;
-  bottom: 8px;
-  color: rgb(244, 67, 54);
-}
-

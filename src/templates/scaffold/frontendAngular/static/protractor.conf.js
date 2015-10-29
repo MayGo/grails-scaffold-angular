@@ -1,83 +1,116 @@
-// Protractor configuration
-// https://github.com/angular/protractor/blob/master/referenceConf.js
-
 'use strict';
 
-
-var HtmlReporter = require('protractor-html-screenshot-reporter');
-
+// An example configuration file.
 exports.config = {
-  // The timeout for each script run on the browser. This should be longer
-  // than the maximum time your application needs to stabilize between tasks.
-  allScriptsTimeout: 110000,
+  // The address of a running selenium server.
+  //seleniumAddress: 'http://localhost:4444/wd/hub',
+  //seleniumServerJar: deprecated, this should be set on node_modules/protractor/config.json
+  //allScriptsTimeout: 110000,
 
-  // A base URL for your application under test. Calls to protractor.get()
-  // with relative paths will be prepended with this.
-  baseUrl: 'http://localhost:' + (process.env.PORT || '9006'),
-  // list of files / patterns to load in the browser
-  specs: [
-    'e2e/**/*.spec.js'
-  ],
+  //getPageTimeout: 10000,
+  // Capabilities to be passed to the webdriver instance.
+  capabilities: {
+    browserName: 'chrome',
+    shardTestFiles: true,
+    maxInstances: 3
+  },
 
-  // Patterns to exclude.jun
-  exclude: [],
+  baseUrl: 'http://localhost:3100',
 
-  // ----- Capabilities to be passed to the webdriver instance ----
-  //
-  // For a full list of available capabilities, see
-  // https://code.google.com/p/selenium/wiki/DesiredCapabilities
-  // and
-  // https://code.google.com/p/selenium/source/browse/javascript/webdriver/capabilities.js
-  //capabilities: {
- //   shardTestFiles: true,
-  //  maxInstances: 3
-  //},
-
-  // ----- The test framework -----
-  //
-  // Jasmine and Cucumber are fully supported as a test and assertion framework.
-  // Mocha has limited beta support. You will need to include your own
-  // assertion framework if working with mocha.
   framework: 'jasmine2',
 
-  // ----- Options to be passed to minijasminenode -----
-  //
-  // See the full list at https://github.com/juliemr/minijasminenode
+  // Spec patterns are relative to the current working directly when
+  // protractor is called.
+  specs: ['e2e/**/*.js'],
+
+  // Options to be passed to Jasmine-node.
   jasmineNodeOpts: {
-    // If true, display suite and spec names.
-    isVerbose: false,
     // If true, print colors to the terminal.
     showColors: true,
-    // If true, include stack traces in failures.
-    includeStackTrace: false,
-    // Time to wait in milliseconds before a test automatically fails
-    defaultTimeoutInterval: 150000,
-    realtimeFailure: true
+    // Default time to wait in ms before a test fails.
+    //defaultTimeoutInterval: 300000
   },
+
   onPrepare: function () {
     browser.manage().window().setSize(1600, 1000);
 
+    // Disable animations so e2e tests run more quickly
+    var disableNgAnimate = function () {
+      angular.module('disableNgAnimate', []).run(function ($animate) {
+        $animate.enabled(false);
+      });
+    };
+
+    browser.addMockModule('disableNgAnimate', disableNgAnimate);
+
+    var disableCssAnimate = function () {
+      angular.module('disableCssAnimate', []).run(function () {
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        style.innerHTML = '* {' +
+          '-webkit-transition: none !important;' +
+          '-moz-transition: none !important;' +
+          '-o-transition: none !important;' +
+          '-ms-transition: none !important;' +
+          'transition: none !important;' +
+          '}';
+        document.getElementsByTagName('head')[0].appendChild(style);
+      });
+    };
+
+    browser.addMockModule('disableCssAnimate', disableCssAnimate);
+
+    // Store the name of the browser that's currently being used.
+    browser.getCapabilities().then(function (caps) {
+      browser.params.browser = caps.get('browserName');
+    });
+
+
     var path = require('path');
-    jasmine.getEnv().addReporter(new HtmlReporter({
-      docName: 'index.html',
-      baseDirectory: './test-results/e2e/',
-      preserveDirectory: false,
-      pathBuilder: function pathBuilder(spec, descriptions, results, capabilities) {
-        // Return '<browser>/<specname>' as path for screenshots:
-        // Example: 'firefox/list-should work'.
-        var p = descriptions.join('-');
-        p = p.replace("/", "-")
-        return path.join(capabilities.caps_.browserName, p);
+    var jasmineReporters = require('jasmine-reporters');
+
+    var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+
+    var timestamp = new Date().getTime()
+
+
+    var TestsReporter = require('jasmine2-reporter').Jasmine2Reporter;
+    var options = {
+      symbols: {
+        failed: '- '.strikethrough,
+        passed: '+ '.strikethrough,
+        pending: '~ '.strikethrough,
+        suite: '» '.strikethrough
       }
-    }));
+    };
+    jasmine.getEnv().addReporter(new TestsReporter(options));
 
-    require('jasmine-reporters');
-    jasmine.getEnv().addReporter(
-      new jasmine.JUnitXmlReporter('./test-results/e2e/JUnitXML/', true, true)
-    );
-    var SpecReporter = require('jasmine-spec-reporter');
-    // add jasmine spec reporter
-    jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: false}));
+    return browser.getProcessedConfig().then(function (config) {
+      // index.html nimetame ümber spec-i nimeks, et saaks shardida.
+      var specName = config.specs[0].match(/[\w.]*.spec.js$/gm)[0];
+      jasmine.getEnv().addReporter(new HtmlScreenshotReporter({
+        dest: './test-results/e2e',
+        filename: specName + '.html',
+        pathBuilder: function (currentSpec, suites, browserCapabilities) {
+          // will return chrome/your-spec-name.png
+          var p = currentSpec.fullName;
+          p = p.replace(/ /g, '-');
+          p = p.replace(/:/g, '/');
+          p = p.replace(/,/g, '/');
+          return '/' + p;
+        }
+      }));
 
+      // you could use other properties here if you want, such as platform and version
+      var browserName = config.capabilities.browserName;
+
+      var junitReporter = new jasmineReporters.JUnitXmlReporter({
+        consolidateAll: false,
+        savePath: './test-results/JUnitXML/',
+        filePrefix: 'xmloutput-'
+      });
+      jasmine.getEnv().addReporter(junitReporter);
+    });
   }
+
 };
