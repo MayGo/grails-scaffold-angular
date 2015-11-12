@@ -1,0 +1,25 @@
+{
+  "strict": false,
+  "globalstrict": true,
+  "curly": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "expr": true,
+  "onevar": true,
+  "noarg": true,
+  "node": true,
+  "trailing": true,
+  "undef": true,
+  "unused": true,
+  "latedef": "nofunc",
+  "validthis": true,
+  "jasmine": true,
+  "freeze": true,
+  "globals": {
+    "_": false,
+    "angular": false,
+    "inject": false,
+    "module": false,
+    "moment": false
+  }
+}

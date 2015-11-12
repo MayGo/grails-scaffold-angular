@@ -44,12 +44,11 @@ private renderFieldHeader(p, owningClass) {
 
 private String renderFieldSearch(p, owningClass, parentProperty = null){
 
-    String str = """<md-grid-tile class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
+    String str = """
                         <md-input-container flex>
                     """
 
     if(p.cp.widget == 'autocomplete' || parentProperty?.cp?.widget == 'autocomplete'){
-        str = """<md-grid-tile class="gray" md-rowspan="1" md-colspan="3" md-colspan-sm="1"><md-input-container flex class="chips-autocomplete" md-no-float>"""
         str += renderAutocomplete(owningClass, p, parentProperty)
     }else if (p.type == Boolean || p.type == boolean)
         str += renderBoolean(owningClass, p, parentProperty)
@@ -72,7 +71,6 @@ private String renderFieldSearch(p, owningClass, parentProperty = null){
     else if (p.type==([] as byte[]).class) //TODO: Bug in groovy means i have to do this :(
         str += renderByteArray(domainClass, p, parentProperty)
     else if (p.manyToOne || p.oneToOne){
-        str = """<md-grid-tile class="gray" md-rowspan="1" md-colspan="3" md-colspan-sm="1"><md-input-container flex class="chips-autocomplete" md-no-float>"""
         str += renderManyToOne(domainClass, p, parentProperty)
     }else if (p.joinProperty){
         str += renderJoinProperty(domainClass, p, parentProperty, p.joinProperty)
@@ -86,7 +84,7 @@ private String renderFieldSearch(p, owningClass, parentProperty = null){
     else
         return "<!-- No type for ${p.name} -->"
         
-    str += "</md-input-container></md-grid-tile>"
+    str += "</md-input-container>"
     return str
  
 }
@@ -223,7 +221,7 @@ private String renderEnum(owningClass, p, parentProperty) {
             aria-label="${parentPropName}${p.name}"
             ng-model="search.${domainClass.propertyName}.${parentPropName}${p.name}"
         >
-        <md-option ng-repeat="item in autocompleteService.${fnName}List" >{{item}}</md-option>
+        <md-option ng-repeat="item in appCtrl.autocompleteService.${fnName}List" >{{item}}</md-option>
     </md-select>
     """
     return str;
@@ -307,8 +305,9 @@ private String makeChipsWithAutocomplete(String modelName, String idName, String
     str += """><md-autocomplete
             md-selected-item="selectedItem_$idName"
             md-search-text="searchText_$idName"
-            md-items="item in autocompleteService.${acQueryVar}"
+            md-items="item in appCtrl.autocompleteService.${acQueryVar}"
             md-item-text="item.name || item.label"
+            md-min-length="0"
             placeholder="{{'$placeholder' | translate}}"
         >
         <span md-highlight-text="searchText_$idName">{{item.name || item.label}}</span>
@@ -331,34 +330,32 @@ private makeUseDisplaynamesStr(owningClass, p){
 
 //####################### SEARCH ###################################
 %>
-<div ng-if="!isModal" id="${domainClass.propertyName}_list" ng-init="pageTitle = 'pages.${domainClass.propertyName}.list.title'"
-     data-ng-include=" 'shared/blocks/page_heading.html' "></div>
-<div>
-
-
-<md-content>
-    <md-toolbar class="md-gray" ng-click="isSearchOpen = !isSearchOpen">
+    <!-- Content Header (Page header) -->
+    <md-toolbar md-scroll-shrink id="${domainClass.propertyName}_list" class="md-hue-1" ng-init="pageTitle = 'pages.${domainClass.propertyName}.list.title'">
         <div class="md-toolbar-tools">
-            <md-button class="md-raised">
-                <md-icon md-font-set="material-icons" class="md-primary">search</md-icon>
-                <span translate="button.search"></span>
-            </md-button>
+            <h3>
+                <span translate-once="{{::pageTitle}}"></span>
+            </h3>
             <span flex></span>
-            <md-button class="md-raised" ng-if="!isModal" ui-sref="app.${domainClass.propertyName}.create" ng-click="\$event.stopPropagation();" >
-                <md-icon md-font-set="material-icons" class="md-primary">add_circle</md-icon>
-                <span translate="pages.${domainClass.propertyName}.list.new"></span>
+            <md-button class="md-icon-button" ng-click="isSearchOpen = !isSearchOpen">
+                <md-icon md-font-set="material-icons" class="md-primary">search</md-icon>
+                <md-tooltip ><span translate="button.search"></span></md-tooltip>
             </md-button>
+            <md-button class="md-icon-button" ng-if="!isModal" ui-sref="app.${domainClass.propertyName}.create" ng-click="\$event.stopPropagation();" >
+                <md-icon md-font-set="material-icons" class="md-primary">add_circle</md-icon>
+                <md-tooltip ><span translate="pages.${domainClass.propertyName}.list.new"></span></md-tooltip>
+            </md-button>
+            <div class="breadcrumb" ng-if="!isModal && !isTab" ncy-breadcrumb>
+            </div>
         </div>
     </md-toolbar>
-    <md-content ng-if="isSearchOpen" layout-padding>
+
+    <md-content>
+
+    <div ng-if="isSearchOpen" layout-padding>
          <form name="${domainClass.propertyName}Form" novalidate>
-             <md-grid-list
-                     md-row-height="50px"
-                     md-cols="6"
-                     md-cols-sm="1" md-cols-md="4"
-                     md-gutter="6px"
-                   >
-            <%
+             <div layout="row" layout-align="start start">
+             <%
                  for (p in props) {
                     println renderFieldSearch(p, domainClass)
                  }
@@ -370,17 +367,17 @@ private makeUseDisplaynamesStr(owningClass, p){
                      }
                  }
              %>
-            </md-grid-list>
+             </div>
 
         </form>
-    </md-content>
+    </div>
 
     <md-content layout-padding layout="column" class="list-search">
         <div class="list-search-table" loading-container="tableParams.settings().\$loading">
 	      <table class="table table-responsive" ng-table="tableParams" show-filter="true" >
 	      	<tbody>
 				<tr ng-repeat="${domainClass.propertyName} in \$data">
-                    <td class="text-left" >
+                    <td class="text-left action-buttons">
                         <a ui-sref="app.${domainClass.propertyName}.view({id:${domainClass.propertyName}.id})" ng-if="!isModal" >
                             <md-icon md-font-set="material-icons"
                                      ng-class="{'md-primary':hovering}"

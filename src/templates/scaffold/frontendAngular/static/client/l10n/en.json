@@ -1,66 +1,66 @@
 {
-  "app": {
-    "name": "${appName}",
-    "title": "${appName}"
-  },
-  "button": {
-    "submit": "Save",
-    "back": "Back",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "copy": "Copy",
-    "search": "Search",
-    "true": "True",
-    "false": "False",
-    "none": "None"
-  },
-  "searchSelect": {
-    "true": "True",
-    "false": "False",
-    "none": ""
-  },
-  "tabs": {
-    "selecttab": "Click on tab to show table"
-  },
-  "header": {
-    "navbar": {
-      "UPLOAD": "Upload",
-      "new": {
-        "NEW": "New"
-      },
-      "user": {
-        "settings": "Settings",
-        "docs": "Help"
-      },
-      "NOTIFICATIONS": "Notifications",
-      "logout": "Logout"
-    }
-  },
-  "messages": {
-    "loading": "Loading ..."
-  },
-  "upload":{
-      "title":"Upload files",
-      "file":"Upload file",
-      "or":"OR",
-      "drop":"Drag And Drop your file here",
-      "queue":"Upload queue",
-      "length":"Queue lenght",
-      "progress":"Queue progress",
-      "uploadAll":"Upload all",
-      "cancelAll":"Cancel all",
-      "removeAll":"Remove all",
-      "upload":"Upload",
-      "cancel":"Cancel",
-      "remove":"Remove",
-      "name":"Name",
-      "size":"Size",
-      "progress":"Progress",
-      "status":"Status",
-      "actions":"Actions"
-  },
-  "pages":{
+"app":{
+	"name":"${appName}",
+	"title":"${appName}"
+},
+"button": {
+	"submit": "Save",
+	"back": "Back",
+	"cancel": "Cancel",
+	"delete":"Delete",
+	"edit":"Edit",
+	"copy": "Copy",
+	"search":"Search",
+	"true":"True",
+	"false":"False",
+	"none":"None"
+},
+"searchSelect":{
+	"true":"True",
+	"false":"False",
+	"none":""
+},
+"tabs":{
+	"selecttab": "Click on tab to show table"
+},
+"header" : {
+  "navbar" : {
+    "UPLOAD" : "Upload",
+    "new" : {
+      "NEW" : "New"
+    },
+    "user":{
+    	"settings":"Settings",
+    	"docs":"Help"
+    },
+    "NOTIFICATIONS" : "Notifications",
+	"logout":"Logout"
+  }
+},
+"messages":{
+	"loading": "Loading ..."
+},
+"upload":{
+	"title":"Upload files",
+	"file":"Upload file",
+	"or":"OR",
+	"drop":"Drag And Drop your file here",
+	"queue":"Upload queue",
+	"length":"Queue lenght",
+	"progress":"Queue progress",
+	"uploadAll":"Upload all",
+	"cancelAll":"Cancel all",
+	"removeAll":"Remove all",
+	"upload":"Upload",
+	"cancel":"Cancel",
+	"remove":"Remove",
+	"name":"Name",
+	"size":"Size",
+	"progress":"Progress",
+	"status":"Status",
+	"actions":"Actions"
+},
+"pages":{
 	"Dashboard":{
 		"lastinserted":{
 			"title":"Last Inserted",
@@ -124,7 +124,7 @@
 			},
 
 			"list":{
-				"title": "${d.naturalName} List",
+				"title": "${d.naturalName} List",	
 				"new": " New ${d.naturalName}",
 				"table":{
 					"title":"${d.naturalName} Table"
@@ -145,7 +145,7 @@
 				"delete": "Deleted ${d.naturalName}",
 				"update": "Updated ${d.naturalName}",
 				"create": "Created ${d.naturalName}"
-			},
+			},	
 			"create":{
 				"title": "Create ${d.naturalName}"
 			}
@@ -155,7 +155,7 @@
 "menu" :{
 	"static":{
 		"HEADER" : "Navigation",
-		"DASHBOARD" : "Dashboard"
+		"DASHBOARD" : "Dashboard"  
 	},
 	"domain":{
 	<%for(d in domainClasses){%>

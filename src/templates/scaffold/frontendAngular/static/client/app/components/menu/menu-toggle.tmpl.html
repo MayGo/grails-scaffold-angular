@@ -1,0 +1,22 @@
+<md-button flex="100" class="md-button-toggle"
+           ng-click="menuToggleCtrl.toggle()"
+           aria-controls="docs-menu-{{menuToggleCtrl.section.name | nospace}}"
+           aria-expanded="{{menuCtrl.isOpen(menuToggleCtrl.section)}}">
+  <div flex layout="row">
+    {{menuToggleCtrl.section.name | translate }}
+    <span flex></span>
+      <span aria-hidden="true" class="md-toggle-icon"
+            ng-class="{'toggled' : menuCtrl.isOpen(menuToggleCtrl.section)}">
+        <md-icon md-svg-src="md-toggle-arrow"></md-icon>
+      </span>
+  </div>
+  <span class="md-visually-hidden">
+        Toggle {{menuCtrl.isOpen(menuToggleCtrl.section)? 'expanded' : 'collapsed'}}
+      </span>
+</md-button>
+<ul id="docs-menu-{{menuToggleCtrl.section.name | nospace}}" class="menu-toggle-list"
+    >
+  <li ng-repeat="page in menuToggleCtrl.section.pages">
+    <menu-link section="page"></menu-link>
+  </li>
+</ul>

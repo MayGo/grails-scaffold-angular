@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('angularDemoApp.config', [])
   .constant('appConstants', {
     dateFormat: 'dd.MM.yyyy',
@@ -10,16 +9,9 @@ angular.module('angularDemoApp.config', [])
     showMomentDateFormat: 'DD.MM.YYYY',
     showMomentDateTimeFormat: 'DD.MM.YYYY HH:mm'
   })
-  .config(function ($mdThemingProvider,
-                    $mdIconProvider) {
-    $mdThemingProvider.theme('default')
-      .primaryPalette('light-blue')
-      .accentPalette('light-green')
-      .warnPalette('red');
+  .config(function ($mdThemingProvider, $mdIconProvider) {
 
+    //http://angular-md-color.com/#/
 
     $mdIconProvider.icon('user', 'assets/images/user.svg', 64);
   });
-
-
-

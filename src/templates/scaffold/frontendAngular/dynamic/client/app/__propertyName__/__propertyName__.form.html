@@ -234,7 +234,7 @@ private String renderEnum(owningClass, p, cp, parentProperty) {
     """
     if (isRequired(cp)) str += " required"
 
-    str +=  """><md-option ng-repeat="item in autocompleteService.${fnName}List" >{{item}}</md-option>
+    str +=  """><md-option ng-repeat="item in appCtrl.autocompleteService.${fnName}List" >{{item}}</md-option>
             </md-select>
  """
      return str;
@@ -252,13 +252,14 @@ private String renderManyToOne(owningClass, p, cp, parentProperty) {
     String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
     String acFunctionName = p.referencedDomainClass.propertyName
 
-    String str = "<!-- ManyToOne-->"
+    String str = """<!-- ManyToOne--><div layout="row" layout-align="start center"> """
     str += makeAutocomplete("${domainClass.propertyName}.$propName", idName, validatableName, acFunctionName, isRequired(cp))
 
      str += """
          <item-selector update-model="${domainClass.propertyName}.${parentPropName}${p.name}"
                item-link="app.${domainClass.propertyName}.view.edit.${p.referencedDomainClass.propertyName}SearchModal" >
          </item-selector>
+        </div>
      """
      return str;
 
@@ -272,9 +273,10 @@ private String renderOneToMany(owningClass, p, cp, parentProperty) {
 
     String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
     String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', true)
+    String translateStr = "pages.${domainClass.propertyName}.defaultFieldName.$propName"
     
     String str =  """<!--OneToMany-->"""
-    str += makeChipsWithAutocomplete("${domainClass.propertyName}.$propName", idName, p.referencedDomainClass.propertyName, cp, makeUseDisplaynamesStr(owningClass, p))
+    str += makeChipsWithAutocomplete("${domainClass.propertyName}.$propName", idName, p.referencedDomainClass.propertyName, cp, makeUseDisplaynamesStr(owningClass, p), translateStr)
     return str;
 }
 
@@ -283,9 +285,10 @@ private String renderManyToMany(owningClass, p, cp, parentProperty) {
 
     String idName = DomainHelper.getPropertyFullName(p, parentProperty, '_', true)
     String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', true)
+    String translateStr = "pages.${domainClass.propertyName}.defaultFieldName.$propName"
 
     String str =  """<!--ManyToMany-->"""
-    str += makeChipsWithAutocomplete("${domainClass.propertyName}.$propName", idName, p.referencedDomainClass.propertyName, cp, makeUseDisplaynamesStr(owningClass, p))
+    str += makeChipsWithAutocomplete("${domainClass.propertyName}.$propName", idName, p.referencedDomainClass.propertyName, cp, makeUseDisplaynamesStr(owningClass, p), translateStr)
     return str;
 }
 
@@ -295,7 +298,9 @@ private makeUseDisplaynamesStr(owningClass, p){
     String useDisplaynamesStr = useDisplaynames.collect{key, value->"'" + key + "'"}.join(",")
 }
 
-private String makeChipsWithAutocomplete(String modelName, String idName, String acQueryVar, cp, String useDisplaynamesStr){
+private String makeChipsWithAutocomplete(String modelName, String idName, String acQueryVar, cp, String useDisplaynamesStr, translateStr){
+
+
     String str =  """
             <md-chips
                     ng-model="$modelName"
@@ -311,8 +316,11 @@ private String makeChipsWithAutocomplete(String modelName, String idName, String
     str += """><md-autocomplete
                     md-selected-item="selectedItem_$idName"
                     md-search-text="searchText_$idName"
-                    md-items="item in autocompleteService.${acQueryVar}Query(searchText_$idName, [$useDisplaynamesStr], true)"
-                    md-item-text="item.name">
+                    md-items="item in appCtrl.autocompleteService.${acQueryVar}Query(searchText_$idName, [$useDisplaynamesStr], true)"
+                    md-item-text="item.name"
+                    md-min-length="0"
+                    placeholder="{{ '$translateStr' | translate }}"
+                >
                 <span md-highlight-text="searchText_$idName">{{item.name}}</span>
             </md-autocomplete>
             <md-chip-template>
@@ -359,7 +367,7 @@ private String makeAutocomplete(String modelName, String idName, String validata
                 md-cache="false"
                 md-selected-item="$modelName"
                 md-search-text="searchText_${idName}"
-                md-items="item in autocompleteService.${acQueryVar}Query(searchText_${idName})"
+                md-items="item in appCtrl.autocompleteService.${acQueryVar}Query(searchText_${idName})"
                 md-item-text="item.name || item.label || item.id"
                 md-min-length="0"
                 flex
@@ -417,27 +425,29 @@ private boolean isOptional(cp) {
 <%
 private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayParentPropName = false) {
     boolean isAutocomplete = (p.cp.widget == 'autocomplete')
+    //boolean isChips = p.oneToMany || ((p.oneToMany && !p.bidirectional) || p.manyToMany)
 
     String propName = DomainHelper.getPropertyFullName(p, parentProperty, '.', isAutocomplete)
     String validatableName = (isAutocomplete)?((parentProperty?.component) ? parentProperty.name : p.name):propName
     String translateStr = "pages.${domainClass.propertyName}.defaultFieldName.$propName"
 
-    if(displayParentPropName)translateStr = "pages.${domainClass.propertyName}.defaultFieldName.${parentProperty.name}.title"
+    if(displayParentPropName){
+        translateStr = "pages.${domainClass.propertyName}.defaultFieldName.${parentProperty.name}.title"
+    }
+
+    String labelStr = """<label for="${validatableName}" translate="${translateStr}"></label>"""
 	return """
-    <div class="input-container" layout layout-sm="column">
-		<label for="$validatableName"
-               translate="${translateStr}" flex="30"></label>
-        <md-input-container md-no-float="true" flex="70" layout="row">
+        <md-input-container flex="100">
+            $labelStr
             ${renderEditField(p, owningClass, parentProperty)}
         </md-input-container>
-	</div>
 	"""
 }%>
 <div id="${domainClass.propertyName}_form"
-     ng-init="pageTitle = (isEditForm)?'pages.${domainClass.propertyName}.view.edit.title':'pages.${domainClass.propertyName}.create.title'" data-ng-include=" 'shared/blocks/page_heading.html' "></div>
+     ng-init="pageTitle = (isEditForm)?'pages.${domainClass.propertyName}.view.edit.title':'pages.${domainClass.propertyName}.create.title'" data-ng-include=" 'app/blocks/page_heading.html' "></div>
 
-<md-content layout-padding layout="column">
-    <form name="${domainClass.propertyName}Form" novalidate>
+<md-content >
+    <form name="${domainClass.propertyName}Form" novalidate layout-padding layout="column">
         <input name="version" type="hidden" ng-model="${domainClass.propertyName}.version" />
 <%for (p in props) {
     if(p.embedded){

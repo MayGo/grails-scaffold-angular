@@ -1,5 +1,3 @@
-
-
 /*html {
   font-size: 62.5%;
   line-height: 1.4;
@@ -7,12 +5,11 @@
 /*body {
   font-size: 1.6rem;
 }
-
+*/
 body {
-  /*overflow: hidden;*/
- /* max-width: 100%;
+  max-width: 100%;
   max-height: 100%;
-}*/
+}
 
 /***************
  * TYPE DEFAULTS
@@ -28,13 +25,18 @@ a {
   -o-transition: border-bottom 0.35s;
   transition: border-bottom 0.35s;
 }
+
 a:hover, a:focus {
   border-bottom: 1px solid #4054B2;
 }
+
 a.md-button {
   border-bottom: none;
 }
 
+#header {
+  z-index: 1000;
+}
 
 /************
  * MENU
@@ -45,17 +47,21 @@ a.md-button {
   list-style: none;
   padding: 0;
 }
+
 .menu li {
   margin: 0;
 }
+
 .menu > li:nth-child(1) {
   border-top: none;
 }
+
 .md-whiteframe-glow-z1 {
   box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14),
   0px 0px 2px 2px rgba(0, 0, 0, 0.098),
   0px 0px 5px 1px rgba(0, 0, 0, 0.084);
 }
+
 .menu > li {
   border-bottom: 1px solid #f1f1f1;
 }
@@ -69,10 +75,22 @@ a.md-button {
   width: 100%;
   color: rgba(255, 255, 255, 0.54)
 }
+
+.upper-menu .menu-toggle-list {
+  position: absolute;
+  background-color: rgb(63, 81, 181);
+  z-index: 1000;
+}
+
+.upper-menu.menu > li {
+  border-bottom: 0px solid #f1f1f1;
+}
+
 .menu li.parentActive,
 .menu li.parentActive .menu-toggle-list {
   /*background-color: #2C80D2 !important;*/
 }
+
 .menu-toggle-list {
   overflow: hidden;
   position: relative;
@@ -84,6 +102,7 @@ a.md-button {
   transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
   transition-property: height;
 }
+
 .menu .menu-toggle-list a.md-button {
   display: block;
   padding: 0 16px 0 32px;
@@ -91,7 +110,6 @@ a.md-button {
   text-rendering: optimizeLegibility;
   font-weight: 500;
 }
-
 
 .md-button-toggle .md-toggle-icon {
   display: block;
@@ -103,26 +121,42 @@ a.md-button {
   transition: transform 0.3s ease-in-out;
   -webkit-transition: -webkit-transform 0.3s ease-in-out;
 }
+
 .md-button-toggle .md-toggle-icon.toggled {
   transform: rotate(0deg);
   -webkit-transform: rotate(0deg);
 }
 
+/*
+* Views
+*/
+.input-container {
+  min-height: 49px;
+  margin: 15px 10px 0 10px;
+}
 
+.input-container label {
+  padding-right: 15px;
+}
 
-
-
-
-
+/**
+* Util
+*/
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
 
-
 .no-transition {
   -webkit-transition: none !important;
-  -moz-transition:    none !important;
-  -ms-transition:     none !important;
-  -o-transition:      none !important;
-  transition:         none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
 }
+
+
+/**
+* Angular material overrides
+*/
+
+

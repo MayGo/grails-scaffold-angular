@@ -4,25 +4,19 @@
     .module('angularDemoApp')
     .controller('AppController', AppController);
 
-  AppController.$inject = ['MenuService', '$mdSidenav', '$mdBottomSheet', '$log', '$q', '$state', '$mdToast'];
+  AppController.$inject = ['$mdSidenav', '$mdBottomSheet', '$log', '$q', '$state', '$mdToast', 'AutocompleteService'];
 
-  function AppController(MenuService, $mdSidenav, $mdBottomSheet, $log, $q, $state, $mdToast) {
+  function AppController($mdSidenav, $mdBottomSheet, $log, $q, $state, $mdToast, AutocompleteService) {
     var ctrl = this;
 
+    ctrl.autocompleteService = AutocompleteService;
 
-    ctrl.menu = MenuService;
     ctrl.state = $state
     ctrl.path = path;
     ctrl.goHome = goHome;
     ctrl.openMenu = openMenu;
     ctrl.closeMenu = closeMenu;
-    ctrl.isSectionSelected = isSectionSelected;
 
-    // Methods used by menuLink and menuToggle directives
-    ctrl.isOpen = isOpen;
-    ctrl.isSelected = isSelected;
-    ctrl.toggleOpen = toggleOpen;
-    ctrl.autoFocusContent = false;
 
     var mainContentArea = document.querySelector("[role='main']");
 
@@ -43,65 +37,12 @@
     }
 
     function goHome($event) {
-      MenuService.selectPage(null, null);
+      //MenuService.selectPage(null, null);
       $location.path( '/' );
     }
 
-    function openPage() {
-      $scope.closeMenu();
 
-      if (self.autoFocusContent) {
-        focusMainContent();
-        self.autoFocusContent = false;
-      }
-    }
-
-    function focusMainContent($event) {
-      // prevent skip link from redirecting
-      if ($event) { $event.preventDefault(); }
-
-      $timeout(function(){
-        mainContentArea.focus();
-      },90);
-
-    }
-
-    function isSelected(page) {
-      return MenuService.isPageSelected(page);
-    }
-
-    function isSectionSelected(section) {
-      var selected = false;
-      var openedSection = MenuService.openedSection;
-      if(openedSection === section){
-        selected = true;
-      }
-      else if(section.children) {
-        section.children.forEach(function(childSection) {
-          if(childSection === openedSection){
-            selected = true;
-          }
-        });
-      }
-      return selected;
-    }
-
-    function isOpen(section) {
-      return MenuService.isSectionSelected(section);
-    }
-
-    function toggleOpen(section) {
-      MenuService.toggleSelectSection(section);
-    }
-
-    //grap
-
-
-
-
-
-
-
+    ////////////////////
 
     ctrl.toggleItemsList = toggleItemsList;
     ctrl.showActions = showActions;

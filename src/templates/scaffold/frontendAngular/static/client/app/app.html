@@ -1,28 +1,11 @@
 <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left"
             class="md-whiteframe-z2 md-sidenav-left">
-  <md-toolbar md-theme="custom" class="md-hue-1 md-whiteframe-z2">
-    <md-button layout="row" layout-align="center center" class="md-toolbar-tools md-warn">
+  <md-toolbar class="md-hue-2">
+    <md-button layout="row" layout-align="center center" class="md-toolbar-tools md-warn" aria-label="{{'app.name' | translate}}">
       <span class="md-heading" translate="app.name"></span>
     </md-button>
   </md-toolbar>
-  <ul class="menu">
-    <li ng-repeat="section in appCtrl.menu.sections" class="parent-list-item {{section.className || ''}}" ng-class="{'parentActive' : appCtrl.isSectionSelected(section)}">
-      <h2 class="menu-heading md-subhead" ng-if="section.type === 'heading'" id="heading_{{ section.name | nospace }}">
-        {{section.name}}
-      </h2>
-      <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
-
-      <menu-toggle flex layout="column" section="section" ng-if="section.type === 'toggle'"></menu-toggle>
-
-      <ul ng-if="section.children" class="menu-nested-list">
-        <li ng-repeat="child in section.children" ng-class="{'childActive' : appCtrl.isSectionSelected(child)}">
-          <menu-link section="child" ng-if="child.type === 'link'"></menu-link>
-
-          <menu-toggle section="child" ng-if="child.type === 'toggle'"></menu-toggle>
-        </li>
-      </ul>
-    </li>
-  </ul>
+  <app-menu is-side-menu="true"></app-menu>
 
   <md-divider ng-repeat-end></md-divider>
   <md-button hide-gt-md flex ng-click="appCtrl.showActions($event)">
@@ -33,35 +16,41 @@
 </md-sidenav>
 
 <div layout="column" flex>
-  <md-toolbar layout="row" layout-align="end center">
-    <md-button hide-sm class="md-menu-toolbar" aria-label="Search">
-      <i class="material-icons">search</i>
-    </md-button>
-    <md-button hide-sm class="toolbar-button" aria-label="Notifications">
-      <i class="material-icons">notifications</i>
-      <span class="notifications-label">7</span>
-    </md-button>
-    <md-button hide-sm class="toolbar-button" aria-label="Settings">
-      <i class="material-icons">settings</i>
-    </md-button>
-    <md-button hide-gt-sm ng-click="appCtrl.toggleItemsList()" aria-label="Menu">
-      <i class="material-icons">menu</i>
-    </md-button>
+  <md-toolbar id="header" layout="row" layout-align="end center" ng-init="showSearch = false">
+    <div class="md-toolbar-tools">
+      <!--<app-menu ng-if="!showSearch" ></app-menu>-->
+      <md-input-container flex ng-if="showSearch" >
+        <label>&nbsp;</label>
+        <input ng-model="search.who" type="text" placeholder="enter search" ng-blur="showSearch = false">
+      </md-input-container>
+      <span flex ng-if="!showSearch" ></span>
+      <md-button class="md-icon-button" aria-label="Search" ng-click="showSearch = !showSearch">
+        <md-icon md-font-set="material-icons">search</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" aria-label="Notifications">
+        <md-icon md-font-set="material-icons">notifications</md-icon>
+        <span class="notifications-label">7</span>
+      </md-button>
+      <md-button class="md-icon-button" aria-label="Settings">
+        <md-icon md-font-set="material-icons">settings</md-icon>
+      </md-button>
+      <md-button hide-gt-sm class="md-icon-button" ng-click="appCtrl.toggleItemsList()"  aria-label="Menu">
+        <md-icon md-font-set="material-icons">menu</md-icon>
+      </md-button>
+    </div>
   </md-toolbar>
 
-  <md-content flex class="md-padding page-content">
-    <div ui-view></div>
-  </md-content>
+  <div ui-view></div>
 </div>
 
 <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="right"
             class="md-whiteframe-z2 md-sidenav-right">
   <md-toolbar layout="row">
-    <md-toolbar flex="80" class="md-warn" layout="row" layout-align="center center">
-      <img class="img-circle" ng-src="assets/img/feynman.jpg">
+    <md-toolbar flex="80" class="md-accent" layout="row" layout-align="center center">
+      <img class="img-circle" ng-src="assets/img/avatar.png">
       <md-menu>
         <md-button class="capitalize" ng-click="$mdOpenMenu()" aria-label="Open menu">
-          <span>Richard Feynman</span>
+          <span>John Doe</span>
           <i class="material-icons">keyboard_arrow_down</i>
         </md-button>
         <md-menu-content>

@@ -1,0 +1,10 @@
+<md-button
+  ui-sref-active="md-primary"
+  ui-sref="{{ menuLinkCtrl.section.link }}"
+  ng-click="menuCtrl.focusSection(menuLinkCtrl.section)" flex="100">
+  {{menuLinkCtrl.section.name | translate }}
+  <span class="md-visually-hidden"
+        ng-if="menuCtrl.isSelected(menuLinkCtrl.section)">
+    current page
+  </span>
+</md-button>
