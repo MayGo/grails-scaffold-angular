@@ -1,0 +1,11 @@
+<div ng-click="collapseCtrl.isOpen = !collapseCtrl.isOpen"
+     id="{{::collapseCtrl.id}}CollapseBar">
+  <div class="md-toolbar-tools">
+    <h2 translate-once='{{::collapseCtrl.title}}'></h2>
+    <span flex></span>
+    <md-icon md-font-set="material-icons" class="md-primary" ng-if="!collapseCtrl.isOpen">expand_more</md-icon>
+    <md-icon md-font-set="material-icons" class="md-primary" ng-if="collapseCtrl.isOpen">expand_less</md-icon>
+  </div>
+</div>
+
+<md-content id="{{::collapseCtrl.id}}CollapseContent" ng-show="collapseCtrl.isOpen" ng-transclude></md-content>

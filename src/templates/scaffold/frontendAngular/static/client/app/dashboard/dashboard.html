@@ -1,64 +1,55 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm">
-  <!-- main -->
-  <div class="col">
-    <div class="wrapper-md">
-      <!-- stats -->
-      <div class="row">
-        <div class="col-md-5">
-          <div class="row row-sm text-center">
-            <div class="col-xs-6" ng-repeat="item in totalInsertedCollection">
-              <div class="panel padder-v item">
-                <div class="h1 text-info font-thin h1">{{::item.count}}</div>
-                <span class="text-muted text-xs">{{::item.displayName}}</span>
+<md-content layout-padding>
 
-                <div class="top text-right w-full">
-                  <i class="fa fa-caret-down text-warning m-r-sm"></i>
-                </div>
-              </div>
-            </div>
+  <md-card>
+    <md-card-content>
+      <h2 translate="pages.Dashboard.itemcount"></h2>
+      <md-grid-list
+        md-cols-sm="5" md-cols-md="6" md-cols-gt-md="10" md-row-height="2:2"
+        md-gutter="12px" md-gutter-gt-sm="8px">
 
-          </div>
-        </div>
-        <div class="col-md-7">
-          <div class="panel padding">
-            <h4 class="font-thin m-t-none m-b text-muted" translate="pages.Dashboard.lastinserted.title"></h4>
-            <table class="table table-responsive" ng-table="tableParams">
-              <thead>
-              <tr>
-                <th width='9%' translate="pages.Dashboard.lastinserted.table.header.id"></th>
-                <th translate="pages.Dashboard.lastinserted.table.header.name"></th>
-                <th translate="pages.Dashboard.lastinserted.table.header.description"></th>
-                <th width='12%'></th>
-              </tr>
-              </thead>
+        <md-grid-tile style="background: #b9f6ca;" ng-repeat="item in totalInsertedCollection">
+          <md-grid-tile-footer>
+            <h4>{{::item.displayName}} ({{::item.count}})</h4>
+          </md-grid-tile-footer>
+        </md-grid-tile>
 
-              <tbody>
-              <tr ng-repeat="item in $data">
-                <td data-title="'Name'">{{::item.id}}</td>
-                <td data-title="'Name'">{{::item.displayName}}</td>
-                <td data-title="'Name'">{{::item.description}}</td>
-                <td data-title="'Name'">
-                  <a class="btn btn-default btn-xs" ui-sref="app.{{item.name}}.view({id:item.id})">
-                    <i class="fa fa-eye" translate="pages.Dashboard.lastinserted.view"></i>
-                  </a>
-                </td>
-              </tr>
-              </tbody>
-              <tfoot>
-              <tr>
-                <td colspan="4" class="text-center">
-                  <div st-pagination="" st-items-by-page="10" st-displayed-pages="11"></div>
-                </td>
-              </tr>
-              </tfoot>
-            </table>
-          </div>
-        </div>
-      </div>
-      <!-- / stats -->
+      </md-grid-list>
+    </md-card-content>
+  </md-card>
 
+  <md-card>
+    <md-card-content>
+      <h2 translate="pages.Dashboard.lastinserted.title"></h2>
+      <table class="table table-responsive" ng-table="tableParams">
+        <thead>
+        <tr>
+          <th width='9%' translate="pages.Dashboard.lastinserted.table.header.id"></th>
+          <th translate="pages.Dashboard.lastinserted.table.header.name"></th>
+          <th translate="pages.Dashboard.lastinserted.table.header.description"></th>
+          <th width='12%'></th>
+        </tr>
+        </thead>
 
-    </div>
-  </div>
-  <!-- / right col -->
-</div>
+        <tbody>
+        <tr ng-repeat="item in $data">
+          <td data-title="'Name'">{{::item.id}}</td>
+          <td data-title="'Name'">{{::item.displayName}}</td>
+          <td data-title="'Name'">{{::item.description}}</td>
+          <td data-title="'Name'">
+            <a class="btn btn-default btn-xs" ui-sref="app.{{item.name}}.view({id:item.id})">
+              <i class="fa fa-eye" translate="pages.Dashboard.lastinserted.view"></i>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="4" class="text-center">
+            <div st-pagination="" st-items-by-page="10" st-displayed-pages="11"></div>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </md-card-content>
+  </md-card>
+</md-content>

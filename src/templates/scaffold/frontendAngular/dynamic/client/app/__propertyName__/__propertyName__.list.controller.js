@@ -2,7 +2,7 @@
 
 angular.module('angularDemoApp')
 	.controller('${domainClass.shortName}ListController', function (\$scope, \$rootScope,
-		\$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout, inform, ngTableParams, appConfig, \$location, \$mdDialog) {
+		\$state, \$q, ${domainClass.shortName}Service, \$stateParams, \$timeout, logger, ngTableParams, appConfig, \$location, \$mdDialog) {
 
 		if(\$state.current.data){
 			\$scope.isTab = \$state.current.data.isTab;
@@ -36,7 +36,7 @@ angular.module('angularDemoApp')
 		var errorCallback = function(response){
 			if (response.data && response.data.errors) {
 				angular.forEach(response.data.errors, function (error) {
-					inform.add(error.message, {ttl: -1,'type': 'warning'});
+					logger.info(error.message);
 				});
 			}
 		};

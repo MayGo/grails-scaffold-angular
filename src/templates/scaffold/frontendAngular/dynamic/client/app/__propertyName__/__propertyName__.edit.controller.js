@@ -92,7 +92,7 @@ private String renderOneToMany(owningClass, p, cp) {
 %>
 
 angular.module('angularDemoApp')
-    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$q, \$stateParams, ${domainClass.shortName}Service, ${domainClass.propertyName}Data, \$translate, inform $includeAngularServicesStr) {
+    .controller('${domainClass.shortName}EditController', function (\$scope, \$state, \$q, \$stateParams, ${domainClass.shortName}Service, ${domainClass.propertyName}Data, \$translate, logger $includeAngularServicesStr) {
     	\$scope.isEditForm = (\$stateParams.id)?true:false;
 
 		\$scope.${domainClass.propertyName} = ${domainClass.propertyName}Data;
@@ -106,7 +106,7 @@ angular.module('angularDemoApp')
 							if(angular.element('#'+error.field).length) {
 								frmController.setExternalValidation(error.field, undefined, error.message);
 							} else {
-								inform.add(error.message, {ttl: -1,'type': 'warning'});
+								logger.error(error.message);
 							}
 		                });
 		            }
@@ -116,7 +116,7 @@ angular.module('angularDemoApp')
 	    	if(\$scope.isEditForm){
 	    		${domainClass.shortName}Service.update(\$scope.${domainClass.propertyName}, function(response) {	
 	    			\$translate('pages.${domainClass.propertyName}.messages.update').then(function (msg) {
-				    	inform.add(msg, {'type': 'success'});
+				    	logger.info(msg);
 					});
 	            	deferred.resolve(response);
 		        },errorCallback);
@@ -124,7 +124,7 @@ angular.module('angularDemoApp')
     			${domainClass.shortName}Service.save(\$scope.${domainClass.propertyName},function(response) {
 					
     				\$translate('pages.${domainClass.propertyName}.messages.create').then(function (msg) {
-				    	inform.add(msg, {'type': 'success'});
+				    	logger.info(msg);
 					});
 					\$state.go('^.view', { id: response.id }, {location: 'replace'});
 					deferred.resolve(response);

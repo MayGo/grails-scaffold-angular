@@ -70,6 +70,7 @@ td, th {
   min-height: .01%;
   overflow-x: auto;
 }
+
 .table {
   width: 100%;
   max-width: 100%;
@@ -209,3 +210,37 @@ td, th {
   background-image: none;
   border-radius: 4px;
 }
+
+/**
+* class that looks like toolbar
+*/
+collapse-bar > div {
+  box-sizing: border-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  font-size: 20px;
+  min-height: 64px;
+  width: 100%;
+
+  background-color: rgb(245, 245, 245);
+  color: rgba(0, 0, 0, 0.87);
+  height: 50px;
+  min-height: 50px;
+  border-bottom: 1px solid rgb(251, 251, 251);
+
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+}
+
+collapse-bar > md-content {
+  border: 1px solid rgb(245, 245, 245);
+  border-top: none;
+  margin-bottom: 5px;
+}
+

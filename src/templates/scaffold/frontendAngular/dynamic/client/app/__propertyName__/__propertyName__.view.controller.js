@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularDemoApp')
-    .controller('${domainClass.shortName}ViewController', function (\$scope, \$state, \$stateParams, \$translate, inform,
+    .controller('${domainClass.shortName}ViewController', function (\$scope, \$state, \$stateParams, \$translate,
             ${domainClass.shortName}Service, ${domainClass.propertyName}Data,\$mdDialog) {
 	 	\$scope.${domainClass.propertyName} = ${domainClass.propertyName}Data;
 

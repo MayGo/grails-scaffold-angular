@@ -14,8 +14,6 @@ angular.module('angularDemoApp', [
   'jcs-autoValidate',
   'angular-loading-bar',
   'ngTable',
-  'inform',
-  'inform-exception',
   'FBAngular',
   'satellizer',
   'mgcrea.ngStrap.helpers.dimensions',
@@ -37,7 +35,9 @@ angular.module('angularDemoApp', [
   'angularDemoApp.common.filters',
   'ngMask',
   'angular.filter',
-  'unsavedChanges'
+  'unsavedChanges',
+  'blocks.logger',
+  'blocks.exception'
 ]);
 angular.module('angularDemoApp')
   .config(function (unsavedWarningsConfigProvider) {
@@ -105,76 +105,7 @@ angular.module('angularDemoApp')
   })
 
 /*
-  .factory('AuthHttpInterceptor', function ($q, $injector, $rootScope, $translate, inform, $log, FormUtils, $timeout) {
-    function interceptor(rejection) {
 
-      try {
-        if (rejection.status === 401) {
-          $rootScope.$emit('show-relogin-modal');
-        } else if (rejection.status === 403) {
-          $translate('pages.session.messages.forbidden').then(function (msg) {
-            inform.add(msg, {type: 'danger', ttl: 0});
-          });
-        } else if (rejection.status === 422) {
-          $log.debug('Status 422');
-
-          if (rejection.data.errors) {
-            $log.debug('Server validation errors:', rejection.data.errors);
-            var controller;
-            var focusFirstField;
-
-            angular.forEach(rejection.data.errors, function (error) {
-              var fieldNameParts = error.field.split('.');
-              var fieldName = fieldNameParts[fieldNameParts.length - 1];
-              var el = angular.element('#' + fieldName);
-
-              if (el.length === 1) {
-                controller = angular.element(el).controller('ngModel');
-              }
-
-              if (el.length === 1 && controller) {
-                if (!focusFirstField) {
-                  focusFirstField = el[0];
-                }
-
-                $log.log('Add validation error to field: ' + fieldName);
-                controller.setExternalValidation(null, error.message, true);
-              } else {
-                inform.add(error.message, {ttl: -1, type: 'warning'});
-              }
-            });
-
-            // Focus elements after DOM changes are loaded.
-            if (focusFirstField) {
-              $timeout(function () {
-                FormUtils.focusField(focusFirstField);
-              });
-            }
-          }
-        } else if (rejection.config) {
-          var msg = 'Network error (' + rejection.status + '): ' + rejection.statusText + ' for url:' + rejection.config.url;
-          inform.add(msg, {type: 'danger', ttl: 0});
-        } else {
-          inform.add('Error (' + rejection.message + '): ', {type: 'danger', ttl: 0});
-        }
-
-      } catch (ex) {
-        $log.error('$httpProvider', ex);
-      }
-
-      return $q.reject(rejection);
-    }
-
-    return {
-      requestError: interceptor,
-      responseError: interceptor
-    };
-
-  })
-
-  .config(function ($httpProvider) {
-    $httpProvider.interceptors.push('AuthHttpInterceptor');
-  })
 */
   .config(function ($breadcrumbProvider) {
     $breadcrumbProvider.setOptions({

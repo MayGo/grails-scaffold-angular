@@ -62,6 +62,7 @@
   },
   "pages":{
 	"Dashboard":{
+		"itemcount":"Domain item counts",
 		"lastinserted":{
 			"title":"Last Inserted",
 			"view":"View",

@@ -19,7 +19,7 @@ angular.module('angularDemoApp')
         }
       });
 
-    $urlRouterProvider.otherwise('/app/settings');
+    $urlRouterProvider.otherwise('/app/dashboard');
 
     cfpLoadingBarProvider.includeSpinner = true;
     cfpLoadingBarProvider.includeBar = true;

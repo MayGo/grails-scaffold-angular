@@ -1,23 +1,19 @@
 <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left"
-            class="md-whiteframe-z2 md-sidenav-left">
+            class="md-whiteframe-z2">
   <md-toolbar class="md-hue-2">
     <md-button layout="row" layout-align="center center" class="md-toolbar-tools md-warn" aria-label="{{'app.name' | translate}}">
       <span class="md-heading" translate="app.name"></span>
     </md-button>
   </md-toolbar>
   <app-menu is-side-menu="true"></app-menu>
-
-  <md-divider ng-repeat-end></md-divider>
-  <md-button hide-gt-md flex ng-click="appCtrl.showActions($event)">
-    <div layout="row" class="md-tile-content">
-      Actions
-    </div>
-  </md-button>
 </md-sidenav>
 
 <div layout="column" flex>
   <md-toolbar id="header" layout="row" layout-align="end center" ng-init="showSearch = false">
     <div class="md-toolbar-tools">
+      <md-button hide-gt-sm class="md-icon-button" ng-click="appCtrl.toggleItemsList()"  aria-label="Menu">
+        <md-icon md-font-set="material-icons">menu</md-icon>
+      </md-button>
       <!--<app-menu ng-if="!showSearch" ></app-menu>-->
       <md-input-container flex ng-if="showSearch" >
         <label>&nbsp;</label>
@@ -34,35 +30,22 @@
       <md-button class="md-icon-button" aria-label="Settings">
         <md-icon md-font-set="material-icons">settings</md-icon>
       </md-button>
-      <md-button hide-gt-sm class="md-icon-button" ng-click="appCtrl.toggleItemsList()"  aria-label="Menu">
-        <md-icon md-font-set="material-icons">menu</md-icon>
-      </md-button>
+
     </div>
-  </md-toolbar>
-
-  <div ui-view></div>
-</div>
-
-<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="right"
-            class="md-whiteframe-z2 md-sidenav-right">
-  <md-toolbar layout="row">
-    <md-toolbar flex="80" class="md-accent" layout="row" layout-align="center center">
+    <div class="md-accent" layout="row" layout-align="center center" >
       <img class="img-circle" ng-src="assets/img/avatar.png">
-      <md-menu>
-        <md-button class="capitalize" ng-click="$mdOpenMenu()" aria-label="Open menu">
+      <md-menu md-offset="0 50">
+        <md-button class="capitalize" ng-click="$mdOpenMenu()" aria-label="Open menu" >
           <span>John Doe</span>
-          <i class="material-icons">keyboard_arrow_down</i>
+          <md-icon  class="material-icons" md-menu-origin>keyboard_arrow_down</md-icon>
         </md-button>
-        <md-menu-content>
+        <md-menu-content  width="4">
           <md-menu-item><md-button ng-click="$mdCloseMenu()" ui-sref="home.profile">Profile</md-button></md-menu-item>
           <md-menu-item><md-button ng-click="$mdCloseMenu()" ui-sref="home.dashboard">Log out</md-button></md-menu-item>
         </md-menu-content>
       </md-menu>
-    </md-toolbar>
-    <md-toolbar flex="20" layout="row" layout-align="center center">
-      <md-button ng-click="appCtrl.showActions($event)" class="toolbar-button">
-        <i class="material-icons">more_vert</i>
-      </md-button>
-    </md-toolbar>
+    </div>
   </md-toolbar>
-</md-sidenav>
+
+  <div id="mainContent" ui-view></div>
+</div>

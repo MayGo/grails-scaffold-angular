@@ -457,19 +457,13 @@ private renderFieldRow(p, owningClass, parentProperty = null, Boolean displayPar
                 println renderFieldRow(embeddedProps.first(), domainClass, p, true)
             }else{
       %>
-        <div class="looks-like-toolbar" ng-init="${p.name}Open = true" ng-click="${p.name}Open = !${p.name}Open" id="${p.name}Embedded">
-            <div class="md-toolbar-tools">
-                <h2 translate='pages.${domainClass.propertyName}.defaultFieldName.${p.name}.title'></h2>
-                <span flex></span>
-                <md-icon md-font-set="material-icons" class="md-primary" ng-if="!${p.name}Open">expand_more</md-icon>
-                <md-icon md-font-set="material-icons" class="md-primary" ng-if="${p.name}Open">expand_less</md-icon>
+        <collapse-bar id="${p.name}Embedded" title='pages.${domainClass.propertyName}.defaultFieldName.${p.name}.title'>
+            <div layout-padding layout="column">
+                <%embeddedProps.each{ep->
+                    println renderFieldRow(ep, domainClass, p)
+                }%>
             </div>
-        </div>
-        <md-content ng-show="${p.name}Open" layout-padding class="embedded-content">
-                    <%embeddedProps.each{ep->
-                        println renderFieldRow(ep, domainClass, p)
-                    }%>
-        </md-content>
+       </collapse-bar>
 <%          }
         }
     }else{
