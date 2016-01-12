@@ -18,15 +18,16 @@
 	<!-- build:css({.tmp/serve,'client'}) styles/vendor.css -->
 	<!-- bower:css -->
 	<!-- run `gulp inject` to automatically populate bower styles dependencies -->
+	<link rel="stylesheet" href="dist_inside_grails/styles/vendor-6567d31f6c.css"/>
 	<!-- endbower -->
 	<!-- endbuild -->
 
 	<!-- build:css({.tmp/serve,'client'}) styles/app.css -->
 	<!-- inject:css -->
 	<!-- css files will be automatically insert here -->
+	<link rel="stylesheet" href="assets/Material/material.css" type="text/css">
 	<!-- endinject -->
 	<!-- endbuild -->
-
 	<!--<link rel="stylesheet" href="assets/style.css" type="text/css"/>-->
 
 </head>
@@ -41,12 +42,80 @@
 <!-- build:js('client') scripts/vendor.js -->
 <!-- bower:js -->
 <!-- run `gulp inject` to automatically populate bower script dependencies -->
+<script src="dist_inside_grails/scripts/vendor-43317565cc.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
 <!-- build:js({.tmp/serve,.tmp/partials,client}) scripts/app.js -->
 <!-- inject:js -->
 <!-- js files will be automatically insert here -->
+<script src="app/services/logger/logger.module.js"></script>
+<script src="app/services/logger/logger.js"></script>
+<script src="app/services/exception/exception.module.js"></script>
+<script src="app/services/exception/exception.js"></script>
+<script src="app/services/exception/exception-handler.provider.js"></script>
+<script src="app/app.module.js"></script>
+<script src="app/components/menu/menu.service.js"></script>
+<script src="app/components/menu/menu.directive.js"></script>
+<script src="app/components/menu/menu-toggle.directive.js"></script>
+<script src="app/components/menu/menu-templates.js"></script>
+<script src="app/components/menu/menu-link.directive.js"></script>
+<script src="app/components/collapse-bar/collapse-bar.directive.js"></script>
+<script src="app/components/collapse-bar/collapse-bar.controller.js"></script>
+
+<script src="app/settings/settings.js"></script>
+<script src="app/settings/settings.controller.js"></script>
+<script src="app/search/search.js"></script>
+<script src="app/search/search.controller.js"></script>
+<script src="app/session/session.service.js"></script>
+
+<script src="app/services/materialElementModifier.service.js"></script>
+<script src="app/services/httpInterceptor.service.js"></script>
+<script src="app/services/formUtils.js"></script>
+
+
+
+<script src="app/login/login.js"></script>
+<script src="app/login/login.controller.js"></script>
+<script src="app/logout/relogin.controller.js"></script>
+<script src="app/logout/logout.js"></script>
+<script src="app/logout/logout.controller.js"></script>
+<script src="app/error/error.js"></script>
+<script src="app/error/error.controller.js"></script>
+
+
+<script src="app/dashboard/dashboard.js"></script>
+<script src="app/dashboard/dashboard.controller.js"></script>
+<script src="app/directives/ui-shift.js"></script>
+<script src="app/directives/toggleclass.directive.js"></script>
+<script src="app/directives/state-to-i10n.directive.js"></script>
+<script src="app/directives/show-loading.directive.js"></script>
+<script src="app/directives/objectFormatter.directive.js"></script>
+<script src="app/directives/nospace.directive.js"></script>
+<script src="app/directives/menu.directive.js"></script>
+<script src="app/directives/loadingContainer.directive.js"></script>
+<script src="app/directives/itemSelector.service.js"></script>
+<script src="app/directives/itemSelector.directive.js"></script>
+<script src="app/directives/humanizeDoc.directive.js"></script>
+<script src="app/directives/byte-downloader.directive.js"></script>
+
+<script src="app/controllers/SearchController.js"></script>
+<script src="app/controllers/ProfileController.js"></script>
+<script src="app/controllers/MessagesController.js"></script>
+<script src="app/app.service.tmpl.js"></script>
+<script src="app/app.service.js"></script>
+<script src="app/app.runtime-config.js"></script>
+<script src="app/app.router.js"></script>
+<script src="app/app.dynamic-config.js"></script>
+<script src="app/app.controller.js"></script>
+<script src="app/app.config.js"></script>
+<% for(d in domainClasses){%>
+<script src="app/${d.propertyName}/${d.propertyName}.routes.js"></script>
+<script src="app/${d.propertyName}/${d.propertyName}.edit.controller.js"></script>
+<script src="app/${d.propertyName}/${d.propertyName}.list.controller.js"></script>
+<script src="app/${d.propertyName}/${d.propertyName}.view.controller.js"></script>
+<script src="app/${d.propertyName}/${d.propertyName}.service.js"></script>
+<%}%>
 <!-- endinject -->
 
 <!-- inject:partials -->
@@ -54,12 +123,6 @@
 <!-- endinject -->
 <!-- endbuild -->
 
-<% for(d in domainClasses){%>
-<!--<script src="app/${d.propertyName}/${d.propertyName}.routes.js"></script>
-<script src="app/${d.propertyName}/${d.propertyName}.edit.controller.js"></script>
-<script src="app/${d.propertyName}/${d.propertyName}.list.controller.js"></script>
-<script src="app/${d.propertyName}/${d.propertyName}.view.controller.js"></script>
-<script src="app/${d.propertyName}/${d.propertyName}.service.js"></script>-->
-<%}%>
+
 </body>
 </html>
