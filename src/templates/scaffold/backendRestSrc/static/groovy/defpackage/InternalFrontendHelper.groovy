@@ -9,7 +9,7 @@ import grails.converters.JSON
 class InternalFrontendHelper {
 
 	static void writeConfig(String dir) {
-		String filePath = dir + 'config.json'
+		String filePath = dir + '_appconfig'
 		def config = [:]
 		File file = new File(filePath)
 		if(file.exists()){
