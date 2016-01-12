@@ -11,9 +11,7 @@ function runTests (singleRun, done) {
     configFile: path.join(__dirname, '/../karma.conf.js'),
     singleRun: singleRun,
     autoWatch: !singleRun
-  }, function() {
-    done();
-  }).start();
+  }, done).start();
 }
 
 gulp.task('test', ['scripts'], function(done) {

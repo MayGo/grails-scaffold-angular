@@ -75,6 +75,10 @@ td, th {
   width: 100%;
   max-width: 100%;
 }
+.table a{
+  text-decoration: none;
+}
+
 
 .table > tbody > tr > td, .table > tfoot > tr > td {
   padding: 8px 15px;

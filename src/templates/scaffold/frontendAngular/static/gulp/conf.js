@@ -15,8 +15,7 @@ exports.paths = {
   src: 'client',
   results: 'results',
   dist: 'dist',
-  e2e_port: 3100,
-  e2e_dev_url: 'https://menetlus.cf.smit.dev',
+  port: 3000,
   tmp: '.tmp',
   e2e: 'e2e'
 };

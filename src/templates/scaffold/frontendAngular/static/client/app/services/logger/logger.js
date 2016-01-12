@@ -21,15 +21,18 @@
 
     function showToast(msg) {
 
-      $mdToast.show({
-        parent: $document[0].querySelector('#mainContent md-content'),
-        template: "<md-toast><span flex>{{msg}}</span> </md-toast>",
+      var toastConf = $mdToast.build({
+        parent: $document[0].querySelector('#mainToastContainer'),
+        template: '<md-toast><div flex>' + msg + '</div></md-toast>',
         controller: function ($scope) {
           $scope.msg = msg;
         },
+
         hideDelay: 6000,
         position: toastPosition
       });
+      $mdToast.show(toastConf);
+
     }
 
     var service = {
@@ -46,38 +49,37 @@
     };
 
     return service;
+
     /////////////////////
 
-    function error(message, data, title) {
+    function error(message, data) {
       init();
       $log.error('Error: ' + message, data);
       showToast(message);
     }
 
-    function info(message, data, title) {
+    function info(message, data) {
       init();
 
       $log.info('Info: ' + message, data);
       showToast(message);
     }
 
-    function success(message, data, title) {
+    function success(message, data) {
       init();
-
       $log.info('Success: ' + message, data);
       showToast(message);
     }
 
-    function warning(message, data, title) {
+    function warning(message, data) {
       init();
       $log.warn('Warning: ' + message, data);
       showToast(message);
     }
 
-    function debug(message, data, title) {
+    function debug(message, data) {
       init();
-      $log.debug('Error: ' + message, data);
-
+      $log.debug('Debug: ' + message, data);
     }
   }
 }());

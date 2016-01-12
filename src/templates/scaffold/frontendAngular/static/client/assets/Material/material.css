@@ -154,9 +154,32 @@ a.md-button {
   transition: none !important;
 }
 
-
 /**
 * Angular material overrides
 */
 
+#mainToastContainer {
+  position: fixed;
+  overflow: visible;
+  z-index: 1000;
+  width: auto;
+  height: auto;
+  right: 0;
+}
 
+#mainToastContainer md-toast {
+  position: relative;
+}
+
+#mainToastContainer md-toast .md-toast-content {
+  height: inherit;
+  max-height: 500px;
+  max-width: 650px;
+}
+
+/**
+* md-dialog override
+*/
+md-dialog md-dialog-content.without-padding {
+  padding: 0;
+}

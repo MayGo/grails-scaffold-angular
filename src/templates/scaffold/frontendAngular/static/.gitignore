@@ -4,9 +4,7 @@ bower_components/
 .idea/
 .tmp/
 dist/
-menetlusui.iml
-client/client.iml
-men-ui.iml
+*.iml
 test-results/
 bower_components*
 jshint-results/

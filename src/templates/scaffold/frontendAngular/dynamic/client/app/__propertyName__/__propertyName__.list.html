@@ -352,7 +352,7 @@ private makeUseDisplaynamesStr(owningClass, p){
 
     <md-content>
 
-    <div ng-if="isSearchOpen" layout-padding>
+    <div ng-if="isSearchOpen">
          <form name="${domainClass.propertyName}Form" novalidate>
              <div layout="row" layout-align="start start">
              <%
@@ -374,7 +374,7 @@ private makeUseDisplaynamesStr(owningClass, p){
 
     <md-content layout-padding layout="column" class="list-search">
         <div class="list-search-table" loading-container="tableParams.settings().\$loading">
-	      <table class="table table-responsive" ng-table="tableParams" show-filter="true" >
+	      <table class="table table-responsive" ng-table="tableParams" >
 	      	<tbody>
 				<tr ng-repeat="${domainClass.propertyName} in \$data">
                     <td class="text-left action-buttons">

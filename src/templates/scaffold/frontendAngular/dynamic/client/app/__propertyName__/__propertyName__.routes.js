@@ -10,6 +10,9 @@ angular.module('angularDemoApp')
 		})
 		.state('app.${domainClass.propertyName}.list', {
 			url: '/list?search',//TODO: search so that search is not an object in url
+			ncyBreadcrumb: {
+				label: '{{"pages.${domainClass.propertyName}.list.title" | translate}} '
+			},
 			views: {
 				'page@app.${domainClass.propertyName}': {
 					templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.list.html',
@@ -19,7 +22,8 @@ angular.module('angularDemoApp')
 		}).state('app.${domainClass.propertyName}.create',{
 			url: '/create',
 			ncyBreadcrumb: {
-				parent: 'app.${domainClass.propertyName}.list'
+				parent: 'app.${domainClass.propertyName}.list',
+				label: '{{"pages.${domainClass.shortName}.create.title" | translate}}'
 			},
 			views: {
 				'page@app.${domainClass.propertyName}': {
@@ -35,7 +39,8 @@ angular.module('angularDemoApp')
 		}).state('app.${domainClass.propertyName}.view',{
 			url: '/view/:id',
 			ncyBreadcrumb: {
-				parent: 'app.${domainClass.propertyName}.list'
+				parent: 'app.${domainClass.propertyName}.list',
+				label: '{{"pages.${domainClass.propertyName}.view.title" | translate}} '
 			},
 			views: {
 				'page@app.${domainClass.propertyName}': {
@@ -54,6 +59,9 @@ angular.module('angularDemoApp')
 			}
 		}).state('app.${domainClass.propertyName}.view.edit',{
 			url: '/edit',
+            ncyBreadcrumb: {
+                label: '{{"pages.${domainClass.propertyName}.view.edit.title" | translate}} '
+            },
 			views: {
 				'page@app.${domainClass.propertyName}': {
 					templateUrl: 'app/${domainClass.propertyName}/${domainClass.propertyName}.form.html',

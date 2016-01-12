@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="angularDemoApp">
 <head>
+
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<script type="text/javascript">
 		document.write("<base href='" + location.href + "' />");
 	</script>
-	<title translate="app.name"></title>
+	<title ncy-breadcrumb-last="{{ncyBreadcrumbLabel}} - {{'app.name'| translate}}"></title>
 	<meta name="description"
 		  content="app, web app, responsive, responsive layout, admin, admin panel, admin dashboard, flat, flat ui, ui kit, AngularJS, ui route, charts, widgets, components"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-	<link rel="stylesheet" href="assets/material/material.css" type="text/css"/>
-	<link rel="stylesheet" href="assets/material/material-icons.css" type="text/css"/>
+	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="stylesheet" href="assets/Material/material-icons.css" type="text/css"/>
+	<link rel="stylesheet" href="assets/Material/material.css" type="text/css"/>
+	<!-- build:css({.tmp/serve,'client'}) styles/vendor.css -->
+	<!-- bower:css -->
+	<!-- run `gulp inject` to automatically populate bower styles dependencies -->
+	<!-- endbower -->
+	<!-- endbuild -->
 
-	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css" type="text/css"/>
-	<link rel="stylesheet" href="app/app.css" type="text/css" />
+	<!-- build:css({.tmp/serve,'client'}) styles/app.css -->
+	<!-- inject:css -->
+	<!-- css files will be automatically insert here -->
+	<!-- endinject -->
+	<!-- endbuild -->
 
-	<link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css" type="text/css"/>
-	<link rel="stylesheet" href="bower_components/angular-inform/dist/angular-inform.min.css" type="text/css"/>
-	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css"/>
-	<link rel="stylesheet" href="bower_components/json-edit/css/styles.css" type="text/css"/>
-	<link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css" type="text/css"/>
+	<!--<link rel="stylesheet" href="assets/style.css" type="text/css"/>-->
 
 </head>
+<body>
+<!--[if lt IE 10]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+	your browser</a> to improve your experience.</p>
+<![endif]-->
 
-<div ng-cloak ui-view layout="row" layout-fill></div>
-
+<div class="main-div" ng-cloak ui-view layout="row" layout-fill></div>
 
 <!-- build:js('client') scripts/vendor.js -->
 <!-- bower:js -->
 <!-- run `gulp inject` to automatically populate bower script dependencies -->
 <!-- endbower -->
 <!-- endbuild -->
-<script src="app/app.module.js"></script>
+
 <!-- build:js({.tmp/serve,.tmp/partials,client}) scripts/app.js -->
 <!-- inject:js -->
 <!-- js files will be automatically insert here -->
@@ -44,9 +54,6 @@
 <!-- endinject -->
 <!-- endbuild -->
 
-
-
-
 <% for(d in domainClasses){%>
 <!--<script src="app/${d.propertyName}/${d.propertyName}.routes.js"></script>
 <script src="app/${d.propertyName}/${d.propertyName}.edit.controller.js"></script>
@@ -54,6 +61,5 @@
 <script src="app/${d.propertyName}/${d.propertyName}.view.controller.js"></script>
 <script src="app/${d.propertyName}/${d.propertyName}.service.js"></script>-->
 <%}%>
-
 </body>
 </html>
